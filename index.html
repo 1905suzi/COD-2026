@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     
-    <link rel="stylesheet" href="style.css?v=21" />
+    <link rel="stylesheet" href="style.css?v=22" />
 </head>
 <body>
     <div class="background-effects">
@@ -2088,7 +2088,7 @@
     <!-- SOHBET / MESAJLAŞMA MODALI                                   -->
     <!-- ============================================================ -->
     <div id="chat-messenger-modal" class="coddy-modal-overlay hidden">
-        <div class="coddy-modal-card" style="max-width: 760px; width:95%; height: 560px; text-align: left; padding: 0; display:flex; flex-direction:column; overflow:hidden;">
+        <div class="coddy-modal-card chat-modal-card" style="max-width: 760px; width:95%; height: 560px; text-align: left; padding: 0; display:flex; flex-direction:column; overflow:hidden;">
             <!-- Messenger Header -->
             <div style="padding:14px 20px; background:rgba(15,23,42,0.95); border-bottom:1px solid var(--glass-border); display:flex; justify-content:space-between; align-items:center;">
                 <div style="display:flex; align-items:center; gap:10px;">
@@ -2099,10 +2099,10 @@
             </div>
 
             <!-- Messenger Two-Column Body -->
-            <div style="flex:1; display:flex; min-height:0;">
+            <div class="chat-messenger-body" style="flex:1; display:flex; min-height:0;">
                 <!-- Sol Panel: Arkadaşlar Listesi -->
-                <div style="width:240px; background:rgba(15,23,42,0.7); border-right:1px solid var(--glass-border); display:flex; flex-direction:column;">
-                    <div style="padding:10px 14px; font-size:11.5px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px;">
+                <div class="chat-messenger-sidebar" style="width:240px; background:rgba(15,23,42,0.7); border-right:1px solid var(--glass-border); display:flex; flex-direction:column;">
+                    <div class="chat-messenger-sidebar-title" style="padding:10px 14px; font-size:11.5px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px;">
                         Arkadaşlarım (<span id="chat-friends-count">3</span>)
                     </div>
                     <div id="chat-friends-list" style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:4px; padding:4px 8px;">
@@ -2111,7 +2111,7 @@
                 </div>
 
                 <!-- Sağ Panel: Aktif Mesaj Akışı -->
-                <div style="flex:1; display:flex; flex-direction:column; background:rgba(2,6,23,0.5);">
+                <div class="chat-messenger-main" style="flex:1; display:flex; flex-direction:column; background:rgba(2,6,23,0.5);">
                     <!-- Aktif Kişi Başlığı & Düello Butonu -->
                     <div id="chat-active-header" style="padding:10px 16px; background:rgba(30,41,59,0.4); border-bottom:1px solid var(--glass-border); display:flex; justify-content:space-between; align-items:center;">
                         <div style="display:flex; align-items:center; gap:10px;">
@@ -2213,10 +2213,10 @@
         </div>
     </div>
 
-    <script src="courseData.js?v=21"></script>
-    <script src="bookData.js?v=21"></script>
-    <script src="quizBankData.js?v=21"></script>
-    <script src="script.js?v=21"></script>
+    <script src="courseData.js?v=22"></script>
+    <script src="bookData.js?v=22"></script>
+    <script src="quizBankData.js?v=22"></script>
+    <script src="script.js?v=22"></script>
 </body>
 </html>
 

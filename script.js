@@ -4920,10 +4920,28 @@ function toggleCoddyAiWidget() {
     if (!widget) return;
     if (widget.classList.contains("hidden")) {
         widget.classList.remove("hidden");
-        // Başlangıç konumlandırması (ekranın sol tarafındaki boş alan)
-        if (!widget.style.left) {
-            widget.style.left = "95px";
-            widget.style.top = "85px";
+        // Başlangıç konumlandırması (ekran boyutuna göre güvenli yerleşim)
+        const isMobile = window.innerWidth <= 768;
+        if (!widget.style.left || !widget.style.top) {
+            if (isMobile) {
+                widget.style.left = "8px";
+                widget.style.top = "10px";
+            } else {
+                widget.style.left = "95px";
+                widget.style.top = "85px";
+            }
+        } else {
+            // Eğer daha önce kaydedilen konum ekran dışına taştıysa ekran içine çek
+            const rect = widget.getBoundingClientRect();
+            if (rect.right > window.innerWidth || rect.bottom > window.innerHeight) {
+                if (isMobile) {
+                    widget.style.left = "8px";
+                    widget.style.top = "10px";
+                } else {
+                    widget.style.left = "95px";
+                    widget.style.top = "85px";
+                }
+            }
         }
         initDraggableCoddyAi();
     } else {
@@ -4942,7 +4960,7 @@ function minimizeCoddyAiWidget() {
         widget.style.height = "46px";
     } else {
         body.style.display = "flex";
-        widget.style.height = "520px";
+        widget.style.height = window.innerWidth <= 768 ? "min(490px, calc(100dvh - 80px))" : "520px";
     }
 }
 
@@ -4958,48 +4976,80 @@ function initDraggableCoddyAi() {
     let initialLeft = 0;
     let initialTop = 0;
 
-    handle.addEventListener("mousedown", (e) => {
-        // Kontrol butonlarına tıklanırsa sürükleme yapma
-        if (e.target.closest(".ai-ctl-btn") || e.target.closest("button")) return;
-
+    function startDrag(clientX, clientY, target) {
+        if (target.closest(".ai-ctl-btn") || target.closest("button")) return false;
         isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
+        startX = clientX;
+        startY = clientY;
 
         const rect = widget.getBoundingClientRect();
         initialLeft = rect.left;
         initialTop = rect.top;
 
         handle.style.cursor = "grabbing";
-        e.preventDefault();
-    });
+        return true;
+    }
 
-    window.addEventListener("mousemove", (e) => {
+    function moveDrag(clientX, clientY) {
         if (!isDragging) return;
 
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
+        const dx = clientX - startX;
+        const dy = clientY - startY;
 
         let newLeft = initialLeft + dx;
         let newTop = initialTop + dy;
 
-        // Ekran sınırlarını koruma
-        const maxLeft = window.innerWidth - widget.offsetWidth - 10;
-        const maxTop = window.innerHeight - widget.offsetHeight - 10;
+        // Ekran sınırlarını koruma (hem masaüstü hem mobilde taşma engeli)
+        const maxLeft = Math.max(8, window.innerWidth - widget.offsetWidth - 8);
+        const maxTop = Math.max(8, window.innerHeight - widget.offsetHeight - 8);
 
-        newLeft = Math.max(10, Math.min(newLeft, maxLeft));
-        newTop = Math.max(10, Math.min(newTop, maxTop));
+        newLeft = Math.max(8, Math.min(newLeft, maxLeft));
+        newTop = Math.max(8, Math.min(newTop, maxTop));
 
         widget.style.left = `${newLeft}px`;
         widget.style.top = `${newTop}px`;
-    });
+    }
 
-    window.addEventListener("mouseup", () => {
+    function endDrag() {
         if (isDragging) {
             isDragging = false;
             handle.style.cursor = "move";
         }
+    }
+
+    // Masaüstü Fare Olayları
+    handle.addEventListener("mousedown", (e) => {
+        if (startDrag(e.clientX, e.clientY, e.target)) {
+            e.preventDefault();
+        }
     });
+
+    window.addEventListener("mousemove", (e) => {
+        moveDrag(e.clientX, e.clientY);
+    });
+
+    window.addEventListener("mouseup", endDrag);
+
+    // Mobil & Tablet Dokunma (Touch) Olayları
+    handle.addEventListener("touchstart", (e) => {
+        if (e.touches && e.touches.length === 1) {
+            const touch = e.touches[0];
+            if (startDrag(touch.clientX, touch.clientY, e.target)) {
+                e.preventDefault();
+            }
+        }
+    }, { passive: false });
+
+    window.addEventListener("touchmove", (e) => {
+        if (isDragging && e.touches && e.touches.length === 1) {
+            const touch = e.touches[0];
+            moveDrag(touch.clientX, touch.clientY);
+            e.preventDefault(); // Sürüklerken sayfanın arkada kaymasını engeller
+        }
+    }, { passive: false });
+
+    window.addEventListener("touchend", endDrag);
+    window.addEventListener("touchcancel", endDrag);
 }
 
 function quickAiPrompt(type) {

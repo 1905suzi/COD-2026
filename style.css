@@ -1175,28 +1175,32 @@ body {
 .coddy-modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(2, 6, 23, 0.75);
-    backdrop-filter: blur(8px);
-    z-index: 1000;
+    background: rgba(2, 6, 23, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 10000 !important;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: clamp(10px, 2.5vw, 24px);
     animation: fadeIn 0.3s ease;
+    box-sizing: border-box;
 }
 
 .coddy-modal-card {
     background: linear-gradient(145deg, #1e293b, #0f172a);
     border: 2px solid rgba(56, 189, 248, 0.4);
     box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 40px rgba(56, 189, 248, 0.2);
-    border-radius: 32px;
+    border-radius: 28px;
     max-width: 440px;
     width: 100%;
-    padding: 36px 30px;
+    max-height: calc(100dvh - 30px);
+    overflow-y: auto;
+    padding: 32px 26px;
     text-align: center;
-    animation: coddyPopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: coddyPopIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
-    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .coddy-modal-stars {
@@ -1680,23 +1684,27 @@ body {
     left: 95px;
     top: 80px;
     width: 380px;
+    max-width: calc(100vw - 16px);
     height: 520px;
+    max-height: calc(100dvh - 80px);
     background: rgba(15, 23, 42, 0.94);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border: 1.5px solid rgba(0, 242, 254, 0.4);
     border-radius: 20px;
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(0, 242, 254, 0.2);
-    z-index: 9999;
+    z-index: 10002;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     animation: coddyPopIn 0.3s ease;
+    box-sizing: border-box;
 }
 
 .coddy-ai-handle {
     cursor: move;
     user-select: none;
+    touch-action: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1958,12 +1966,124 @@ body.mentor-mode .nav-student-only {
 
 
 
-/* Harita Çevresi Taşma Koruması - Tüm ekranlarda yatay taşmayı engelle */
-.roadmap-decor-container,
-.cute-code-pill,
-.roadmap-waypoint-island {
-    display: none !important;
+/* Harita Çevresinde Yüzen Sempatik Kod Rozetleri (Floating Code Badges) */
+.roadmap-decor-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden; /* Dışa taşmayı kesin olarak engeller */
 }
+
+.cute-code-pill {
+    position: absolute;
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    color: #e2e8f0;
+    cursor: default;
+    user-select: none;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    animation: floatCutePill 6s ease-in-out infinite alternate;
+    max-width: 220px;
+    white-space: nowrap;
+}
+
+.cute-code-pill:hover {
+    transform: translateY(-5px) scale(1.05) !important;
+    border-color: #38bdf8;
+    box-shadow: 0 12px 24px rgba(56, 189, 248, 0.25);
+    color: #ffffff;
+}
+
+.cute-code-pill .pill-tag {
+    font-size: 8.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-family: 'Outfit', sans-serif;
+}
+
+/* Renk Çeşitleri */
+.pill-html { border-color: rgba(249, 115, 22, 0.35); }
+.pill-html .pill-tag { background: rgba(249, 115, 22, 0.2); color: #fb923c; }
+
+.pill-sql { border-color: rgba(14, 165, 233, 0.35); }
+.pill-sql .pill-tag { background: rgba(14, 165, 233, 0.2); color: #38bdf8; }
+
+.pill-python { border-color: rgba(74, 222, 128, 0.35); }
+.pill-python .pill-tag { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
+
+.pill-js { border-color: rgba(250, 204, 21, 0.35); }
+.pill-js .pill-tag { background: rgba(250, 204, 21, 0.2); color: #facc15; }
+
+.pill-csharp { border-color: rgba(168, 85, 247, 0.35); }
+.pill-csharp .pill-tag { background: rgba(168, 85, 247, 0.2); color: #c084fc; }
+
+.pill-cpp { border-color: rgba(56, 189, 248, 0.35); }
+.pill-cpp .pill-tag { background: rgba(56, 189, 248, 0.2); color: #60a5fa; }
+
+.pill-cute { border-color: rgba(236, 72, 153, 0.35); }
+.pill-cute .pill-tag { background: rgba(236, 72, 153, 0.2); color: #f472b6; }
+
+/* Orantılı ve Güvenli Konumlandırma - Asla Ekran Dışına Taşmaz */
+.pill-pos-1 { top: 380px; left: 1%; animation-delay: 0s; }
+.pill-pos-2 { top: 460px; right: 1%; animation-delay: -2s; }
+.pill-pos-3 { top: 620px; left: 2%; animation-delay: -4s; }
+.pill-pos-4 { top: 700px; right: 2%; animation-delay: -1.5s; }
+.pill-pos-5 { top: 860px; left: 1.5%; animation-delay: -3s; }
+.pill-pos-6 { top: 940px; right: 1.5%; animation-delay: -5s; }
+.pill-pos-7 { top: 1100px; left: 2%; animation-delay: -2.5s; }
+.pill-pos-8 { top: 1180px; right: 2%; animation-delay: -0.5s; }
+.pill-pos-9 { top: 1340px; left: 1%; animation-delay: -4.5s; }
+.pill-pos-10 { top: 1420px; right: 1%; animation-delay: -1s; }
+
+@keyframes floatCutePill {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(1deg); }
+    100% { transform: translateY(5px) rotate(-1deg); }
+}
+
+/* Yol Kenarındaki Sempatik İstasyon Adacıkları (Waypoint Islands) */
+.roadmap-waypoint-island {
+    position: absolute;
+    pointer-events: auto;
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.9));
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 18px;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+    color: #e2e8f0;
+    font-size: 11.5px;
+    z-index: 2;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+.roadmap-waypoint-island:hover {
+    transform: scale(1.04);
+    border-color: #38bdf8;
+}
+.waypoint-left { left: 4%; }
+.waypoint-right { right: 4%; }
+.waypoint-icon { font-size: 18px; }
 
 /* ============================================================ */
 /* VS CODE TARZI OTOMATİK TAMAMLAMA WIDGET'I (INTELLISENSE)     */
@@ -2233,6 +2353,15 @@ body.mentor-mode .nav-student-only {
     .landing-inner {
         gap: 32px !important;
     }
+    .cute-code-pill {
+        font-size: 10px !important;
+        padding: 5px 10px !important;
+        max-width: 180px !important;
+    }
+    .cute-code-pill .pill-tag {
+        font-size: 7.5px !important;
+        padding: 1px 4px !important;
+    }
 }
 
 /* 2. TABLET VE KÜÇÜK DİZÜSTÜ EKRANLAR (max-width: 1024px) */
@@ -2260,6 +2389,11 @@ body.mentor-mode .nav-student-only {
         align-items: flex-start !important;
         gap: 12px !important;
         padding: 18px 16px !important;
+    }
+    .cute-code-pill {
+        font-size: 9.5px !important;
+        padding: 4px 8px !important;
+        max-width: 160px !important;
     }
 }
 
@@ -2443,6 +2577,25 @@ body.mentor-mode .nav-student-only {
         font-size: 10px !important;
     }
 
+    /* Haritadaki Kod Rozetleri (Mobilde Orantılı ve Zarif) */
+    .cute-code-pill {
+        font-size: 9px !important;
+        padding: 3px 6px !important;
+        gap: 4px !important;
+        max-width: 135px !important;
+        opacity: 0.85;
+    }
+    .cute-code-pill code {
+        font-size: 8px !important;
+    }
+    .cute-code-pill .pill-tag {
+        font-size: 7px !important;
+        padding: 1px 3px !important;
+    }
+    .roadmap-waypoint-island {
+        display: none !important;
+    }
+
     /* IDE Editör */
     #sandbox-lang-tabs {
         overflow-x: auto !important;
@@ -2483,16 +2636,135 @@ body.mentor-mode .nav-student-only {
         padding-bottom: 6px !important;
     }
 
-    /* Tüm Modal Pencereler */
+    /* Taşınabilir Coddy AI Asistanı (Mobilde Ekrana Tam Oturur) */
+    #coddy-ai-widget {
+        width: calc(100vw - 16px) !important;
+        max-width: calc(100vw - 16px) !important;
+        height: min(490px, calc(100dvh - 80px)) !important;
+        max-height: calc(100dvh - 80px) !important;
+        left: 8px !important;
+        top: 10px !important;
+        border-radius: 16px !important;
+    }
+
+    /* Tüm Modal Pencereler (Menü Panelleri Ekrana Tam Oturur) */
     .coddy-modal-card {
-        width: 95vw !important;
-        max-width: 95vw !important;
-        max-height: 88vh !important;
+        width: calc(100vw - 16px) !important;
+        max-width: calc(100vw - 16px) !important;
+        max-height: calc(100dvh - 24px) !important;
         overflow-y: auto !important;
-        margin: 10px auto !important;
-        padding: 18px 14px !important;
+        margin: auto !important;
+        padding: 18px 12px !important;
         border-radius: 18px !important;
         box-sizing: border-box !important;
+    }
+
+    /* Arkadaş & Ağım Modalı Mobil Uyum */
+    .friends-modal-tabs {
+        display: flex !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        gap: 6px !important;
+        padding-bottom: 4px !important;
+        scrollbar-width: none !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    .friends-modal-tabs::-webkit-scrollbar {
+        display: none !important;
+    }
+    .friends-modal-tabs .friend-tab-btn {
+        flex: 0 0 auto !important;
+        padding: 7px 11px !important;
+        font-size: 12px !important;
+    }
+    .friend-row-card {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        padding: 10px 12px !important;
+    }
+    .friend-row-card > div:last-child {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: flex-end !important;
+        gap: 6px !important;
+    }
+    .friend-row-card button {
+        flex: 1 !important;
+        justify-content: center !important;
+        padding: 7px 10px !important;
+        font-size: 11.5px !important;
+    }
+
+    /* Sohbet / Mesajlaşma Modalı Mobil Uyum */
+    .chat-modal-card {
+        width: calc(100vw - 16px) !important;
+        max-width: calc(100vw - 16px) !important;
+        height: min(560px, calc(100dvh - 24px)) !important;
+        max-height: calc(100dvh - 24px) !important;
+        padding: 0 !important;
+    }
+    .chat-messenger-body {
+        flex-direction: column !important;
+    }
+    .chat-messenger-sidebar {
+        width: 100% !important;
+        height: auto !important;
+        border-right: none !important;
+        border-bottom: 1px solid var(--glass-border) !important;
+        flex-shrink: 0 !important;
+        padding: 4px 6px !important;
+    }
+    .chat-messenger-sidebar-title {
+        display: none !important;
+    }
+    #chat-friends-list {
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        white-space: nowrap !important;
+        padding: 4px 6px !important;
+        gap: 6px !important;
+        scrollbar-width: none !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    #chat-friends-list::-webkit-scrollbar {
+        display: none !important;
+    }
+    .chat-friend-row {
+        flex: 0 0 auto !important;
+        padding: 5px 9px !important;
+        background: rgba(30, 41, 59, 0.6) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 10px !important;
+    }
+    .chat-friend-row.active {
+        background: rgba(168, 85, 247, 0.25) !important;
+        border-color: #a855f7 !important;
+    }
+    .chat-friend-row div > div:last-child {
+        display: none !important;
+    }
+    .chat-messenger-main {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        width: 100% !important;
+    }
+    #chat-active-header {
+        padding: 8px 12px !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+    }
+    #chat-invite-duel-btn {
+        padding: 4px 8px !important;
+        font-size: 11px !important;
+    }
+    #chat-messages-container {
+        padding: 10px 12px !important;
+        gap: 8px !important;
+    }
+    #chat-send-form {
+        padding: 8px 10px !important;
+        gap: 6px !important;
     }
 
     /* iOS Safari Otomatik Yakınlaştırma Koruması */
@@ -2524,6 +2796,12 @@ body.mentor-mode .nav-student-only {
     }
     .dash-header h1 {
         font-size: 18px !important;
+    }
+    .cute-code-pill {
+        font-size: 8px !important;
+        padding: 2px 5px !important;
+        max-width: 110px !important;
+        opacity: 0.75;
     }
 }
 
