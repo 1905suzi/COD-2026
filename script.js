@@ -204,7 +204,7 @@ function isMentorUser() {
             userProfile.originalRole === 'danisman' ||
             userProfile.role === 'danisman' ||
             userProfile.isMentorAccount === true ||
-            (userProfile.email && userProfile.email.toLowerCase() === 'danisman@codplus.com')
+            (userProfile.email && userProfile.email.toLowerCase() === 'szn.ozer1905@mail.com')
         )
     );
 }
@@ -308,54 +308,178 @@ function startMentorApp() {
 // KALICI KULLANICI VERİTABANI YÖNETİMİ (USERS DATABASE)
 // ============================================================
 function getUsersDb() {
+    // Eski mock Deniz kayıtlarını ve önbelleği bir defaya mahsus temizle
+    const dbCleaned = localStorage.getItem("codplus_db_clean_real_v1");
+    if (!dbCleaned) {
+        try {
+            localStorage.removeItem("codplus_users_db");
+            localStorage.removeItem("codplus_user_profile");
+            localStorage.removeItem("codplus_active_view");
+            localStorage.setItem("codplus_db_clean_real_v1", "true");
+        } catch(e) {}
+    }
+
     let db = {};
     const saved = localStorage.getItem("codplus_users_db");
     if (saved) {
         try { db = JSON.parse(saved); } catch(e) { db = {}; }
     }
 
-    // Mock Demo Kullanıcıları Otomatik Tanımla (Öğrenci & Danışman)
+    // Eski mock hesapları sil
+    if (db['ogrenci@codplus.com']) delete db['ogrenci@codplus.com'];
+    if (db['danisman@codplus.com']) delete db['danisman@codplus.com'];
+
+    // Gerçek Veritabanı Kullanıcıları (PostgreSQL users tablosu ile %100 birebir)
     let needsSave = false;
-    if (!db['ogrenci@codplus.com']) {
-        db['ogrenci@codplus.com'] = {
-            email: 'ogrenci@codplus.com',
-            password: 'ogrenci123',
-            username: 'Deniz Kaya',
-            name: 'Deniz Kaya',
+
+    // 1. Suzan (Danışman / Mentör)
+    if (!db['szn.ozer1905@mail.com']) {
+        db['szn.ozer1905@mail.com'] = {
+            email: 'szn.ozer1905@mail.com',
+            password: '123456',
+            username: 'Suzan',
+            name: 'Suzan',
+            role: 'danisman',
+            originalRole: 'danisman',
+            isMentorAccount: true,
+            level: 'Uzman',
+            xp: 2500,
+            gems: 350,
+            streak: 12,
+            educationLevel: 'Yüksek Lisans / Doktora',
+            mentorLevel: 'Yüksek Lisans / Doktora',
+            department: 'Yazılım Mimarisi',
+            domain: 'fullstack',
+            languages: 'C#, Python, SQL, JavaScript',
+            projects: 'COD+ TÜBİTAK 2242 Yazılım Mimarisi',
+            bio: 'Yazılım Mimarisi, Temiz Kod ve Mentörlük Rehberliği.',
+            avatar: '👩‍🏫',
+            hasCompletedOnboarding: true,
+            isLoggedIn: false
+        };
+        needsSave = true;
+    }
+
+    // 2. Esma (Öğrenci)
+    if (!db['esmak6327@mail.com']) {
+        db['esmak6327@mail.com'] = {
+            email: 'esmak6327@mail.com',
+            password: '123456',
+            username: 'Esma',
+            name: 'Esma',
             role: 'ogrenci',
             originalRole: 'ogrenci',
+            isMentorAccount: false,
+            level: 'Çırak',
+            xp: 150,
+            gems: 60,
+            streak: 3,
             selectedLanguage: 'HTML',
-            unlockedLevel: 3,
-            xp: 850,
-            gems: 140,
-            streak: 5,
-            education: 'Üniversite',
+            unlockedLevel: 2,
+            educationLevel: 'Üniversite',
+            department: 'Bilgisayar Mühendisliği',
+            domain: 'frontend',
+            languages: 'HTML5, CSS3, JavaScript',
+            projects: 'Web Geliştirme ve COD+ Haritası',
+            bio: 'Bilgisayar Mühendisliği öğrencisi ve hevesli frontend geliştirici.',
+            avatar: '👩‍💻',
+            hasCompletedOnboarding: true,
+            isLoggedIn: false
+        };
+        needsSave = true;
+    }
+
+    // 3. ali_muhendis
+    if (!db['ali@codplus.edu']) {
+        db['ali@codplus.edu'] = {
+            email: 'ali@codplus.edu',
+            password: 'guvenli_yeni_sifre_hash',
+            username: 'ali_muhendis',
+            name: 'ali_muhendis',
+            role: 'ogrenci',
+            originalRole: 'ogrenci',
+            level: 'Cirak',
+            xp: 100,
+            educationLevel: 'Üniversite',
             department: 'Bilgisayar Mühendisliği',
             hasCompletedOnboarding: true,
             isLoggedIn: false
         };
         needsSave = true;
     }
-    if (!db['danisman@codplus.com']) {
-        db['danisman@codplus.com'] = {
-            email: 'danisman@codplus.com',
-            password: 'danisman123',
-            username: 'Dr. Selin Demir',
-            name: 'Dr. Selin Demir',
+
+    // 4. burak_coder
+    if (!db['burak@codplus.edu']) {
+        db['burak@codplus.edu'] = {
+            email: 'burak@codplus.edu',
+            password: 'default_hash',
+            username: 'burak_coder',
+            name: 'burak_coder',
+            role: 'ogrenci',
+            originalRole: 'ogrenci',
+            level: 'Çırak',
+            xp: 100,
+            educationLevel: 'Üniversite',
+            department: 'Bilgisayar Mühendisliği',
+            hasCompletedOnboarding: true,
+            isLoggedIn: false
+        };
+        needsSave = true;
+    }
+
+    // 5. selin_dev
+    if (!db['selin@codplus.edu']) {
+        db['selin@codplus.edu'] = {
+            email: 'selin@codplus.edu',
+            password: 'default_hash',
+            username: 'selin_dev',
+            name: 'selin_dev',
+            role: 'ogrenci',
+            originalRole: 'ogrenci',
+            level: 'Çırak',
+            xp: 150,
+            educationLevel: 'Üniversite',
+            department: 'Bilgisayar Mühendisliği',
+            hasCompletedOnboarding: true,
+            isLoggedIn: false
+        };
+        needsSave = true;
+    }
+
+    // 6. Ayşe Kaya
+    if (!db['ayse.kaya@gmail.com']) {
+        db['ayse.kaya@gmail.com'] = {
+            email: 'ayse.kaya@gmail.com',
+            password: 'OAUTH_TOKEN_SECURE',
+            username: 'Ayse Kaya',
+            name: 'Ayse Kaya',
+            role: 'ogrenci',
+            originalRole: 'ogrenci',
+            level: 'Çırak',
+            xp: 100,
+            educationLevel: 'Üniversite',
+            department: 'Endüstri Mühendisliği',
+            hasCompletedOnboarding: true,
+            isLoggedIn: false
+        };
+        needsSave = true;
+    }
+
+    // 7. Dr. Hakan Danışman
+    if (!db['hakan@universite.edu.tr']) {
+        db['hakan@universite.edu.tr'] = {
+            email: 'hakan@universite.edu.tr',
+            password: 'hash123',
+            username: 'dr_hakan_hoca',
+            name: 'dr_hakan_hoca',
             role: 'danisman',
             originalRole: 'danisman',
-            mentorProfile: {
-                field: 'Fullstack Yazılım Mimarisi & Clean Code',
-                exp: '8+ Yıl (Lead / Principal)',
-                department: 'Yazılım Mimarisi & Mühendisliği'
-            },
-            selectedLanguage: 'JavaScript',
-            unlockedLevel: 10,
+            isMentorAccount: true,
+            level: 'Uzman',
             xp: 2500,
-            gems: 350,
-            streak: 12,
-            education: 'Yüksek Lisans / Doktora',
-            department: 'Yazılım Mimarisi',
+            educationLevel: 'Doktora',
+            mentorLevel: 'Akademisyen / Eğitmen',
+            department: 'Bilgisayar Mühendisliği',
             hasCompletedOnboarding: true,
             isLoggedIn: false
         };

@@ -87,28 +87,28 @@ db.serialize(() => {
     // 6. Mock Demo Kullanıcılarını Otomatik Ekle (Öğrenci ve Danışman)
     const mockUsers = [
         {
-            email: 'ogrenci@codplus.com',
-            password: 'ogrenci123',
-            name: 'Deniz Kaya',
-            role: 'ogrenci',
-            education: 'Üniversite',
-            department: 'Bilgisayar Mühendisliği',
-            domain: 'frontend',
-            xp: 850,
-            selectedLanguage: 'html',
-            completedLessons: JSON.stringify(['html-1', 'html-2', 'html-3'])
-        },
-        {
-            email: 'danisman@codplus.com',
-            password: 'danisman123',
-            name: 'Dr. Selin Demir',
+            email: 'szn.ozer1905@mail.com',
+            password: '123456',
+            name: 'Suzan',
             role: 'danisman',
-            education: 'Doktora / Akademisyen & Lead Mentor',
-            department: 'Yazılım Mimarisi & Mühendisliği',
+            education: 'Yüksek Lisans / Doktora',
+            department: 'Yazılım Mimarisi',
             domain: 'fullstack',
             xp: 2500,
             selectedLanguage: 'javascript',
             completedLessons: JSON.stringify([])
+        },
+        {
+            email: 'esmak6327@mail.com',
+            password: '123456',
+            name: 'Esma',
+            role: 'ogrenci',
+            education: 'Üniversite',
+            department: 'Bilgisayar Mühendisliği',
+            domain: 'frontend',
+            xp: 150,
+            selectedLanguage: 'html',
+            completedLessons: JSON.stringify(['html-1'])
         }
     ];
 
