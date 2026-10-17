@@ -776,18 +776,7 @@ function startApp() {
     renderRoadmap();
 }
 
-function quickFillLogin(role) {
-    const emailInput = document.querySelector("#login-form input[type='email']");
-    const passInput = document.getElementById("login-pass");
-    if (role === 'danisman') {
-        if (emailInput) emailInput.value = 'danisman@codplus.com';
-        if (passInput) passInput.value = 'danisman123';
-    } else {
-        if (emailInput) emailInput.value = 'ogrenci@codplus.com';
-        if (passInput) passInput.value = 'ogrenci123';
-    }
-    handleLogin();
-}
+
 
 function handleLogin(e) {
     if (e) e.preventDefault();
