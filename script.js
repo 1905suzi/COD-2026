@@ -107,11 +107,11 @@ function toggleMentorRegistrationFields(prefix) {
 
 function applyRoleUI(role) {
     const isMentor = (role === 'danisman');
-    const studentNavs = document.querySelectorAll(".nav-student-only");
+    const duelNav = document.getElementById("nav-btn-duel");
     
     if (isMentor) {
         document.body.classList.add("mentor-mode");
-        studentNavs.forEach(n => { n.style.display = "none"; });
+        if (duelNav) duelNav.style.display = "none";
         
         const tasksBadge = document.getElementById("tasks-nav-badge");
         if (tasksBadge) tasksBadge.style.display = "block";
@@ -123,7 +123,7 @@ function applyRoleUI(role) {
         }
     } else {
         document.body.classList.remove("mentor-mode");
-        studentNavs.forEach(n => { n.style.display = "inline-flex"; });
+        if (duelNav) duelNav.style.display = "";
     }
 }
 
@@ -775,7 +775,7 @@ function applyPdfZoom() {
 
 
 
-// Duolingo Winding Road Map
+// Interaktif Kavisli Egitim Haritasi
 function renderRoadmap() {
     const container = document.getElementById("roadmap-container");
     container.innerHTML = '';
@@ -857,7 +857,7 @@ function renderRoadmap() {
     courseData.forEach((lesson, index) => {
         if(lesson.isHidden) return; // Gizli dersleri atla
         
-        // Yeni bir bölüm/ünite başladığında Duolingo Unit Banner ekle
+        // Yeni bir bölüm/ünite başladığında Bölüm Banneri ekle
         const lessonUnit = lesson.unit || Math.ceil(lesson.id / 10) || 1;
         if(lessonUnit !== currentUnit) {
             currentUnit = lessonUnit;
@@ -916,7 +916,7 @@ function renderRoadmap() {
         const offset = Math.round(xOffsets[nodeIndexInLang % xOffsets.length] * offsetScale);
         nodeIndexInLang++;
 
-        // Aktif ders için Duolingo konuşma balonu
+        // Aktif ders için yönlendirme konuşma balonu
         const speechBubbleHtml = isActive ? `
             <div class="duo-bubble">
                 BAŞLA! <i class="fa-solid fa-rocket" style="color: #3b82f6;"></i>
