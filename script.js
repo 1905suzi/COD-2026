@@ -514,40 +514,25 @@ let currentSocialProvider = 'Google';
 
 function handleSocialLogin(provider) {
     currentSocialProvider = provider;
-    const isGoogle = provider.toLowerCase() === 'google';
-    const targetEmail = isGoogle ? "deniz.kaya@gmail.com" : "deniz.kaya@privaterelay.appleid.com";
-
-    // ÖNCELİKLE KONTROL: Bu Google hesabı sistemde kayıtlı ve dilini/seviyesini daha önce seçmiş mi?
-    const existing = getUserByEmail(targetEmail) || (userProfile && userProfile.email === targetEmail ? userProfile : null);
-
-    if (existing && (existing.hasCompletedOnboarding || existing.selectedLanguage || (existing.unlockedLevel && existing.unlockedLevel > 0))) {
-        // VAR OLAN KULLANICI: Dil seçimi ve sınav ekranı ASLA tekrar açılmaz!
-        userProfile = { ...userProfile, ...existing, isLoggedIn: true, authProvider: provider, email: targetEmail };
-        userName = userProfile.username || (isGoogle ? "Deniz Kaya" : "Deniz");
-        selectedLang = userProfile.selectedLanguage || 'HTML';
-        unlockedLevel = userProfile.unlockedLevel || 1;
-        userXp = userProfile.xp !== undefined ? userProfile.xp : userXp;
-        userGems = userProfile.gems !== undefined ? userProfile.gems : userGems;
-        userStreak = userProfile.streak !== undefined ? userProfile.streak : userStreak;
-
-        saveUserProfileToStorage();
-        closeSocialAuthModal();
-
-        // Doğrudan ana platforma / haritaya yönlendir (Sıfırdan sorma!)
-        startApp();
-        alert(`👋 Tekrar hoş geldin, ${userName}!\n${provider} hesabınız doğrulandı. Seçtiğiniz dil (${selectedLang.toUpperCase()}) ve ${unlockedLevel}. seviyedeki ilerlemeniz korundu. Kaldığınız yerden devam ediyorsunuz! 🚀`);
-        return;
-    }
-
-    // İLK KEZ GELEN GERÇEK YENİ KULLANICI: İlk seferlik profil onayını aç
     openSocialAuthModal(provider);
 }
 
 function openSocialAuthModal(provider) {
     currentSocialProvider = provider;
     const isGoogle = provider.toLowerCase() === 'google';
-    const mockEmail = isGoogle ? "deniz.kaya@gmail.com" : "deniz.kaya@privaterelay.appleid.com";
-    const defaultName = isGoogle ? "Deniz Kaya" : "Deniz Kaya";
+
+    const loginEmailInput = document.querySelector("#login-form input[type='email']");
+    const regEmailInput = document.getElementById("reg-email");
+    const regNameInput = document.getElementById("reg-name");
+
+    const preferredEmail = (loginEmailInput && loginEmailInput.value.trim()) ||
+                           (regEmailInput && regEmailInput.value.trim()) ||
+                           (userProfile && userProfile.email) ||
+                           "";
+
+    const preferredName = (regNameInput && regNameInput.value.trim()) ||
+                          (userProfile && (userProfile.username || userProfile.name)) ||
+                          "";
 
     const modal = document.getElementById("social-auth-modal");
     const titleEl = document.getElementById("social-modal-title");
@@ -556,11 +541,20 @@ function openSocialAuthModal(provider) {
     const eduInput = document.getElementById("social-education");
 
     if (titleEl) {
-        titleEl.innerHTML = `<i class="fa-brands fa-${isGoogle ? 'google' : 'apple'}" style="color:${isGoogle ? '#ef4444' : '#ffffff'};"></i> ${provider} ile Hızlı Kayıt`;
+        titleEl.innerHTML = `<i class="fa-brands fa-${isGoogle ? 'google' : 'apple'}" style="color:${isGoogle ? '#ef4444' : '#ffffff'};"></i> ${provider} ile Hızlı Kayıt / Giriş`;
     }
-    if (emailInput) emailInput.value = mockEmail;
-    if (nameInput) nameInput.value = userProfile.username || defaultName;
-    if (eduInput && userProfile.educationLevel) eduInput.value = userProfile.educationLevel;
+    if (emailInput) {
+        emailInput.value = preferredEmail;
+        emailInput.readOnly = false;
+        emailInput.placeholder = isGoogle ? "ornek@gmail.com" : "ornek@icloud.com";
+    }
+    if (nameInput) {
+        nameInput.value = preferredName;
+        nameInput.placeholder = "Adınız ve Soyadınız";
+    }
+    if (eduInput && userProfile && userProfile.educationLevel) {
+        eduInput.value = userProfile.educationLevel;
+    }
 
     if (modal) modal.classList.remove("hidden");
 }
@@ -571,56 +565,82 @@ function closeSocialAuthModal() {
 }
 
 function submitSocialAuth() {
-    const name = document.getElementById("social-name").value.trim() || "Geliştirici";
-    const email = document.getElementById("social-email").value.trim() || (currentSocialProvider === 'Google' ? "deniz.kaya@gmail.com" : "deniz.kaya@apple.com");
-    const edu = document.getElementById("social-education").value;
+    const name = document.getElementById("social-name") ? document.getElementById("social-name").value.trim() : "";
+    const email = document.getElementById("social-email") ? document.getElementById("social-email").value.trim().toLowerCase() : "";
+    const edu = document.getElementById("social-education") ? document.getElementById("social-education").value : "Üniversite";
     const role = document.getElementById("social-role") ? document.getElementById("social-role").value : "ogrenci";
 
-    // Veritabanında daha önce kayıt olmuş mu kontrolü
-    const existing = getUserByEmail(email);
-    if (existing && (existing.hasCompletedOnboarding || existing.selectedLanguage)) {
-        userProfile = { ...userProfile, ...existing, isLoggedIn: true };
-        userName = userProfile.username || name;
-        selectedLang = userProfile.selectedLanguage || 'HTML';
-        unlockedLevel = userProfile.unlockedLevel || 1;
-        saveUserProfileToStorage();
-        closeSocialAuthModal();
-        startApp();
-        alert(`👋 Tekrar hoş geldin, ${userName}! Seçtiğin dil (${selectedLang.toUpperCase()}) ve ${unlockedLevel}. seviye başarıyla yüklendi.`);
+    if (!email) {
+        alert("Lütfen geçerli bir e-posta adresi giriniz.");
         return;
     }
 
-    userName = name;
-    userProfile.username = name;
-    userProfile.email = email;
-    userProfile.educationLevel = edu;
-    userProfile.role = role;
-    userProfile.authProvider = currentSocialProvider;
-    userProfile.isLoggedIn = true;
-    saveUserProfileToStorage();
+    const isMentor = (role === 'danisman');
+    const existing = getUserByEmail(email);
 
+    if (existing) {
+        const loadedName = name || existing.username || existing.name || email.split('@')[0];
+        userProfile = {
+            ...createDefaultUserProfile(),
+            ...existing,
+            email: email,
+            username: loadedName,
+            name: loadedName,
+            authProvider: currentSocialProvider,
+            isLoggedIn: true
+        };
+        userName = loadedName;
+        selectedLang = userProfile.selectedLanguage || 'HTML';
+        unlockedLevel = userProfile.unlockedLevel || 1;
+        userXp = userProfile.xp !== undefined ? userProfile.xp : userXp;
+        userGems = userProfile.gems !== undefined ? userProfile.gems : userGems;
+        userStreak = userProfile.streak !== undefined ? userProfile.streak : userStreak;
+
+        saveUserProfileToStorage();
+        closeSocialAuthModal();
+
+        if (userProfile.role === 'danisman') {
+            startMentorApp();
+        } else {
+            startApp();
+        }
+        alert(`👋 Hoş geldiniz, ${userName}! ${currentSocialProvider} ile giriş başarıyla tamamlandı.`);
+        return;
+    }
+
+    // Yeni kullanıcı
+    const finalName = name || email.split('@')[0];
+    userProfile = {
+        ...createDefaultUserProfile(),
+        username: finalName,
+        name: finalName,
+        email: email,
+        educationLevel: edu,
+        mentorLevel: isMentor ? edu : "",
+        role: role,
+        originalRole: role,
+        isMentorAccount: isMentor,
+        department: isMentor ? "Fullstack Mimarisi" : "",
+        domain: isMentor ? "fullstack" : "frontend",
+        authProvider: currentSocialProvider,
+        isLoggedIn: true,
+        xp: isMentor ? 2500 : 100,
+        gems: isMentor ? 350 : 50,
+        streak: 1,
+        level: isMentor ? "Kıdemli Mimar & Mentör" : "Çırak",
+        friends: []
+    };
+
+    userName = finalName;
+    saveUserProfileToStorage();
+    saveUserToDb(email, userProfile);
     closeSocialAuthModal();
 
-    // Mentör/Danışman ise dil testini atla ve mentör alanlarını kaydet
-    if (role === 'danisman') {
-        const mentorField = document.getElementById("social-mentor-field") ? document.getElementById("social-mentor-field").value : "Fullstack Web Geliştirme";
-        const mentorExp = document.getElementById("social-mentor-exp") ? document.getElementById("social-mentor-exp").value : "3-5 Yıl (Mid-Senior)";
-        const mentorCompany = document.getElementById("social-mentor-company") ? document.getElementById("social-mentor-company").value.trim() : "Teknopark / Şirket";
-        const mentorBio = document.getElementById("social-mentor-bio") ? document.getElementById("social-mentor-bio").value.trim() : "Genç yeteneklere rehberlik ve proje yönetimi.";
-        
-        userProfile.mentorProfile = {
-            field: mentorField,
-            experience: mentorExp,
-            company: mentorCompany,
-            bio: mentorBio
-        };
-        userProfile.hasCompletedOnboarding = true;
-        saveUserProfileToStorage();
+    if (isMentor) {
         startMentorApp();
         return;
     }
 
-    // İlk kez kaydolan öğrenci için onboarding
     const greet = document.getElementById("greeting-title");
     if (greet) greet.innerText = `Harika, ${userName}!`;
     startOnboarding();
