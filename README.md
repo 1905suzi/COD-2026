@@ -1,6 +1,6 @@
 # COD+ 2026 - Yeni Nesil İnteraktif Yazılım Eğitimi & Kodlama Platformu
 
-🚀 **COD+ 2026**, modern yazılım geliştiricileri için sıfırdan ileri seviyeye kadar tasarlanmış, Duolingo benzeri interaktif yılan harita (roadmap), 5 programlama dili (HTML/Web, SQL, Python, C#, C++), 150 kapsamlı ders, 10 soruluk Seviye Tespit Sınavı, çok dilli konsol/tarayıcı motoru, akran düellosu ve dijital kitap kütüphanesi içeren gelişmiş bir web platformudur.
+🚀 **COD+ 2026**, modern yazılım geliştiricileri için sıfırdan ileri seviyeye kadar tasarlanmış, interaktif yılan harita (roadmap), 5 programlama dili (HTML/Web, SQL, Python, C#, C++), 150 kapsamlı ders, 10 soruluk Seviye Tespit Sınavı, çok dilli konsol/tarayıcı motoru, akran düellosu ve dijital kitap kütüphanesi içeren gelişmiş bir web platformudur.
 
 ---
 
