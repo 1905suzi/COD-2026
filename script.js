@@ -1494,6 +1494,23 @@ function startLesson(id) {
     document.getElementById("theory-title").innerText = lesson.title;
     document.getElementById("theory-text").innerHTML = `<p>${lesson.theory}</p>`;
     document.getElementById("theory-code-preview").innerHTML = `<code>${escapeHtml(lesson.theoryCode)}</code>`;
+
+    // Görev ve Beklenen Çıktı kartını doldur
+    const taskBox = document.getElementById("lesson-task-box");
+    const taskText = document.getElementById("lesson-task-text");
+    const expPre = document.getElementById("lesson-expected-output");
+
+    if (lesson.task) {
+        if (taskText) taskText.innerHTML = lesson.task;
+        if (expPre) expPre.innerText = lesson.expectedOutput || "Program hatasız çalıştırılmalıdır.";
+        if (taskBox) taskBox.style.display = "block";
+    } else {
+        let defaultTask = `Editördeki kodu inceleyin. <strong>${lesson.desc || lesson.title}</strong> konusunu uygulamak için gerekli kodu yazıp <strong>Çalıştır</strong> butonuna basın.`;
+        let defaultExp = "Konsol çıktısı gözlemlenmeli ve ders tamamlanmalıdır.";
+        if (taskText) taskText.innerHTML = defaultTask;
+        if (expPre) expPre.innerText = defaultExp;
+        if (taskBox) taskBox.style.display = "block";
+    }
     
     document.getElementById("quiz-question").innerText = lesson.quiz.question;
     
@@ -2059,6 +2076,21 @@ function runPythonSandbox(code, outputConsole) {
     const lines = code.split('\n');
     let printed = false;
 
+    // 1. Kullanıcının kodundaki değişkenleri dinamik topla
+    const vars = {};
+    lines.forEach(line => {
+        const trimmed = line.trim();
+        if (trimmed.startsWith('#') || !trimmed) return;
+        const assignMatch = trimmed.match(/^([a-zA-Z_][a-zA-Z0-9_]*)\s*=\s*(.*)$/);
+        if (assignMatch) {
+            let val = assignMatch[2].trim();
+            if ((val.startsWith("'") && val.endsWith("'")) || (val.startsWith('"') && val.endsWith('"'))) {
+                val = val.slice(1, -1);
+            }
+            vars[assignMatch[1]] = val;
+        }
+    });
+
     lines.forEach(line => {
         const trimmed = line.trim();
         if (trimmed.startsWith('#') || !trimmed) return;
@@ -2068,17 +2100,28 @@ function runPythonSandbox(code, outputConsole) {
             printed = true;
             let rawArg = printMatch[1].trim();
             let outText = rawArg;
+
             if ((rawArg.startsWith('"') && rawArg.endsWith('"')) || (rawArg.startsWith("'") && rawArg.endsWith("'"))) {
                 outText = rawArg.slice(1, -1);
             } else if (rawArg.startsWith('f"') || rawArg.startsWith("f'")) {
-                outText = rawArg.slice(2, -1)
-                    .replace(/\{kullanici(_adi)?\}/g, "Deniz")
-                    .replace(/\{len\(ogrenilen_diller\)\}/g, "5")
-                    .replace(/\{diller\}/g, "['Python', 'HTML', 'C#', 'SQL', 'C++']");
+                let fContent = rawArg.slice(2, -1);
+                outText = fContent.replace(/\{([^}]+)\}/g, (match, expr) => {
+                    const cleanExpr = expr.trim();
+                    if (vars[cleanExpr] !== undefined) {
+                        return vars[cleanExpr];
+                    }
+                    if (cleanExpr === 'len(ogrenilen_diller)') return "5";
+                    if (cleanExpr === 'diller') return "['Python', 'HTML', 'C#', 'SQL', 'C++']";
+                    
+                    // Eğer kullanıcı değişken adı yerine değeri paranteze yazdıysa ({Burak} gibi)
+                    return `[⚠️ NameError: name '${cleanExpr}' is not defined -> İpucu: Süslü parantez içine değişken adını yazmalısınız: {kullanici}]`;
+                });
             } else if (rawArg.includes('"') && rawArg.includes('*')) {
                 outText = "=============================================";
+            } else if (vars[rawArg] !== undefined) {
+                outText = vars[rawArg];
             } else if (rawArg === "kullanici_adi" || rawArg === "kullanici") {
-                outText = "Deniz";
+                outText = vars["kullanici"] || vars["kullanici_adi"] || (userName || "Geliştirici");
             }
             outputConsole.innerHTML += `<div class="term-line term-out" style="color:#e2e8f0; white-space:pre-wrap; margin-bottom:3px;">${escapeHtml(outText)}</div>`;
         }
@@ -2252,7 +2295,22 @@ function completeCurrentLesson() {
     const userCode = document.getElementById("code-editor").value.toLowerCase();
     
     if (lesson.mustInclude && lesson.mustInclude.length > 0) {
+        // f-string kontrolü varsa hem f' hem f" geçerli sayılsın
+        const isFStringRule = lesson.mustInclude.some(r => r.includes('f"') || r.includes("f'"));
+        if (isFStringRule) {
+            const hasF = userCode.includes('f"') || userCode.includes("f'");
+            if (!hasF) {
+                currentLessonAttempts++;
+                alert(`❌ Kodunuzda eksikler var!\n\n${lesson.errorMsg}`);
+                checkFailure(lesson);
+                return;
+            }
+        }
+        
         for (let rule of lesson.mustInclude) {
+            // f-string tırnak alternatiflerini yukarıda kontrol ettiğimiz için loopta tekrar engelleme
+            if (rule === 'f"' || rule === "f'") continue;
+
             if (!userCode.includes(rule.toLowerCase())) {
                 currentLessonAttempts++;
                 alert(`❌ Kodunuzda eksikler var!\n\n${lesson.errorMsg}`);

@@ -2023,8 +2023,10 @@ const courseDataByLang = {
     "unit": 1,
     "title": "3. String Formatlama & f-strings",
     "desc": "Değişkenleri metne gömme.",
-    "theory": "f'Merhaba {isim}' sözdizimi ile değişkenler string içine kolayca gömülür.",
+    "theory": "f'Merhaba {isim}' sözdizimi ile süslü parantez { } içine doğrudan değişken adı yazılarak değişkenler metin içine gömülür. Örneğin: puan = 95 iken f'Puanınız: {puan}' ekrana 'Puanınız: 95' yazar.",
     "theoryCode": "puan = 95\nprint(f'Puanınız: {puan}')",
+    "task": "1. <code>kullanici = 'Burak'</code> satırında değişkene bir isim atayın.<br>2. <code>f-string</code> (<code>f'...'</code>) kullanarak ekrana <code>Hoş geldin, {kullanici}!</code> mesajını yazdırın.<br><div style='margin-top:6px; padding:6px 10px; background:rgba(245,158,11,0.12); border-left:3px solid #f59e0b; border-radius:4px; font-size:12px; color:#fbbf24;'><i class='fa-solid fa-lightbulb'></i> <strong>Önemli Kural:</strong> Süslü parantez içine değerin kendisini (<code>{Burak}</code>) değil, <strong>değişkenin adını</strong> (<code>{kullanici}</code>) yazmalısınız!</div>",
+    "expectedOutput": "Hoş geldin, Burak!",
     "quiz": {
       "question": "Modern Python'da en pratik string formatlama yöntemi nedir?",
       "options": [
@@ -2036,10 +2038,10 @@ const courseDataByLang = {
     },
     "initialCode": "kullanici = 'Burak'\nprint(f'Hoş geldin, {kullanici}!')",
     "mustInclude": [
-      "f\"",
-      "f'"
+      "f'",
+      "kullanici"
     ],
-    "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (f\", f') yer aldığından emin olun.",
+    "errorMsg": "Lütfen kodunuzda f-string (f'...') sözdizimini ve {kullanici} değişkenini kullandığınızdan emin olun.",
     "isMiniProject": false
   },
   {
