@@ -47,4 +47,3 @@
 
 5. **Mat Koyu Tema & Yıldızlı Gökyüzü:**
    - Göz yormayan mat koyu renk paleti, interaktif yıldızlı imleç izi ve modern cam efekti.
-
