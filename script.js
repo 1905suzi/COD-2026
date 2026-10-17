@@ -125,10 +125,96 @@ function applyRoleUI(role) {
         document.body.classList.remove("mentor-mode");
         if (duelNav) duelNav.style.display = "";
     }
+
+    updateMentorQuickToggleBtn();
+}
+
+function isMentorUser() {
+    return !!(
+        userProfile && (
+            userProfile.originalRole === 'danisman' ||
+            userProfile.role === 'danisman' ||
+            userProfile.isMentorAccount === true ||
+            (userProfile.email && userProfile.email.toLowerCase() === 'danisman@codplus.com')
+        )
+    );
+}
+
+function updateMentorQuickToggleBtn() {
+    const isDanisman = isMentorUser();
+    const isCurrentlyStudent = (userProfile && userProfile.role === 'ogrenci');
+    
+    const previewAlertBar = document.getElementById("mentor-preview-alert-bar");
+    const mapToggleBtn = document.getElementById("map-mentor-toggle-btn");
+    const projToggleBtn = document.getElementById("projects-student-toggle-btn");
+    const modalRoleBtn = document.getElementById("modal-role-toggle-btn");
+    const modalRoleText = document.getElementById("modal-role-toggle-text");
+    const modalRoleBadge = document.getElementById("modal-profile-role-badge");
+
+    if (modalRoleBadge) {
+        modalRoleBadge.innerText = (userProfile && userProfile.role === 'danisman') ? 'Danışman / Mentör' : 'Öğrenci';
+        modalRoleBadge.style.color = (userProfile && userProfile.role === 'danisman') ? '#c084fc' : '#38bdf8';
+        modalRoleBadge.style.background = (userProfile && userProfile.role === 'danisman') ? 'rgba(168,85,247,0.15)' : 'rgba(56,189,248,0.15)';
+    }
+
+    if (isDanisman) {
+        if (previewAlertBar) {
+            previewAlertBar.style.display = isCurrentlyStudent ? "flex" : "none";
+        }
+        if (modalRoleBtn) {
+            modalRoleBtn.style.display = "inline-flex";
+            if (modalRoleText) {
+                modalRoleText.innerText = isCurrentlyStudent ? 'Danışman Paneline Dön' : 'Öğrenci Görünümüne Geç';
+            }
+        }
+        if (mapToggleBtn) {
+            mapToggleBtn.style.display = isCurrentlyStudent ? "inline-flex" : "none";
+        }
+        if (projToggleBtn) {
+            projToggleBtn.style.display = (!isCurrentlyStudent) ? "inline-flex" : "none";
+        }
+    } else {
+        if (previewAlertBar) previewAlertBar.style.display = "none";
+        if (mapToggleBtn) mapToggleBtn.style.display = "none";
+        if (projToggleBtn) projToggleBtn.style.display = "none";
+        if (modalRoleBtn) modalRoleBtn.style.display = "none";
+    }
+}
+
+function toggleMentorStudentView() {
+    const hasDanismanAuthority = isMentorUser();
+
+    if (!hasDanismanAuthority) {
+        const authKey = prompt("🔒 Yetkili Güvenlik Doğrulaması:\nDanışman & Mentör moduna geçebilmek için lütfen Kurum Danışman Güvenlik Anahtarını giriniz (Varsayılan: COD2026):");
+        if (authKey !== "COD2026" && authKey !== "MENTOR2026") {
+            alert("❌ Yetkisiz İşlem: Geçersiz güvenlik anahtarı! Normal öğrenciler danışman moduna geçemez.");
+            return;
+        }
+        userProfile.originalRole = 'danisman';
+        userProfile.isMentorAccount = true;
+    }
+
+    if (userProfile.role === 'danisman') {
+        userProfile.role = 'ogrenci';
+        userProfile.originalRole = 'danisman';
+        userProfile.isMentorAccount = true;
+        saveUserProfileToStorage();
+        applyRoleUI('ogrenci');
+        switchView('map');
+    } else {
+        userProfile.role = 'danisman';
+        userProfile.originalRole = 'danisman';
+        userProfile.isMentorAccount = true;
+        saveUserProfileToStorage();
+        applyRoleUI('danisman');
+        switchView('projects');
+    }
 }
 
 function startMentorApp() {
     userProfile.role = 'danisman';
+    userProfile.originalRole = 'danisman';
+    userProfile.isMentorAccount = true;
     userProfile.isLoggedIn = true;
     saveUserProfileToStorage();
     
@@ -153,11 +239,64 @@ function startMentorApp() {
 // KALICI KULLANICI VERİTABANI YÖNETİMİ (USERS DATABASE)
 // ============================================================
 function getUsersDb() {
+    let db = {};
     const saved = localStorage.getItem("codplus_users_db");
     if (saved) {
-        try { return JSON.parse(saved); } catch(e) {}
+        try { db = JSON.parse(saved); } catch(e) { db = {}; }
     }
-    return {};
+
+    // Mock Demo Kullanıcıları Otomatik Tanımla (Öğrenci & Danışman)
+    let needsSave = false;
+    if (!db['ogrenci@codplus.com']) {
+        db['ogrenci@codplus.com'] = {
+            email: 'ogrenci@codplus.com',
+            password: 'ogrenci123',
+            username: 'Deniz Kaya',
+            name: 'Deniz Kaya',
+            role: 'ogrenci',
+            originalRole: 'ogrenci',
+            selectedLanguage: 'HTML',
+            unlockedLevel: 3,
+            xp: 850,
+            gems: 140,
+            streak: 5,
+            education: 'Üniversite',
+            department: 'Bilgisayar Mühendisliği',
+            hasCompletedOnboarding: true,
+            isLoggedIn: false
+        };
+        needsSave = true;
+    }
+    if (!db['danisman@codplus.com']) {
+        db['danisman@codplus.com'] = {
+            email: 'danisman@codplus.com',
+            password: 'danisman123',
+            username: 'Dr. Selin Demir',
+            name: 'Dr. Selin Demir',
+            role: 'danisman',
+            originalRole: 'danisman',
+            mentorProfile: {
+                field: 'Fullstack Yazılım Mimarisi & Clean Code',
+                exp: '8+ Yıl (Lead / Principal)',
+                department: 'Yazılım Mimarisi & Mühendisliği'
+            },
+            selectedLanguage: 'JavaScript',
+            unlockedLevel: 10,
+            xp: 2500,
+            gems: 350,
+            streak: 12,
+            education: 'Yüksek Lisans / Doktora',
+            department: 'Yazılım Mimarisi',
+            hasCompletedOnboarding: true,
+            isLoggedIn: false
+        };
+        needsSave = true;
+    }
+
+    if (needsSave) {
+        try { localStorage.setItem("codplus_users_db", JSON.stringify(db)); } catch(e) {}
+    }
+    return db;
 }
 
 function saveUserToDb(email, data) {
@@ -568,23 +707,67 @@ function startApp() {
     renderRoadmap();
 }
 
+function quickFillLogin(role) {
+    const emailInput = document.querySelector("#login-form input[type='email']");
+    const passInput = document.getElementById("login-pass");
+    if (role === 'danisman') {
+        if (emailInput) emailInput.value = 'danisman@codplus.com';
+        if (passInput) passInput.value = 'danisman123';
+    } else {
+        if (emailInput) emailInput.value = 'ogrenci@codplus.com';
+        if (passInput) passInput.value = 'ogrenci123';
+    }
+    handleLogin();
+}
+
 function handleLogin(e) {
     if (e) e.preventDefault();
     const emailInput = document.querySelector("#login-form input[type='email']");
     const passInput = document.getElementById("login-pass");
-    const enteredEmail = emailInput ? emailInput.value.trim() : "";
+    const enteredEmail = emailInput ? emailInput.value.trim().toLowerCase() : "";
     const enteredPass = passInput ? passInput.value.trim() : "";
 
-    if (enteredEmail) {
-        const existing = getUserByEmail(enteredEmail);
-        if (existing) {
-            userProfile = { ...userProfile, ...existing, isLoggedIn: true };
-            userName = userProfile.username || userName;
-            selectedLang = userProfile.selectedLanguage || selectedLang;
-            unlockedLevel = userProfile.unlockedLevel || unlockedLevel;
-            saveUserProfileToStorage();
-        }
+    if (!enteredEmail) {
+        alert("Lütfen e-posta adresinizi giriniz.");
+        return;
     }
+
+    const existing = getUserByEmail(enteredEmail);
+    if (existing) {
+        if (existing.password && enteredPass && existing.password !== enteredPass) {
+            alert("❌ Hatalı şifre girdiniz! Lütfen şifrenizi kontrol ediniz.");
+            return;
+        }
+        userProfile = { ...userProfile, ...existing, isLoggedIn: true };
+        userName = userProfile.username || userProfile.name || userName;
+        selectedLang = userProfile.selectedLanguage || selectedLang;
+        unlockedLevel = userProfile.unlockedLevel || unlockedLevel;
+        userXp = userProfile.xp !== undefined ? userProfile.xp : userXp;
+        userGems = userProfile.gems !== undefined ? userProfile.gems : userGems;
+        userStreak = userProfile.streak !== undefined ? userProfile.streak : userStreak;
+        saveUserProfileToStorage();
+    } else {
+        userProfile.email = enteredEmail;
+        userProfile.username = enteredEmail.split('@')[0];
+        userProfile.role = 'ogrenci';
+        userProfile.originalRole = 'ogrenci';
+        userProfile.isLoggedIn = true;
+        saveUserProfileToStorage();
+    }
+
+    // Backend SQLite sunucusuna asenkron bildir (sunucu aciksa oturumu kaydeder)
+    try {
+        fetch('http://localhost:5000/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: userProfile.email,
+                password: enteredPass,
+                name: userProfile.username || userProfile.name,
+                role: userProfile.role || 'ogrenci'
+            })
+        }).catch(() => {});
+    } catch(err) {}
 
     // Geçici şifre ile girildiyse veya mustChangePassword true ise
     if (userProfile.mustChangePassword || (userProfile.tempPassword && enteredPass === userProfile.tempPassword)) {
@@ -608,6 +791,12 @@ let currentActiveView = 'map';
 let previousActiveView = 'map';
 
 function switchView(viewName) {
+    if (viewName === 'projects' && isMentorUser() && userProfile && userProfile.role === 'ogrenci') {
+        userProfile.role = 'danisman';
+        saveUserProfileToStorage();
+        applyRoleUI('danisman');
+    }
+
     if (currentActiveView && currentActiveView !== viewName) {
         previousActiveView = currentActiveView;
     }
@@ -675,6 +864,7 @@ function switchView(viewName) {
             renderTasks();
         }
     }
+    updateMentorQuickToggleBtn();
 }
 
 function goBackToMain() {
@@ -2440,11 +2630,9 @@ function openProfileModal() {
 
     const roleToggleBtn = document.getElementById("modal-role-toggle-btn");
     if (roleToggleBtn) {
-        // GÜVENLİK KURALI: Normal öğrenciler için bu buton kesinlikle gösterilmez!
-        // Yalnızca onaylı Danışman hesapları öğrenci arayüzünü incelemek için görebilir.
-        if (isMentor) {
+        if (isMentorUser()) {
             roleToggleBtn.style.display = "inline-flex";
-            if (roleToggleText) roleToggleText.innerText = "Öğrenci Önizleme Modu";
+            if (roleToggleText) roleToggleText.innerText = (userProfile.role === 'danisman') ? "Öğrenci Görünümüne Geç" : "Danışman Paneline Dön";
         } else {
             roleToggleBtn.style.display = "none";
         }
@@ -2549,30 +2737,8 @@ function openProfileModal() {
 }
 
 function toggleUserRoleFromModal() {
-    const isMentor = (userProfile.role === 'danisman');
-
-    // GÜVENLİK KORUMASI: Normal öğrencilerin izinsiz danışman moduna geçmesi engellenir!
-    if (!isMentor) {
-        const authKey = prompt("🔒 Yetkili Güvenlik Doğrulaması:\nDanışman & Mentör moduna geçebilmek için lütfen Kurum Danışman Güvenlik Anahtarını giriniz:");
-        if (authKey !== "COD2026" && authKey !== "MENTOR2026") {
-            alert("⛔ Yetkisiz İşlem: Geçersiz güvenlik anahtarı! Normal öğrenciler danışman moduna geçemez.");
-            return;
-        }
-    }
-
-    const newRole = isMentor ? 'ogrenci' : 'danisman';
-    userProfile.role = newRole;
-    saveUserProfileToStorage();
-    applyRoleUI(newRole);
-
-    if (newRole === 'danisman') {
-        switchView('projects');
-    } else {
-        switchView('map');
-    }
-
-    openProfileModal();
-    alert(`🔄 Mod Güncellendi: Artık "${newRole === 'danisman' ? 'Danışman / Mentör' : 'Öğrenci'}" görünümündesiniz.`);
+    closeProfileModal();
+    toggleMentorStudentView();
 }
 
 function closeProfileModal() {

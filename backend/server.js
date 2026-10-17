@@ -83,6 +83,42 @@ db.serialize(() => {
         advice TEXT,
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
     )`);
+
+    // 6. Mock Demo Kullanıcılarını Otomatik Ekle (Öğrenci ve Danışman)
+    const mockUsers = [
+        {
+            email: 'ogrenci@codplus.com',
+            password: 'ogrenci123',
+            name: 'Deniz Kaya',
+            role: 'ogrenci',
+            education: 'Üniversite',
+            department: 'Bilgisayar Mühendisliği',
+            domain: 'frontend',
+            xp: 850,
+            selectedLanguage: 'html',
+            completedLessons: JSON.stringify(['html-1', 'html-2', 'html-3'])
+        },
+        {
+            email: 'danisman@codplus.com',
+            password: 'danisman123',
+            name: 'Dr. Selin Demir',
+            role: 'danisman',
+            education: 'Doktora / Akademisyen & Lead Mentor',
+            department: 'Yazılım Mimarisi & Mühendisliği',
+            domain: 'fullstack',
+            xp: 2500,
+            selectedLanguage: 'javascript',
+            completedLessons: JSON.stringify([])
+        }
+    ];
+
+    mockUsers.forEach(u => {
+        db.run(
+            `INSERT OR IGNORE INTO users (email, password, name, role, education, department, domain, xp, selectedLanguage, completedLessons)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [u.email, u.password, u.name, u.role, u.education, u.department, u.domain, u.xp, u.selectedLanguage, u.completedLessons]
+        );
+    });
 });
 
 // ============================================================
@@ -215,24 +251,47 @@ ${code}`;
 });
 
 // C) Kullanici Giris & Kayit (Auth)
+app.get('/api/users/mock', (req, res) => {
+    res.json({
+        ogrenci: {
+            email: 'ogrenci@codplus.com',
+            password: 'ogrenci123',
+            name: 'Deniz Kaya',
+            role: 'ogrenci',
+            education: 'Üniversite (Bilgisayar Mühendisliği)',
+            desc: 'Ders haritası, seviye ilerlemesi, kodlama görevleri ve akran düellosu yapabilen öğrenci profili'
+        },
+        danisman: {
+            email: 'danisman@codplus.com',
+            password: 'danisman123',
+            name: 'Dr. Selin Demir',
+            role: 'danisman',
+            education: 'Doktora & Lead Mentor',
+            desc: 'Proje, sprint ve görev yönetimi yapabilen, dilediğinde tek tıkla Öğrenci Ekranına geçiş yapabilen Danışman profili'
+        }
+    });
+});
+
 app.post('/api/auth/login', (req, res) => {
     const { email, password, name, role } = req.body;
     if (!email) return res.status(400).json({ error: "Email zorunludur." });
 
-    db.get(`SELECT * FROM users WHERE email = ?`, [email], (err, user) => {
+    const cleanEmail = email.toLowerCase().trim();
+
+    db.get(`SELECT * FROM users WHERE LOWER(email) = ?`, [cleanEmail], (err, user) => {
         if (err) return res.status(500).json({ error: err.message });
         if (!user) {
             // Otomatik kayit olustur
-            const userName = name || email.split('@')[0];
+            const userName = name || cleanEmail.split('@')[0];
             const userRole = role || 'ogrenci';
             db.run(
                 `INSERT INTO users (email, password, name, role) VALUES (?, ?, ?, ?)`,
-                [email, password || '', userName, userRole],
+                [cleanEmail, password || '', userName, userRole],
                 function(insertErr) {
                     if (insertErr) return res.status(500).json({ error: insertErr.message });
                     return res.json({
                         id: this.lastID,
-                        email,
+                        email: cleanEmail,
                         name: userName,
                         role: userRole,
                         xp: 100,
@@ -241,6 +300,10 @@ app.post('/api/auth/login', (req, res) => {
                 }
             );
         } else {
+            // Sifre kontrolu
+            if (user.password && password && user.password !== password) {
+                return res.status(401).json({ error: "Hatalı şifre! Lütfen şifrenizi kontrol ediniz." });
+            }
             return res.json({
                 ...user,
                 completedLessons: JSON.parse(user.completedLessons || '[]')

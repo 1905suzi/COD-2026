@@ -45,13 +45,33 @@ Frontend (`script.js`), aşağıdaki endpoint'lerle otomatik haberleşir:
 | Metot | Endpoint | Açıklama | Gönderilen Veri (Body) |
 |---|---|---|---|
 | `GET` | `/api/health` | Sunucu ve AI durum kontrolü | - |
+| `GET` | `/api/users/mock` | Hazır Mock Öğrenci ve Danışman bilgileri | - |
+| `POST` | `/api/auth/login` | Kullanıcı giriş ve otomatik kayıt | `{ email, password, name, role }` |
 | `POST` | `/api/ai/chat` | Coddy AI sohbeti ve mentörlük | `{ prompt, role, user, language, mentor_advices, context }` |
 | `POST` | `/api/ai/explain-code` | IDE satır satır kod analizi | `{ code, language }` |
-| `POST` | `/api/auth/login` | Kullanıcı giriş ve otomatik kayıt | `{ email, password, name, role }` |
 | `GET` | `/api/projects` | Tüm projeleri listeler | - |
 | `POST` | `/api/projects` | Yeni proje ve açık pozisyon ekler | `{ id, title, desc, domain, leadName, ... }` |
 | `GET` | `/api/messages/:receiver`| Sohbet mesajlarını çeker | `?sender=Ahmet` |
 | `POST` | `/api/messages` | Yeni mesaj kaydeder | `{ sender, receiver, text }` |
+
+---
+
+## 👥 3. Hazır Mock Demo Kullanıcı Hesapları (SQLite Veritabanında Kayıtlı)
+
+Veritabanı (`codplus.db`) ilk çalıştığında aşağıdaki 2 mock kullanıcı otomatik olarak oluşturulur:
+
+1. **Öğrenci Hesabı:**
+   - **E-posta:** `ogrenci@codplus.com`
+   - **Şifre:** `ogrenci123`
+   - **Ad:** Deniz Kaya
+   - **Rol:** `ogrenci` (Ders haritası, IDE, düellolar ve seviye ilerlemesi)
+
+2. **Danışman / Mentör Hesabı:**
+   - **E-posta:** `danisman@codplus.com`
+   - **Şifre:** `danisman123`
+   - **Ad:** Dr. Selin Demir
+   - **Rol:** `danisman` (Proje & Görev Yönetimi)
+   - **Özel Yetki:** Danışman dilediği an arayüzdeki **"Öğrenci Görünümüne Geç"** butonuna basarak ders haritasını ve öğrencilerin gördüğü tüm ekranları bir öğrenci gibi deneyimleyebilir; ardından **"Danışman Paneline Dön"** ile tekrar yönetim moduna dönebilir.
 
 ---
 
