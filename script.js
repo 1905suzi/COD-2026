@@ -911,7 +911,9 @@ function renderRoadmap() {
         }
 
         const milestoneClass = isMilestone ? "milestone" : "";
-        const offset = xOffsets[nodeIndexInLang % xOffsets.length];
+        const screenW = window.innerWidth;
+        const offsetScale = screenW < 450 ? 0.32 : (screenW < 768 ? 0.55 : (screenW < 1200 ? 0.8 : 1));
+        const offset = Math.round(xOffsets[nodeIndexInLang % xOffsets.length] * offsetScale);
         nodeIndexInLang++;
 
         // Aktif ders için Duolingo konuşma balonu
@@ -1006,11 +1008,15 @@ function drawCurvedRoadmapPath() {
     }
 }
 
-// Pencere boyutu değiştiğinde yılan yolun SVG çizgilerini otomatik güncelle
+// Pencere veya cihaz boyutu değiştiğinde yılan yolu ve eğrileri ekran genişliğine göre yeniden hesapla
+let duoResizeTimer = null;
 window.addEventListener("resize", () => {
-    if(document.getElementById("view-map") && !document.getElementById("view-map").classList.contains("hidden")) {
-        drawCurvedRoadmapPath();
-    }
+    clearTimeout(duoResizeTimer);
+    duoResizeTimer = setTimeout(() => {
+        if(document.getElementById("view-map") && !document.getElementById("view-map").classList.contains("hidden")) {
+            renderRoadmap();
+        }
+    }, 120);
 });
 
 function startLesson(id) {

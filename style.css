@@ -105,13 +105,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: clamp(16px, 3vh, 36px) clamp(16px, 3vw, 36px);
+    overflow-y: auto;
 }
 
 .landing-inner {
     display: flex;
     align-items: center;
-    gap: 64px;
+    gap: clamp(24px, 4vw, 64px);
     width: 100%;
     max-width: 1100px;
 }
@@ -125,7 +126,7 @@ body {
 }
 
 .landing-brand-title {
-    font-size: 84px;
+    font-size: clamp(42px, 6vw, 84px);
     font-weight: 900;
     line-height: 1;
     letter-spacing: -2px;
@@ -414,11 +415,13 @@ body {
 .main-content {
     flex: 1;
     overflow-y: auto;
-    padding: 40px;
+    overflow-x: hidden;
+    padding: clamp(16px, 2.5vw, 40px);
 }
 
 .view-panel {
-    max-width: 1200px;
+    max-width: min(100%, 1240px);
+    width: 100%;
     margin: 0 auto;
     animation: slideUp 0.4s ease;
 }
@@ -427,12 +430,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 48px;
+    margin-bottom: clamp(20px, 3.5vh, 48px);
     position: relative;
     z-index: 10;
+    gap: 16px;
+    flex-wrap: wrap;
 }
-.dash-header h1 { font-size: 36px; margin-bottom: 8px; }
-.dash-header p { color: var(--text-muted); font-size: 18px; }
+.dash-header h1 { font-size: clamp(22px, 3.2vw, 36px); margin-bottom: 8px; }
+.dash-header p { color: var(--text-muted); font-size: clamp(13px, 1.4vw, 18px); }
 .user-badge {
     background: rgba(59, 130, 246, 0.1);
     border: 1px solid var(--primary);
@@ -2052,15 +2057,13 @@ body.mentor-mode .nav-student-only {
 .waypoint-right { right: -130px; }
 .waypoint-icon { font-size: 20px; }
 
-/* Küçük Ekran Uyumluluğu */
-@media (max-width: 1080px) {
-    .pill-pos-1, .pill-pos-3, .pill-pos-5, .pill-pos-7, .pill-pos-9 { left: -30px; }
-    .pill-pos-2, .pill-pos-4, .pill-pos-6, .pill-pos-8, .pill-pos-10 { right: -30px; }
-    .waypoint-left { left: -20px; }
-    .waypoint-right { right: -20px; }
-}
-@media (max-width: 768px) {
-    .cute-code-pill, .roadmap-waypoint-island { display: none; }
+/* 1350px altındaki dizüstü, tablet ve mobil ekranlarda kod haplarını ve adacıkları gizle - yatay kaymayı tamamen engelle */
+@media (max-width: 1350px) {
+    .roadmap-decor-container,
+    .cute-code-pill,
+    .roadmap-waypoint-island {
+        display: none !important;
+    }
 }
 
 /* ============================================================ */
@@ -2302,14 +2305,66 @@ body.mentor-mode .nav-student-only {
 }
 #view-projects .projects-card-grid,
 #view-tasks .tasks-board-grid {
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(clamp(280px, 28vw, 360px), 1fr));
 }
 
 /* ============================================================
-   KAPSAMLI MOBİL & TABLET UYUMLULUĞU (RESPONSIVE FOR ALL DEVICES)
+   ÇOK KATMANLI TAM UYUMLULUK SİSTEMİ (RESPONSIVE FOR ALL SCREENS)
+   Masaüstü, 4K, 1440p, 1366x768 Dizüstü, Tablet ve Akıllı Telefonlar
    ============================================================ */
+
+/* 1. DİZÜSTÜ VE ORTA BOY EKRANLAR (max-width: 1200px) */
+@media (max-width: 1200px) {
+    #view-ide {
+        flex-direction: column !important;
+        height: auto !important;
+        min-height: 0 !important;
+    }
+    .ide-lesson-panel,
+    .ide-editor-panel,
+    .ide-output-panel {
+        width: 100% !important;
+        flex: none !important;
+        min-height: 380px !important;
+        margin-bottom: 16px !important;
+        border-radius: 16px !important;
+    }
+    .landing-inner {
+        gap: 36px !important;
+    }
+}
+
+/* 2. TABLET VE KÜÇÜK DİZÜSTÜ EKRANLAR (max-width: 960px) */
+@media (max-width: 960px) {
+    .landing-inner {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 28px !important;
+        text-align: center !important;
+    }
+    .landing-left,
+    .landing-right {
+        width: 100% !important;
+        max-width: 480px !important;
+        margin: 0 auto !important;
+    }
+    .cute-robot-wrap {
+        transform: scale(0.85);
+        transform-origin: center top;
+        margin-bottom: -15px;
+    }
+    .duo-unit-banner {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+        padding: 18px 16px !important;
+    }
+}
+
+/* 3. AKILLI TELEFONLAR VE DİKEY TABLETLER (max-width: 768px) */
 @media (max-width: 768px) {
-    /* Ana Yerleşim & Alt Menü Çubuğu (Bottom Navigation Bar) */
+    /* Genel Yerleşim: Alt Menü Çubuğu (Bottom Navigation Bar) */
     #dashboard {
         flex-direction: column !important;
         height: 100vh !important;
@@ -2323,16 +2378,16 @@ body.mentor-mode .nav-student-only {
         right: 0 !important;
         width: 100% !important;
         height: 60px !important;
-        padding: 0 10px !important;
+        padding: 0 8px !important;
         flex-direction: row !important;
         justify-content: space-around !important;
         align-items: center !important;
-        background: rgba(8, 12, 22, 0.97) !important;
+        background: rgba(8, 12, 22, 0.98) !important;
         backdrop-filter: blur(25px) !important;
         -webkit-backdrop-filter: blur(25px) !important;
         border-right: none !important;
         border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.6) !important;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.7) !important;
         z-index: 9999 !important;
     }
 
@@ -2349,113 +2404,107 @@ body.mentor-mode .nav-student-only {
     }
 
     .main-content {
-        padding: 16px 12px 78px 12px !important;
+        padding: 14px 10px 78px 10px !important;
         width: 100% !important;
         box-sizing: border-box !important;
         overflow-x: hidden !important;
     }
 
-    /* Dashboard & Harita Başlığı */
+    /* Giriş & Kayıt Ekranı */
+    #landing {
+        padding: 16px 12px !important;
+    }
+    .landing-brand-title {
+        font-size: clamp(36px, 11vw, 56px) !important;
+    }
+    .landing-brand-sub {
+        font-size: 14px !important;
+        margin-bottom: 20px !important;
+    }
+    .cute-robot-wrap {
+        transform: scale(0.72) !important;
+        margin-bottom: -30px !important;
+    }
+    .auth-box,
+    .glass-card {
+        padding: 18px 14px !important;
+        border-radius: 20px !important;
+    }
+
+    /* Onboarding Adımları */
+    .ob-card {
+        padding: 18px 14px !important;
+        margin: 10px auto !important;
+    }
+    .step-title {
+        font-size: 22px !important;
+    }
+    .step-desc {
+        font-size: 13px !important;
+        margin-bottom: 20px !important;
+    }
+
+    /* Dashboard Başlığı & Gamification */
     .dash-header {
         flex-direction: column !important;
         align-items: flex-start !important;
         gap: 12px !important;
-        margin-bottom: 20px !important;
+        margin-bottom: 18px !important;
     }
-
     .dash-header h1 {
-        font-size: 24px !important;
+        font-size: 22px !important;
     }
-
     .dash-header p {
-        font-size: 13.5px !important;
+        font-size: 13px !important;
     }
-
     .coddy-stats-bar {
         width: 100% !important;
         display: flex !important;
         flex-wrap: wrap !important;
         gap: 6px !important;
-        justify-content: space-between !important;
     }
-
     .coddy-stat-item {
         padding: 6px 10px !important;
-        font-size: 12px !important;
+        font-size: 11.5px !important;
         flex: 1 1 calc(50% - 6px) !important;
         justify-content: center !important;
     }
 
-    /* Duolingo Bölüm Bannerı */
-    .duo-unit-banner {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 10px !important;
-        padding: 16px 14px !important;
-    }
-
-    .duo-unit-title {
-        font-size: 18px !important;
-    }
-
-    .duo-unit-desc {
-        font-size: 12.5px !important;
-    }
-
-    /* Yol Haritası ve Düğümler */
+    /* Yol Haritası (Roadmap) */
     .duo-roadmap-container {
-        padding: 16px 6px !important;
+        padding: 12px 4px !important;
         overflow-x: hidden !important;
     }
-
     .duo-node-row {
-        margin: 20px auto !important;
-        max-width: 100% !important;
-        transform: scale(0.92) !important;
+        margin-bottom: 32px !important;
     }
-
+    .duo-node-btn {
+        width: 58px !important;
+        height: 58px !important;
+        font-size: 20px !important;
+    }
     .duo-node-label {
         max-width: 140px !important;
+        padding: 4px 8px !important;
     }
-
     .duo-node-label h4 {
-        font-size: 13px !important;
+        font-size: 11.5px !important;
     }
-
     .duo-node-label p {
-        font-size: 11px !important;
+        font-size: 10px !important;
     }
 
-    /* IDE & Çalışma Alanı */
-    #view-ide {
-        flex-direction: column !important;
-        height: auto !important;
-        min-height: 0 !important;
-    }
-
-    .ide-lesson-panel,
-    .ide-editor-panel,
-    .ide-output-panel {
-        width: 100% !important;
-        min-height: 360px !important;
-        margin-bottom: 14px !important;
-        border-radius: 14px !important;
-    }
-
+    /* IDE Editör */
     #sandbox-lang-tabs {
         overflow-x: auto !important;
         -webkit-overflow-scrolling: touch !important;
         white-space: nowrap !important;
-        max-width: 100% !important;
+        padding-bottom: 4px !important;
     }
-
     #code-editor {
-        min-height: 240px !important;
-        font-size: 13.5px !important;
-    }
-
-    #output-frame, #output-console, #output-ai-lines {
-        min-height: 250px !important;
+        min-height: 220px !important;
+        font-size: 13px !important;
+        padding: 12px !important;
     }
 
     /* Projeler & Görevler Ekranı */
@@ -2464,21 +2513,20 @@ body.mentor-mode .nav-student-only {
         padding: 14px 10px 80px 10px !important;
         min-height: calc(100vh - 60px) !important;
     }
-
     #view-projects .projects-card-grid,
     #view-tasks .tasks-board-grid {
         grid-template-columns: 1fr !important;
         gap: 12px !important;
     }
-
-    .proj-filters, .task-filters {
+    .proj-filters,
+    .task-filters {
         flex-direction: column !important;
         align-items: stretch !important;
-        gap: 10px !important;
+        gap: 8px !important;
         width: 100% !important;
     }
 
-    /* Kitap & El Kitabı Ekranı */
+    /* Kitap Sekmeleri */
     .book-tabs {
         overflow-x: auto !important;
         -webkit-overflow-scrolling: touch !important;
@@ -2486,51 +2534,38 @@ body.mentor-mode .nav-student-only {
         padding-bottom: 6px !important;
     }
 
-    /* Giriş & Onboarding Ekranları */
-    .landing-nav {
-        padding: 12px 14px !important;
-    }
-
-    .landing-hero {
-        flex-direction: column !important;
-        padding: 20px 12px !important;
-        gap: 20px !important;
-        text-align: center !important;
-    }
-
-    .landing-title {
-        font-size: 26px !important;
-        line-height: 1.25 !important;
-    }
-
-    .landing-subtitle {
-        font-size: 13.5px !important;
-    }
-
-    .auth-box, .step-card, .step-box, .glass-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 16px 12px !important;
-        box-sizing: border-box !important;
-    }
-
-    /* Modal Popuplar */
-    .modal-card,
-    .profile-card,
-    .review-card,
-    .task-card-modal {
+    /* Tüm Modal Pencereler */
+    .coddy-modal-card {
         width: 95vw !important;
         max-width: 95vw !important;
         max-height: 88vh !important;
+        overflow-y: auto !important;
         margin: 10px auto !important;
-        padding: 16px 12px !important;
-        border-radius: 14px !important;
+        padding: 18px 14px !important;
+        border-radius: 18px !important;
         box-sizing: border-box !important;
     }
 
-    /* Form Girişleri Otomatik Yakınlaştırma Koruması (iOS Safari) */
+    /* iOS Safari Otomatik Yakınlaştırma Koruması */
     input, select, textarea, button {
         font-size: 14px !important;
+    }
+}
+
+/* 4. ÇOK KÜÇÜK TELEFONLAR (max-width: 380px) */
+@media (max-width: 380px) {
+    .sidebar .nav-item {
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 16px !important;
+    }
+    .duo-node-btn {
+        width: 52px !important;
+        height: 52px !important;
+        font-size: 18px !important;
+    }
+    .dash-header h1 {
+        font-size: 19px !important;
     }
 }
 
