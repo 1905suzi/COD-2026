@@ -2304,3 +2304,233 @@ body.mentor-mode .nav-student-only {
 #view-tasks .tasks-board-grid {
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
 }
+
+/* ============================================================
+   KAPSAMLI MOBİL & TABLET UYUMLULUĞU (RESPONSIVE FOR ALL DEVICES)
+   ============================================================ */
+@media (max-width: 768px) {
+    /* Ana Yerleşim & Alt Menü Çubuğu (Bottom Navigation Bar) */
+    #dashboard {
+        flex-direction: column !important;
+        height: 100vh !important;
+        overflow: hidden !important;
+    }
+
+    .sidebar {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 60px !important;
+        padding: 0 10px !important;
+        flex-direction: row !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+        background: rgba(8, 12, 22, 0.97) !important;
+        backdrop-filter: blur(25px) !important;
+        -webkit-backdrop-filter: blur(25px) !important;
+        border-right: none !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.6) !important;
+        z-index: 9999 !important;
+    }
+
+    .sidebar .logo {
+        display: none !important;
+    }
+
+    .sidebar .nav-item {
+        margin-bottom: 0 !important;
+        width: 44px !important;
+        height: 44px !important;
+        border-radius: 12px !important;
+        font-size: 19px !important;
+    }
+
+    .main-content {
+        padding: 16px 12px 78px 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+
+    /* Dashboard & Harita Başlığı */
+    .dash-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .dash-header h1 {
+        font-size: 24px !important;
+    }
+
+    .dash-header p {
+        font-size: 13.5px !important;
+    }
+
+    .coddy-stats-bar {
+        width: 100% !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+        justify-content: space-between !important;
+    }
+
+    .coddy-stat-item {
+        padding: 6px 10px !important;
+        font-size: 12px !important;
+        flex: 1 1 calc(50% - 6px) !important;
+        justify-content: center !important;
+    }
+
+    /* Duolingo Bölüm Bannerı */
+    .duo-unit-banner {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+        padding: 16px 14px !important;
+    }
+
+    .duo-unit-title {
+        font-size: 18px !important;
+    }
+
+    .duo-unit-desc {
+        font-size: 12.5px !important;
+    }
+
+    /* Yol Haritası ve Düğümler */
+    .duo-roadmap-container {
+        padding: 16px 6px !important;
+        overflow-x: hidden !important;
+    }
+
+    .duo-node-row {
+        margin: 20px auto !important;
+        max-width: 100% !important;
+        transform: scale(0.92) !important;
+    }
+
+    .duo-node-label {
+        max-width: 140px !important;
+    }
+
+    .duo-node-label h4 {
+        font-size: 13px !important;
+    }
+
+    .duo-node-label p {
+        font-size: 11px !important;
+    }
+
+    /* IDE & Çalışma Alanı */
+    #view-ide {
+        flex-direction: column !important;
+        height: auto !important;
+        min-height: 0 !important;
+    }
+
+    .ide-lesson-panel,
+    .ide-editor-panel,
+    .ide-output-panel {
+        width: 100% !important;
+        min-height: 360px !important;
+        margin-bottom: 14px !important;
+        border-radius: 14px !important;
+    }
+
+    #sandbox-lang-tabs {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        white-space: nowrap !important;
+        max-width: 100% !important;
+    }
+
+    #code-editor {
+        min-height: 240px !important;
+        font-size: 13.5px !important;
+    }
+
+    #output-frame, #output-console, #output-ai-lines {
+        min-height: 250px !important;
+    }
+
+    /* Projeler & Görevler Ekranı */
+    #view-projects > .glass-card,
+    #view-tasks > .glass-card {
+        padding: 14px 10px 80px 10px !important;
+        min-height: calc(100vh - 60px) !important;
+    }
+
+    #view-projects .projects-card-grid,
+    #view-tasks .tasks-board-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .proj-filters, .task-filters {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        width: 100% !important;
+    }
+
+    /* Kitap & El Kitabı Ekranı */
+    .book-tabs {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        white-space: nowrap !important;
+        padding-bottom: 6px !important;
+    }
+
+    /* Giriş & Onboarding Ekranları */
+    .landing-nav {
+        padding: 12px 14px !important;
+    }
+
+    .landing-hero {
+        flex-direction: column !important;
+        padding: 20px 12px !important;
+        gap: 20px !important;
+        text-align: center !important;
+    }
+
+    .landing-title {
+        font-size: 26px !important;
+        line-height: 1.25 !important;
+    }
+
+    .landing-subtitle {
+        font-size: 13.5px !important;
+    }
+
+    .auth-box, .step-card, .step-box, .glass-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 16px 12px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Modal Popuplar */
+    .modal-card,
+    .profile-card,
+    .review-card,
+    .task-card-modal {
+        width: 95vw !important;
+        max-width: 95vw !important;
+        max-height: 88vh !important;
+        margin: 10px auto !important;
+        padding: 16px 12px !important;
+        border-radius: 14px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Form Girişleri Otomatik Yakınlaştırma Koruması (iOS Safari) */
+    input, select, textarea, button {
+        font-size: 14px !important;
+    }
+}
+
