@@ -333,9 +333,9 @@
                     <h2 class="step-title">Seni tanıyalım 👋</h2>
                     <p class="step-desc">Sana nasıl hitap edelim?</p>
                     <div class="input-group">
-                        <input type="text" id="ob-name" placeholder="Adın veya takma adın" required/>
+                        <input type="text" id="ob-name" placeholder="Adın veya takma adın" required onkeydown="if(event.key==='Enter') submitOnboardingName();"/>
                     </div>
-                    <button class="btn-primary mt-4" onclick="nextStep(2)">
+                    <button class="btn-primary mt-4" onclick="submitOnboardingName()">
                         <span>Devam Et</span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
@@ -1111,7 +1111,7 @@
                 <div style="flex:1;">
                     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
                         <div style="display:flex; align-items:center; gap:8px;">
-                            <h3 id="modal-profile-name" style="margin:0; color:#f8fafc; font-size:18px;">Deniz</h3>
+                            <h3 id="modal-profile-name" style="margin:0; color:#f8fafc; font-size:18px;">Kullanıcı</h3>
                             <span id="modal-profile-role-badge" style="background:rgba(56,189,248,0.15); color:#38bdf8; padding:2px 8px; border-radius:10px; font-size:11px; font-weight:bold;">Öğrenci</span>
                         </div>
                         <button type="button" id="modal-role-toggle-btn" onclick="toggleUserRoleFromModal()" style="display:none; background:rgba(255,255,255,0.08); border:1px solid var(--glass-border); color:#e2e8f0; font-size:11px; padding:4px 10px; border-radius:8px; cursor:pointer; font-weight:600; align-items:center; gap:5px;" title="Danışman / Öğrenci görünümünü değiştir">

@@ -46,9 +46,29 @@ function startOnboarding() {
     document.getElementById("onboarding").classList.remove("hidden");
 }
 
+function submitOnboardingName() {
+    const obInput = document.getElementById("ob-name");
+    const enteredName = obInput ? obInput.value.trim() : "";
+    if (enteredName) {
+        userName = enteredName;
+        userProfile.username = enteredName;
+        userProfile.name = enteredName;
+        if (!userProfile.email) {
+            userProfile.email = `${enteredName.toLowerCase().replace(/[^a-z0-9]/g, '') || 'ogrenci'}@codplus.dev`;
+        }
+        saveUserProfileToStorage();
+        if (userProfile.email) {
+            saveUserToDb(userProfile.email, userProfile);
+        }
+    }
+    const greet = document.getElementById("greeting-title");
+    if (greet) greet.innerText = `Harika, ${userName || 'Geliştirici'}!`;
+    nextStep(2);
+}
+
 function validateRegister() {
     const name = document.getElementById("reg-name").value.trim();
-    const email = document.getElementById("reg-email").value.trim();
+    const email = document.getElementById("reg-email").value.trim().toLowerCase();
     const pass = document.getElementById("reg-pass").value;
     const confirmPass = document.getElementById("reg-pass-confirm").value;
     const edu = document.getElementById("reg-education") ? document.getElementById("reg-education").value : "Üniversite";
@@ -69,33 +89,82 @@ function validateRegister() {
     
     errorMsg.style.display = "none";
     userName = name;
-    userProfile.username = name;
-    userProfile.email = email;
-    userProfile.educationLevel = edu;
-    userProfile.role = role;
-    saveUserProfileToStorage();
-    
-    // Eğer Mentör/Danışman seçildiyse: Dil seçimi ve seviye sınavını atla, doğrudan Projeler & Ekip ekranına yönlendir!
-    if (role === 'danisman') {
-        const mentorField = document.getElementById("reg-mentor-field") ? document.getElementById("reg-mentor-field").value : "Fullstack Web Geliştirme";
-        const mentorExp = document.getElementById("reg-mentor-exp") ? document.getElementById("reg-mentor-exp").value : "3-5 Yıl (Mid-Senior)";
-        const mentorCompany = document.getElementById("reg-mentor-company") ? document.getElementById("reg-mentor-company").value.trim() : "Teknopark / Şirket";
-        const mentorBio = document.getElementById("reg-mentor-bio") ? document.getElementById("reg-mentor-bio").value.trim() : "Genç geliştiricilere gerçek projelerde mentörlük.";
-        
-        userProfile.mentorProfile = {
+
+    const isMentor = (role === 'danisman');
+    let mentorField = "";
+    let mentorExp = "";
+    let mentorCompany = "";
+    let mentorBio = "";
+
+    if (isMentor) {
+        mentorField = document.getElementById("reg-mentor-field") ? document.getElementById("reg-mentor-field").value : "Fullstack Web Geliştirme";
+        mentorExp = document.getElementById("reg-mentor-exp") ? document.getElementById("reg-mentor-exp").value : "3-5 Yıl (Mid-Senior)";
+        mentorCompany = document.getElementById("reg-mentor-company") ? document.getElementById("reg-mentor-company").value.trim() : "";
+        mentorBio = document.getElementById("reg-mentor-bio") ? document.getElementById("reg-mentor-bio").value.trim() : "";
+    }
+
+    // Yeni kullanıcı için tertemiz, önceki oturumdan bağımsız profil oluştur
+    userProfile = {
+        username: name,
+        name: name,
+        email: email,
+        password: pass,
+        educationLevel: edu,
+        mentorLevel: isMentor ? edu : "",
+        role: role,
+        originalRole: role,
+        isMentorAccount: isMentor,
+        department: isMentor ? mentorField : "",
+        domain: isMentor ? "fullstack" : "frontend",
+        languages: isMentor ? "C#, Python, SQL, JavaScript" : "",
+        projects: isMentor ? (mentorCompany ? `${mentorCompany} Projeleri` : "") : "",
+        bio: isMentor ? mentorBio : "",
+        avatar: isMentor ? "👨‍🏫" : "🧑‍💻",
+        isLoggedIn: true,
+        authProvider: "local",
+        xp: isMentor ? 2500 : 100,
+        gems: isMentor ? 350 : 50,
+        streak: 1,
+        level: isMentor ? "Kıdemli Mimar & Mentör" : "Çırak",
+        friends: [],
+        mentorProfile: isMentor ? {
             field: mentorField,
             experience: mentorExp,
             company: mentorCompany,
             bio: mentorBio
-        };
+        } : null
+    };
+
+    saveUserProfileToStorage();
+    saveUserToDb(email, userProfile);
+
+    // Backend SQLite sunucusuna da otomatik kaydet
+    try {
+        fetch('http://localhost:5000/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: email,
+                password: pass,
+                name: name,
+                role: role
+            })
+        }).catch(() => {});
+    } catch(e) {}
+    
+    // Eğer Mentör/Danışman seçildiyse: Dil seçimi ve seviye sınavını atla, doğrudan Projeler & Ekip ekranına yönlendir!
+    if (role === 'danisman') {
         startMentorApp();
         return;
     }
 
-    document.getElementById("greeting-title").innerText = `Harika, ${userName}!`;
+    const greet = document.getElementById("greeting-title");
+    if (greet) greet.innerText = `Harika, ${userName}!`;
+    const obNameInput = document.getElementById("ob-name");
+    if (obNameInput) obNameInput.value = userName;
     
     startOnboarding();
-    nextStep(2); // İsim adımını (Step 1) atla
+    nextStep(2); // İsim zaten alındığı için doğrudan başlangıç adımına geç
 }
 
 function toggleMentorRegistrationFields(prefix) {
@@ -738,8 +807,16 @@ function handleLogin(e) {
             alert("❌ Hatalı şifre girdiniz! Lütfen şifrenizi kontrol ediniz.");
             return;
         }
-        userProfile = { ...userProfile, ...existing, isLoggedIn: true };
-        userName = userProfile.username || userProfile.name || userName;
+        const loadedName = existing.username || existing.name || enteredEmail.split('@')[0];
+        userProfile = {
+            ...createDefaultUserProfile(),
+            ...existing,
+            email: enteredEmail,
+            username: loadedName,
+            name: loadedName,
+            isLoggedIn: true
+        };
+        userName = loadedName;
         selectedLang = userProfile.selectedLanguage || selectedLang;
         unlockedLevel = userProfile.unlockedLevel || unlockedLevel;
         userXp = userProfile.xp !== undefined ? userProfile.xp : userXp;
@@ -747,12 +824,34 @@ function handleLogin(e) {
         userStreak = userProfile.streak !== undefined ? userProfile.streak : userStreak;
         saveUserProfileToStorage();
     } else {
-        userProfile.email = enteredEmail;
-        userProfile.username = enteredEmail.split('@')[0];
-        userProfile.role = 'ogrenci';
-        userProfile.originalRole = 'ogrenci';
-        userProfile.isLoggedIn = true;
+        const cleanName = enteredEmail.split('@')[0];
+        const formattedName = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
+        userProfile = {
+            ...createDefaultUserProfile(),
+            username: formattedName,
+            name: formattedName,
+            email: enteredEmail,
+            password: enteredPass,
+            educationLevel: "Üniversite",
+            department: "",
+            domain: "frontend",
+            languages: "",
+            projects: "",
+            bio: "",
+            avatar: "🧑‍💻",
+            role: 'ogrenci',
+            originalRole: 'ogrenci',
+            isMentorAccount: false,
+            isLoggedIn: true,
+            xp: 100,
+            gems: 50,
+            streak: 1,
+            level: "Çırak",
+            friends: []
+        };
+        userName = formattedName;
         saveUserProfileToStorage();
+        saveUserToDb(enteredEmail, userProfile);
     }
 
     // Backend SQLite sunucusuna asenkron bildir (sunucu aciksa oturumu kaydeder)
@@ -2283,40 +2382,49 @@ document.addEventListener("keydown", (e) => {
 });
 
 // --- KULLANICI PROFİLİ, EĞİTİM DÜZEYİ & OYUNLAŞTIRMA MANTIĞI ---
-let userProfile = {
-    username: "Deniz",
-    email: "ogrenci@codplus.edu",
-    educationLevel: "Üniversite",
-    department: "Bilgisayar Mühendisliği",
-    domain: "frontend",
-    languages: "HTML5, CSS3, JavaScript, Python",
-    projects: "TÜBİTAK 2242 Sokratik Öğrenme Platformu",
-    bio: "Web teknolojileri ve modern yapay zekâ odaklı yazılım geliştiricisi.",
-    avatar: "🧑‍🚀",
-    role: "ogrenci",
-    mustChangePassword: false,
-    tempPassword: null,
-    authProvider: "local",
-    friends: [
-        { name: "burak_coder", league: "Çırak Ligi", domain: "Frontend", xp: 100, avatar: "👨‍💻" },
-        { name: "selin_dev", league: "Kalfa Ligi", domain: "Backend", xp: 150, avatar: "👩‍🔬" }
-    ],
-    xp: 350,
-    gems: 120,
-    streak: 3,
-    level: "Çırak"
-};
+function createDefaultUserProfile() {
+    return {
+        username: "",
+        name: "",
+        email: "",
+        educationLevel: "Üniversite",
+        mentorLevel: "",
+        department: "",
+        domain: "frontend",
+        languages: "",
+        projects: "",
+        bio: "",
+        avatar: "🧑‍💻",
+        role: "ogrenci",
+        originalRole: "ogrenci",
+        isMentorAccount: false,
+        mustChangePassword: false,
+        tempPassword: null,
+        authProvider: "local",
+        friends: [
+            { name: "burak_coder", league: "Çırak Ligi", domain: "Frontend", xp: 100, avatar: "👨‍💻" },
+            { name: "selin_dev", league: "Kalfa Ligi", domain: "Backend", xp: 150, avatar: "👩‍🔬" }
+        ],
+        xp: 100,
+        gems: 50,
+        streak: 1,
+        level: "Çırak",
+        isLoggedIn: false
+    };
+}
+
+let userProfile = createDefaultUserProfile();
 
 function initUserProfile() {
     const saved = localStorage.getItem("codplus_user_profile");
     if (saved) {
         try {
             const parsed = JSON.parse(saved);
-            userProfile = { ...userProfile, ...parsed };
+            userProfile = { ...createDefaultUserProfile(), ...parsed };
             userXp = userProfile.xp !== undefined ? userProfile.xp : userXp;
             userGems = userProfile.gems !== undefined ? userProfile.gems : userGems;
             userStreak = userProfile.streak !== undefined ? userProfile.streak : userStreak;
-            userName = userProfile.username || userName;
+            userName = userProfile.username || userProfile.name || userName;
             if (userProfile.selectedLanguage) {
                 selectedLang = userProfile.selectedLanguage;
             }
@@ -2329,8 +2437,6 @@ function initUserProfile() {
         } catch (e) {
             console.error("Profil yüklenirken hata:", e);
         }
-    } else {
-        saveUserProfileToStorage();
     }
     updateUserLevel();
     updateCoddyStats();
@@ -2344,6 +2450,7 @@ function updateUserLevel() {
 }
 
 function saveUserProfileToStorage() {
+    if (!userProfile) return;
     userProfile.xp = userXp;
     userProfile.gems = userGems;
     userProfile.streak = userStreak;
@@ -2356,10 +2463,8 @@ function saveUserProfileToStorage() {
     userProfile.langProgress = getLangProgress();
     userProfile.projectUnlocked = getProjectEligibility().ok;
     updateUserLevel();
-    localStorage.setItem("codplus_user_profile", JSON.stringify(userProfile));
-
-    // Kalıcı kullanıcı veritabanına da eşitle
     if (userProfile.email) {
+        localStorage.setItem("codplus_user_profile", JSON.stringify(userProfile));
         saveUserToDb(userProfile.email, userProfile);
     }
 }
@@ -2387,9 +2492,10 @@ function logoutUser() {
     if (!confirm("Oturumunuzu kapatıp giriş sayfasına dönmek istediğinize emin misiniz?")) {
         return;
     }
-    userProfile.isLoggedIn = false;
-    saveUserProfileToStorage();
+    userProfile = createDefaultUserProfile();
+    userName = "";
     try {
+        localStorage.removeItem("codplus_user_profile");
         localStorage.removeItem("codplus_active_view");
     } catch(e) {}
 
@@ -2404,6 +2510,7 @@ function logoutUser() {
     if (land) land.classList.remove("hidden");
 
     document.body.classList.remove("mentor-mode");
+    applyRoleUI('ogrenci');
 }
 
 function renderMentorProfileTab() {
@@ -2412,7 +2519,8 @@ function renderMentorProfileTab() {
 
     const isMentor = (userProfile.role === 'danisman');
     if (isMentor) {
-        const myProjects = getProjects().filter(p => p.creator === (userProfile.username || 'Deniz Kaya'));
+        const mentorDisplayName = userProfile.username || userProfile.name || 'Danışman';
+        const myProjects = getProjects().filter(p => p.creator === mentorDisplayName);
         const allTasks = getTasks();
         const pendingReviewCount = allTasks.filter(t => t.status === 'review').length;
 
@@ -2448,7 +2556,7 @@ function renderMentorProfileTab() {
                         <span style="font-size:11px; text-transform:uppercase; color:#f59e0b; font-weight:800; letter-spacing:0.8px;">
                             <i class="fa-solid fa-crown"></i> Kıdemli Danışman & Mimar Portalı
                         </span>
-                        <h4 style="margin:4px 0 2px 0; color:#f8fafc; font-size:17px; font-weight:700;">${escapeHtml(userProfile.username || 'Deniz Kaya')}</h4>
+                        <h4 style="margin:4px 0 2px 0; color:#f8fafc; font-size:17px; font-weight:700;">${escapeHtml(mentorDisplayName)}</h4>
                         <p style="margin:0; color:#cbd5e1; font-size:12px;">Yönetilen Aktif Proje: <strong>${myProjects.length}</strong> | Danışman İtibarı: <strong>${userProfile.xp || userXp} XP</strong></p>
                     </div>
                     <span style="background:rgba(245, 158, 11, 0.2); color:#fbbf24; border:1px solid rgba(245, 158, 11, 0.4); font-size:11.5px; padding:4px 12px; border-radius:12px; font-weight:700; display:flex; align-items:center; gap:6px;">
@@ -2588,9 +2696,11 @@ function openProfileModal() {
     if (!modal) return;
 
     const isMentor = (userProfile.role === 'danisman');
+    const displayName = userProfile.username || userProfile.name || (isMentor ? "Danışman" : "Kullanıcı");
+    const displayEmail = userProfile.email || "";
     
-    if (document.getElementById("profile-username")) document.getElementById("profile-username").value = userProfile.username || "";
-    if (document.getElementById("profile-email")) document.getElementById("profile-email").value = userProfile.email || "";
+    if (document.getElementById("profile-username")) document.getElementById("profile-username").value = displayName;
+    if (document.getElementById("profile-email")) document.getElementById("profile-email").value = displayEmail;
     if (document.getElementById("profile-department")) document.getElementById("profile-department").value = userProfile.department || "";
     if (document.getElementById("profile-domain")) document.getElementById("profile-domain").value = userProfile.domain || "frontend";
     if (document.getElementById("profile-languages")) document.getElementById("profile-languages").value = userProfile.languages || "";
@@ -2604,7 +2714,7 @@ function openProfileModal() {
 
     // Profil İsim
     if (document.getElementById("modal-profile-name")) {
-        document.getElementById("modal-profile-name").innerText = userProfile.username || (isMentor ? "Danışman" : "Kullanıcı");
+        document.getElementById("modal-profile-name").innerText = displayName;
     }
 
     // Rol Rozeti ve Stili
@@ -2652,7 +2762,7 @@ function openProfileModal() {
 
     if (isMentor) {
         if (gemsContainer) {
-            const myProjs = getProjects().filter(p => p.creator === (userProfile.username || 'Deniz Kaya'));
+            const myProjs = getProjects().filter(p => p.creator === displayName);
             gemsContainer.innerHTML = `<span style="color:#f59e0b; font-weight:700;"><i class="fa-solid fa-diagram-project"></i> ${myProjs.length} Proje</span>`;
         }
     } else {
@@ -2761,6 +2871,7 @@ function saveUserProfile(e) {
 
     if (u) {
         userProfile.username = u;
+        userProfile.name = u;
         userName = u;
     }
     if (em) userProfile.email = em;
@@ -2776,6 +2887,12 @@ function saveUserProfile(e) {
     userProfile.bio = bio;
 
     saveUserProfileToStorage();
+    if (userProfile.email) {
+        saveUserToDb(userProfile.email, userProfile);
+    }
+    if (document.getElementById("modal-profile-name")) {
+        document.getElementById("modal-profile-name").innerText = userProfile.username || userProfile.name || (isMentor ? "Danışman" : "Kullanıcı");
+    }
     closeProfileModal();
     alert(`🎉 ${isMentor ? 'Danışman' : 'Öğrenci'} profil bilgileriniz, uzmanlık alanınız ve biyografiniz başarıyla güncellendi!`);
 }
