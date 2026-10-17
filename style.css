@@ -449,7 +449,7 @@ body {
 }
 
 .view-panel {
-    max-width: 1200px;
+    max-width: 1350px;
     width: 100%;
     margin: 0 auto;
     animation: slideUp 0.4s ease;
@@ -482,10 +482,10 @@ body {
 /* INTERACTIVE SMART ROADMAP */
 .roadmap {
     position: relative;
-    max-width: min(600px, 100%);
+    max-width: min(1050px, 96%);
     width: 100%;
     margin: 0 auto;
-    padding: 10px 0 80px;
+    padding: 10px 0 100px;
     box-sizing: border-box;
     overflow-x: hidden;
 }
@@ -1275,15 +1275,30 @@ body {
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    z-index: 99999 !important;
+    z-index: 999999 !important;
     border-radius: 0 !important;
-    background: #0b1120 !important;
+    background: #090d16 !important;
+    margin: 0 !important;
+    border: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-shadow: none !important;
+}
+
+.pdf-reader-box.fullscreen #pdf-viewport {
+    flex: 1 !important;
+    height: calc(100vh - 65px) !important;
+    overflow-y: auto !important;
+    padding: 35px 20px 80px !important;
+    box-sizing: border-box !important;
 }
 
 .pdf-reader-box.fullscreen .pdf-a5-sheet {
-    max-width: 950px !important;
-    padding: 60px 75px !important;
-    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8) !important;
+    max-width: 960px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 50px 65px !important;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85) !important;
 }
 
 /* A5 Formatında Beyaz Doküman Sayfası */
@@ -2041,7 +2056,6 @@ body.mentor-mode .nav-student-only {
 .pill-cute { border-color: rgba(236, 72, 153, 0.35); }
 .pill-cute .pill-tag { background: rgba(236, 72, 153, 0.2); color: #f472b6; }
 
-/* Orantılı ve Güvenli Konumlandırma - Asla Ekran Dışına Taşmaz */
 .pill-pos-1 { top: 380px; left: 1%; animation-delay: 0s; }
 .pill-pos-2 { top: 460px; right: 1%; animation-delay: -2s; }
 .pill-pos-3 { top: 620px; left: 2%; animation-delay: -4s; }
@@ -2052,6 +2066,30 @@ body.mentor-mode .nav-student-only {
 .pill-pos-8 { top: 1180px; right: 2%; animation-delay: -0.5s; }
 .pill-pos-9 { top: 1340px; left: 1%; animation-delay: -4.5s; }
 .pill-pos-10 { top: 1420px; right: 1%; animation-delay: -1s; }
+.pill-pos-11 { top: 1560px; left: 1.5%; animation-delay: -3.5s; }
+.pill-pos-12 { top: 1680px; right: 1.8%; animation-delay: -2.2s; }
+.pill-pos-13 { top: 1820px; left: 2%; animation-delay: -0.8s; }
+.pill-pos-14 { top: 1960px; right: 1.5%; animation-delay: -4.8s; }
+.pill-pos-15 { top: 2100px; left: 1%; animation-delay: -1.8s; }
+.pill-pos-16 { top: 2240px; right: 2%; animation-delay: -3.2s; }
+.pill-pos-17 { top: 2380px; left: 2%; animation-delay: -5.1s; }
+.pill-pos-18 { top: 2520px; right: 1.2%; animation-delay: -2.7s; }
+.pill-pos-19 { top: 2660px; left: 1.5%; animation-delay: -0.9s; }
+.pill-pos-20 { top: 2800px; right: 2.2%; animation-delay: -4.1s; }
+.pill-pos-21 { top: 2940px; left: 2%; animation-delay: -1.4s; }
+.pill-pos-22 { top: 3080px; right: 1.6%; animation-delay: -3.8s; }
+.pill-pos-23 { top: 3220px; left: 1.2%; animation-delay: -5.3s; }
+.pill-pos-24 { top: 3360px; right: 2%; animation-delay: -2.1s; }
+.pill-pos-25 { top: 3500px; left: 2.2%; animation-delay: -0.4s; }
+.pill-pos-26 { top: 3640px; right: 1.4%; animation-delay: -4.6s; }
+.pill-pos-27 { top: 3780px; left: 1%; animation-delay: -1.7s; }
+.pill-pos-28 { top: 3920px; right: 2.1%; animation-delay: -3.4s; }
+.pill-pos-29 { top: 4060px; left: 1.8%; animation-delay: -5s; }
+.pill-pos-30 { top: 4200px; right: 1.5%; animation-delay: -2.3s; }
+.pill-pos-31 { top: 4340px; left: 2%; animation-delay: -0.7s; }
+.pill-pos-32 { top: 4480px; right: 2%; animation-delay: -3.9s; }
+.pill-pos-33 { top: 4620px; left: 1.2%; animation-delay: -1.9s; }
+.pill-pos-34 { top: 4760px; right: 1.8%; animation-delay: -4.3s; }
 
 @keyframes floatCutePill {
     0% { transform: translateY(0) rotate(0deg); }

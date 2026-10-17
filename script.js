@@ -1120,7 +1120,10 @@ function switchView(viewName) {
         if (navBtn) navBtn.classList.add("active");
 
         if(viewName === 'map') {
-            setTimeout(drawCurvedRoadmapPath, 60);
+            setTimeout(() => {
+                drawCurvedRoadmapPath();
+                scrollToActiveLesson();
+            }, 80);
         }
         if(viewName === 'book') {
             if (currentPdfLang) {
@@ -1206,9 +1209,12 @@ function switchBookTab(langKey) {
 }
 
 function closePdfReader() {
+    const readerFrame = document.getElementById("pdf-reader-frame");
+    if(readerFrame && readerFrame.classList.contains("fullscreen")) {
+        togglePdfFullscreen();
+    }
     currentPdfLang = null;
     const welcomeScreen = document.getElementById("pdf-welcome-screen");
-    const readerFrame = document.getElementById("pdf-reader-frame");
     if(welcomeScreen) welcomeScreen.style.display = "flex";
     if(readerFrame) readerFrame.style.display = "none";
 
@@ -1266,7 +1272,7 @@ function renderRoadmap() {
     container.appendChild(svgEl);
 
     let currentUnit = 0;
-    const xOffsets = [0, -65, -100, -65, 0, 65, 100, 65]; // Yılan gibi kıvrılma ofsetleri
+    const xOffsets = [0, -180, -320, -420, -320, -160, 0, 160, 320, 420, 320, 180]; // Genişletilmiş ve alana yayılan estetik yılan ofsetleri
     let nodeIndexInLang = 0;
 
     const langKey = getLanguageKey(selectedLang || (userProfile && userProfile.selectedLanguage) || 'html');
@@ -1374,7 +1380,7 @@ function renderRoadmap() {
 
         const milestoneClass = isMilestone ? "milestone" : "";
         const screenW = window.innerWidth;
-        const offsetScale = screenW < 450 ? 0.32 : (screenW < 768 ? 0.55 : (screenW < 1200 ? 0.8 : 1));
+        const offsetScale = screenW < 480 ? 0.28 : (screenW < 768 ? 0.48 : (screenW < 1100 ? 0.72 : 0.95));
         const offset = Math.round(xOffsets[nodeIndexInLang % xOffsets.length] * offsetScale);
         nodeIndexInLang++;
 
@@ -1403,8 +1409,19 @@ function renderRoadmap() {
         container.insertAdjacentHTML('beforeend', nodeHTML);
     });
 
-    // Butonların konumları render edildikten sonra kavisli SVG yolunu çiz
-    setTimeout(drawCurvedRoadmapPath, 60);
+    // Butonların konumları render edildikten sonra kavisli SVG yolunu çiz ve aktif derse otomatik kaydır
+    setTimeout(() => {
+        drawCurvedRoadmapPath();
+        scrollToActiveLesson();
+    }, 100);
+}
+
+// Haritada kullanıcının kaldığı / aktif ders düğümüne otomatik yumuşak kaydırma
+function scrollToActiveLesson() {
+    const activeNode = document.querySelector(".duo-node-row[data-active='true']") || document.getElementById(`duo-row-${unlockedLevel}`);
+    if (activeNode) {
+        activeNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
 }
 
 // İki nokta arasında yumuşak yılan gibi kıvrılan (S-Curve) SVG çizgisi çizen fonksiyon
@@ -2092,18 +2109,63 @@ function runJavaScriptSandbox(code, outputConsole) {
     const origWarn = console.warn;
     const origErr = console.error;
 
-    try {
-        console.log = function(...args) {
-            logs.push({ type: 'out', text: args.map(a => typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a)).join(' ') });
-        };
-        console.warn = function(...args) {
-            logs.push({ type: 'warn', text: args.join(' ') });
-        };
-        console.error = function(...args) {
-            logs.push({ type: 'err', text: args.join(' ') });
-        };
+    // DOM & Web API Mock Ortamı (Derslerdeki document.getElementById, querySelector, addEventListener, localStorage vb. için)
+    const mockStorage = {};
+    const fakeLocalStorage = {
+        setItem: (k, v) => { mockStorage[k] = String(v); logs.push({ type: 'out', text: `[LocalStorage] '${k}' = '${v}' kaydedildi.` }); },
+        getItem: (k) => mockStorage[k] || null,
+        removeItem: (k) => { delete mockStorage[k]; },
+        clear: () => { for (let k in mockStorage) delete mockStorage[k]; }
+    };
 
-        new Function(code)();
+    function createMockElement(tag, id, cls) {
+        const classSet = new Set(cls ? cls.split(' ') : []);
+        const el = {
+            tagName: (tag || 'DIV').toUpperCase(),
+            id: id || '',
+            className: cls || '',
+            textContent: 'Örnek İçerik',
+            innerHTML: '<span>Örnek İçerik</span>',
+            style: {},
+            classList: {
+                add: (c) => { classSet.add(c); el.className = Array.from(classSet).join(' '); logs.push({ type: 'out', text: `[DOM] #${el.id || el.tagName} classList.add('${c}') uygulandı.` }); },
+                remove: (c) => { classSet.delete(c); el.className = Array.from(classSet).join(' '); logs.push({ type: 'out', text: `[DOM] #${el.id || el.tagName} classList.remove('${c}') uygulandı.` }); },
+                toggle: (c) => { if (classSet.has(c)) classSet.delete(c); else classSet.add(c); el.className = Array.from(classSet).join(' '); },
+                contains: (c) => classSet.has(c)
+            },
+            addEventListener: (evt, handler) => {
+                logs.push({ type: 'out', text: `[Event] #${el.id || el.tagName} '${evt}' dinleyicisi eklendi.` });
+                if (evt === 'click' || evt === 'submit') {
+                    try { handler({ preventDefault: () => {} }); } catch (e) {}
+                }
+            }
+        };
+        return el;
+    }
+
+    const fakeDocument = {
+        getElementById: (id) => createMockElement('div', id, ''),
+        querySelector: (sel) => {
+            const clean = (sel || '').replace(/^[#.]/, '');
+            return createMockElement('button', clean, sel && sel.startsWith('.') ? clean : '');
+        },
+        querySelectorAll: (sel) => [createMockElement('div', 'elem1', ''), createMockElement('div', 'elem2', '')],
+        createElement: (tag) => createMockElement(tag, '', '')
+    };
+
+    const customConsole = {
+        log: (...args) => logs.push({ type: 'out', text: args.map(a => typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a)).join(' ') }),
+        warn: (...args) => logs.push({ type: 'warn', text: args.join(' ') }),
+        error: (...args) => logs.push({ type: 'err', text: args.join(' ') })
+    };
+
+    try {
+        console.log = customConsole.log;
+        console.warn = customConsole.warn;
+        console.error = customConsole.error;
+
+        const sandboxFunc = new Function('document', 'window', 'localStorage', 'console', code);
+        sandboxFunc(fakeDocument, { document: fakeDocument, localStorage: fakeLocalStorage }, fakeLocalStorage, customConsole);
 
         if (logs.length === 0) {
             outputConsole.innerHTML += `<div class="term-line" style="color:#94a3b8; font-style:italic;">(Kod hatasız çalıştı, herhangi bir console.log çıktısı üretilmedi.)</div>`;
@@ -2137,60 +2199,181 @@ function runPythonSandbox(code, outputConsole) {
     `;
 
     const lines = code.split('\n');
-    let printed = false;
+    const outLines = [];
+    const vars = {
+        'kullanici': (typeof userName !== 'undefined' && userName) ? userName : 'Geliştirici',
+        'kullanici_adi': (typeof userName !== 'undefined' && userName) ? userName : 'Geliştirici',
+        'ogrenilen_diller': ['Python', 'HTML', 'C#', 'SQL', 'C++'],
+        'diller': ['Python', 'HTML', 'C#', 'SQL', 'C++'],
+        'puan': 85,
+        'yas': 20,
+        'sayi': 10
+    };
 
-    // 1. Kullanıcının kodundaki değişkenleri dinamik topla
-    const vars = {};
-    lines.forEach(line => {
+    function evalExpr(expr, scope) {
+        expr = expr.trim();
+        if (scope && scope[expr] !== undefined) return scope[expr];
+        if (vars[expr] !== undefined) return vars[expr];
+        if ((expr.startsWith('"') && expr.endsWith('"')) || (expr.startsWith("'") && expr.endsWith("'"))) {
+            return expr.slice(1, -1);
+        }
+        if (!isNaN(Number(expr))) return Number(expr);
+        if (expr === 'len(ogrenilen_diller)') return 5;
+        if (expr.startsWith('len(') && expr.endsWith(')')) {
+            const inner = expr.slice(4, -1).trim();
+            const val = evalExpr(inner, scope);
+            return (Array.isArray(val) || typeof val === 'string') ? val.length : 0;
+        }
+        return expr;
+    }
+
+    function formatFString(raw, scope) {
+        let content = raw.slice(2, -1);
+        return content.replace(/\{([^}]+)\}/g, (_, exp) => {
+            const clean = exp.trim();
+            if (scope && scope[clean] !== undefined) return scope[clean];
+            if (vars[clean] !== undefined) return vars[clean];
+            const ev = evalExpr(clean, scope);
+            if (ev !== clean) return ev;
+            return `[⚠️ NameError: name '${clean}' is not defined -> İpucu: Süslü parantez içine değişken adını yazmalısınız: {kullanici}]`;
+        });
+    }
+
+    let i = 0;
+    while (i < lines.length) {
+        const line = lines[i];
         const trimmed = line.trim();
-        if (trimmed.startsWith('#') || !trimmed) return;
-        const assignMatch = trimmed.match(/^([a-zA-Z_][a-zA-Z0-9_]*)\s*=\s*(.*)$/);
+        if (!trimmed || trimmed.startsWith('#')) {
+            i++;
+            continue;
+        }
+
+        // For Döngüsü: for var in [list] veya range(...)
+        const forMatch = trimmed.match(/^for\s+([a-zA-Z_]\w*)\s+in\s+(.+):$/);
+        if (forMatch) {
+            const loopVar = forMatch[1];
+            const iterExpr = forMatch[2].trim();
+            let items = [];
+
+            if (iterExpr.startsWith('[') && iterExpr.endsWith(']')) {
+                try {
+                    items = JSON.parse(iterExpr.replace(/'/g, '"'));
+                } catch {
+                    items = iterExpr.slice(1, -1).split(',').map(s => s.trim().replace(/^['"]|['"]$/g, ''));
+                }
+            } else if (iterExpr.startsWith('range(') && iterExpr.endsWith(')')) {
+                const args = iterExpr.slice(6, -1).split(',').map(s => parseInt(s.trim()));
+                const start = args.length > 1 ? args[0] : 0;
+                const stop = args.length > 1 ? args[1] : args[0];
+                const step = args.length > 2 ? args[2] : 1;
+                for (let k = start; k < stop; k += step) items.push(k);
+            } else if (vars[iterExpr]) {
+                items = Array.isArray(vars[iterExpr]) ? vars[iterExpr] : [vars[iterExpr]];
+            }
+
+            i++;
+            const bodyLines = [];
+            while (i < lines.length && (lines[i].startsWith('    ') || lines[i].startsWith('\t') || !lines[i].trim())) {
+                if (lines[i].trim()) bodyLines.push(lines[i].trim());
+                i++;
+            }
+
+            items.forEach(item => {
+                const loopScope = { ...vars, [loopVar]: item };
+                bodyLines.forEach(bLine => {
+                    const pMatch = bLine.match(/^print\s*\((.*)\)$/);
+                    if (pMatch) {
+                        let arg = pMatch[1].trim();
+                        if (arg.startsWith('f"') || arg.startsWith("f'")) {
+                            outLines.push(formatFString(arg, loopScope));
+                        } else {
+                            outLines.push(String(evalExpr(arg, loopScope)));
+                        }
+                    }
+                });
+            });
+            continue;
+        }
+
+        // Fonksiyon Tanımı: def selamla(isim='Geliştirici'):
+        const defMatch = trimmed.match(/^def\s+([a-zA-Z_]\w*)\s*\((.*?)\):$/);
+        if (defMatch) {
+            const paramsStr = defMatch[2].trim();
+            const fnScope = { ...vars };
+            if (paramsStr) {
+                paramsStr.split(',').forEach(p => {
+                    const [pName, pVal] = p.split('=').map(s => s.trim());
+                    if (pVal) fnScope[pName] = pVal.replace(/^['"]|['"]$/g, '');
+                    else fnScope[pName] = vars['kullanici'] || 'Geliştirici';
+                });
+            }
+
+            i++;
+            const bodyLines = [];
+            while (i < lines.length && (lines[i].startsWith('    ') || lines[i].startsWith('\t') || !lines[i].trim())) {
+                if (lines[i].trim()) bodyLines.push(lines[i].trim());
+                i++;
+            }
+
+            bodyLines.forEach(bLine => {
+                const pMatch = bLine.match(/^print\s*\((.*)\)$/);
+                if (pMatch) {
+                    let arg = pMatch[1].trim();
+                    if (arg.startsWith('f"') || arg.startsWith("f'")) {
+                        outLines.push(formatFString(arg, fnScope));
+                    } else {
+                        outLines.push(String(evalExpr(arg, fnScope)));
+                    }
+                }
+            });
+            continue;
+        }
+
+        // Değişken Ataması
+        const assignMatch = trimmed.match(/^([a-zA-Z_]\w*)\s*=\s*(.*)$/);
         if (assignMatch) {
             let val = assignMatch[2].trim();
             if ((val.startsWith("'") && val.endsWith("'")) || (val.startsWith('"') && val.endsWith('"'))) {
                 val = val.slice(1, -1);
+            } else if (val.startsWith('[') && val.endsWith(']')) {
+                try {
+                    val = JSON.parse(val.replace(/'/g, '"'));
+                } catch {
+                    val = val.slice(1, -1).split(',').map(s => s.trim().replace(/^['"]|['"]$/g, ''));
+                }
+            } else if (!isNaN(Number(val))) {
+                val = Number(val);
             }
             vars[assignMatch[1]] = val;
+            i++;
+            continue;
         }
-    });
 
-    lines.forEach(line => {
-        const trimmed = line.trim();
-        if (trimmed.startsWith('#') || !trimmed) return;
-
+        // Standart Print
         const printMatch = trimmed.match(/^print\s*\((.*)\)\s*$/);
         if (printMatch) {
-            printed = true;
             let rawArg = printMatch[1].trim();
-            let outText = rawArg;
-
             if ((rawArg.startsWith('"') && rawArg.endsWith('"')) || (rawArg.startsWith("'") && rawArg.endsWith("'"))) {
-                outText = rawArg.slice(1, -1);
+                outLines.push(rawArg.slice(1, -1));
             } else if (rawArg.startsWith('f"') || rawArg.startsWith("f'")) {
-                let fContent = rawArg.slice(2, -1);
-                outText = fContent.replace(/\{([^}]+)\}/g, (match, expr) => {
-                    const cleanExpr = expr.trim();
-                    if (vars[cleanExpr] !== undefined) {
-                        return vars[cleanExpr];
-                    }
-                    if (cleanExpr === 'len(ogrenilen_diller)') return "5";
-                    if (cleanExpr === 'diller') return "['Python', 'HTML', 'C#', 'SQL', 'C++']";
-                    
-                    // Eğer kullanıcı değişken adı yerine değeri paranteze yazdıysa ({Burak} gibi)
-                    return `[⚠️ NameError: name '${cleanExpr}' is not defined -> İpucu: Süslü parantez içine değişken adını yazmalısınız: {kullanici}]`;
-                });
+                outLines.push(formatFString(rawArg, vars));
             } else if (rawArg.includes('"') && rawArg.includes('*')) {
-                outText = "=============================================";
-            } else if (vars[rawArg] !== undefined) {
-                outText = vars[rawArg];
-            } else if (rawArg === "kullanici_adi" || rawArg === "kullanici") {
-                outText = vars["kullanici"] || vars["kullanici_adi"] || (userName || "Geliştirici");
+                outLines.push("=============================================");
+            } else {
+                outLines.push(String(evalExpr(rawArg, vars)));
             }
-            outputConsole.innerHTML += `<div class="term-line term-out" style="color:#e2e8f0; white-space:pre-wrap; margin-bottom:3px;">${escapeHtml(outText)}</div>`;
+            i++;
+            continue;
         }
-    });
 
-    if (!printed) {
+        i++;
+    }
+
+    if (outLines.length > 0) {
+        outLines.forEach(lineText => {
+            outputConsole.innerHTML += `<div class="term-line term-out" style="color:#e2e8f0; white-space:pre-wrap; margin-bottom:3px;">${escapeHtml(lineText)}</div>`;
+        });
+    } else {
         outputConsole.innerHTML += `
             <div class="term-line term-success" style="color:#4ade80;">
                 >>> [Python Betiği Başarıyla Çalıştırıldı - Kod hatasız tamamlandı (Exit 0)]
@@ -2477,7 +2660,34 @@ function showCoddyCelebration(title, desc) {
 
     document.getElementById("coddy-modal-title").innerText = title;
     document.getElementById("coddy-modal-desc").innerText = desc;
+
+    // Sonraki derse doğrudan geçiş butonu yönetimi
+    const nextBtn = document.getElementById("coddy-btn-next-lesson");
+    const nextText = document.getElementById("coddy-next-text");
+    if (nextBtn) {
+        if (currentLessonId < 30) {
+            nextBtn.style.display = "flex";
+            if (nextText) nextText.innerText = `Sonraki Derse Geç (${currentLessonId + 1}. Ders) 🚀`;
+        } else {
+            nextBtn.style.display = "none";
+        }
+    }
+
     modal.classList.remove("hidden");
+}
+
+function goToNextLessonDirectly() {
+    const modal = document.getElementById("coddy-modal");
+    if(modal) modal.classList.add("hidden");
+
+    const nextLessonId = currentLessonId + 1;
+    if (nextLessonId <= 30) {
+        startLesson(nextLessonId);
+    } else {
+        renderRoadmap();
+        switchView('map');
+        scrollToActiveLesson();
+    }
 }
 
 function closeCoddyModal() {
@@ -2485,6 +2695,7 @@ function closeCoddyModal() {
     if(modal) modal.classList.add("hidden");
     renderRoadmap();
     switchView('map');
+    scrollToActiveLesson();
 }
 
 function updateCoddyStats() {
@@ -2711,6 +2922,8 @@ function handlePdfSearch() {
 }
 
 // Büyütme / Tam Ekran (Fullscreen) Toggle
+let pdfReaderPlaceholder = null;
+
 function togglePdfFullscreen() {
     const frame = document.getElementById("pdf-reader-frame");
     const icon = document.getElementById("pdf-fullscreen-icon");
@@ -2719,9 +2932,25 @@ function togglePdfFullscreen() {
 
     const isFullscreen = frame.classList.toggle("fullscreen");
     if(isFullscreen) {
+        if (!pdfReaderPlaceholder) {
+            pdfReaderPlaceholder = document.createElement("div");
+            pdfReaderPlaceholder.id = "pdf-reader-placeholder";
+            pdfReaderPlaceholder.style.display = "none";
+        }
+        if (frame.parentNode) {
+            frame.parentNode.insertBefore(pdfReaderPlaceholder, frame);
+        }
+        document.body.appendChild(frame);
+        document.body.style.overflow = "hidden";
         if(icon) icon.className = "fa-solid fa-compress";
         if(text) text.textContent = "Küçült (ESC)";
     } else {
+        if (pdfReaderPlaceholder && pdfReaderPlaceholder.parentNode) {
+            pdfReaderPlaceholder.parentNode.insertBefore(frame, pdfReaderPlaceholder);
+            pdfReaderPlaceholder.remove();
+            pdfReaderPlaceholder = null;
+        }
+        document.body.style.overflow = "";
         if(icon) icon.className = "fa-solid fa-expand";
         if(text) text.textContent = "Büyüt";
     }
