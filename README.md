@@ -3,7 +3,7 @@
 🌐 **Canlı Web Sürümü (GitHub Pages):** [https://1905suzi.github.io/COD-2026/](https://1905suzi.github.io/COD-2026/)  
 📱 **Mobil & Tablet Uyumlu:** Telefon ve tabletlerden tarayıcı üzerinden doğrudan kullanılabilir.
 
-🚀 **COD+ 2026**, modern yazılım geliştiricileri için sıfırdan ileri seviyeye kadar tasarlanmış, Duolingo benzeri interaktif yılan harita (roadmap), 7 programlama dili (HTML5, CSS3, JavaScript, SQL, Python, C#, C++), 210 kapsamlı ders, 10 soruluk Seviye Tespit Sınavı, çok dilli konsol/tarayıcı motoru, akran düellosu, dijital el kitabı ve takım tabanlı proje/görev yönetim sistemi içeren gelişmiş bir web platformudur.
+🚀 **COD+ 2026**, modern yazılım geliştiricileri için sıfırdan ileri seviyeye kadar tasarlanmış, interaktif yılan harita (roadmap), 7 programlama dili (HTML5, CSS3, JavaScript, SQL, Python, C#, C++), 210 kapsamlı ders, 10 soruluk Seviye Tespit Sınavı, çok dilli konsol/tarayıcı motoru, akran düellosu, dijital el kitabı ve takım tabanlı proje/görev yönetim sistemi içeren gelişmiş bir web platformudur.
 
 ---
 
