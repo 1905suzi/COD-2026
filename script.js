@@ -4153,7 +4153,7 @@ function analyzeCodeLineByLine(code, lang = 'javascript') {
     `;
 }
 
-function explainCurrentIdeCode() {
+async function explainCurrentIdeCode() {
     const editor = document.getElementById("code-editor");
     const frame = document.getElementById("output-frame");
     const consoleBox = document.getElementById("output-console");
@@ -4185,6 +4185,42 @@ function explainCurrentIdeCode() {
 
     aiLinesBox.innerHTML = `<div style="text-align:center; padding:30px; color:#38bdf8;"><i class="fa-solid fa-spinner fa-spin fa-2x"></i><br><br>Yapay zeka kod bloklarınızı inceliyor ve açıklamaları hazırlıyor...</div>`;
 
+    const explainEndpoint = window.ESMA_EXPLAIN_CODE_ENDPOINT || (
+        (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))
+            ? 'http://localhost:5000/api/ai/explain-code'
+            : null
+    );
+
+    if (explainEndpoint) {
+        try {
+            const res = await fetch(explainEndpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code: code, language: (activeSandboxLang || 'html').toLowerCase() })
+            });
+            if (res.ok) {
+                const data = await res.json();
+                if (data.lines && Array.isArray(data.lines) && data.lines.length > 0) {
+                    let html = `<div style="font-weight:bold; color:#38bdf8; margin-bottom:12px; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-wand-magic-sparkles"></i> Yapay Zeka Satır Satır Kod Açıklaması</div>`;
+                    html += data.lines.map(l => `
+                        <div style="margin-bottom:8px; padding:8px 12px; background:rgba(255,255,255,0.03); border-left:3px solid #38bdf8; border-radius:6px;">
+                            <div style="font-family:'Fira Code', monospace; color:#f1f5f9; font-size:11.5px;">Satır ${l.line}: <code>${escapeHtml(l.code)}</code></div>
+                            <div style="color:#cbd5e1; font-size:12px; margin-top:3px; line-height:1.45;">💡 ${escapeHtml(l.explanation)}</div>
+                        </div>
+                    `).join('');
+                    if (data.verdict) {
+                        html += `<div class="ai-mentor-verdict" style="margin-top:12px; padding:10px 14px; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.3); border-radius:8px; color:#34d399; font-size:12px;"><i class="fa-solid fa-circle-check"></i> <strong>Mentör Değerlendirmesi:</strong> ${escapeHtml(data.verdict)}</div>`;
+                    }
+                    aiLinesBox.innerHTML = html;
+                    return;
+                }
+            }
+        } catch (err) {
+            console.warn("Backend kod analizi servisi henüz aktif değil, dahili yerel kural motoruna geçiliyor:", err.message);
+        }
+    }
+
+    // Fallback: Dahili yerel kod analizi
     setTimeout(() => {
         aiLinesBox.innerHTML = analyzeCodeLineByLine(code, (activeSandboxLang || 'html').toLowerCase());
     }, 350);
@@ -5127,7 +5163,11 @@ function submitCoddyAiMessage() {
 // ESMA YAPAY ZEKA MODELİ ENTEGRASYON KÖPRÜSÜ (ESMA AI API BRIDGE)
 // ============================================================
 // Esma yapay zeka öğrenimini tamamlayıp backend'i açtığında aşağıdaki endpoint'e bağlanır:
-let ESMA_AI_ENDPOINT = window.ESMA_AI_ENDPOINT || null; 
+let ESMA_AI_ENDPOINT = window.ESMA_AI_ENDPOINT || (
+    (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))
+        ? 'http://localhost:5000/api/ai/chat'
+        : null
+); 
 
 async function queryEsmaAiModel(query, context = {}) {
     if (!ESMA_AI_ENDPOINT) return null;
