@@ -123,8 +123,8 @@ const quizBank = {
             "topic": "basliklar",
             "question": "h1-h6 etiketleri arasında doğru hiyerarşi nasıl olmalıdır?",
             "options": [
-                "h1 en b├╝y├╝k h6 en k├╝├ğ├╝k olup b├╝y├╝kten k├╝├ğ├╝─şe s─▒ra izlenmelidir",
-                "Rastgele kullan─▒labilir s─▒ra ├Ânemli de─şildir",
+                "h1 en büyük h6 en küçük olup büyükten küçüğe sıra izlenmelidir",
+                "Rastgele kullanılabilir sıra önemli değildir",
                 "h6 en büyük h1 en küçüktür",
                 "Hepsi aynı boyuttadır sadece numaraları farklıdır"
             ],
@@ -151,9 +151,9 @@ const quizBank = {
             "topic": "paragraf_satir",
             "question": "<hr> etiketi ne işe yarar?",
             "options": [
-                "Yeni paragraf a├ğar",
+                "Yeni paragraf açar",
                 "Kalın metin yazar",
-                "Yatay ├ğizgi ekler b├Âl├╝mleri birbirinden ay─▒r─▒r",
+                "Yatay çizgi ekler bölümleri birbirinden ayırır",
                 "Sayfa başlığı ekler"
             ],
             "correctIndex": 2,
@@ -235,8 +235,8 @@ const quizBank = {
             "topic": "linkler",
             "question": "Göreceli (relative) link ile mutlak (absolute) link arasındaki temel fark nedir?",
             "options": [
-                "G├Âreceli link mevcut site i├ğinde ├ğal─▒┼ş─▒r mutlak link tam URL i├ğerir",
-                "Hi├ğbir fark yoktur",
+                "Göreceli link mevcut site içinde çalışır mutlak link tam URL içerir",
+                "Hiçbir fark yoktur",
                 "Mutlak link daha hızlı çalışır",
                 "Göreceli linkler sadece CSS dosyaları için kullanılır"
             ],
@@ -291,9 +291,9 @@ const quizBank = {
             "topic": "sekme_yonetimi",
             "question": "target=\"_self\" ne anlama gelir?",
             "options": [
-                "Linki ayn─▒ sekmede a├ğar (varsay─▒lan davran─▒┼ş)",
+                "Linki aynı sekmede açar (varsayılan davranış)",
                 "Linki yeni pencerede açar",
-                "Linki yeni sekmede a├ğar",
+                "Linki yeni sekmede açar",
                 "Linki gizler"
             ],
             "correctIndex": 0,
@@ -334,9 +334,9 @@ const quizBank = {
             "question": "İç içe geçmiş (nested) liste nasıl oluşturulur?",
             "options": [
                 "İki ul etiketini yan yana koyarak",
-                "M├╝mk├╝n de─şildir",
+                "Mümkün değildir",
                 "nested=\"true\" niteliği kullanarak",
-                "Bir li etiketinin i├ğine yeni bir ul etiketi a├ğarak"
+                "Bir li etiketinin içine yeni bir ul etiketi açarak"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -376,8 +376,8 @@ const quizBank = {
             "question": "img etiketi neden kapanış etiketi (<img/>) gerektirmez?",
             "options": [
                 "Hata olduğu için",
-                "├ç├╝nk├╝ CSS ile kapat─▒l─▒r",
-                "├ç├╝nk├╝ bo┼ş etiket (void element) kategorisindedir i├ğerik ta┼ş─▒maz",
+                "Çünkü CSS ile kapatılır",
+                "Çünkü boş etiket (void element) kategorisindedir içerik taşımaz",
                 "Standartta öyle yazılmamıştır"
             ],
             "correctIndex": 2,
@@ -392,7 +392,7 @@ const quizBank = {
                 "Sadece PNG destekler",
                 "CSS animasyonu destekler",
                 "Daha hızlı yüklenir",
-                "Ekran boyutuna veya ├ğ├Âz├╝n├╝rl├╝─şe g├Âre farkl─▒ g├Ârsel dosyalar─▒ sunabilir"
+                "Ekran boyutuna veya çözünürlüğe göre farklı görsel dosyaları sunabilir"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -403,8 +403,8 @@ const quizBank = {
             "topic": "responsive_gorsel",
             "question": "<source> etiketi içindeki media niteliği ne işe yarar?",
             "options": [
-                "Hangi ekran boyutunda o g├Ârselin g├Âsterilece─şini belirtir",
-                "Ses dosyas─▒ ba─şlar",
+                "Hangi ekran boyutunda o görselin gösterileceğini belirtir",
+                "Ses dosyası bağlar",
                 "Video formatını tanımlar",
                 "Görsel boyutunu küçültür"
             ],
@@ -418,7 +418,7 @@ const quizBank = {
             "question": "Tarayıcı picture içindeki hiçbir source koşulunu sağlamazsa ne gösterir?",
             "options": [
                 "Boş alan gösterir",
-                "En sondaki img etiketini yedek olarak g├Âsterir",
+                "En sondaki img etiketini yedek olarak gösterir",
                 "Hata verir",
                 "Sayfayı çökertir"
             ],
@@ -502,9 +502,9 @@ const quizBank = {
             "question": "Neden thead ve tbody ayrımı yapılır?",
             "options": [
                 "Sadece görsel amaçlıdır zorunlu değildir",
-                "Performans i├ğin zorunludur",
+                "Performans için zorunludur",
                 "Tarayıcılar aksi halde tabloyu okuyamaz",
-                "Ekran okuyucular ve CSS stillendirmesi i├ğin anlamsal yap─▒ sa─şlar"
+                "Ekran okuyucular ve CSS stillendirmesi için anlamsal yapı sağlar"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -515,8 +515,8 @@ const quizBank = {
             "topic": "tablolar_colspan",
             "question": "colspan=\"3\" niteliği ne anlama gelir?",
             "options": [
-                "H├╝cre 3 s├╝tunu kaplar",
-                "H├╝cre 3 sat─▒r─▒ kaplar",
+                "Hücre 3 sütunu kaplar",
+                "Hücre 3 satırı kaplar",
                 "Hücre 3 piksel genişliğinde olur",
                 "3 yeni hücre ekler"
             ],
@@ -558,9 +558,9 @@ const quizBank = {
             "question": "rowspan=\"2\" niteliği ne anlama gelir?",
             "options": [
                 "Hücre 2 sütunu kaplar",
-                "H├╝cre 2 kez tekrar edilir",
+                "Hücre 2 kez tekrar edilir",
                 "2 yeni satır ekler",
-                "H├╝cre 2 sat─▒r─▒ kaplar"
+                "Hücre 2 satırı kaplar"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -571,8 +571,8 @@ const quizBank = {
             "topic": "tablolar_rowspan",
             "question": "rowspan kullanan hücrenin alt satırından ne kadar hücre çıkarılmalıdır?",
             "options": [
-                "rowspan de─şerinden 1 eksik kadar h├╝cre ├ğ─▒kar─▒l─▒r",
-                "Hi├ğbir ┼şey ├ğ─▒kar─▒lmaz",
+                "rowspan değerinden 1 eksik kadar hücre çıkarılır",
+                "Hiçbir şey çıkarılmaz",
                 "Tüm hücreler çıkarılır",
                 "İki kat hücre eklenir"
             ],
@@ -600,8 +600,8 @@ const quizBank = {
             "question": "label for=\"email\" ile input id=\"email\" eşleştirmesinin amacı nedir?",
             "options": [
                 "Sadece CSS için gereklidir",
-                "Form g├Ânderimini sa─şlar",
-                "Kullan─▒c─▒ etikete t─▒klad─▒─ş─▒nda ilgili input otomatik odaklan─▒r (eri┼şilebilirlik)",
+                "Form gönderimini sağlar",
+                "Kullanıcı etikete tıkladığında ilgili input otomatik odaklanır (erişilebilirlik)",
                 "Zorunludur yoksa form çalışmaz"
             ],
             "correctIndex": 2,
@@ -615,8 +615,8 @@ const quizBank = {
             "options": [
                 "GET daha güvenlidir",
                 "POST daha hızlıdır",
-                "Aralar─▒nda hi├ğbir fark yoktur",
-                "GET veriyi URL ├╝zerinden g├Ânderir POST gizli g├Ânderir"
+                "Aralarında hiçbir fark yoktur",
+                "GET veriyi URL üzerinden gönderir POST gizli gönderir"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -627,8 +627,8 @@ const quizBank = {
             "topic": "formlar_temel",
             "question": "Form içindeki name niteliği neden önemlidir?",
             "options": [
-                "Sunucuya g├Ânderilen verinin anahtar─▒ (key) olarak kullan─▒l─▒r",
-                "G├Ârsel etiket olarak g├Âsterilir",
+                "Sunucuya gönderilen verinin anahtarı (key) olarak kullanılır",
+                "Görsel etiket olarak gösterilir",
                 "CSS sınıfı olarak çalışır",
                 "Zorunlu alan belirtir"
             ],
@@ -656,8 +656,8 @@ const quizBank = {
             "question": "placeholder niteliği ne işe yarar?",
             "options": [
                 "Varsayılan değer olarak forma gönderilir",
-                "Label yerine kullan─▒l─▒r",
-                "Alan bo┼şken kullan─▒c─▒ya ipucu g├Âsteren a├ğ─▒k renkli metin",
+                "Label yerine kullanılır",
+                "Alan boşken kullanıcıya ipucu gösteren açık renkli metin",
                 "Alanı salt okunur yapar"
             ],
             "correctIndex": 2,
@@ -671,8 +671,8 @@ const quizBank = {
             "options": [
                 "Daha hızlı çalışır",
                 "Sadece harf kabul eder",
-                "G├╝venli ba─şlant─▒ kurar",
-                "Taray─▒c─▒ @ i┼şareti olup olmad─▒─ş─▒n─▒ otomatik do─şrular"
+                "Güvenli bağlantı kurar",
+                "Tarayıcı @ işareti olup olmadığını otomatik doğrular"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -698,8 +698,8 @@ const quizBank = {
             "question": "Radio butonların bir grup oluşturması ve tek seçim yapılabilmesi için ne aynı olmalıdır?",
             "options": [
                 "id değerleri",
-                "name de─şerleri",
-                "value de─şerleri",
+                "name değerleri",
+                "value değerleri",
                 "type değerleri"
             ],
             "correctIndex": 1,
@@ -726,9 +726,9 @@ const quizBank = {
             "question": "textarea ile input type=\"text\" arasındaki temel fark nedir?",
             "options": [
                 "textarea sadece sayı kabul eder",
-                "Hi├ğbir fark yoktur",
+                "Hiçbir fark yoktur",
                 "input daha büyük veri tutar",
-                "textarea ├ğok sat─▒rl─▒ metin giri┼şine izin verir"
+                "textarea çok satırlı metin girişine izin verir"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -739,9 +739,9 @@ const quizBank = {
             "topic": "formlar_buton",
             "question": "<button type=\"reset\"> ne yapar?",
             "options": [
-                "T├╝m form alanlar─▒n─▒ ba┼şlang─▒├ğ de─şerlerine d├Ând├╝r├╝r",
+                "Tüm form alanlarını başlangıç değerlerine döndürür",
                 "Sayfayı yeniler",
-                "Formu sunucuya g├Ânderir",
+                "Formu sunucuya gönderir",
                 "Formu siler"
             ],
             "correctIndex": 0,
@@ -782,9 +782,9 @@ const quizBank = {
             "question": "type=\"range\" ile ne oluşturulur?",
             "options": [
                 "Renk paleti",
-                "Say─▒ yazma alan─▒",
+                "Sayı yazma alanı",
                 "Tarih aralığı",
-                "S├╝r├╝klenebilir kayd─▒rma ├ğubu─şu (slider)"
+                "Sürüklenebilir kaydırma çubuğu (slider)"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -795,7 +795,7 @@ const quizBank = {
             "topic": "formlar_html5",
             "question": "Kullanıcının birden fazla dosya seçebilmesi için file input nasıl düzenlenir?",
             "options": [
-                "multiple niteli─şi eklenir",
+                "multiple niteliği eklenir",
                 "type=\"files\" yazılır",
                 "count=\"multiple\" eklenir",
                 "max=\"10\" eklenir"
@@ -838,9 +838,9 @@ const quizBank = {
             "question": "pattern niteliği hangi amaçla kullanılır?",
             "options": [
                 "CSS pattern uygulamak için",
-                "Placholder ┼şekli vermek i├ğin",
+                "Placholder şekli vermek için",
                 "Alan şablonu oluşturmak için",
-                "Regex ile girdi format─▒n─▒ do─şrulamak i├ğin"
+                "Regex ile girdi formatını doğrulamak için"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -880,8 +880,8 @@ const quizBank = {
             "question": "Her şey için div kullanmak yerine semantik etiket kullanmanın avantajı nedir?",
             "options": [
                 "Sayfa daha hızlı yüklenir",
-                "CSS yazmak kolayla┼ş─▒r",
-                "SEO s─▒ralamalar─▒n─▒ iyile┼ştirir ekran okuyucular i├ğin eri┼şilebilirlik sa─şlar",
+                "CSS yazmak kolaylaşır",
+                "SEO sıralamalarını iyileştirir ekran okuyucular için erişilebilirlik sağlar",
                 "JavaScript kod azalır"
             ],
             "correctIndex": 2,
@@ -907,8 +907,8 @@ const quizBank = {
             "topic": "medya_audio_video",
             "question": "video etiketinde controls niteliği ne sağlar?",
             "options": [
-                "Oynat/Duraklat ses gibi kullan─▒c─▒ kontrol butonlar─▒n─▒ g├Âsterir",
-                "Videonun kalitesini art─▒r─▒r",
+                "Oynat/Duraklat ses gibi kullanıcı kontrol butonlarını gösterir",
+                "Videonun kalitesini artırır",
                 "Videonun otomatik oynamasını sağlar",
                 "Altyazı ekler"
             ],
@@ -922,8 +922,8 @@ const quizBank = {
             "question": "Tarayıcı video formatını desteklemediğinde ne gösterilir?",
             "options": [
                 "Hata sayfası açılır",
-                "source etiketleri aras─▒ndaki yedek metin veya alternatif source g├Âsterilir",
-                "Sayfa ├ğ├Âker",
+                "source etiketleri arasındaki yedek metin veya alternatif source gösterilir",
+                "Sayfa çöker",
                 "Boş alan kalır"
             ],
             "correctIndex": 1,
@@ -937,7 +937,7 @@ const quizBank = {
             "options": [
                 "iframe yi hızlandırır",
                 "iframe yi gizler",
-                "G├Âm├╝len i├ğeri─şin yapabilece─şi i┼şlemleri k─▒s─▒tlayarak g├╝venli─şi art─▒r─▒r",
+                "Gömülen içeriğin yapabileceği işlemleri kısıtlayarak güvenliği artırır",
                 "Tam ekran yapar"
             ],
             "correctIndex": 2,
@@ -992,8 +992,8 @@ const quizBank = {
             "question": "<dialog open> yazıldığında ne olur?",
             "options": [
                 "Dialog gizlenir",
-                "Dialog animasyonla a├ğ─▒l─▒r",
-                "Dialog sayfada g├Âr├╝n├╝r olarak a├ğ─▒l─▒r",
+                "Dialog animasyonla açılır",
+                "Dialog sayfada görünür olarak açılır",
                 "Hata verir"
             ],
             "correctIndex": 2,
@@ -1006,9 +1006,9 @@ const quizBank = {
             "question": "details etiketinin varsayılan durumu nedir?",
             "options": [
                 "Açık",
-                "Taray─▒c─▒ya g├Âre de─şi┼şir",
+                "Tarayıcıya göre değişir",
                 "Yarı açık",
-                "Kapal─▒ (open niteli─şi eklenmedi─şi s├╝rece i├ğerik gizlidir)"
+                "Kapalı (open niteliği eklenmediği sürece içerik gizlidir)"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -1065,8 +1065,8 @@ const quizBank = {
             "options": [
                 "Harici .css dosyası",
                 "style etiketi (internal)",
-                "Hepsi e┼şit ├Ânceliktedir",
-                "Inline style niteli─şi"
+                "Hepsi eşit önceliktedir",
+                "Inline style niteliği"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -1106,7 +1106,7 @@ const quizBank = {
             "question": ".kutu ve #kutu seçicilerinden hangisinin özgüllüğü (specificity) daha yüksektir?",
             "options": [
                 ".kutu (class)",
-                "─░kisi de e┼şittir",
+                "İkisi de eşittir",
                 "#kutu (id)",
                 "Element türüne göre değişir"
             ],
@@ -1133,8 +1133,8 @@ const quizBank = {
             "topic": "seciciler_temel",
             "question": "* (evrensel seçici) ne işe yarar?",
             "options": [
-                "Sayfadaki istisnas─▒z t├╝m HTML elemanlar─▒n─▒ se├ğer",
-                "Yaln─▒zca body etiketini se├ğer",
+                "Sayfadaki istisnasız tüm HTML elemanlarını seçer",
+                "Yalnızca body etiketini seçer",
                 "Sadece görünür metinleri seçer",
                 "Yalnızca div elemanlarını seçer"
             ],
@@ -1162,8 +1162,8 @@ const quizBank = {
             "question": "h2 + p seçicisi neyi ifade eder?",
             "options": [
                 "h2 içindeki tüm p etiketlerini",
-                "h2 den sonra gelen t├╝m karde┼ş p etiketlerini",
-                "h2 den hemen sonra gelen ilk karde┼ş p etiketini",
+                "h2 den sonra gelen tüm kardeş p etiketlerini",
+                "h2 den hemen sonra gelen ilk kardeş p etiketini",
                 "h2 ve p etiketlerinin birleşimini"
             ],
             "correctIndex": 2,
@@ -1175,10 +1175,10 @@ const quizBank = {
             "topic": "seciciler_kombinator",
             "question": "div ~ p seçicisi ile div + p seçicisi arasındaki temel fark nedir?",
             "options": [
-                "~ sadece ├ğocuklar─▒ se├ğer",
+                "~ sadece çocukları seçer",
                 "~ hemen sonrakini, + ise tüm kardeşleri seçer",
                 "Aralarında hiçbir fark yoktur",
-                "+ hemen sonraki tek karde┼şi se├ğer, ~ ise sonraki t├╝m karde┼ş p elemanlar─▒n─▒ se├ğer"
+                "+ hemen sonraki tek kardeşi seçer, ~ ise sonraki tüm kardeş p elemanlarını seçer"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -1189,8 +1189,8 @@ const quizBank = {
             "topic": "renkler",
             "question": "rgba(0, 0, 0, 0.5) renk tanımında son değer (0.5) neyi ifade eder?",
             "options": [
-                "Opakl─▒k / Alfa ┼şeffafl─▒k oran─▒",
-                "Parlakl─▒k derecesi",
+                "Opaklık / Alfa şeffaflık oranı",
+                "Parlaklık derecesi",
                 "Doygunluk oranı",
                 "Mavi renk tonu"
             ],
@@ -1219,7 +1219,7 @@ const quizBank = {
             "options": [
                 "Tam Mavi",
                 "Tam Yeşil",
-                "Tam K─▒rm─▒z─▒",
+                "Tam Kırmızı",
                 "Tam Siyah"
             ],
             "correctIndex": 2,
@@ -1232,9 +1232,9 @@ const quizBank = {
             "question": "background-size: cover özelliğinin davranışı nedir?",
             "options": [
                 "Resmi hiç kırpmadan orijinal boyutunda tutar",
-                "Resmi sadece yatayda uzat─▒r",
+                "Resmi sadece yatayda uzatır",
                 "Resmi sayfaya 4 kez tekrar eder",
-                "Resmi kutuyu tamamen kaplayacak ┼şekilde orant─▒l─▒ b├╝y├╝t├╝r ve gerekirse ta┼şan k─▒sm─▒ k─▒rpar"
+                "Resmi kutuyu tamamen kaplayacak şekilde orantılı büyütür ve gerekirse taşan kısmı kırpar"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -1259,8 +1259,8 @@ const quizBank = {
             "topic": "arkaplan",
             "question": "background-repeat: no-repeat ne işe yarar?",
             "options": [
-                "Resmin ┼şeffafl─▒─ş─▒n─▒ kald─▒r─▒r",
-                "Arka plan resminin d├Â┼şenerek tekrarlanmas─▒n─▒ engeller",
+                "Resmin şeffaflığını kaldırır",
+                "Arka plan resminin döşenerek tekrarlanmasını engeller",
                 "Resmi ekranın tam ortasına alır",
                 "Arka planı siyah yapar"
             ],
@@ -1344,9 +1344,9 @@ const quizBank = {
             "question": "Google Fonts üzerinden font bağlarken HTML de nereye link eklenir?",
             "options": [
                 "<body> en sonuna",
-                "CSS dosyas─▒n─▒n en alt─▒na",
+                "CSS dosyasının en altına",
                 "<footer> içine",
-                "<head> etiketlerinin aras─▒na"
+                "<head> etiketlerinin arasına"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -1400,9 +1400,9 @@ const quizBank = {
             "question": "box-sizing: border-box kullanıldığında padding ve border nereye dahil edilir?",
             "options": [
                 "Kutunun dışına eklenir ve kutuyu büyütür",
-                "Yaln─▒zca i├ğeri─şi k├╝├ğ├╝lt├╝r geni┼şli─şi etkilemez",
+                "Yalnızca içeriği küçültür genişliği etkilemez",
                 "Margin değerinden düşülür",
-                "Kutunun belirlenen width ve height de─şerinin i├ğine dahil edilir"
+                "Kutunun belirlenen width ve height değerinin içine dahil edilir"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -1456,9 +1456,9 @@ const quizBank = {
             "question": "outline ile border arasındaki en temel fark nedir?",
             "options": [
                 "outline renk alamaz",
-                "outline k├Â┼şeleri yuvarlat─▒lamaz",
+                "outline köşeleri yuvarlatılamaz",
                 "border sadece kesikli çizgi olur",
-                "outline kutunun kaplad─▒─ş─▒ alana ve boyuta etki etmez (yer kaplamaz)"
+                "outline kutunun kapladığı alana ve boyuta etki etmez (yer kaplamaz)"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -1483,8 +1483,8 @@ const quizBank = {
             "topic": "display",
             "question": "display: inline elemanlar hakkında hangisi doğrudur?",
             "options": [
-                "Her zaman yeni bir sat─▒r ba┼şlat─▒rlar",
-                "Geni┼şlik (width) ve y├╝kseklik (height) de─şerlerini kabul etmezler",
+                "Her zaman yeni bir satır başlatırlar",
+                "Genişlik (width) ve yükseklik (height) değerlerini kabul etmezler",
                 "Varsayılan olarak yüzde 100 genişlik alırlar",
                 "Dikey marginleri normal şekilde uygulanır"
             ],
@@ -1497,9 +1497,9 @@ const quizBank = {
             "topic": "display",
             "question": "display: none ile visibility: hidden arasındaki temel fark nedir?",
             "options": [
-                "visibility: hidden eleman─▒ ekrandan ve DOM dan siler",
+                "visibility: hidden elemanı ekrandan ve DOM dan siler",
                 "İkisi tamamen aynıdır",
-                "display: none eleman─▒ DOM ve yerle┼şimden tamamen siler gibi yer kaplatmaz, visibility: hidden ise eleman─▒ gizler ama yerini bo┼ş tutar",
+                "display: none elemanı DOM ve yerleşimden tamamen siler gibi yer kaplatmaz, visibility: hidden ise elemanı gizler ama yerini boş tutar",
                 "display: none animasyonla gizler"
             ],
             "correctIndex": 2,
@@ -1525,8 +1525,8 @@ const quizBank = {
             "topic": "position",
             "question": "position: absolute olan bir eleman konumunu (top, left) neye göre referans alır?",
             "options": [
-                "static olmayan en yak─▒n ├╝st (ancestor) eleman─▒na g├Âre",
-                "Her zaman do─şrudan body etiketine g├Âre",
+                "static olmayan en yakın üst (ancestor) elemanına göre",
+                "Her zaman doğrudan body etiketine göre",
                 "Kendi orijinal durduğu yere göre",
                 "Tarayıcının son kaydırma konumuna göre"
             ],
@@ -1554,8 +1554,8 @@ const quizBank = {
             "question": "z-index özelliğinin çalışabilmesi için elemanın hangi kurala uyması şarttır?",
             "options": [
                 "display: block olması",
-                "mutlaka float uygulanm─▒┼ş olmas─▒",
-                "position de─şerinin static d─▒┼ş─▒nda bir de─şer (relative, absolute vb.) olmas─▒",
+                "mutlaka float uygulanmış olması",
+                "position değerinin static dışında bir değer (relative, absolute vb.) olması",
                 "sadece id seçicisi ile seçilmiş olması"
             ],
             "correctIndex": 2,
@@ -1581,7 +1581,7 @@ const quizBank = {
             "topic": "float_clear",
             "question": "Float uygulanan elemanların ebeveyn kapsayıcısının yüksekliğinin sıfırlanmasını önleyen tekniğin adı nedir?",
             "options": [
-                "Clearfix Tekni─şi",
+                "Clearfix Tekniği",
                 "Overflow Fix",
                 "Flex Fallback",
                 "Reset Margin"
@@ -1595,8 +1595,8 @@ const quizBank = {
             "topic": "float_clear",
             "question": "clear: both kuralı ne işe yarar?",
             "options": [
-                "T├╝m stilleri s─▒f─▒rlar",
-                "Hem sa─ş─▒ndaki hem solundaki float elemanlar─▒n alt─▒ndan devam etmesini sa─şlar",
+                "Tüm stilleri sıfırlar",
+                "Hem sağındaki hem solundaki float elemanların altından devam etmesini sağlar",
                 "Sayfayı ikiye böler",
                 "Arka planı temizler"
             ],
@@ -1623,10 +1623,10 @@ const quizBank = {
             "topic": "overflow",
             "question": "overflow: auto ile overflow: scroll arasındaki fark nedir?",
             "options": [
-                "Hi├ğbir fark yoktur",
+                "Hiçbir fark yoktur",
                 "auto mobilde çalışmaz",
                 "scroll sadece dikey kaydırma yapar",
-                "auto sadece i├ğerik ta┼şt─▒─ş─▒nda kayd─▒rma ├ğubu─şu ├ğ─▒kar─▒r, scroll ise her zaman g├Âsterir"
+                "auto sadece içerik taştığında kaydırma çubuğu çıkarır, scroll ise her zaman gösterir"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -1680,9 +1680,9 @@ const quizBank = {
             "question": "max-width: 1200px kuralının anlamı nedir?",
             "options": [
                 "Eleman her zaman tam 1200px genişlikte olur",
-                "Mobil cihazlarda ├ğal─▒┼şmaz",
+                "Mobil cihazlarda çalışmaz",
                 "Eleman en az 1200px olmak zorundadır",
-                "Eleman 1200px e kadar b├╝y├╝yebilir ama ekran daral─▒rsa k├╝├ğ├╝lebilir"
+                "Eleman 1200px e kadar büyüyebilir ama ekran daralırsa küçülebilir"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -1723,7 +1723,7 @@ const quizBank = {
             "options": [
                 "Gölge rengidir",
                 "Dark mode rengidir",
-                "De─şi┼şken tan─▒ml─▒ de─şilse kullan─▒lacak yedek (fallback) de─şerdir",
+                "Değişken tanımlı değilse kullanılacak yedek (fallback) değerdir",
                 "Hover durumundaki renktir"
             ],
             "correctIndex": 2,
@@ -1749,8 +1749,8 @@ const quizBank = {
             "topic": "flexbox_temel",
             "question": "flex-direction: column ne yapar?",
             "options": [
-                "Elemanlar─▒ yukar─▒dan a┼şa─ş─▒ya (dikey) dizer",
-                "Elemanlar─▒ soldan sa─şa dizer",
+                "Elemanları yukarıdan aşağıya (dikey) dizer",
+                "Elemanları soldan sağa dizer",
                 "Elemanları 2 sütun yapar",
                 "Elemanları ters çevirir"
             ],
@@ -1791,10 +1791,10 @@ const quizBank = {
             "topic": "flexbox_justify",
             "question": "justify-content: space-between ne işe yarar?",
             "options": [
-                "Sadece iki eleman varsa ├ğal─▒┼ş─▒r",
+                "Sadece iki eleman varsa çalışır",
                 "Tüm elemanların etrafına eşit boşluk bırakır",
                 "Elemanları merkeze sıkıştırır",
-                "─░lk eleman─▒ ba┼şa, sonuncuyu sona yaslar ve aradaki bo┼şlu─şu e┼şit da─ş─▒t─▒r"
+                "İlk elemanı başa, sonuncuyu sona yaslar ve aradaki boşluğu eşit dağıtır"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -1875,8 +1875,8 @@ const quizBank = {
             "topic": "flexbox_items",
             "question": "flex-shrink: 0 kuralı verilen bir eleman nasıl davranır?",
             "options": [
-                "G├Âr├╝nmez olur",
-                "Kapsay─▒c─▒ daralsa bile asla orijinal boyutundan daha fazla k├╝├ğ├╝lmez",
+                "Görünmez olur",
+                "Kapsayıcı daralsa bile asla orijinal boyutundan daha fazla küçülmez",
                 "Yüzde 50 küçülür",
                 "Genişliği sıfırlanır"
             ],
@@ -1890,8 +1890,8 @@ const quizBank = {
             "question": "flex-basis özelliği neyi belirler?",
             "options": [
                 "Elemanın büyüme hızını",
-                "Eleman─▒n z-index de─şerini",
-                "Eleman─▒n bo┼ş alan da─ş─▒t─▒lmadan ├Ânceki ba┼şlang─▒├ğ temel boyutunu",
+                "Elemanın z-index değerini",
+                "Elemanın boş alan dağıtılmadan önceki başlangıç temel boyutunu",
                 "Flex yönünü"
             ],
             "correctIndex": 2,
@@ -1906,7 +1906,7 @@ const quizBank = {
                 "Sadece flex-direction: column iken",
                 "Sadece tek bir eleman varsa",
                 "Her zaman etkilidir",
-                "Yaln─▒zca flex-wrap: wrap aktif ve birden fazla sat─▒r olu┼ştu─şunda"
+                "Yalnızca flex-wrap: wrap aktif ve birden fazla satır oluştuğunda"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -1932,7 +1932,7 @@ const quizBank = {
             "question": "Flexbox kullanarak bir footer ı sayfanın en altına yapıştırmak (sticky footer) için kapsayıcıya ne verilir?",
             "options": [
                 "position: absolute; bottom: 0;",
-                "min-height: 100vh; flex-direction: column; ve i├ğerik alan─▒na flex: 1;",
+                "min-height: 100vh; flex-direction: column; ve içerik alanına flex: 1;",
                 "clear: both;",
                 "margin-bottom: auto;"
             ],
@@ -2015,10 +2015,10 @@ const quizBank = {
             "topic": "grid_temel",
             "question": "minmax(200px, 1fr) fonksiyonu ne işe yarar?",
             "options": [
-                "Eleman─▒ ortalar",
+                "Elemanı ortalar",
                 "Sütunu 200px ile sınırlar asla büyütmez",
                 "Sadece mobilde çalışır",
-                "S├╝tunun en az 200px olmas─▒n─▒ ama yer varsa 1fr oran─▒nda b├╝y├╝mesini sa─şlar"
+                "Sütunun en az 200px olmasını ama yer varsa 1fr oranında büyümesini sağlar"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -2043,8 +2043,8 @@ const quizBank = {
             "topic": "grid_ileri",
             "question": "grid-row: 1 / 3; kuralı elemanı dikeyde nasıl konumlandırır?",
             "options": [
-                "Sadece 1. ve 3. sat─▒rlara kopyalar",
-                "1. sat─▒r ├ğizgisinden ba┼şlar ve 3. sat─▒r ├ğizgisine kadar uzan─▒r (2 sat─▒r kaplar)",
+                "Sadece 1. ve 3. satırlara kopyalar",
+                "1. satır çizgisinden başlar ve 3. satır çizgisine kadar uzanır (2 satır kaplar)",
                 "3 satır aşağı kaydırır",
                 "1. satırdan sonra gizler"
             ],
@@ -2115,7 +2115,7 @@ const quizBank = {
             "options": [
                 "Flexbox sadece butonlar içindir, Grid sadece tablolar içindir",
                 "Grid daha eski bir teknolojidir",
-                "Flexbox tek boyutlu (1D - sat─▒r VEYA s├╝tun), Grid ise iki boyutlu (2D - sat─▒r VE s├╝tun) yerle┼şim sa─şlar",
+                "Flexbox tek boyutlu (1D - satır VEYA sütun), Grid ise iki boyutlu (2D - satır VE sütun) yerleşim sağlar",
                 "Flexbox responsiveliği desteklemez"
             ],
             "correctIndex": 2,
@@ -2130,7 +2130,7 @@ const quizBank = {
                 "Gecikme süresini (delay)",
                 "Renk tonunu",
                 "Animasyon adını",
-                "Zamanlama e─şrisini / h─▒zlanma-yava┼şlama dinami─şini (timing-function)"
+                "Zamanlama eğrisini / hızlanma-yavaşlama dinamiğini (timing-function)"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -2170,8 +2170,8 @@ const quizBank = {
             "question": "transform: scale(1.2); ne işe yarar?",
             "options": [
                 "Elemanı 1.2 derece döndürür",
-                "Eleman─▒ sa─şa 12px kayd─▒r─▒r",
-                "Eleman─▒n boyutunu orijinalinin y├╝zde 120 sine (1.2 kat─▒na) b├╝y├╝t├╝r",
+                "Elemanı sağa 12px kaydırır",
+                "Elemanın boyutunu orijinalinin yüzde 120 sine (1.2 katına) büyütür",
                 "Şeffaflığı artırır"
             ],
             "correctIndex": 2,
@@ -2239,10 +2239,10 @@ const quizBank = {
             "topic": "transitions_transforms",
             "question": "Resmin üzerine siyah şeffaf bir katman bindirip hover da açığa çıkarmak için hangi teknik kullanılır?",
             "options": [
-                "margin-top negatif de─şer",
+                "margin-top negatif değer",
                 "display: none / block",
                 "filter: invert",
-                "Absolute konumlu overlay katman─▒ ve opacity ge├ği┼şi"
+                "Absolute konumlu overlay katmanı ve opacity geçişi"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -2282,8 +2282,8 @@ const quizBank = {
             "question": "animation-fill-mode: forwards ne sağlar?",
             "options": [
                 "Animasyon bittiğinde elemanın başlangıç durumuna dönmesini",
-                "Animasyonun ileri geri oynamas─▒n─▒",
-                "Animasyon bitti─şinde eleman─▒n son keyframe deki stilinde sabit kalmas─▒n─▒",
+                "Animasyonun ileri geri oynamasını",
+                "Animasyon bittiğinde elemanın son keyframe deki stilinde sabit kalmasını",
                 "Animasyonu hızlandırır"
             ],
             "correctIndex": 2,
@@ -2298,7 +2298,7 @@ const quizBank = {
                 "border-color",
                 "outline-offset",
                 "filter: blur",
-                "box-shadow (├Ârn: 0 0 10px #00f, 0 0 20px #00f)"
+                "box-shadow (örn: 0 0 10px #00f, 0 0 20px #00f)"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -2365,8 +2365,8 @@ const quizBank = {
             "topic": "modern_ui_efektler",
             "question": "clip-path özelliği ne işe yarar?",
             "options": [
-                "Eleman─▒ daire, ├ğokgen veya ├Âzel ┼şekillerde kesip k─▒rpar",
-                "Sayfa ba─şlant─▒lar─▒n─▒ k─▒salt─▒r",
+                "Elemanı daire, çokgen veya özel şekillerde kesip kırpar",
+                "Sayfa bağlantılarını kısaltır",
                 "Resimleri otomatik sıkıştırır",
                 "Metinleri gizler"
             ],
@@ -2394,8 +2394,8 @@ const quizBank = {
             "question": "Pseudo-elementler (::before/::after) HTML DOM ağacında gerçek etiket oluşturur mu?",
             "options": [
                 "Evet, inspect panelinde yeni <before> etiketi görülür",
-                "Sadece JavaScript ile olu┼şturulursa g├Âr├╝n├╝r",
-                "Hay─▒r, CSS taraf─▒ndan ├╝retilen yapay (pseudo) sunum katman─▒d─▒r",
+                "Sadece JavaScript ile oluşturulursa görünür",
+                "Hayır, CSS tarafından üretilen yapay (pseudo) sunum katmanıdır",
                 "Yalnızca form elemanlarında görünür"
             ],
             "correctIndex": 2,
@@ -2451,7 +2451,7 @@ const quizBank = {
             "options": [
                 "Minimum sabit boyutu",
                 "Maksimum tavan boyutu",
-                "─░deal / dinamik ekran geni┼şli─şine g├Âre ├Âl├ğeklenen boyutu",
+                "İdeal / dinamik ekran genişliğine göre ölçeklenen boyutu",
                 "Satır yüksekliğini"
             ],
             "correctIndex": 2,
@@ -2533,7 +2533,7 @@ const quizBank = {
             "topic": "modern_css_features",
             "question": "BEM metodolojisinde \"btn--danger\" ifadesindeki çift çizgi (--) neyi temsil eder?",
             "options": [
-                "Modifier (De─şi┼ştirici / Varyasyon)",
+                "Modifier (Değiştirici / Varyasyon)",
                 "Element (Öğe)",
                 "Block (Blok)",
                 "Module (Modül)"
@@ -2562,8 +2562,8 @@ const quizBank = {
             "question": "CSS te !important kullanımı hakkında en doğru profesyonel yaklaşım hangisidir?",
             "options": [
                 "Her stil kuralına eklenmelidir",
-                "Sadece animasyonlarda kullan─▒l─▒r",
-                "Spesifikli─şi k─▒r─▒p ezdi─şi ve bak─▒m─▒ zorla┼şt─▒rd─▒─ş─▒ i├ğin zorunlu kalmad─▒k├ğa ka├ğ─▒n─▒lmal─▒d─▒r",
+                "Sadece animasyonlarda kullanılır",
+                "Spesifikliği kırıp ezdiği ve bakımı zorlaştırdığı için zorunlu kalmadıkça kaçınılmalıdır",
                 "Tarayıcı hızını artırır"
             ],
             "correctIndex": 2,
@@ -2577,8 +2577,8 @@ const quizBank = {
             "options": [
                 "Element (etiket) seçicisi (örn: p)",
                 "Class seçicisi (örn: .btn)",
-                "Evrensel se├ğici (*)",
-                "ID se├ğicisi (├Ârn: #header)"
+                "Evrensel seçici (*)",
+                "ID seçicisi (örn: #header)"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -2603,8 +2603,8 @@ const quizBank = {
             "topic": "modern_css_features",
             "question": "min(50vw, 500px) fonksiyonu ne yapar?",
             "options": [
-                "De─şerlerin ortalamas─▒n─▒ al─▒r",
-                "50vw ile 500px de─şerlerinden her zaman daha k├╝├ğ├╝k olan─▒n─▒ se├ğip uygular",
+                "Değerlerin ortalamasını alır",
+                "50vw ile 500px değerlerinden her zaman daha küçük olanını seçip uygular",
                 "Her zaman 500px yapar",
                 "Hata verir"
             ],
@@ -2673,9 +2673,9 @@ const quizBank = {
             "topic": "css_selectors_ileri",
             "question": ":is(h1, h2, h3) seçicisinin en büyük avantajı nedir?",
             "options": [
-                "Taray─▒c─▒y─▒ h─▒zland─▒r─▒r",
+                "Tarayıcıyı hızlandırır",
                 "Yazı boyutunu otomatik ayarlar",
-                "Se├ğicileri tekrar tekrar yazmay─▒ ├Ânleyip kodu k─▒salt─▒r ve okunabilirli─şi art─▒r─▒r",
+                "Seçicileri tekrar tekrar yazmayı önleyip kodu kısaltır ve okunabilirliği artırır",
                 "SEO puanını artırır"
             ],
             "correctIndex": 2,
@@ -2688,9 +2688,9 @@ const quizBank = {
             "question": "ul li:nth-child(2n) kuralı hangi liste elemanlarını seçer?",
             "options": [
                 "Sadece ilk iki elemanı",
-                "Sadece son eleman─▒",
+                "Sadece son elemanı",
                 "Tüm tek numaralı elemanları",
-                "T├╝m ├ğift numaral─▒ elemanlar─▒ (2, 4, 6, ...)"
+                "Tüm çift numaralı elemanları (2, 4, 6, ...)"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -2704,8 +2704,8 @@ const quizBank = {
             "question": "JavaScript te let ile const arasındaki en temel fark nedir?",
             "options": [
                 "let fonksiyoneldir const blok kapsamlıdır",
-                "let sadece say─▒ tutar const metin tutar",
-                "const ile tan─▒mlanan de─şi┼şkene yeniden de─şer atanamaz (re-assign edilemez), let e atanabilir",
+                "let sadece sayı tutar const metin tutar",
+                "const ile tanımlanan değişkene yeniden değer atanamaz (re-assign edilemez), let e atanabilir",
                 "const hoisted edilmez let edilir"
             ],
             "correctIndex": 2,
@@ -2761,7 +2761,7 @@ const quizBank = {
             "options": [
                 "null ve undefined",
                 "false ve NaN",
-                "0 ve \"\" (bo┼ş string)",
+                "0 ve \"\" (boş string)",
                 "Hiçbiri"
             ],
             "correctIndex": 2,
@@ -2829,10 +2829,10 @@ const quizBank = {
             "topic": "js_kosullar_donguler",
             "question": "Ternary (üçlü) operatörünün doğru sözdizimi hangisidir?",
             "options": [
-                "ko┼şul -> do─şru : yanl─▒┼ş",
+                "koşul -> doğru : yanlış",
                 "koşul : doğruysa ? yanlışsa",
                 "if koşul then doğru else yanlış",
-                "ko┼şul ? do─şruysa : yanl─▒┼şsa"
+                "koşul ? doğruysa : yanlışsa"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -2843,8 +2843,8 @@ const quizBank = {
             "topic": "js_kosullar_donguler",
             "question": "do-while döngüsünün while döngüsünden temel farkı nedir?",
             "options": [
-                "Ko┼şul yanl─▒┼ş olsa bile g├Âvdesi en az 1 kez garanti ├ğal─▒┼ş─▒r",
-                "Daha h─▒zl─▒ ├ğal─▒┼ş─▒r",
+                "Koşul yanlış olsa bile gövdesi en az 1 kez garanti çalışır",
+                "Daha hızlı çalışır",
                 "Sonsuz döngüye girmez",
                 "Sadece dizilerde kullanılır"
             ],
@@ -2888,7 +2888,7 @@ const quizBank = {
                 "Asenkron olamazlar",
                 "Parametre alamazlar",
                 "Return kullanamazlar",
-                "Kendi this ba─şlamlar─▒ yoktur, ├╝st lexical scope daki this i miras al─▒rlar"
+                "Kendi this bağlamları yoktur, üst lexical scope daki this i miras alırlar"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -2899,8 +2899,8 @@ const quizBank = {
             "topic": "js_fonksiyonlar_scope",
             "question": "function topla(a, b = 10) tanımındaki b = 10 neyi ifade eder?",
             "options": [
-                "b arg├╝man─▒ g├Ânderilmedi─şinde alaca─ş─▒ varsay─▒lan (default) de─şeri",
-                "b nin her zaman 10 olaca─ş─▒n─▒",
+                "b argümanı gönderilmediğinde alacağı varsayılan (default) değeri",
+                "b nin her zaman 10 olacağını",
                 "Tip kontrolünü",
                 "b nin sabit olduğunu"
             ],
@@ -2913,8 +2913,8 @@ const quizBank = {
             "topic": "js_fonksiyonlar_scope",
             "question": "function demo(...args) ifadesindeki ... operatörünün görevi nedir?",
             "options": [
-                "Diziyi elemanlar─▒na ay─▒r─▒r",
-                "Gelen t├╝m arg├╝manlar─▒ args ad─▒nda bir diziye toplar (rest parameter)",
+                "Diziyi elemanlarına ayırır",
+                "Gelen tüm argümanları args adında bir diziye toplar (rest parameter)",
                 "Hata fırlatır",
                 "Parametreleri çarpar"
             ],
@@ -2929,7 +2929,7 @@ const quizBank = {
             "options": [
                 "Hoisting",
                 "Recursion",
-                "Closure (Kapan─▒┼ş)",
+                "Closure (Kapanış)",
                 "Currying"
             ],
             "correctIndex": 2,
@@ -2955,8 +2955,8 @@ const quizBank = {
             "topic": "js_fonksiyonlar_scope",
             "question": "Saf fonksiyon (Pure Function) kavramının temel kuralı nedir?",
             "options": [
-                "Ayn─▒ girdilere daima ayn─▒ ├ğ─▒kt─▒y─▒ vermesi ve hi├ğbir d─▒┼ş yan etki (side effect) ├╝retmemesi",
-                "─░├ğinde d├Âng├╝ bulundurmamas─▒",
+                "Aynı girdilere daima aynı çıktıyı vermesi ve hiçbir dış yan etki (side effect) üretmemesi",
+                "İçinde döngü bulundurmaması",
                 "Arrow function olarak yazılması",
                 "Sadece matematiksel işlem yapması"
             ],
@@ -2983,9 +2983,9 @@ const quizBank = {
             "topic": "js_diziler_nesneler",
             "question": "map() metodu ile forEach() metodu arasındaki en kritik fark nedir?",
             "options": [
-                "map() diziyi ters ├ğevirir",
+                "map() diziyi ters çevirir",
                 "forEach() daha hızlıdır",
-                "map() yeni bir d├Ân├╝┼şt├╝r├╝lm├╝┼ş dizi d├Ând├╝r├╝r, forEach() ise undefined d├Âner ve orijinali gezer",
+                "map() yeni bir dönüştürülmüş dizi döndürür, forEach() ise undefined döner ve orijinali gezer",
                 "forEach() sadece sayılarda çalışır"
             ],
             "correctIndex": 2,
@@ -3011,8 +3011,8 @@ const quizBank = {
             "topic": "js_diziler_nesneler",
             "question": "reduce() metodundaki ilk parametre genellikle neyi temsil eder?",
             "options": [
-                "Ak├╝m├╝lat├Âr (biriktirici de─şer)",
-                "Ge├ğerli indeks",
+                "Akümülatör (biriktirici değer)",
+                "Geçerli indeks",
                 "Orijinal dizi",
                 "Son eleman"
             ],
@@ -3041,7 +3041,7 @@ const quizBank = {
             "options": [
                 "Rest Operatörü",
                 "Optional Chaining",
-                "Spread Operat├Âr├╝ (Yayma)",
+                "Spread Operatörü (Yayma)",
                 "Nullish Coalescing"
             ],
             "correctIndex": 2,
@@ -3112,7 +3112,7 @@ const quizBank = {
                 "Event Capturing",
                 "Event Loop",
                 "Event Delegation",
-                "Event Bubbling (Olay Kabarc─▒klanmas─▒)"
+                "Event Bubbling (Olay Kabarcıklanması)"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -3153,7 +3153,7 @@ const quizBank = {
             "options": [
                 "LocalStorage sadece string tutamaz",
                 "SessionStorage daha çok veri tutar",
-                "LocalStorage verileri taray─▒c─▒/sekme kapansa bile kal─▒c─▒d─▒r, SessionStorage sekme kapat─▒l─▒nca silinir",
+                "LocalStorage verileri tarayıcı/sekme kapansa bile kalıcıdır, SessionStorage sekme kapatılınca silinir",
                 "Aralarında fark yoktur"
             ],
             "correctIndex": 2,
@@ -3168,7 +3168,7 @@ const quizBank = {
                 "Garbage Collector",
                 "Virtual DOM",
                 "Compiler",
-                "Event Loop (Olay D├Âng├╝s├╝)"
+                "Event Loop (Olay Döngüsü)"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -3179,7 +3179,7 @@ const quizBank = {
             "topic": "js_asenkron",
             "question": "Bir Promise ın 3 olası yaşam durumu sırasıyla hangileridir?",
             "options": [
-                "pending (beklemede), fulfilled (ba┼şar─▒l─▒), rejected (reddedildi)",
+                "pending (beklemede), fulfilled (başarılı), rejected (reddedildi)",
                 "start, process, end",
                 "try, catch, finally",
                 "open, wait, close"
@@ -3335,9 +3335,9 @@ const quizBank = {
             "topic": "py_temeller_tipler",
             "question": "Python da kod blokları (örneğin fonksiyon veya döngü gövdeleri) ne ile belirlenir?",
             "options": [
-                "Girintileme (Indentation) bo┼şluklar─▒yla",
+                "Girintileme (Indentation) boşluklarıyla",
                 "Noktalı virgüllerle ;",
-                "S├╝sl├╝ parantezlerle { }",
+                "Süslü parantezlerle { }",
                 "BEGIN ve END anahtar kelimeleriyle"
             ],
             "correctIndex": 0,
@@ -3476,8 +3476,8 @@ const quizBank = {
             "question": "Listeler (lists) ile Demetler (tuples) arasındaki en temel fark nedir?",
             "options": [
                 "Listeler tamsayı tutar, demetler metin tutar",
-                "Demetler k├Â┼şeli parantez [] ile tan─▒mlan─▒r",
-                "Listeler de─şi┼ştirilebilir (mutable), demetler de─şi┼ştirilemez (immutable)",
+                "Demetler köşeli parantez [] ile tanımlanır",
+                "Listeler değiştirilebilir (mutable), demetler değiştirilemez (immutable)",
                 "Listeler daha hızlıdır"
             ],
             "correctIndex": 2,
@@ -3503,8 +3503,8 @@ const quizBank = {
             "topic": "py_veri_yapilari",
             "question": "liste = [1, 2, 3] verildiğinde liste.pop() çağrılırsa ne olur?",
             "options": [
-                "Listenin son eleman─▒ (3) silinir ve d├Ând├╝r├╝l├╝r",
-                "Listenin ilk eleman─▒ silinir",
+                "Listenin son elemanı (3) silinir ve döndürülür",
+                "Listenin ilk elemanı silinir",
                 "Tüm liste temizlenir",
                 "Hata verir"
             ],
@@ -3546,9 +3546,9 @@ const quizBank = {
             "question": "Sözlükten (dict) var olmayan bir anahtar d[\"olmayan\"] şeklinde çağrılırsa ne gerçekleşir?",
             "options": [
                 "None döner",
-                "Bo┼ş string d├Âner",
+                "Boş string döner",
                 "Otomatik olarak 0 değeri atanır",
-                "KeyError hatas─▒ f─▒rlat─▒l─▒r"
+                "KeyError hatası fırlatılır"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -3602,9 +3602,9 @@ const quizBank = {
             "question": "collections modülündeki defaultdict un standart dict e göre en büyük avantajı nedir?",
             "options": [
                 "Daha az bellek harcar",
-                "Sadece say─▒larla ├ğal─▒┼ş─▒r",
+                "Sadece sayılarla çalışır",
                 "Sıralamayı garanti eder",
-                "Olmayan bir anahtara eri┼şildi─şinde KeyError vermek yerine varsay─▒lan bir de─şer ├╝retir"
+                "Olmayan bir anahtara erişildiğinde KeyError vermek yerine varsayılan bir değer üretir"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -3660,7 +3660,7 @@ const quizBank = {
                 "Döngü break ile kırıldığında",
                 "Her iterasyonda",
                 "Döngü hiç çalışmadığında",
-                "D├Âng├╝ break ile kesilmeden normal ┼şekilde tamamland─▒─ş─▒nda"
+                "Döngü break ile kesilmeden normal şekilde tamamlandığında"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -3742,7 +3742,7 @@ const quizBank = {
             "question": "def kaydet(**kwargs) fonksiyonuna isim=\"Ali\", yas=25 verildiğinde kwargs tipi nedir?",
             "options": [
                 "tuple",
-                "dict (s├Âzl├╝k)",
+                "dict (sözlük)",
                 "list",
                 "str"
             ],
@@ -3756,8 +3756,8 @@ const quizBank = {
             "question": "def ekle(x, l=[]) şeklinde mutable default argüman kullanmanın tehlikesi nedir?",
             "options": [
                 "SyntaxError verir",
-                "Her ├ğa─şr─▒da s─▒f─▒rlan─▒r",
-                "Varsay─▒lan liste fonksiyon ├ğa─şr─▒lar─▒ aras─▒nda bellekte payla┼ş─▒larak k├╝m├╝latif b├╝y├╝r",
+                "Her çağrıda sıfırlanır",
+                "Varsayılan liste fonksiyon çağrıları arasında bellekte paylaşılarak kümülatif büyür",
                 "Hız problemi yaratır"
             ],
             "correctIndex": 2,
@@ -3940,7 +3940,7 @@ const quizBank = {
                 "Dosyayı daha hızlı okur",
                 "Salt okunur yapar",
                 "Dosyayı şifreler",
-                "─░┼şlem bitince veya hata ├ğ─▒ksa bile dosyay─▒ otomatik kapat─▒r (close)"
+                "İşlem bitince veya hata çıksa bile dosyayı otomatik kapatır (close)"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -3994,9 +3994,9 @@ const quizBank = {
             "question": "Sınıf metodlarında ilk parametre olarak gelen self neyi temsil eder?",
             "options": [
                 "Sınıfın kendisini",
-                "Python ├ğekirde─şini",
+                "Python çekirdeğini",
                 "Global modülü",
-                "Olu┼şturulan ge├ğerli nesne ├Ârne─şini (instance)"
+                "Oluşturulan geçerli nesne örneğini (instance)"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -4007,7 +4007,7 @@ const quizBank = {
             "topic": "py_oop",
             "question": "Bir sınıf niteliğini (attribute) private (özel) yapmak için isminin başına ne konur?",
             "options": [
-                "├çift alt ├ğizgi (__)",
+                "Çift alt çizgi (__)",
                 "Tek alt çizgi (_)",
                 "private anahtar kelimesi",
                 "Kare simgesi (#)"
@@ -4105,10 +4105,10 @@ const quizBank = {
             "topic": "py_ileri",
             "question": "Fonksiyonları sarmalayarak davranışlarını değiştiren @ ile başlayan yapılara ne ad verilir?",
             "options": [
-                "Enkaps├╝lat├Âr",
+                "Enkapsülatör",
                 "Generator",
                 "Modülatör",
-                "Dekorat├Âr (Decorator)"
+                "Dekoratör (Decorator)"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -4119,7 +4119,7 @@ const quizBank = {
             "topic": "py_ileri",
             "question": "Bir fonksiyon içinde return yerine yield kullanılırsa o fonksiyon neye dönüşür?",
             "options": [
-                "Generator (├£rete├ğ)",
+                "Generator (Üreteç)",
                 "Lambda fonksiyonu",
                 "Dekoratör",
                 "Asenkron görev"
