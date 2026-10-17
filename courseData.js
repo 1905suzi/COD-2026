@@ -2931,8 +2931,10 @@ const courseDataByLang = {
     "unit": 1,
     "title": "10. MİNİ PROJE: Konsol Tabanlı ATM Uygulaması",
     "desc": "1. Bölüm şart ve karar mimarisi.",
-    "theory": "Tebrikler! 1. Bölüm bitti. Bakiye kontrolü yapan ve para çeken ATM konsol programı yaz.",
-    "theoryCode": "int bakiye = 1000; int cekilen = 200; if (cekilen <= bakiye) bakiye -= cekilen;",
+    "theory": "Tebrikler! 1. Bölüm bitti. Bu mini projede bakiye kontrolü yapan ve para çeken ATM konsol programını kendiniz yazacaksınız.",
+    "theoryCode": "// İpucu: if (koşul) bloğu kurarak bakiyeyi kontrol edebilir ve bakiye -= cekim; ile düşebilirsiniz.",
+    "task": "1. <code>int bakiye = 1500;</code> ve <code>int cekim = 500;</code> değişkenlerini kullanın.<br>2. <code>if (cekim <= bakiye)</code> şartı ile bakiyenin yeterli olup olmadığını kontrol edin.<br>3. Şart sağlanıyorsa <code>bakiye -= cekim;</code> işlemi ile parayı çekin.<br>4. <code>Console.WriteLine($\"Kalan Bakiye: {bakiye} TL\");</code> ile sonucu ekrana yazdırın.",
+    "expectedOutput": "Kalan Bakiye: 1000 TL",
     "quiz": {
       "question": "C#'ta her kod satırının sonuna zorunlu olarak ne konulmalıdır?",
       "options": [
@@ -2942,12 +2944,12 @@ const courseDataByLang = {
       ],
       "correctIndex": 1
     },
-    "initialCode": "int bakiye = 1500;\nint cekim = 500;\nif (cekim <= bakiye) {\n    bakiye -= cekim;\n    Console.WriteLine($\"Kalan Bakiye: {bakiye} TL\");\n}",
+    "initialCode": "// 🏦 10. MİNİ PROJE: Konsol Tabanlı ATM Uygulaması\nint bakiye = 1500;\nint cekim = 500;\n\n// GÖREV: Aşağıya if kontrolü yazarak bakiye yeterli ise çekimi düşün\n// ve Console.WriteLine ile ekrana kalan bakiyeyi yazdırın:\n",
     "mustInclude": [
       "if",
       "Console.WriteLine"
     ],
-    "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (if, Console.WriteLine) yer aldığından emin olun.",
+    "errorMsg": "Lütfen if şartını ve Console.WriteLine yazdırma kodunu eksiksiz yazınız.",
     "isMiniProject": true
   },
   {

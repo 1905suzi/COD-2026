@@ -1481,9 +1481,20 @@ window.addEventListener("resize", () => {
     }, 120);
 });
 
+let hasRunCurrentCode = false;
+
 function startLesson(id) {
     currentLessonId = id;
     currentLessonAttempts = 0; // Her ders açılışında hata sayısını sıfırla
+    hasRunCurrentCode = false; // Kod çalıştırma durumunu sıfırla
+
+    // Önceki dersten kalan Yapay Zeka Satır Satır Analiz kutusunu temizle ve gizle
+    const aiLinesBox = document.getElementById("output-ai-lines");
+    if (aiLinesBox) {
+        aiLinesBox.style.display = "none";
+        aiLinesBox.innerHTML = "";
+    }
+
     const langKey = getLanguageKey(selectedLang || (userProfile && userProfile.selectedLanguage) || 'html');
     if (typeof setCourseDataForLang === 'function') {
         courseData = setCourseDataForLang(langKey);
@@ -1491,39 +1502,87 @@ function startLesson(id) {
     const lesson = courseData.find(l => l.id === id);
     if (!lesson) return;
     
+    const isMiniProject = !!(lesson.isMiniProject || (lesson.title && lesson.title.includes("MİNİ PROJE")) || (lesson.title && lesson.title.includes("BİTİRME PROJESİ")));
+
     document.getElementById("theory-title").innerText = lesson.title;
     document.getElementById("theory-text").innerHTML = `<p>${lesson.theory}</p>`;
-    document.getElementById("theory-code-preview").innerHTML = `<code>${escapeHtml(lesson.theoryCode)}</code>`;
+    
+    const previewEl = document.getElementById("theory-code-preview");
+    if (isMiniProject) {
+        // Mini projelerde cevap doğrudan ekranda yer almaz!
+        if (previewEl) previewEl.style.display = "none";
+    } else {
+        if (previewEl) {
+            previewEl.style.display = "block";
+            previewEl.innerHTML = `<code>${escapeHtml(lesson.theoryCode)}</code>`;
+        }
+    }
 
     // Görev ve Beklenen Çıktı kartını doldur
     const taskBox = document.getElementById("lesson-task-box");
     const taskText = document.getElementById("lesson-task-text");
     const expPre = document.getElementById("lesson-expected-output");
 
-    if (lesson.task) {
-        if (taskText) taskText.innerHTML = lesson.task;
-        if (expPre) expPre.innerText = lesson.expectedOutput || "Program hatasız çalıştırılmalıdır.";
-        if (taskBox) taskBox.style.display = "block";
+    if (isMiniProject) {
+        if (taskBox) {
+            taskBox.style.display = "block";
+            taskBox.style.borderColor = "#f59e0b";
+            taskBox.style.background = "rgba(245, 158, 11, 0.08)";
+        }
+        if (taskText) {
+            taskText.innerHTML = `
+                <div style="font-size: 13px; line-height: 1.6; color: #f1f5f9; margin-bottom: 10px;">
+                    ${lesson.task || lesson.theory || "Bu mini projede öğrendiğiniz tüm yapıları kullanarak kodunuzu kendiniz yazmalısınız."}
+                </div>
+                <div style="padding: 8px 12px; background: rgba(15, 23, 42, 0.85); border-left: 3px solid #f59e0b; border-radius: 4px; font-size: 12px; color: #fbbf24;">
+                    <i class="fa-solid fa-triangle-exclamation"></i> <strong>Proje Kuralı:</strong> Bu aşama bir mini projedir; test sorusuyla geçilemez. Çözüm ekranda verilmemiştir. Kodunuzu editörde kendiniz yazıp <strong>'Çalıştır'</strong> ile doğruladıktan sonra <strong>'Dersi Tamamla'</strong> butonuna basmalısınız.
+                </div>
+            `;
+        }
+        if (expPre) expPre.innerText = lesson.expectedOutput || "Program mantığı doğru çalışıp beklenen sonucu üretmelidir.";
     } else {
-        let defaultTask = `Editördeki kodu inceleyin. <strong>${lesson.desc || lesson.title}</strong> konusunu uygulamak için gerekli kodu yazıp <strong>Çalıştır</strong> butonuna basın.`;
-        let defaultExp = "Konsol çıktısı gözlemlenmeli ve ders tamamlanmalıdır.";
-        if (taskText) taskText.innerHTML = defaultTask;
-        if (expPre) expPre.innerText = defaultExp;
-        if (taskBox) taskBox.style.display = "block";
+        if (taskBox) {
+            taskBox.style.display = "block";
+            taskBox.style.borderColor = "rgba(56, 189, 248, 0.4)";
+            taskBox.style.background = "rgba(30, 41, 59, 0.7)";
+        }
+        if (lesson.task) {
+            if (taskText) taskText.innerHTML = lesson.task;
+            if (expPre) expPre.innerText = lesson.expectedOutput || "Program hatasız çalıştırılmalıdır.";
+        } else {
+            let defaultTask = `Editördeki kodu inceleyin. <strong>${lesson.desc || lesson.title}</strong> konusunu uygulamak için gerekli kodu yazıp <strong>Çalıştır</strong> butonuna basın.`;
+            let defaultExp = "Konsol çıktısı gözlemlenmeli ve ders tamamlanmalıdır.";
+            if (taskText) taskText.innerHTML = defaultTask;
+            if (expPre) expPre.innerText = defaultExp;
+        }
     }
-    
-    document.getElementById("quiz-question").innerText = lesson.quiz.question;
-    
-    const optsContainer = document.getElementById("quiz-options-container");
-    optsContainer.innerHTML = "";
-    lesson.quiz.options.forEach((opt, idx) => {
-        optsContainer.innerHTML += `
-            <label class="quiz-opt" style="display:flex; align-items:center; gap:8px; margin-bottom:10px; cursor:pointer;">
-                <input type="radio" name="quiz_answer" value="${idx}">
-                <span>${escapeHtml(opt)}</span>
-            </label>
-        `;
-    });
+
+    // Mini Test Kutusu: Mini projelerde test sorusu GÖSTERİLMEZ!
+    const quizBox = document.querySelector(".quiz-box");
+    if (isMiniProject) {
+        if (quizBox) quizBox.style.display = "none";
+    } else {
+        if (quizBox) {
+            quizBox.style.display = "block";
+            const qQuestion = document.getElementById("quiz-question");
+            if (qQuestion) qQuestion.innerText = (lesson.quiz && lesson.quiz.question) ? lesson.quiz.question : "Bu dersteki kuralı anladınız mı?";
+            
+            const optsContainer = document.getElementById("quiz-options-container");
+            if (optsContainer) {
+                optsContainer.innerHTML = "";
+                if (lesson.quiz && lesson.quiz.options) {
+                    lesson.quiz.options.forEach((opt, idx) => {
+                        optsContainer.innerHTML += `
+                            <label class="quiz-opt" style="display:flex; align-items:center; gap:8px; margin-bottom:10px; cursor:pointer;">
+                                <input type="radio" name="quiz_answer" value="${idx}">
+                                <span>${escapeHtml(opt)}</span>
+                            </label>
+                        `;
+                    });
+                }
+            }
+        }
+    }
     
     document.getElementById("code-editor").value = lesson.initialCode;
     
@@ -1944,6 +2003,10 @@ function validateCodeLanguage(code, lang) {
 }
 
 function runCode() {
+    hasRunCurrentCode = true;
+    const aiLinesBox = document.getElementById("output-ai-lines");
+    if (aiLinesBox) aiLinesBox.style.display = "none";
+
     const editor = document.getElementById("code-editor");
     if (!editor) return;
     const code = editor.value;
@@ -2150,6 +2213,42 @@ function runCSharpSandbox(code, outputConsole) {
     const lines = code.split('\n');
     let printed = false;
 
+    // C# Değişkenlerini ve işlemlerini dinamik topla
+    const vars = {};
+    lines.forEach(line => {
+        const trimmed = line.trim();
+        if (trimmed.startsWith('//') || !trimmed) return;
+
+        // int bakiye = 1500; veya string isim = "Deniz";
+        const declMatch = trimmed.match(/(?:int|double|float|decimal|string|var|bool)\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*=\s*([^;]+);?/);
+        if (declMatch) {
+            const varName = declMatch[1];
+            let val = declMatch[2].trim();
+            if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+                vars[varName] = val.slice(1, -1);
+            } else if (!isNaN(Number(val))) {
+                vars[varName] = Number(val);
+            } else {
+                vars[varName] = val;
+            }
+        }
+
+        // bakiye -= cekim; veya bakiye += 100;
+        const opMatch = trimmed.match(/([a-zA-Z_][a-zA-Z0-9_]*)\s*(-=|\+=|\*=|\/=)\s*([^;]+);?/);
+        if (opMatch) {
+            const varName = opMatch[1];
+            const op = opMatch[2];
+            const rightSide = opMatch[3].trim();
+            const rightVal = vars[rightSide] !== undefined ? vars[rightSide] : Number(rightSide);
+            if (typeof vars[varName] === 'number' && typeof rightVal === 'number') {
+                if (op === '-=') vars[varName] -= rightVal;
+                else if (op === '+=') vars[varName] += rightVal;
+                else if (op === '*=') vars[varName] *= rightVal;
+                else if (op === '/=') vars[varName] /= rightVal;
+            }
+        }
+    });
+
     lines.forEach(line => {
         const trimmed = line.trim();
         if (trimmed.startsWith('//') || !trimmed) return;
@@ -2161,11 +2260,21 @@ function runCSharpSandbox(code, outputConsole) {
             let outText = rawArg;
             if ((rawArg.startsWith('"') && rawArg.endsWith('"')) || (rawArg.startsWith('$"') && rawArg.endsWith('"'))) {
                 outText = rawArg.startsWith('$"') ? rawArg.slice(2, -1) : rawArg.slice(1, -1);
+                
+                // C# String interpolation {degisken} çözücü
+                outText = outText.replace(/\{([^}]+)\}/g, (match, expr) => {
+                    const cleanExpr = expr.trim();
+                    if (vars[cleanExpr] !== undefined) {
+                        return vars[cleanExpr];
+                    }
+                    if (cleanExpr === 'ogrenci') return (userName || "Geliştirici");
+                    if (cleanExpr === 'xp') return (userXp || 450);
+                    if (cleanExpr === 'tamamlananDers') return "12";
+                    if (cleanExpr === 'toplamPuan') return "600";
+                    return match;
+                });
+
                 outText = outText
-                    .replace(/\{ogrenci\}/g, "Deniz")
-                    .replace(/\{xp\}/g, "450")
-                    .replace(/\{tamamlananDers\}/g, "12")
-                    .replace(/\{toplamPuan\}/g, "600")
                     .replace(/\\n/g, "\n")
                     .replace(/\\t/g, "    ");
             }
@@ -2277,18 +2386,34 @@ function completeCurrentLesson() {
     }
     const lesson = courseData.find(l => l.id === currentLessonId);
     
-    // 1. Önce Sınavı Doğru Yaptı mı Kontrol Et
-    const selected = document.querySelector('input[name="quiz_answer"]:checked');
-    if (!selected && !lesson.isMiniProject) {
-        alert("Lütfen dersi tamamlamadan önce yandaki mini testi cevapla!");
-        return;
-    }
-    
-    if (selected && parseInt(selected.value) !== lesson.quiz.correctIndex) {
-        currentLessonAttempts++;
-        alert("Mini test cevabın yanlış! Tekrar düşün ve doğru şıkkı bul.");
-        checkFailure(lesson);
-        return;
+    const isMiniProject = !!(lesson.isMiniProject || (lesson.title && lesson.title.includes("MİNİ PROJE")) || (lesson.title && lesson.title.includes("BİTİRME PROJESİ")));
+
+    // 1. Sınav Kontrolü (Mini projelerde test sorusuyla geçilemez, kod yazılmalıdır)
+    if (!isMiniProject) {
+        const selected = document.querySelector('input[name="quiz_answer"]:checked');
+        if (!selected) {
+            alert("Lütfen dersi tamamlamadan önce yandaki mini testi cevapla!");
+            return;
+        }
+        
+        if (parseInt(selected.value) !== lesson.quiz.correctIndex) {
+            currentLessonAttempts++;
+            alert("Mini test cevabın yanlış! Tekrar düşün ve doğru şıkkı bul.");
+            checkFailure(lesson);
+            return;
+        }
+    } else {
+        // Mini Projeler için Kodlama Kontrolleri:
+        if (!hasRunCurrentCode) {
+            alert("⚠️ Mini Proje Doğrulaması:\n\nMini projeyi tamamlamadan önce lütfen yazdığınız kodu 'Çalıştır' butonuna basarak konsolda test ediniz!");
+            return;
+        }
+
+        const rawEditorVal = document.getElementById("code-editor").value.toLowerCase();
+        if (rawEditorVal.includes("// görev: aşağıya") || rawEditorVal.includes("todo:") || rawEditorVal.includes("buraya kodunuzu")) {
+            alert("⚠️ Mini Proje Tamamlanmadı:\n\nLütfen projedeki yönergeleri uygulayarak kodunuzu kendiniz yazınız!");
+            return;
+        }
     }
 
     // 2. Kod Validasyonu
