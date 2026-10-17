@@ -204,7 +204,10 @@ function isMentorUser() {
             userProfile.originalRole === 'danisman' ||
             userProfile.role === 'danisman' ||
             userProfile.isMentorAccount === true ||
-            (userProfile.email && userProfile.email.toLowerCase() === 'szn.ozer1905@mail.com')
+            (userProfile.email && (
+                userProfile.email.toLowerCase().includes('szn.ozer1905') ||
+                userProfile.email.toLowerCase().includes('hakan@')
+            ))
         )
     );
 }
@@ -333,61 +336,82 @@ function getUsersDb() {
     let needsSave = false;
 
     // 1. Suzan (Danışman / Mentör)
-    if (!db['szn.ozer1905@mail.com']) {
-        db['szn.ozer1905@mail.com'] = {
-            email: 'szn.ozer1905@mail.com',
-            password: '123456',
-            username: 'Suzan',
-            name: 'Suzan',
-            role: 'danisman',
-            originalRole: 'danisman',
-            isMentorAccount: true,
-            level: 'Uzman',
-            xp: 2500,
-            gems: 350,
-            streak: 12,
-            educationLevel: 'Yüksek Lisans / Doktora',
-            mentorLevel: 'Yüksek Lisans / Doktora',
-            department: 'Yazılım Mimarisi',
-            domain: 'fullstack',
-            languages: 'C#, Python, SQL, JavaScript',
-            projects: 'COD+ TÜBİTAK 2242 Yazılım Mimarisi',
-            bio: 'Yazılım Mimarisi, Temiz Kod ve Mentörlük Rehberliği.',
-            avatar: '👩‍🏫',
-            hasCompletedOnboarding: true,
-            isLoggedIn: false
-        };
-        needsSave = true;
-    }
+    const suzanTemplate = {
+        password: '123456',
+        username: 'Suzan',
+        name: 'Suzan',
+        role: 'danisman',
+        originalRole: 'danisman',
+        isMentorAccount: true,
+        level: 'Uzman',
+        xp: 2500,
+        gems: 350,
+        streak: 12,
+        educationLevel: 'Yüksek Lisans / Doktora',
+        mentorLevel: 'Yüksek Lisans / Doktora',
+        department: 'Yazılım Mimarisi',
+        domain: 'fullstack',
+        languages: 'C#, Python, SQL, JavaScript',
+        projects: 'COD+ TÜBİTAK 2242 Yazılım Mimarisi',
+        bio: 'Yazılım Mimarisi, Temiz Kod ve Mentörlük Rehberliği.',
+        avatar: '👩‍🏫',
+        hasCompletedOnboarding: true,
+        isLoggedIn: false
+    };
+
+    db['szn.ozer1905@mail.com'] = { ...suzanTemplate, email: 'szn.ozer1905@mail.com', ...(db['szn.ozer1905@mail.com'] || {}) };
+    db['szn.ozer1905@mail.com'].username = 'Suzan';
+    db['szn.ozer1905@mail.com'].name = 'Suzan';
+    db['szn.ozer1905@mail.com'].role = 'danisman';
+    db['szn.ozer1905@mail.com'].originalRole = 'danisman';
+    db['szn.ozer1905@mail.com'].isMentorAccount = true;
+    db['szn.ozer1905@mail.com'].level = 'Uzman';
+    db['szn.ozer1905@mail.com'].xp = 2500;
+    db['szn.ozer1905@mail.com'].educationLevel = 'Yüksek Lisans / Doktora';
+    db['szn.ozer1905@mail.com'].department = 'Yazılım Mimarisi';
+    db['szn.ozer1905@mail.com'].bio = 'Yazılım Mimarisi, Temiz Kod ve Mentörlük Rehberliği.';
+
+    db['szn.ozer1905@gmail.com'] = { ...db['szn.ozer1905@mail.com'], email: 'szn.ozer1905@gmail.com' };
+    needsSave = true;
 
     // 2. Esma (Öğrenci)
-    if (!db['esmak6327@mail.com']) {
-        db['esmak6327@mail.com'] = {
-            email: 'esmak6327@mail.com',
-            password: '123456',
-            username: 'Esma',
-            name: 'Esma',
-            role: 'ogrenci',
-            originalRole: 'ogrenci',
-            isMentorAccount: false,
-            level: 'Çırak',
-            xp: 150,
-            gems: 60,
-            streak: 3,
-            selectedLanguage: 'HTML',
-            unlockedLevel: 2,
-            educationLevel: 'Üniversite',
-            department: 'Bilgisayar Mühendisliği',
-            domain: 'frontend',
-            languages: 'HTML5, CSS3, JavaScript',
-            projects: 'Web Geliştirme ve COD+ Haritası',
-            bio: 'Bilgisayar Mühendisliği öğrencisi ve hevesli frontend geliştirici.',
-            avatar: '👩‍💻',
-            hasCompletedOnboarding: true,
-            isLoggedIn: false
-        };
-        needsSave = true;
-    }
+    const esmaTemplate = {
+        password: '123456',
+        username: 'Esma',
+        name: 'Esma',
+        role: 'ogrenci',
+        originalRole: 'ogrenci',
+        isMentorAccount: false,
+        level: 'Çırak',
+        xp: 150,
+        gems: 60,
+        streak: 3,
+        selectedLanguage: 'HTML',
+        unlockedLevel: 2,
+        educationLevel: 'Üniversite',
+        department: 'Bilgisayar Mühendisliği',
+        domain: 'frontend',
+        languages: 'HTML5, CSS3, JavaScript',
+        projects: 'Web Geliştirme ve COD+ Haritası',
+        bio: 'Bilgisayar Mühendisliği öğrencisi ve hevesli frontend geliştirici.',
+        avatar: '👩‍💻',
+        hasCompletedOnboarding: true,
+        isLoggedIn: false
+    };
+
+    db['esmak6327@mail.com'] = { ...esmaTemplate, email: 'esmak6327@mail.com', ...(db['esmak6327@mail.com'] || {}) };
+    db['esmak6327@mail.com'].username = 'Esma';
+    db['esmak6327@mail.com'].name = 'Esma';
+    db['esmak6327@mail.com'].role = 'ogrenci';
+    db['esmak6327@mail.com'].originalRole = 'ogrenci';
+    db['esmak6327@mail.com'].isMentorAccount = false;
+    db['esmak6327@mail.com'].level = 'Çırak';
+    db['esmak6327@mail.com'].xp = 150;
+    db['esmak6327@mail.com'].educationLevel = 'Üniversite';
+    db['esmak6327@mail.com'].department = 'Bilgisayar Mühendisliği';
+    db['esmak6327@mail.com'].bio = 'Bilgisayar Mühendisliği öğrencisi ve hevesli frontend geliştirici.';
+
+    db['esmak6327@gmail.com'] = { ...db['esmak6327@mail.com'], email: 'esmak6327@gmail.com' };
 
     // 3. ali_muhendis
     if (!db['ali@codplus.edu']) {
@@ -507,7 +531,17 @@ function saveUserToDb(email, data) {
 function getUserByEmail(email) {
     if (!email) return null;
     const db = getUsersDb();
-    return db[email.toLowerCase().trim()] || null;
+    const clean = email.toLowerCase().trim();
+    if (db[clean]) return db[clean];
+
+    // Domain veya prefix eşleşmesi (szn.ozer1905@gmail.com <-> szn.ozer1905@mail.com veya esmak6327)
+    const userPrefix = clean.split('@')[0];
+    for (const key in db) {
+        if (key.split('@')[0] === userPrefix) {
+            return db[key];
+        }
+    }
+    return null;
 }
 
 let currentSocialProvider = 'Google';
@@ -530,9 +564,15 @@ function openSocialAuthModal(provider) {
                            (userProfile && userProfile.email) ||
                            "";
 
-    const preferredName = (regNameInput && regNameInput.value.trim()) ||
-                          (userProfile && (userProfile.username || userProfile.name)) ||
-                          "";
+    let preferredName = (regNameInput && regNameInput.value.trim()) || "";
+    if (!preferredName && preferredEmail) {
+        const dbUser = getUserByEmail(preferredEmail);
+        if (dbUser) preferredName = dbUser.username || dbUser.name || "";
+    }
+    if (!preferredName && userProfile) {
+        preferredName = userProfile.username || userProfile.name || "";
+        if (preferredName.toLowerCase().includes("szn.ozer")) preferredName = "Suzan";
+    }
 
     const modal = document.getElementById("social-auth-modal");
     const titleEl = document.getElementById("social-modal-title");
@@ -579,7 +619,7 @@ function submitSocialAuth() {
     const existing = getUserByEmail(email);
 
     if (existing) {
-        const loadedName = name || existing.username || existing.name || email.split('@')[0];
+        const loadedName = existing.username || existing.name || (name && !name.toLowerCase().includes('szn.ozer') ? name : "") || email.split('@')[0];
         userProfile = {
             ...createDefaultUserProfile(),
             ...existing,
@@ -2554,28 +2594,70 @@ function initUserProfile() {
         try {
             const parsed = JSON.parse(saved);
             userProfile = { ...createDefaultUserProfile(), ...parsed };
-            userXp = userProfile.xp !== undefined ? userProfile.xp : userXp;
-            userGems = userProfile.gems !== undefined ? userProfile.gems : userGems;
-            userStreak = userProfile.streak !== undefined ? userProfile.streak : userStreak;
-            userName = userProfile.username || userProfile.name || userName;
-            if (userProfile.selectedLanguage) {
-                selectedLang = userProfile.selectedLanguage;
-            }
-            if (userProfile.unlockedLevel) {
-                unlockedLevel = userProfile.unlockedLevel;
-            }
-            if (userProfile.selectedLanguage || (userProfile.unlockedLevel && userProfile.unlockedLevel > 0)) {
-                userProfile.hasCompletedOnboarding = true;
-            }
         } catch (e) {
             console.error("Profil yüklenirken hata:", e);
         }
     }
+
+    // Gerçek Veritabanı ile Otomatik Eşitleme (PostgreSQL users tablosu senkronizasyonu)
+    if (userProfile && userProfile.email) {
+        const dbUser = getUserByEmail(userProfile.email);
+        if (dbUser) {
+            userProfile = {
+                ...createDefaultUserProfile(),
+                ...dbUser,
+                ...userProfile, // aktif oturum durumunu koru
+                email: userProfile.email,
+                username: dbUser.username || dbUser.name || userProfile.username,
+                name: dbUser.name || dbUser.username || userProfile.name,
+                role: dbUser.role || userProfile.role,
+                originalRole: dbUser.originalRole || dbUser.role || 'danisman',
+                isMentorAccount: (dbUser.role === 'danisman' || dbUser.isMentorAccount),
+                level: dbUser.level || userProfile.level,
+                xp: (dbUser.xp !== undefined && dbUser.xp > 0) ? Math.max(dbUser.xp, userProfile.xp || 0) : userProfile.xp,
+                gems: (dbUser.gems !== undefined && dbUser.gems > 0) ? Math.max(dbUser.gems, userProfile.gems || 0) : userProfile.gems,
+                streak: (dbUser.streak !== undefined && dbUser.streak > 0) ? Math.max(dbUser.streak, userProfile.streak || 0) : userProfile.streak,
+                educationLevel: dbUser.educationLevel || userProfile.educationLevel,
+                mentorLevel: dbUser.mentorLevel || dbUser.educationLevel,
+                department: dbUser.department || userProfile.department,
+                domain: dbUser.domain || userProfile.domain,
+                languages: dbUser.languages || userProfile.languages,
+                projects: dbUser.projects || userProfile.projects,
+                bio: dbUser.bio || userProfile.bio,
+                avatar: dbUser.avatar || userProfile.avatar,
+                isLoggedIn: true
+            };
+            if (userProfile.username && userProfile.username.toLowerCase().includes('szn.ozer')) {
+                userProfile.username = dbUser.username || "Suzan";
+                userProfile.name = dbUser.name || "Suzan";
+            }
+            saveUserProfileToStorage();
+        }
+    }
+
+    userXp = userProfile.xp !== undefined ? userProfile.xp : userXp;
+    userGems = userProfile.gems !== undefined ? userProfile.gems : userGems;
+    userStreak = userProfile.streak !== undefined ? userProfile.streak : userStreak;
+    userName = userProfile.username || userProfile.name || userName;
+    if (userProfile.selectedLanguage) {
+        selectedLang = userProfile.selectedLanguage;
+    }
+    if (userProfile.unlockedLevel) {
+        unlockedLevel = userProfile.unlockedLevel;
+    }
+    if (userProfile.selectedLanguage || (userProfile.unlockedLevel && userProfile.unlockedLevel > 0)) {
+        userProfile.hasCompletedOnboarding = true;
+    }
+
     updateUserLevel();
     updateCoddyStats();
 }
 
 function updateUserLevel() {
+    if (isMentorUser() || (userProfile && userProfile.role === 'danisman')) {
+        userProfile.level = "Uzman";
+        return;
+    }
     if (userXp >= 3500) userProfile.level = "Uzman";
     else if (userXp >= 1500) userProfile.level = "Usta";
     else if (userXp >= 500) userProfile.level = "Kalfa";
@@ -2828,6 +2910,37 @@ function openProfileModal() {
     const modal = document.getElementById("profile-modal");
     if (!modal) return;
 
+    // Gerçek Veritabanı ile Son Durum Doğrulaması (Reconciliation)
+    if (userProfile && userProfile.email) {
+        const dbUser = getUserByEmail(userProfile.email);
+        if (dbUser) {
+            if (dbUser.username && (!userProfile.username || userProfile.username.toLowerCase().includes('szn.ozer'))) {
+                userProfile.username = dbUser.username;
+                userProfile.name = dbUser.name;
+            }
+            if (dbUser.department && !userProfile.department) userProfile.department = dbUser.department;
+            if (dbUser.bio && !userProfile.bio) userProfile.bio = dbUser.bio;
+            if (dbUser.languages && !userProfile.languages) userProfile.languages = dbUser.languages;
+            if (dbUser.projects && !userProfile.projects) userProfile.projects = dbUser.projects;
+            if (dbUser.educationLevel && !userProfile.educationLevel) userProfile.educationLevel = dbUser.educationLevel;
+            if (dbUser.mentorLevel && !userProfile.mentorLevel) userProfile.mentorLevel = dbUser.mentorLevel;
+            if (dbUser.xp && (!userProfile.xp || userProfile.xp < dbUser.xp)) {
+                userProfile.xp = dbUser.xp;
+                userXp = dbUser.xp;
+            }
+            if (dbUser.gems && (!userProfile.gems || userProfile.gems < dbUser.gems)) {
+                userProfile.gems = dbUser.gems;
+                userGems = dbUser.gems;
+            }
+            if (dbUser.role === 'danisman') {
+                userProfile.role = 'danisman';
+                userProfile.originalRole = 'danisman';
+                userProfile.isMentorAccount = true;
+                userProfile.level = 'Uzman';
+            }
+        }
+    }
+
     const isMentor = (userProfile.role === 'danisman');
     const displayName = userProfile.username || userProfile.name || (isMentor ? "Danışman" : "Kullanıcı");
     const displayEmail = userProfile.email || "";
@@ -2883,7 +2996,7 @@ function openProfileModal() {
 
     if (leagueBadge) {
         if (isMentor) {
-            leagueBadge.innerText = "Kıdemli Mimar & Mentör";
+            leagueBadge.innerText = `${userProfile.level || 'Uzman'} Seviyesi`;
             leagueBadge.style.background = "#f59e0b";
         } else {
             leagueBadge.innerText = `${userProfile.level || 'Çırak'} Ligi`;
@@ -2891,7 +3004,7 @@ function openProfileModal() {
         }
     }
 
-    if (xpVal) xpVal.innerText = userXp || 350;
+    if (xpVal) xpVal.innerText = (userProfile.xp !== undefined && userProfile.xp > 0) ? userProfile.xp : (userXp || 350);
 
     if (isMentor) {
         if (gemsContainer) {
@@ -2900,7 +3013,7 @@ function openProfileModal() {
         }
     } else {
         if (gemsContainer) {
-            gemsContainer.innerHTML = `💎 <span id="modal-gems-val">${userGems || 120}</span>`;
+            gemsContainer.innerHTML = `💎 <span id="modal-gems-val">${(userProfile.gems !== undefined && userProfile.gems > 0) ? userProfile.gems : (userGems || 120)}</span>`;
         }
     }
 
@@ -2922,13 +3035,15 @@ function openProfileModal() {
         if (lblEdu) lblEdu.innerText = "Mentörlük / Kıdem Seviyesi:";
         if (selEdu) {
             selEdu.innerHTML = `
-                <option value="Yazılım Mimarı (Software Architect)" selected>Yazılım Mimarı (Software Architect)</option>
+                <option value="Yazılım Mimarı (Software Architect)">Yazılım Mimarı (Software Architect)</option>
                 <option value="Kıdemli Takım Lideri (Lead / Tech Lead)">Kıdemli Takım Lideri (Lead / Tech Lead)</option>
                 <option value="Kıdemli Yazılım Geliştirici (Senior Dev)">Kıdemli Yazılım Geliştirici (Senior Dev)</option>
                 <option value="Çözüm Danışmanı (Solution Consultant)">Çözüm Danışmanı (Solution Consultant)</option>
                 <option value="Akademisyen / Eğitmen">Akademisyen / Eğitmen</option>
+                <option value="Yüksek Lisans / Doktora" selected>Yüksek Lisans / Doktora</option>
             `;
             if (userProfile.mentorLevel) selEdu.value = userProfile.mentorLevel;
+            else if (userProfile.educationLevel) selEdu.value = userProfile.educationLevel;
         }
         if (lblDept) lblDept.innerText = "Çalıştığı Kurum / Şirket / Pozisyon:";
         if (inpDept) inpDept.placeholder = "Örn: Trendyol - Senior Architect / Freelance Danışman";

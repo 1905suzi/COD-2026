@@ -99,7 +99,31 @@ db.serialize(() => {
             completedLessons: JSON.stringify([])
         },
         {
+            email: 'szn.ozer1905@gmail.com',
+            password: '123456',
+            name: 'Suzan',
+            role: 'danisman',
+            education: 'Yüksek Lisans / Doktora',
+            department: 'Yazılım Mimarisi',
+            domain: 'fullstack',
+            xp: 2500,
+            selectedLanguage: 'javascript',
+            completedLessons: JSON.stringify([])
+        },
+        {
             email: 'esmak6327@mail.com',
+            password: '123456',
+            name: 'Esma',
+            role: 'ogrenci',
+            education: 'Üniversite',
+            department: 'Bilgisayar Mühendisliği',
+            domain: 'frontend',
+            xp: 150,
+            selectedLanguage: 'html',
+            completedLessons: JSON.stringify(['html-1'])
+        },
+        {
+            email: 'esmak6327@gmail.com',
             password: '123456',
             name: 'Esma',
             role: 'ogrenci',
