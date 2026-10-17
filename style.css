@@ -1,0 +1,2306 @@
+:root {
+    --bg-dark: #020617;
+    --bg-panel: #0f172a;
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --accent: #8b5cf6;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --glass-bg: rgba(30, 41, 59, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --shadow-neon: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Global Full-Screen Starry Cosmos & Cursor Particle Atmosphere */
+.background-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 50% 25%, #0b1122 0%, #060914 60%, #020308 100%);
+}
+
+#global-starry-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Typography & Layout */
+.mt-4 { margin-top: 1rem; }
+.full-height { height: 100%; }
+
+/* Glass Card */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    padding: 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Buttons */
+.btn-primary {
+    width: 100%;
+    padding: 14px 24px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-neon);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Landing Section */
+#landing {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.landing-inner {
+    display: flex;
+    align-items: center;
+    gap: 64px;
+    width: 100%;
+    max-width: 1100px;
+}
+
+.landing-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.landing-brand-title {
+    font-size: 84px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -2px;
+    background: linear-gradient(to right, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.landing-brand-title span {
+    color: var(--primary);
+    -webkit-text-fill-color: var(--primary);
+}
+
+.landing-brand-sub {
+    font-size: 20px;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-top: 12px;
+    margin-bottom: 40px;
+}
+
+/* Modern Cyber Robot Animations */
+.cute-robot-wrap {
+    display: inline-block;
+    filter: drop-shadow(0 15px 35px rgba(0, 242, 254, 0.2));
+}
+.cute-robot {
+    overflow: visible;
+}
+
+.robo-float-group {
+    animation: roboFloat 3.2s ease-in-out infinite alternate;
+}
+@keyframes roboFloat {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-10px); }
+}
+
+.robo-floor-shadow {
+    animation: roboShadow 3.2s ease-in-out infinite alternate;
+    transform-origin: 110px 246px;
+}
+@keyframes roboShadow {
+    0% { transform: scale(1); opacity: 0.35; }
+    100% { transform: scale(0.85); opacity: 0.18; }
+}
+
+/* Smart Tech Blinking Eyes */
+.robo-eyes {
+    transform-origin: 110px 79px;
+    animation: roboBlink 4.2s ease-in-out infinite;
+}
+@keyframes roboBlink {
+    0%, 92%, 100% { transform: scaleY(1); }
+    95% { transform: scaleY(0.1); }
+}
+
+/* Code Reactor Core Neon Pulse */
+.robo-code-core {
+    animation: roboCorePulse 2s ease-in-out infinite alternate;
+}
+@keyframes roboCorePulse {
+    0% { opacity: 0.85; filter: drop-shadow(0 0 2px #00f2fe); }
+    100% { opacity: 1; filter: drop-shadow(0 0 10px #00f2fe); }
+}
+
+.landing-right {
+    flex: 1;
+    max-width: 420px;
+}
+
+.tabs {
+    display: flex;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    padding: 6px;
+    margin-bottom: 32px;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tab.active {
+    background: var(--bg-panel);
+    color: var(--text-main);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.form-panel {
+    display: none;
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.form-panel.active { display: block; }
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.input-icon-wrapper {
+    position: relative;
+}
+.input-icon-wrapper i {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+}
+.input-icon-wrapper input {
+    width: 100%;
+    padding: 14px 16px 14px 44px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    color: white;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: 0.3s;
+}
+.input-icon-wrapper input:focus {
+    border-color: var(--primary);
+    background: rgba(15, 23, 42, 0.9);
+}
+
+.welcome-text {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    font-size: 16px;
+}
+
+/* Onboarding */
+#onboarding {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ob-card {
+    width: 100%;
+    max-width: 600px;
+}
+.step-indicator {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+}
+.step-dot {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    transition: 0.4s;
+}
+.step-dot.active {
+    background: var(--primary);
+}
+.step-title {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+.step-desc {
+    color: var(--text-muted);
+    margin-bottom: 32px;
+}
+
+.choice-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.choice-card {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid var(--glass-border);
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.choice-card:hover {
+    border-color: var(--primary);
+    background: rgba(15, 23, 42, 0.8);
+    transform: translateX(10px);
+}
+.choice-icon {
+    font-size: 32px;
+    background: rgba(255,255,255,0.05);
+    padding: 12px;
+    border-radius: 12px;
+}
+
+.lang-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+.lang-card {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 24px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.lang-card:hover, .lang-card.selected {
+    border-color: var(--primary);
+    transform: translateY(-5px);
+    background: rgba(15, 23, 42, 0.9);
+}
+.lang-card.selected {
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
+}
+.lang-icon {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+.lang-card h3 { font-size: 18px; margin-bottom: 6px; }
+.lang-card p { font-size: 13px; color: var(--text-muted); }
+
+/* Dashboard & IDE */
+#dashboard {
+    height: 100vh;
+    display: flex;
+}
+.sidebar {
+    width: 80px;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 0;
+}
+.logo {
+    font-size: 28px;
+    color: var(--primary);
+    margin-bottom: 48px;
+}
+.nav-item {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 20px;
+    border-radius: 18px;
+    margin-bottom: 16px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.nav-item:hover, .nav-item.active {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--primary);
+}
+
+.main-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 40px;
+}
+
+.view-panel {
+    max-width: 1200px;
+    margin: 0 auto;
+    animation: slideUp 0.4s ease;
+}
+
+.dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 48px;
+    position: relative;
+    z-index: 10;
+}
+.dash-header h1 { font-size: 36px; margin-bottom: 8px; }
+.dash-header p { color: var(--text-muted); font-size: 18px; }
+.user-badge {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid var(--primary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* DUOLINGO STYLE ROADMAP */
+.roadmap {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 10px 0 80px;
+}
+
+.roadmap-svg-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: visible;
+}
+
+/* Unit Banner (Duolingo Header) */
+.duo-unit-banner {
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+    border-radius: 24px;
+    padding: 24px 28px;
+    margin: 40px auto 50px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+}
+
+.duo-unit-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+}
+
+.duo-unit-banner.banner-html::before {
+    background: linear-gradient(90deg, #f97316, #ef4444);
+}
+.duo-unit-banner.banner-css::before {
+    background: linear-gradient(90deg, #3b82f6, #06b6d4);
+}
+.duo-unit-banner.banner-js::before {
+    background: linear-gradient(90deg, #f59e0b, #eab308);
+}
+.duo-unit-banner.banner-sql::before {
+    background: linear-gradient(90deg, #0ea5e9, #0284c7);
+}
+.duo-unit-banner.banner-python::before {
+    background: linear-gradient(90deg, #4ade80, #16a34a);
+}
+.duo-unit-banner.banner-csharp::before {
+    background: linear-gradient(90deg, #a855f7, #7c3aed);
+}
+.duo-unit-banner.banner-cpp::before {
+    background: linear-gradient(90deg, #38bdf8, #2563eb);
+}
+
+.duo-unit-info {
+    flex: 1;
+}
+
+.duo-unit-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+}
+
+.banner-html .duo-unit-badge { background: rgba(249, 115, 22, 0.15); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.3); }
+.banner-css .duo-unit-badge { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+.banner-js .duo-unit-badge { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+.banner-sql .duo-unit-badge { background: rgba(14, 165, 233, 0.15); color: #38bdf8; border: 1px solid rgba(14, 165, 233, 0.3); }
+.banner-python .duo-unit-badge { background: rgba(74, 222, 128, 0.15); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3); }
+.banner-csharp .duo-unit-badge { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+.banner-cpp .duo-unit-badge { background: rgba(56, 189, 248, 0.15); color: #60a5fa; border: 1px solid rgba(56, 189, 248, 0.3); }
+
+.duo-unit-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #f8fafc;
+    margin-bottom: 4px;
+}
+
+.duo-unit-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.duo-unit-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 14px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #e2e8f0;
+    border: 1px solid var(--glass-border);
+}
+
+/* Winding Node Item */
+.duo-node-row {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 48px;
+    transition: transform 0.3s ease;
+}
+
+/* 3D Duolingo Button */
+.duo-btn-container {
+    position: relative;
+    display: inline-block;
+}
+
+.duo-node-btn {
+    position: relative;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.2s ease;
+    outline: none;
+    user-select: none;
+}
+
+/* Completed State */
+.duo-node-btn.completed {
+    background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    box-shadow: 0 8px 0 #047857, 0 14px 20px rgba(5, 150, 105, 0.35);
+}
+.duo-node-btn.completed:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 0 #047857, 0 18px 24px rgba(5, 150, 105, 0.45);
+    filter: brightness(1.1);
+}
+.duo-node-btn.completed:active {
+    transform: translateY(6px);
+    box-shadow: 0 2px 0 #047857;
+}
+
+/* Active State */
+.duo-node-btn.active {
+    background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+    color: #ffffff;
+    box-shadow: 0 8px 0 #1d4ed8, 0 14px 25px rgba(37, 99, 235, 0.45);
+    animation: duoPulseRing 2.2s infinite;
+}
+.duo-node-btn.active:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 10px 0 #1d4ed8, 0 18px 30px rgba(37, 99, 235, 0.6);
+}
+.duo-node-btn.active:active {
+    transform: translateY(6px) scale(0.98);
+    box-shadow: 0 2px 0 #1d4ed8;
+}
+
+/* Locked State */
+.duo-node-btn.locked {
+    background: linear-gradient(180deg, #334155 0%, #1e293b 100%);
+    color: #64748b;
+    box-shadow: 0 7px 0 #0f172a;
+    cursor: not-allowed;
+    opacity: 0.85;
+}
+.duo-node-btn.locked:hover {
+    filter: brightness(1.05);
+}
+
+/* Milestone / Trophy Node */
+.duo-node-btn.milestone {
+    width: 76px;
+    height: 76px;
+    font-size: 28px;
+}
+.duo-node-btn.milestone.completed {
+    background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+    box-shadow: 0 9px 0 #b45309, 0 16px 28px rgba(245, 158, 11, 0.4);
+}
+.duo-node-btn.milestone.completed:hover {
+    box-shadow: 0 11px 0 #b45309, 0 20px 32px rgba(245, 158, 11, 0.55);
+}
+.duo-node-btn.milestone.completed:active {
+    box-shadow: 0 2px 0 #b45309;
+}
+
+/* Floating "Start" Speech Bubble */
+.duo-bubble {
+    position: absolute;
+    bottom: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 12px;
+    white-space: nowrap;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    animation: duoBob 1.6s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 5;
+    letter-spacing: 0.5px;
+}
+.duo-bubble::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: #ffffff transparent transparent transparent;
+}
+
+/* Node Label Card (Under the button) */
+.duo-node-label {
+    margin-top: 12px;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid var(--glass-border);
+    padding: 5px 12px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 170px;
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+.duo-node-row:hover .duo-node-label {
+    background: rgba(30, 41, 59, 0.95);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+.duo-node-label h4 {
+    font-size: 12px;
+    font-weight: 700;
+    color: #f1f5f9;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.duo-node-label p {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 1px;
+}
+
+/* Animations */
+@keyframes duoPulseRing {
+    0% {
+        box-shadow: 0 8px 0 #1d4ed8, 0 0 0 0 rgba(59, 130, 246, 0.6);
+    }
+    70% {
+        box-shadow: 0 8px 0 #1d4ed8, 0 0 0 16px rgba(59, 130, 246, 0);
+    }
+    100% {
+        box-shadow: 0 8px 0 #1d4ed8, 0 0 0 0 rgba(59, 130, 246, 0);
+    }
+}
+
+@keyframes duoBob {
+    0% {
+        transform: translateX(-50%) translateY(0);
+    }
+    100% {
+        transform: translateX(-50%) translateY(-6px);
+    }
+}
+
+/* Lesson & Quiz */
+.back-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    font-family: inherit;
+    font-weight: 600;
+}
+.back-btn:hover { color: white; }
+
+.theory-box {
+    background: rgba(0,0,0,0.2);
+    padding: 24px;
+    border-radius: 16px;
+    margin-top: 16px;
+    line-height: 1.6;
+}
+.code-preview {
+    background: #020617;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 16px;
+    font-family: 'Fira Code', monospace;
+    color: #38bdf8;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+.quiz-opt {
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid var(--glass-border);
+    padding: 14px 18px;
+    border-radius: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: 0.2s;
+    color: #f8fafc !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+}
+.quiz-opt span {
+    color: #f8fafc !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+    word-break: break-word;
+}
+.quiz-opt:hover {
+    border-color: var(--primary);
+    background: rgba(30, 41, 59, 0.9);
+}
+.quiz-opt input {
+    accent-color: var(--primary);
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* IDE */
+.ide-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 80px);
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    overflow: hidden;
+}
+.ide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #020617;
+    padding: 0 16px;
+    border-bottom: 1px solid var(--glass-border);
+}
+.ide-tabs {
+    display: flex;
+}
+.ide-tab {
+    padding: 16px 24px;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+.ide-tab.active {
+    background: rgba(30, 41, 59, 0.8);
+    color: white;
+    border-top: 2px solid var(--primary);
+}
+.btn-run {
+    background: #10b981;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.btn-run:hover { background: #059669; }
+
+.ide-body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+.editor-pane {
+    flex: 1;
+    display: flex;
+    border-right: 1px solid var(--glass-border);
+    background: #0f172a;
+}
+.line-numbers {
+    padding: 16px 8px;
+    background: #020617;
+    color: #475569;
+    font-family: 'Fira Code', monospace;
+    font-size: 15px;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+}
+#code-editor {
+    flex: 1;
+    background: transparent;
+    color: #e2e8f0;
+    padding: 16px;
+    border: none;
+    resize: none;
+    font-family: 'Fira Code', monospace;
+    font-size: 15px;
+    line-height: 1.5;
+    outline: none;
+}
+.output-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
+.output-header {
+    padding: 8px 16px;
+    background: #f1f5f9;
+    color: #334155;
+    font-weight: 700;
+    font-size: 13px;
+    border-bottom: 1px solid #cbd5e1;
+}
+#output-frame {
+    flex: 1;
+    border: none;
+    width: 100%;
+    background: white;
+}
+
+/* Digital Book Styles */
+.book-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 16px;
+}
+.book-tab {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 10px 16px;
+    border-radius: 20px;
+    transition: 0.3s;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.book-tab:hover {
+    background: rgba(255,255,255,0.05);
+    color: white;
+}
+.book-tab.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.book-section {
+    animation: slideUp 0.3s ease;
+    display: none;
+}
+.book-section.active {
+    display: block;
+}
+.book-section h2 {
+    color: var(--primary);
+    margin-bottom: 16px;
+    font-size: 28px;
+}
+.book-section p {
+    color: var(--text-main);
+    line-height: 1.6;
+    font-size: 16px;
+}
+.book-section h3 {
+    margin-top: 32px;
+    margin-bottom: 16px;
+    font-size: 20px;
+    color: #e2e8f0;
+    border-bottom: 1px dashed var(--glass-border);
+    padding-bottom: 8px;
+}
+
+.book-item {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    padding: 16px;
+    margin-bottom: 16px;
+    transition: 0.2s;
+}
+.book-item:hover {
+    border-color: var(--accent);
+    transform: translateX(5px);
+}
+.book-item-title {
+    font-family: 'Fira Code', monospace;
+    font-size: 16px;
+    color: #38bdf8;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+.book-item-desc {
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-size: 15px;
+}
+.book-item-desc b {
+    color: #f8fafc;
+}
+
+/* ========================================================
+   CODDY STYLE UI ENHANCEMENTS
+   ======================================================== */
+
+/* Coddy Stats Bar (Top Gamification Pills) */
+.coddy-stats-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.coddy-stat-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid var(--glass-border);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 14px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    user-select: none;
+}
+.coddy-stat-item:hover {
+    transform: translateY(-2px);
+}
+
+.coddy-stat-item .stat-icon {
+    font-size: 16px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+.stat-streak { border-color: rgba(249, 115, 22, 0.4); color: #fb923c; }
+.stat-streak:hover { border-color: #f97316; box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3); }
+
+.stat-gems { border-color: rgba(56, 189, 248, 0.4); color: #38bdf8; }
+.stat-gems:hover { border-color: #38bdf8; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3); }
+
+.stat-xp { border-color: rgba(245, 158, 11, 0.4); color: #fbbf24; }
+.stat-xp:hover { border-color: #f59e0b; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3); }
+
+.stat-hearts { border-color: rgba(244, 63, 94, 0.4); color: #fb7185; }
+.stat-hearts:hover { border-color: #f43f5e; box-shadow: 0 4px 15px rgba(244, 63, 94, 0.3); }
+
+.stat-label {
+    font-size: 11px;
+    opacity: 0.8;
+    text-transform: uppercase;
+}
+
+/* Coddy Mascot Banner (Roadmap Welcome Card) */
+.coddy-mascot-banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.9));
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 24px;
+    padding: 16px 22px;
+    margin: 20px auto 35px;
+    max-width: 600px;
+    box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.15);
+    backdrop-filter: blur(12px);
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+.coddy-mascot-banner:hover {
+    transform: translateY(-3px) scale(1.01);
+    border-color: rgba(56, 189, 248, 0.6);
+    box-shadow: 0 15px 35px -5px rgba(56, 189, 248, 0.25);
+}
+.coddy-mascot-banner:active {
+    transform: scale(0.99);
+}
+
+.coddy-mini-robot-wrap {
+    flex-shrink: 0;
+}
+
+.coddy-bubble-content {
+    flex: 1;
+}
+.coddy-bubble-name {
+    font-size: 14px;
+    font-weight: 800;
+    color: #38bdf8;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.coddy-bubble-name span {
+    font-size: 10px;
+    background: rgba(56, 189, 248, 0.15);
+    color: #93c5fd;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.coddy-bubble-text {
+    font-size: 14px;
+    line-height: 1.45;
+    color: #f1f5f9;
+    font-style: italic;
+}
+
+.coddy-bubble-action {
+    flex-shrink: 0;
+}
+.btn-coddy-poke {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fbbf24;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+.btn-coddy-poke:hover {
+    transform: rotate(20deg) scale(1.1);
+    background: rgba(251, 191, 36, 0.2);
+}
+
+/* Coddy Level-Up Celebration Modal */
+.coddy-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+.coddy-modal-card {
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    border: 2px solid rgba(56, 189, 248, 0.4);
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 40px rgba(56, 189, 248, 0.2);
+    border-radius: 32px;
+    max-width: 440px;
+    width: 100%;
+    padding: 36px 30px;
+    text-align: center;
+    animation: coddyPopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.coddy-modal-stars {
+    font-size: 24px;
+    margin-bottom: 8px;
+    animation: coddyStarsTwinkle 1.5s infinite alternate;
+}
+
+.coddy-modal-robot-wrap {
+    margin-bottom: 12px;
+}
+
+.coddy-modal-card h2 {
+    font-size: 26px;
+    font-weight: 900;
+    color: #f8fafc;
+    margin-bottom: 8px;
+}
+
+.coddy-modal-card p {
+    font-size: 14px;
+    color: #94a3b8;
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.coddy-rewards-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+}
+
+.coddy-reward-pill {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 8px 14px;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #f8fafc;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.coddy-reward-pill .rew-icon {
+    font-size: 15px;
+}
+
+@keyframes coddyPopIn {
+    0% { transform: scale(0.7) translateY(40px); opacity: 0; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@keyframes coddyStarsTwinkle {
+    0% { transform: scale(0.9); opacity: 0.7; }
+    100% { transform: scale(1.15); opacity: 1; }
+}
+
+/* ============================================================
+   DİJİTAL KİTAP - BEYAZ A5 PDF / E-BOOK READER STİLLERİ
+   ============================================================ */
+.pdf-reader-box {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Tam Ekran / Büyütülmüş PDF Modu */
+.pdf-reader-box.fullscreen {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 99999 !important;
+    border-radius: 0 !important;
+    background: #0b1120 !important;
+}
+
+.pdf-reader-box.fullscreen .pdf-a5-sheet {
+    max-width: 950px !important;
+    padding: 60px 75px !important;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* A5 Formatında Beyaz Doküman Sayfası */
+.pdf-a5-sheet {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.65;
+}
+
+/* Sayfa İçi Bölüm Kartları */
+.book-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 0 0 24px 0;
+    margin-bottom: 28px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.book-card:last-child {
+    border-bottom: none;
+}
+
+.book-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #1d4ed8;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+}
+
+.book-card h3 {
+    font-size: 20px;
+    color: #0f172a;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.book-card h4 {
+    font-size: 15px;
+    color: #1e293b;
+    font-weight: 700;
+    margin-top: 18px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.book-card p {
+    color: #334155;
+    font-size: 14.5px;
+    line-height: 1.7;
+    margin-bottom: 12px;
+}
+
+/* Kod Blokları: Beyaz Sayfa Üzerinde Koyu Şık Terminal */
+.book-card pre {
+    background: #0f172a !important;
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 14px 0 18px 0;
+    overflow-x: auto;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.book-card pre code {
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 13.5px;
+    color: #38bdf8;
+    line-height: 1.6;
+}
+
+/* Satır Satır Açıklama Listesi */
+.book-explain-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 10px;
+}
+
+.book-explain-list li {
+    font-size: 14px;
+    color: #1e293b;
+    line-height: 1.65;
+    padding: 9px 14px;
+    margin-bottom: 8px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #2563eb;
+}
+
+.book-explain-list li code {
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+}
+
+/* Arama Vurgusu */
+.pdf-highlight {
+    background: #fde047;
+    color: #0f172a;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-weight: 800;
+}
+
+/* 1v1 Akran Düellosu ve Profil Modalı Stilleri */
+.duel-lang-btn {
+    padding: 8px 10px;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    color: #cbd5e1;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+.duel-lang-btn:hover {
+    background: rgba(56, 189, 248, 0.15);
+    border-color: #38bdf8;
+    color: #fff;
+}
+.duel-lang-btn.active {
+    background: #0284c7;
+    border-color: #38bdf8;
+    color: #fff;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+}
+.duel-opt-btn {
+    padding: 12px 16px;
+    background: rgba(30, 41, 59, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    color: #f1f5f9;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.duel-opt-btn:hover {
+    background: rgba(56, 189, 248, 0.15);
+    border-color: #38bdf8;
+}
+.duel-opt-btn.correct {
+    background: rgba(34, 197, 94, 0.25) !important;
+    border-color: #22c55e !important;
+    color: #4ade80 !important;
+}
+.duel-opt-btn.wrong {
+    background: rgba(239, 68, 68, 0.25) !important;
+    border-color: #ef4444 !important;
+    color: #f87171 !important;
+}
+
+.lang-select-card:hover {
+    transform: translateY(-2px);
+    border-color: #38bdf8 !important;
+    box-shadow: 0 4px 16px rgba(56, 189, 248, 0.2);
+    background: rgba(15, 23, 42, 0.9) !important;
+}
+
+/* Multi-Language Terminal Styles */
+.term-line {
+    margin-bottom: 4px;
+    font-family: 'Fira Code', Consolas, Monaco, monospace;
+}
+.term-out {
+    color: #38bdf8;
+}
+.term-err {
+    color: #f43f5e;
+    font-weight: bold;
+}
+.term-warn {
+    color: #fbbf24;
+}
+.term-success {
+    color: #4ade80;
+    font-weight: bold;
+}
+.term-info {
+    color: #94a3b8;
+}
+.term-prompt {
+    color: #a855f7;
+    font-weight: bold;
+}
+
+/* ============================================================ */
+/* MENTÖR, PROJELER, EKİP, ARKADAŞLAR, SOHBET & CODDY AI STİLLERİ */
+/* ============================================================ */
+
+/* Sidebar Robot AI Launcher */
+.sidebar-robot-btn {
+    position: relative;
+    background: rgba(30, 41, 59, 0.8);
+    border: 1.5px solid rgba(0, 242, 254, 0.5);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+    transition: all 0.3s ease;
+}
+.sidebar-robot-btn:hover {
+    transform: scale(1.1);
+    border-color: #00f2fe;
+    box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
+}
+.ai-live-indicator {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 8px;
+    height: 8px;
+    background: #00f2fe;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00f2fe;
+    animation: pulseGlow 1.8s infinite;
+}
+@keyframes pulseGlow {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.nav-badge-dot {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 7px;
+    height: 7px;
+    background: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #10b981;
+}
+
+/* Projeler & Ekip Kartları */
+.project-filter-tabs .proj-filter-btn {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+    padding: 7px 14px;
+    border-radius: 12px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.project-filter-tabs .proj-filter-btn.active,
+.project-filter-tabs .proj-filter-btn:hover {
+    background: rgba(56, 189, 248, 0.15);
+    border-color: #38bdf8;
+    color: #38bdf8;
+}
+
+.projects-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+}
+
+.project-card {
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.25s ease;
+}
+.project-card:hover {
+    border-color: rgba(56, 189, 248, 0.4);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.1);
+    transform: translateY(-2px);
+}
+
+.badge-role-frontend { background: rgba(249, 115, 22, 0.15); border: 1px solid rgba(249, 115, 22, 0.4); color: #fb923c; }
+.badge-role-backend  { background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.4); color: #c084fc; }
+.badge-role-db       { background: rgba(14, 165, 233, 0.15); border: 1px solid rgba(14, 165, 233, 0.4); color: #38bdf8; }
+.badge-role-mobile   { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399; }
+.badge-role-ui       { background: rgba(236, 72, 153, 0.15); border: 1px solid rgba(236, 72, 153, 0.4); color: #f472b6; }
+.badge-role-devops   { background: rgba(234, 179, 8, 0.15); border: 1px solid rgba(234, 179, 8, 0.4); color: #facc15; }
+
+.role-checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #e2e8f0;
+    background: rgba(15, 23, 42, 0.7);
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+}
+.role-checkbox-item input {
+    cursor: pointer;
+}
+
+/* Arkadaşlar Modalı */
+.friends-modal-tabs .friend-tab-btn {
+    flex: 1;
+    padding: 10px 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(15, 23, 42, 0.7);
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.friends-modal-tabs .friend-tab-btn.active,
+.friends-modal-tabs .friend-tab-btn:hover {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: #10b981;
+    color: #10b981;
+}
+
+.friend-row-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+}
+
+/* Sohbet Messenger */
+.chat-friend-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.chat-friend-row:hover, .chat-friend-row.active {
+    background: rgba(56, 189, 248, 0.15);
+}
+
+.chat-bubble {
+    max-width: 75%;
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 13px;
+    line-height: 1.45;
+}
+.chat-bubble.mine {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: #ffffff;
+    border-bottom-right-radius: 4px;
+}
+.chat-bubble.theirs {
+    align-self: flex-start;
+    background: rgba(30, 41, 59, 0.85);
+    color: #e2e8f0;
+    border-bottom-left-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Taşınabilir Coddy AI Asistanı */
+#coddy-ai-widget {
+    position: fixed;
+    left: 95px;
+    top: 80px;
+    width: 380px;
+    height: 520px;
+    background: rgba(15, 23, 42, 0.94);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1.5px solid rgba(0, 242, 254, 0.4);
+    border-radius: 20px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(0, 242, 254, 0.2);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: coddyPopIn 0.3s ease;
+}
+
+.coddy-ai-handle {
+    cursor: move;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: rgba(30, 41, 59, 0.85);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ai-ctl-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #94a3b8;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+.ai-ctl-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.ai-pill {
+    white-space: nowrap;
+    background: rgba(0, 242, 254, 0.08);
+    border: 1px solid rgba(0, 242, 254, 0.3);
+    color: #e2e8f0;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.ai-pill:hover {
+    background: rgba(0, 242, 254, 0.2);
+    color: #00f2fe;
+}
+
+.ai-msg {
+    max-width: 88%;
+    font-size: 12.5px;
+    line-height: 1.5;
+}
+.ai-msg-bot {
+    align-self: flex-start;
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(0, 242, 254, 0.25);
+    padding: 10px 12px;
+    border-radius: 14px;
+    border-bottom-left-radius: 4px;
+    color: #f1f5f9;
+}
+.ai-msg-user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #0284c7, #0ea5e9);
+    padding: 8px 12px;
+    border-radius: 14px;
+    border-bottom-right-radius: 4px;
+    color: #ffffff;
+}
+
+/* ============================================================ */
+/* GÖREV & SPRINT PANOSU, DAVETLER & MENTÖR MODU STİLLERİ       */
+/* ============================================================ */
+
+/* Proje Davet Kartı */
+.project-invite-card {
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(16, 185, 129, 0.08));
+    border: 1.5px solid rgba(56, 189, 248, 0.4);
+    border-radius: 18px;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    animation: slideDown 0.3s ease;
+}
+
+/* Görev Panosu Grid & Filtreler */
+.tasks-board-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.tasks-filter-pills .task-filter-btn {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.tasks-filter-pills .task-filter-btn.active,
+.tasks-filter-pills .task-filter-btn:hover {
+    background: rgba(245, 158, 11, 0.15);
+    border-color: #f59e0b;
+    color: #f59e0b;
+}
+
+/* Görev Kartı */
+.task-card {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.25s ease;
+}
+.task-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(245, 158, 11, 0.4);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.task-status-badge {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.status-todo {
+    background: rgba(148, 163, 184, 0.12);
+    color: #94a3b8;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+}
+.status-in_progress {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.35);
+}
+.status-review {
+    background: rgba(245, 158, 11, 0.18);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.5);
+    animation: reviewPulse 2s infinite;
+}
+.status-completed {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+@keyframes reviewPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+    50% { box-shadow: 0 0 0 4px rgba(245, 158, 11, 0); }
+}
+
+/* Mentör Arayüzü Modu */
+body.mentor-mode .nav-student-only {
+    display: none !important;
+}
+
+/* ============================================================ */
+/* TATLI VE SEMPATİK KODLAMA TEMALI EĞİTİM HARİTASI ARKA PLANI */
+/* ============================================================ */
+
+#view-map {
+    position: relative;
+    overflow: visible;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding-bottom: 60px;
+}
+
+/* ============================================================ */
+/* KOD EDİTÖRÜ ARKASINDAKİ YILDIZLI GÖKYÜZÜ & SİMLER (IDE)       */
+/* ============================================================ */
+.editor-starry-backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+    background: radial-gradient(circle at 80% 20%, #151c36 0%, #0d1222 55%, #070a14 100%);
+}
+
+.editor-nebula-glow {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    top: -60px;
+    right: -60px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.22) 0%, rgba(56, 189, 248, 0.12) 40%, transparent 70%);
+    filter: blur(50px);
+    pointer-events: none;
+}
+
+.editor-star-dust {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(1.5px 1.5px at 12% 18%, rgba(255, 255, 255, 0.85), transparent),
+        radial-gradient(1.2px 1.2px at 28% 62%, rgba(56, 189, 248, 0.75), transparent),
+        radial-gradient(1.8px 1.8px at 78% 22%, rgba(250, 204, 21, 0.8), transparent),
+        radial-gradient(1.4px 1.4px at 86% 72%, rgba(244, 114, 182, 0.75), transparent),
+        radial-gradient(1.0px 1.0px at 48% 82%, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(1.6px 1.6px at 62% 44%, rgba(168, 85, 247, 0.8), transparent),
+        radial-gradient(1.1px 1.1px at 22% 42%, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(1.5px 1.5px at 92% 14%, rgba(56, 189, 248, 0.75), transparent),
+        radial-gradient(1.3px 1.3px at 38% 26%, rgba(254, 240, 138, 0.75), transparent),
+        radial-gradient(1.7px 1.7px at 72% 88%, rgba(165, 243, 252, 0.75), transparent);
+    background-size: 320px 320px;
+    opacity: 0.7;
+    animation: editorStarTwinkle 9s ease-in-out infinite alternate;
+}
+
+@keyframes editorStarTwinkle {
+    0% { opacity: 0.45; }
+    50% { opacity: 0.85; }
+    100% { opacity: 0.55; }
+}
+
+.editor-glitter {
+    position: absolute;
+    font-size: 14px;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.6;
+    animation: floatEditorGlitter 6s ease-in-out infinite alternate, sparkleShimmer 3.5s ease-in-out infinite;
+}
+.ed-glt-1 { top: 30px; right: 40px; color: #fde047; filter: drop-shadow(0 0 8px rgba(253, 224, 71, 0.8)); animation-delay: 0s, 0.2s; }
+.ed-glt-2 { top: 90px; right: 110px; color: #a5f3fc; font-size: 16px; filter: drop-shadow(0 0 10px #38bdf8); animation-delay: -1.2s, -0.6s; }
+.ed-glt-3 { bottom: 60px; right: 50px; color: #f472b6; filter: drop-shadow(0 0 8px #f472b6); animation-delay: -2.4s, -1.3s; }
+.ed-glt-4 { bottom: 120px; left: 80px; color: #ffffff; font-size: 12px; filter: drop-shadow(0 0 6px #fff); animation-delay: -3.5s, -2.1s; }
+.ed-glt-5 { top: 160px; left: 40px; color: #fef08a; font-size: 15px; filter: drop-shadow(0 0 9px #fef08a); animation-delay: -1.8s, -0.9s; }
+.ed-glt-6 { bottom: 30px; left: 240px; color: #c084fc; filter: drop-shadow(0 0 8px #c084fc); animation-delay: -4.1s, -1.7s; }
+
+@keyframes floatEditorGlitter {
+    0% { transform: translateY(0) rotate(0deg) scale(0.9); }
+    100% { transform: translateY(-18px) rotate(14deg) scale(1.1); }
+}
+
+
+
+/* Harita Çevresinde Yüzen Sempatik Kod Parçacıkları (Floating Code Badges) */
+.roadmap-decor-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.cute-code-pill {
+    position: absolute;
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
+    font-family: 'Fira Code', monospace;
+    font-size: 11.5px;
+    color: #e2e8f0;
+    cursor: default;
+    user-select: none;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    animation: floatCutePill 6s ease-in-out infinite alternate;
+}
+
+.cute-code-pill:hover {
+    transform: translateY(-6px) scale(1.05) !important;
+    border-color: #38bdf8;
+    box-shadow: 0 14px 28px rgba(56, 189, 248, 0.25);
+    color: #ffffff;
+}
+
+.cute-code-pill .pill-tag {
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-family: 'Outfit', sans-serif;
+}
+
+/* Renk Çeşitleri */
+.pill-html { border-color: rgba(249, 115, 22, 0.3); }
+.pill-html .pill-tag { background: rgba(249, 115, 22, 0.2); color: #fb923c; }
+
+.pill-sql { border-color: rgba(14, 165, 233, 0.3); }
+.pill-sql .pill-tag { background: rgba(14, 165, 233, 0.2); color: #38bdf8; }
+
+.pill-python { border-color: rgba(74, 222, 128, 0.3); }
+.pill-python .pill-tag { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
+
+.pill-js { border-color: rgba(250, 204, 21, 0.3); }
+.pill-js .pill-tag { background: rgba(250, 204, 21, 0.2); color: #facc15; }
+
+.pill-csharp { border-color: rgba(168, 85, 247, 0.3); }
+.pill-csharp .pill-tag { background: rgba(168, 85, 247, 0.2); color: #c084fc; }
+
+.pill-cpp { border-color: rgba(56, 189, 248, 0.3); }
+.pill-cpp .pill-tag { background: rgba(56, 189, 248, 0.2); color: #60a5fa; }
+
+.pill-cute { border-color: rgba(236, 72, 153, 0.3); }
+.pill-cute .pill-tag { background: rgba(236, 72, 153, 0.2); color: #f472b6; }
+
+/* Konumlandırmalar (Desktop / Geniş Ekran - Üst Başlık ve Bilgileri Asla Kapatmaz) */
+.pill-pos-1 { top: 380px; left: -180px; animation-delay: 0s; }
+.pill-pos-2 { top: 460px; right: -180px; animation-delay: -2s; }
+.pill-pos-3 { top: 620px; left: -190px; animation-delay: -4s; }
+.pill-pos-4 { top: 700px; right: -180px; animation-delay: -1.5s; }
+.pill-pos-5 { top: 860px; left: -185px; animation-delay: -3s; }
+.pill-pos-6 { top: 940px; right: -190px; animation-delay: -5s; }
+.pill-pos-7 { top: 1100px; left: -180px; animation-delay: -2.5s; }
+.pill-pos-8 { top: 1180px; right: -185px; animation-delay: -0.5s; }
+.pill-pos-9 { top: 1340px; left: -190px; animation-delay: -4.5s; }
+.pill-pos-10 { top: 1420px; right: -185px; animation-delay: -1s; }
+
+/* Ekran daraldığında kod haplarını gizle, asla ders yolunun veya butonların üzerine binmesin */
+@media (max-width: 1440px) {
+    .roadmap-decor-container {
+        display: none !important;
+    }
+}
+
+@keyframes floatCutePill {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(1deg); }
+    100% { transform: translateY(6px) rotate(-1deg); }
+}
+
+/* SVG Neon Kıvrımlı Veri Yolu Efekti */
+#duo-progress-path {
+    stroke-dasharray: 12 10;
+    animation: cyberPulseFlow 20s linear infinite;
+}
+
+@keyframes cyberPulseFlow {
+    from { stroke-dashoffset: 600; }
+    to { stroke-dashoffset: 0; }
+}
+
+/* Yol Kenarındaki Sempatik İstasyon Adacıkları (Waypoint Islands) */
+.roadmap-waypoint-island {
+    position: absolute;
+    pointer-events: auto;
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.9));
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 18px;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+    color: #e2e8f0;
+    font-size: 12px;
+    z-index: 2;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+.roadmap-waypoint-island:hover {
+    transform: scale(1.04);
+    border-color: #38bdf8;
+}
+.waypoint-left { left: -130px; }
+.waypoint-right { right: -130px; }
+.waypoint-icon { font-size: 20px; }
+
+/* Küçük Ekran Uyumluluğu */
+@media (max-width: 1080px) {
+    .pill-pos-1, .pill-pos-3, .pill-pos-5, .pill-pos-7, .pill-pos-9 { left: -30px; }
+    .pill-pos-2, .pill-pos-4, .pill-pos-6, .pill-pos-8, .pill-pos-10 { right: -30px; }
+    .waypoint-left { left: -20px; }
+    .waypoint-right { right: -20px; }
+}
+@media (max-width: 768px) {
+    .cute-code-pill, .roadmap-waypoint-island { display: none; }
+}
+
+/* ============================================================ */
+/* VS CODE TARZI OTOMATİK TAMAMLAMA WIDGET'I (INTELLISENSE)     */
+/* ============================================================ */
+
+.vscode-autocomplete-dropdown {
+    position: absolute;
+    z-index: 99999;
+    background: #1e1e1e;
+    border: 1px solid #007fd4;
+    border-radius: 8px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255,255,255,0.05);
+    width: 320px;
+    max-height: 240px;
+    overflow-y: auto;
+    font-family: 'Fira Code', Consolas, monospace;
+    font-size: 12.5px;
+    color: #cccccc;
+    display: none;
+}
+
+.vscode-autocomplete-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+.vscode-autocomplete-dropdown::-webkit-scrollbar-thumb {
+    background: #424242;
+    border-radius: 4px;
+}
+
+.vscode-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    user-select: none;
+    transition: background 0.1s ease;
+}
+
+.vscode-item:hover, .vscode-item.selected {
+    background: #04395e;
+    color: #ffffff;
+    border-left-color: #007fd4;
+}
+
+.vscode-item-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.vscode-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+/* VS Code Simge Tipleri */
+.icon-keyword { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
+.icon-method { background: rgba(168, 85, 247, 0.2); color: #c084fc; }
+.icon-property { background: rgba(251, 146, 60, 0.2); color: #fb923c; }
+.icon-snippet { background: rgba(250, 204, 21, 0.2); color: #facc15; }
+.icon-tag { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+.vscode-match-text {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.vscode-item-type {
+    font-size: 10.5px;
+    color: #858585;
+    font-style: italic;
+    font-family: 'Outfit', sans-serif;
+}
+
+/* ============================================================ */
+/* YAPAY ZEKA SATIR SATIR KOD ANALİZİ & AÇIKLAMA BİLEŞENİ       */
+/* ============================================================ */
+
+.ai-line-annotations-container {
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 14px;
+    padding: 14px;
+    margin-top: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.ai-annotation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+}
+
+.ai-annotation-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #38bdf8;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ai-annotation-lines-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.ai-line-box {
+    background: rgba(30, 41, 59, 0.6);
+    border-left: 3px solid #38bdf8;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+.ai-line-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.ai-line-num-badge {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 6px;
+    padding: 1px 6px;
+    font-size: 10.5px;
+    font-family: 'Fira Code', monospace;
+    font-weight: 700;
+}
+
+.ai-line-code-snippet {
+    font-family: 'Fira Code', monospace;
+    color: #f1f5f9;
+    font-size: 11px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 320px;
+}
+
+.ai-line-desc {
+    color: #cbd5e1;
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.ai-mentor-verdict {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 8px;
+    font-size: 11.5px;
+    color: #34d399;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+
+
+
+
+/* ============================================================
+   PROJE & GÖREV EKRANLARI: TAM EKRAN (menü çubuğu hariç) + MAT KOYU TEMA
+   ============================================================ */
+.main-content:has(#view-projects:not(.hidden)),
+.main-content:has(#view-tasks:not(.hidden)) {
+    padding: 0;
+}
+#view-projects, #view-tasks {
+    max-width: none;
+    width: 100%;
+    margin: 0;
+}
+#view-projects > .glass-card,
+#view-tasks > .glass-card {
+    min-height: 100vh !important;
+    height: auto;
+    border-radius: 0;
+    border: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 28px clamp(20px, 3vw, 48px);
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    /* Göz yormaması için canlı renkleri sakinleştir ve parlaklığı düşür */
+    filter: saturate(0.55) brightness(0.88);
+}
+#view-projects .project-card,
+#view-tasks .task-card {
+    background: rgba(27, 30, 38, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: none;
+}
+#view-projects .project-card:hover,
+#view-tasks .task-card:hover {
+    border-color: rgba(148, 163, 184, 0.28);
+    box-shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.6);
+}
+#view-projects .proj-filter-btn,
+#view-tasks .task-filter-btn {
+    background: rgba(27, 30, 38, 0.72);
+    border-color: rgba(255, 255, 255, 0.07);
+}
+#view-projects .btn-primary {
+    background: #3b4a6b;
+    box-shadow: none;
+}
+#view-tasks .btn-primary {
+    background: #7a5a22 !important;
+    box-shadow: none;
+}
+#view-projects .projects-card-grid,
+#view-tasks .tasks-board-grid {
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+}

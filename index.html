@@ -1,0 +1,2214 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>COD+ Eğitim Platformu</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <link rel="stylesheet" href="style.css?v=19" />
+</head>
+<body>
+    <div class="background-effects">
+        <!-- Tüm Ekrana Yayılan Doğal Yıldızlı Gece Gökyüzü ve İmleç Yıldız İzi Tuvali -->
+        <canvas id="global-starry-canvas"></canvas>
+    </div>
+
+    <section id="landing">
+        <div class="landing-inner">
+            <div class="landing-left">
+                <div class="landing-brand">
+                    <div class="landing-brand-title">COD<span>+</span></div>
+                    <div class="landing-brand-sub">Geleceği Kodla. Sınırları Aş.</div>
+                </div>
+                
+                <!-- Modern & Sleek COD+ Cyber Robot SVG -->
+                <div class="cute-robot-wrap">
+                    <svg class="cute-robot" width="220" height="260" viewBox="0 0 220 260" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="cRoboBody" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#ffffff"/>
+                                <stop offset="100%" stop-color="#e2e8f0"/>
+                            </linearGradient>
+                            <linearGradient id="cRoboDark" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#1e293b"/>
+                                <stop offset="100%" stop-color="#0f172a"/>
+                            </linearGradient>
+                            <linearGradient id="cRoboVisor" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#090d16"/>
+                                <stop offset="100%" stop-color="#0f172a"/>
+                            </linearGradient>
+                            <linearGradient id="cRoboCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#00f2fe"/>
+                                <stop offset="100%" stop-color="#38bdf8"/>
+                            </linearGradient>
+                            <filter id="cRoboCyanGlow" x="-30%" y="-30%" width="160%" height="160%">
+                                <feGaussianBlur stdDeviation="4" result="blur"/>
+                                <feMerge>
+                                    <feMergeNode in="blur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                            <filter id="cRoboShadow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.35"/>
+                            </filter>
+                        </defs>
+                        
+                        <!-- Ground Shadow -->
+                        <ellipse cx="110" cy="246" rx="55" ry="9" fill="rgba(0,0,0,0.3)" class="robo-floor-shadow"/>
+
+                        <!-- Whole Floating Group -->
+                        <g class="robo-float-group">
+                            <!-- Antenna / Sensor -->
+                            <rect x="107" y="16" width="6" height="20" rx="3" fill="#64748b"/>
+                            <circle cx="110" cy="14" r="7" fill="url(#cRoboCyan)" filter="url(#cRoboCyanGlow)"/>
+                            <circle cx="110" cy="14" r="3" fill="#ffffff"/>
+
+                            <!-- Left Headphone -->
+                            <rect x="36" y="62" width="12" height="36" rx="6" fill="url(#cRoboDark)" stroke="#334155" stroke-width="1.5" filter="url(#cRoboShadow)"/>
+                            <rect x="44" y="68" width="4" height="24" rx="2" fill="url(#cRoboCyan)" filter="url(#cRoboCyanGlow)"/>
+
+                            <!-- Right Headphone -->
+                            <rect x="172" y="62" width="12" height="36" rx="6" fill="url(#cRoboDark)" stroke="#334155" stroke-width="1.5" filter="url(#cRoboShadow)"/>
+                            <rect x="172" y="68" width="4" height="24" rx="2" fill="url(#cRoboCyan)" filter="url(#cRoboCyanGlow)"/>
+
+                            <!-- Head Shell -->
+                            <rect x="46" y="34" width="128" height="92" rx="44" fill="url(#cRoboBody)" filter="url(#cRoboShadow)" stroke="#cbd5e1" stroke-width="2"/>
+
+                            <!-- Top Helmet Cyan Accent Strip -->
+                            <path d="M 85 35 Q 110 32 135 35" fill="none" stroke="url(#cRoboCyan)" stroke-width="3" stroke-linecap="round" filter="url(#cRoboCyanGlow)"/>
+
+                            <!-- Curved Gloss Visor -->
+                            <rect x="58" y="48" width="104" height="66" rx="30" fill="url(#cRoboVisor)" stroke="#1e293b" stroke-width="2"/>
+                            
+                            <!-- Visor Light Reflection -->
+                            <path d="M 68 56 Q 110 49 152 56 A 25 25 0 0 0 68 56 Z" fill="rgba(255,255,255,0.08)"/>
+
+                            <!-- High-Tech LED Eyes -->
+                            <g class="robo-eyes">
+                                <!-- Left Eye -->
+                                <rect x="74" y="66" width="22" height="26" rx="11" fill="url(#cRoboCyan)" filter="url(#cRoboCyanGlow)"/>
+                                <rect x="78" y="70" width="14" height="18" rx="7" fill="#ffffff" opacity="0.9"/>
+                                <circle cx="82" cy="74" r="3" fill="#ffffff"/>
+
+                                <!-- Right Eye -->
+                                <rect x="124" y="66" width="22" height="26" rx="11" fill="url(#cRoboCyan)" filter="url(#cRoboCyanGlow)"/>
+                                <rect x="128" y="70" width="14" height="18" rx="7" fill="#ffffff" opacity="0.9"/>
+                                <circle cx="132" cy="74" r="3" fill="#ffffff"/>
+
+                                <!-- Smart Subtle Smile Bar -->
+                                <path d="M 102 96 Q 110 101 118 96" fill="none" stroke="url(#cRoboCyan)" stroke-width="3" stroke-linecap="round" filter="url(#cRoboCyanGlow)"/>
+                            </g>
+
+                            <!-- Neck Connector -->
+                            <rect x="96" y="124" width="28" height="12" rx="4" fill="#334155"/>
+
+                            <!-- Left Arm (Natural, Balanced & Symmetric) -->
+                            <g class="robo-left-arm">
+                                <circle cx="48" cy="148" r="11" fill="url(#cRoboBody)" stroke="#cbd5e1" stroke-width="1.5"/>
+                                <rect x="41" y="152" width="14" height="34" rx="7" fill="url(#cRoboBody)" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cRoboShadow)"/>
+                                <circle cx="48" cy="186" r="6" fill="#334155"/>
+                            </g>
+
+                            <!-- Right Arm (Natural, Balanced & Symmetric) -->
+                            <g class="robo-right-arm">
+                                <circle cx="172" cy="148" r="11" fill="url(#cRoboBody)" stroke="#cbd5e1" stroke-width="1.5"/>
+                                <rect x="165" y="152" width="14" height="34" rx="7" fill="url(#cRoboBody)" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cRoboShadow)"/>
+                                <circle cx="172" cy="186" r="6" fill="#334155"/>
+                            </g>
+
+                            <!-- Torso / Body Armor -->
+                            <rect x="60" y="132" width="100" height="78" rx="26" fill="url(#cRoboBody)" filter="url(#cRoboShadow)" stroke="#cbd5e1" stroke-width="2"/>
+
+                            <!-- Chest Core (High-Tech Reactor with Code Icon </>) -->
+                            <circle cx="110" cy="168" r="22" fill="url(#cRoboVisor)" stroke="#334155" stroke-width="2"/>
+                            <circle cx="110" cy="168" r="18" fill="none" stroke="url(#cRoboCyan)" stroke-width="1.5" opacity="0.6" filter="url(#cRoboCyanGlow)"/>
+                            <!-- Code Icon </> Inside Core -->
+                            <path d="M 103 163 L 98 168 L 103 173 M 117 163 L 122 168 L 117 173 M 113 162 L 107 174" fill="none" stroke="url(#cRoboCyan)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#cRoboCyanGlow)" class="robo-code-core"/>
+
+                            <!-- Sturdy Futuristic Boots / Legs -->
+                            <!-- Left Leg -->
+                            <rect x="80" y="206" width="20" height="22" rx="6" fill="url(#cRoboDark)" stroke="#334155" stroke-width="1.5"/>
+                            <rect x="74" y="222" width="28" height="12" rx="6" fill="url(#cRoboBody)" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cRoboShadow)"/>
+                            <rect x="78" y="232" width="20" height="3" rx="1.5" fill="url(#cRoboCyan)" filter="url(#cRoboCyanGlow)"/>
+
+                            <!-- Right Leg -->
+                            <rect x="120" y="206" width="20" height="22" rx="6" fill="url(#cRoboDark)" stroke="#334155" stroke-width="1.5"/>
+                            <rect x="118" y="222" width="28" height="12" rx="6" fill="url(#cRoboBody)" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cRoboShadow)"/>
+                            <rect x="122" y="232" width="20" height="3" rx="1.5" fill="url(#cRoboCyan)" filter="url(#cRoboCyanGlow)"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="landing-right">
+                <div class="glass-card">
+                    <div class="tabs">
+                        <button class="tab active" onclick="switchTab('login')">Giriş Yap</button>
+                        <button class="tab" onclick="switchTab('register')">Kayıt Ol</button>
+                    </div>
+
+                    <form id="login-form" class="form-panel active" onsubmit="handleLogin(event)">
+                        <div class="input-group">
+                            <label>E-posta</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-envelope"></i>
+                                <input type="email" placeholder="ornek@mail.com" required style="border-radius: 20px;"/>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Şifre</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-lock"></i>
+                                <input type="password" id="login-pass" placeholder="••••••••" required style="border-radius: 20px;"/>
+                            </div>
+                        </div>
+
+
+                        <button type="submit" class="btn-primary" style="border-radius: 20px; width:100%; margin-bottom:12px;">
+                            <span>Giriş Yap</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+
+                        <div style="text-align:center; font-size:12px; color:var(--text-muted); margin-bottom:10px;">veya şununla devam et:</div>
+                        <div class="social-login" style="display:flex; gap:10px;">
+                            <button type="button" class="btn-secondary" onclick="handleSocialLogin('Google')" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; padding:10px; border-radius:20px; background:rgba(255,255,255,0.05); border:1px solid var(--glass-border); color:white; cursor:pointer;"><i class="fa-brands fa-google" style="color:#ef4444;"></i> Google</button>
+                            <button type="button" class="btn-secondary" onclick="handleSocialLogin('Apple')" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; padding:10px; border-radius:20px; background:rgba(255,255,255,0.05); border:1px solid var(--glass-border); color:white; cursor:pointer;"><i class="fa-brands fa-apple"></i> Apple</button>
+                        </div>
+                    </form>
+
+                    <form id="reg-form" class="form-panel" onsubmit="event.preventDefault(); validateRegister();">
+                        <div style="display:flex; gap:10px;">
+                            <div class="input-group" style="flex:1;">
+                                <label>İsim</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input type="text" id="reg-name" placeholder="Adınız" required style="border-radius: 20px;"/>
+                                </div>
+                            </div>
+                            <div class="input-group" style="flex:1;">
+                                <label>E-posta</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <input type="email" id="reg-email" placeholder="mail@ornek.com" required style="border-radius: 20px;"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; gap:10px;">
+                            <div class="input-group" style="flex:1;">
+                                <label>Şifre</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fa-solid fa-lock"></i>
+                                    <input type="password" id="reg-pass" placeholder="••••••" required minlength="6" style="border-radius: 20px;"/>
+                                </div>
+                            </div>
+                            <div class="input-group" style="flex:1;">
+                                <label>Şifre Tekrar</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fa-solid fa-lock"></i>
+                                    <input type="password" id="reg-pass-confirm" placeholder="••••••" required minlength="6" style="border-radius: 20px;"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; gap:10px; margin-bottom:12px;">
+                            <div class="input-group" style="flex:1; margin-bottom:0;">
+                                <label>Eğitim Düzeyi</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                    <select id="reg-education" required style="border-radius: 20px; width:100%; padding: 12px 14px 12px 38px; background: rgba(15, 23, 42, 0.7); border: 1px solid var(--glass-border); color: white; font-size: 13px;">
+                                        <option value="İlköğretim / Ortaokul">İlköğretim / Ortaokul</option>
+                                        <option value="Lise">Lise</option>
+                                        <option value="Üniversite" selected>Üniversite</option>
+                                        <option value="Yüksek Lisans / Doktora">Yüksek Lisans / Doktora</option>
+                                        <option value="Mezun / Sektör">Mezun / Sektör</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-group" style="flex:1; margin-bottom:0;">
+                                <label>Hesap Türü</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fa-solid fa-user-tie"></i>
+                                    <select id="reg-role" onchange="toggleMentorRegistrationFields('reg')" style="border-radius: 20px; width:100%; padding: 12px 14px 12px 38px; background: rgba(15, 23, 42, 0.7); border: 1px solid var(--glass-border); color: white; font-size: 13px;">
+                                        <option value="ogrenci" selected>Öğrenci</option>
+                                        <option value="danisman">Mentör / Danışman</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mentör / Danışman Seçildiğinde Açılan Özel Danışman Alanları -->
+                        <div id="reg-mentor-extra-fields" style="display:none; margin-top:14px; margin-bottom:14px; padding:16px; background:rgba(56,189,248,0.06); border:1px dashed rgba(56,189,248,0.4); border-radius:18px;">
+                            <div style="font-size:12.5px; font-weight:700; color:#38bdf8; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+                                <i class="fa-solid fa-chalkboard-user"></i> Danışman / Mentör Profil Bilgileri
+                            </div>
+                            <div class="input-group" style="margin-bottom:10px;">
+                                <label style="font-size:12px; color:#cbd5e1; margin-bottom:4px; display:block;">Uzmanlık / Danışmanlık Alanı</label>
+                                <select id="reg-mentor-field" style="border-radius:14px; width:100%; padding:10px 12px; background:rgba(15,23,42,0.85); border:1px solid var(--glass-border); color:white; font-size:12.5px;">
+                                    <option value="Frontend & UI/UX">Frontend & UI/UX Mimarisi</option>
+                                    <option value="Backend & Mikroservisler">Backend & Mikroservis Mimarisi</option>
+                                    <option value="Fullstack Web Geliştirme" selected>Fullstack Web Geliştirme</option>
+                                    <option value="Veritabanı & Büyük Veri">Veritabanı & SQL / NoSQL Mimarisi</option>
+                                    <option value="Yapay Zeka & Veri Bilimi">Yapay Zeka & Veri Bilimi (Python)</option>
+                                    <option value="Mobil Geliştirme">Mobil Uygulama (iOS / Android / Flutter)</option>
+                                    <option value="Siber Güvenlik & DevOps">Siber Güvenlik, DevOps & Bulut</option>
+                                    <option value="Sistem & Oyun Motoru">Sistem Programlama & C++ Oyun Motoru</option>
+                                </select>
+                            </div>
+                            <div style="display:flex; gap:10px; margin-bottom:10px;">
+                                <div class="input-group" style="flex:1; margin-bottom:0;">
+                                    <label style="font-size:12px; color:#cbd5e1; margin-bottom:4px; display:block;">Deneyim Seviyesi</label>
+                                    <select id="reg-mentor-exp" style="border-radius:14px; width:100%; padding:10px 12px; background:rgba(15,23,42,0.85); border:1px solid var(--glass-border); color:white; font-size:12.5px;">
+                                        <option value="1-2 Yıl">1-2 Yıl</option>
+                                        <option value="3-5 Yıl (Mid-Senior)" selected>3-5 Yıl (Mid-Senior)</option>
+                                        <option value="5-8 Yıl (Senior)">5-8 Yıl (Senior)</option>
+                                        <option value="8+ Yıl (Lead / Principal)">8+ Yıl (Lead / Principal)</option>
+                                    </select>
+                                </div>
+                                <div class="input-group" style="flex:1; margin-bottom:0;">
+                                    <label style="font-size:12px; color:#cbd5e1; margin-bottom:4px; display:block;">Kurum / Şirket</label>
+                                    <input type="text" id="reg-mentor-company" placeholder="Örn: Teknopark, Google, İTÜ" style="border-radius:14px; padding:10px 12px; font-size:12.5px; width:100%;" />
+                                </div>
+                            </div>
+                            <div class="input-group" style="margin-bottom:0;">
+                                <label style="font-size:12px; color:#cbd5e1; margin-bottom:4px; display:block;">Mentörlük Biyografisi / Vizyonu</label>
+                                <input type="text" id="reg-mentor-bio" placeholder="Örn: Genç yeteneklere rehberlik etmek ve gerçek projeler üretmek istiyorum." style="border-radius:14px; padding:10px 12px; font-size:12.5px; width:100%;" />
+                            </div>
+                        </div>
+                        
+                        <p id="reg-error" style="color:#f43f5e; font-size:13px; margin-bottom:10px; display:none;">Hata mesajı</p>
+
+                        <button type="submit" class="btn-primary" style="margin-bottom:15px; width:100%; border-radius: 20px;">
+                            <span>Hesap Oluştur ve Başla</span>
+                            <i class="fa-solid fa-rocket"></i>
+                        </button>
+
+                        <div style="text-align:center; font-size:12px; color:var(--text-muted); margin-bottom:10px;">veya şununla devam et:</div>
+                        <div class="social-login" style="display:flex; gap:10px;">
+                            <button type="button" class="btn-secondary" onclick="handleSocialLogin('Google')" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; padding:10px; border-radius:20px; background:rgba(255,255,255,0.05); border:1px solid var(--glass-border); color:white; cursor:pointer;"><i class="fa-brands fa-google" style="color:#ef4444;"></i> Google</button>
+                            <button type="button" class="btn-secondary" onclick="handleSocialLogin('Apple')" style="flex:1; display:flex; align-items:center; justify-content:center; gap:8px; padding:10px; border-radius:20px; background:rgba(255,255,255,0.05); border:1px solid var(--glass-border); color:white; cursor:pointer;"><i class="fa-brands fa-apple"></i> Apple</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ONBOARDING FLOW -->
+    <section id="onboarding" class="hidden">
+        <div class="ob-container">
+            <div class="glass-card ob-card">
+                <!-- Step 1 -->
+                <div class="ob-step active" id="step-1">
+                    <h2 class="step-title">Seni tanıyalım 👋</h2>
+                    <p class="step-desc">Sana nasıl hitap edelim?</p>
+                    <div class="input-group">
+                        <input type="text" id="ob-name" placeholder="Adın veya takma adın" required/>
+                    </div>
+                    <button class="btn-primary mt-4" onclick="nextStep(2)">
+                        <span>Devam Et</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Step 2: Başlangıç Tercihi -->
+                <div class="ob-step hidden" id="step-2">
+                    <h2 class="step-title" id="greeting-title">Harika!</h2>
+                    <p class="step-desc">Nasıl bir başlangıç yapmak istersin?</p>
+                    <div class="choice-grid">
+                        <div class="choice-card" onclick="goToDirectLanguageSelect()">
+                            <div class="choice-icon">🎯</div>
+                            <div class="choice-text">
+                                <h3>Öğrenmek İstediğim Dili Seç</h3>
+                                <p>Hangi dili öğrenmek istediğimi biliyorum, doğrudan seçmek istiyorum.</p>
+                            </div>
+                        </div>
+                        <div class="choice-card" onclick="openOrientationGuide()">
+                            <div class="choice-icon">🧭</div>
+                            <div class="choice-text">
+                                <h3>Yazılım Dilleri Hakkında Bilgi Al</h3>
+                                <p>Hangi dil ne işe yarar, hangi alanda kullanılır incelemek istiyorum.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2B: Öğrenmek İstediğin Dili Seç -->
+                <div class="ob-step hidden" id="step-lang-select">
+                    <h2 class="step-title">Öğrenmek İstediğin Dili Seç 🚀</h2>
+                    <p class="step-desc">İlk adımını atmak istediğin dili seç (Daha sonra diğer dilleri de dilediğin gibi öğrenebilirsin):</p>
+                    
+                    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin-bottom:20px;">
+                        <button type="button" class="lang-select-card" onclick="onLanguageSelected('HTML')" style="text-align:left; padding:14px; border-radius:14px; background:rgba(15,23,42,0.8); border:1px solid rgba(249,115,22,0.4); color:#fff; cursor:pointer; display:flex; flex-direction:column; gap:4px;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <i class="fa-brands fa-html5" style="color:#f97316; font-size:22px;"></i>
+                                <span style="font-weight:bold; font-size:15px;">HTML5</span>
+                            </div>
+                            <span style="font-size:12px; color:#94a3b8;">Web Tasarımı & Sayfa Omurgası</span>
+                        </button>
+
+                        <button type="button" class="lang-select-card" onclick="onLanguageSelected('CSS')" style="text-align:left; padding:14px; border-radius:14px; background:rgba(15,23,42,0.8); border:1px solid rgba(56,189,248,0.4); color:#fff; cursor:pointer; display:flex; flex-direction:column; gap:4px;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <i class="fa-brands fa-css3-alt" style="color:#38bdf8; font-size:22px;"></i>
+                                <span style="font-weight:bold; font-size:15px;">CSS3</span>
+                            </div>
+                            <span style="font-size:12px; color:#94a3b8;">Görsel Stil, Renk & Animasyon</span>
+                        </button>
+
+                        <button type="button" class="lang-select-card" onclick="onLanguageSelected('JavaScript')" style="text-align:left; padding:14px; border-radius:14px; background:rgba(15,23,42,0.8); border:1px solid rgba(250,204,21,0.4); color:#fff; cursor:pointer; display:flex; flex-direction:column; gap:4px;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <i class="fa-brands fa-js" style="color:#facc15; font-size:22px;"></i>
+                                <span style="font-weight:bold; font-size:15px;">JavaScript</span>
+                            </div>
+                            <span style="font-size:12px; color:#94a3b8;">Dinamik Beyin & Web Etkileşimi</span>
+                        </button>
+
+                        <button type="button" class="lang-select-card" onclick="onLanguageSelected('Python')" style="text-align:left; padding:14px; border-radius:14px; background:rgba(15,23,42,0.8); border:1px solid rgba(74,222,128,0.4); color:#fff; cursor:pointer; display:flex; flex-direction:column; gap:4px;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <i class="fa-brands fa-python" style="color:#4ade80; font-size:22px;"></i>
+                                <span style="font-weight:bold; font-size:15px;">Python</span>
+                            </div>
+                            <span style="font-size:12px; color:#94a3b8;">Yapay Zekâ, Veri & Siber Güvenlik</span>
+                        </button>
+
+                        <button type="button" class="lang-select-card" onclick="onLanguageSelected('C#')" style="text-align:left; padding:14px; border-radius:14px; background:rgba(15,23,42,0.8); border:1px solid rgba(168,85,247,0.4); color:#fff; cursor:pointer; display:flex; flex-direction:column; gap:4px;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <i class="fa-solid fa-code" style="color:#a855f7; font-size:22px;"></i>
+                                <span style="font-weight:bold; font-size:15px;">C# (.NET 9)</span>
+                            </div>
+                            <span style="font-size:12px; color:#94a3b8;">Kurumsal Mimari & Unity Oyun</span>
+                        </button>
+
+                        <button type="button" class="lang-select-card" onclick="onLanguageSelected('SQL')" style="text-align:left; padding:14px; border-radius:14px; background:rgba(15,23,42,0.8); border:1px solid rgba(14,165,233,0.4); color:#fff; cursor:pointer; display:flex; flex-direction:column; gap:4px;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <i class="fa-solid fa-database" style="color:#0ea5e9; font-size:22px;"></i>
+                                <span style="font-weight:bold; font-size:15px;">SQL</span>
+                            </div>
+                            <span style="font-size:12px; color:#94a3b8;">Veritabanı & Büyük Veri Yönetimi</span>
+                        </button>
+
+                        <button type="button" class="lang-select-card" onclick="onLanguageSelected('C++')" style="text-align:left; padding:14px; border-radius:14px; background:rgba(15,23,42,0.8); border:1px solid rgba(56,189,248,0.4); color:#fff; cursor:pointer; display:flex; flex-direction:column; gap:4px; grid-column: span 2;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <i class="fa-solid fa-microchip" style="color:#38bdf8; font-size:22px;"></i>
+                                <span style="font-weight:bold; font-size:15px;">C++</span>
+                            </div>
+                            <span style="font-size:12px; color:#94a3b8;">Yüksek Performans, Sistem Programlama & Siber Güvenlik</span>
+                        </button>
+                    </div>
+
+                    <button class="btn-secondary" onclick="nextStep(2)" style="width:100%; border-radius:14px; padding:12px;">
+                        <i class="fa-solid fa-arrow-left"></i> Geri Dön
+                    </button>
+                </div>
+
+                <!-- Step 2C: Seçilen Dil Deneyimi (Sıfırdan mı, Bilgin Var mı?) -->
+                <div class="ob-step hidden" id="step-lang-experience">
+                    <h2 class="step-title" id="exp-lang-heading">Python Deneyimin Nedir?</h2>
+                    <p class="step-desc" id="exp-lang-sub">Bu dil hakkında bilgin var mı, yoksa sıfırdan mı başlıyorsun?</p>
+                    
+                    <div class="choice-grid">
+                        <div class="choice-card" onclick="chooseZeroExperience()">
+                            <div class="choice-icon">🌱</div>
+                            <div class="choice-text">
+                                <h3>Sıfırdan Başlıyorum</h3>
+                                <p id="exp-zero-desc">Daha önce hiç bu dilde kod yazmadım. (1. temel seviyeden başla)</p>
+                            </div>
+                        </div>
+                        <div class="choice-card" onclick="chooseExistingExperience()">
+                            <div class="choice-icon">⚡</div>
+                            <div class="choice-text">
+                                <h3>Bu Dil Hakkında Bilgim Var</h3>
+                                <p id="exp-exist-desc">Temel veya orta düzey kavramlara hakimim. (Düzeyini tespit et)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-secondary mt-4" onclick="showStep('step-lang-select')" style="width:100%; border-radius:14px; padding:12px;">
+                        <i class="fa-solid fa-arrow-left"></i> Farklı Bir Dil Seç
+                    </button>
+                </div>
+
+                <!-- Step 3: Seviye Tespit Sınavı & Sonuç Ekranı -->
+                <div class="ob-step hidden" id="step-test">
+                    <h2 class="step-title" id="test-title">Seviye Tespit Sınavı</h2>
+                    <p class="step-desc" id="test-desc">Düzeyini tespit etmek için birkaç soru yanıtlamalısın.</p>
+                    
+                    <div class="quiz-box" id="ptest-quiz-box">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                            <h3 id="ptest-lang" style="color:var(--primary); margin:0;">Python Testi</h3>
+                            <span id="ptest-progress" style="font-size:12px; color:#94a3b8; font-weight:bold;">Soru 1/3</span>
+                        </div>
+                        <p id="ptest-question" style="font-size:16px; margin-bottom:16px; line-height:1.5; color:#f8fafc; font-weight:600;">Soru buraya gelecek</p>
+                        <div class="quiz-options" id="ptest-options" style="display:flex; flex-direction:column; gap:8px;">
+                            <!-- JS ile dolacak -->
+                        </div>
+                        <div id="ptest-feedback" class="mt-4" style="font-weight:bold; font-size:14px;"></div>
+                        <button class="btn-primary mt-4 hidden" id="ptest-next-btn" onclick="nextPlacementStep()">Sıradaki Soru</button>
+                    </div>
+
+                    <!-- Seviye Tespit Tamamlandı / Muafiyet Sonuç Kartı -->
+                    <div id="ptest-result-card" style="display:none; text-align:center; padding:20px; background:rgba(15,23,42,0.8); border:1px solid rgba(56,189,248,0.3); border-radius:18px;">
+                        <div id="ptest-result-icon" style="font-size:48px; margin-bottom:10px;">🏆</div>
+                        <h3 id="ptest-result-title" style="font-size:20px; color:#f8fafc; margin:0 0 8px 0;">Düzeyin Tespit Edildi!</h3>
+                        <p id="ptest-result-desc" style="color:#94a3b8; font-size:14px; line-height:1.5; margin-bottom:20px;"></p>
+                        <div id="ptest-badge-row" style="margin-bottom:20px;"></div>
+                        <button class="btn-primary" onclick="startAppFromPlacement()" style="width:100%; border-radius:14px; padding:13px; font-size:15px; display:flex; justify-content:center; align-items:center; gap:8px;">
+                            <span>Eğitime Başla</span>
+                            <i class="fa-solid fa-rocket"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- IDE / DASHBOARD -->
+    <section id="dashboard" class="hidden">
+        <div class="sidebar">
+            <div class="logo" title="COD+ 2026"><i class="fa-solid fa-code"></i></div>
+            <nav id="sidebar-nav">
+                <a href="#" class="nav-item active nav-student-only" id="nav-btn-map" title="Eğitim Haritası" onclick="switchView('map')"><i class="fa-solid fa-map"></i></a>
+                <a href="#" class="nav-item nav-student-only" id="nav-btn-ide" title="Serbest Kod Alanı (IDE)" onclick="switchView('ide-sandbox')"><i class="fa-solid fa-laptop-code"></i></a>
+                <a href="#" class="nav-item nav-student-only" id="nav-btn-book" title="Dijital Kod El Kitabı" onclick="switchView('book')"><i class="fa-solid fa-book"></i></a>
+                <a href="#" class="nav-item" id="nav-btn-projects" title="Projeler & Ekip Yönetimi" onclick="switchView('projects')"><i class="fa-solid fa-diagram-project" style="color:#38bdf8;"></i></a>
+                <a href="#" class="nav-item" id="nav-btn-tasks" title="Görev & Sprint Panosu" onclick="switchView('tasks')"><i class="fa-solid fa-list-check" style="color:#f59e0b;"></i><span id="tasks-nav-badge" class="nav-badge-dot" style="display:none; background:#f59e0b;"></span></a>
+                <a href="#" class="nav-item" id="nav-btn-friends" title="Arkadaşlar & Ağım" onclick="openFriendsModal()"><i class="fa-solid fa-user-group" style="color:#10b981;"></i><span id="friends-nav-badge" class="nav-badge-dot"></span></a>
+                <a href="#" class="nav-item" id="nav-btn-chat" title="Sohbet / Mesajlar" onclick="openChatMessengerModal()"><i class="fa-solid fa-comments" style="color:#a855f7;"></i><span id="chat-nav-badge" class="nav-badge-dot"></span></a>
+                <a href="#" class="nav-item nav-student-only" id="nav-btn-duel" title="1v1 Akran Düellosu" onclick="openDuelModal()"><i class="fa-solid fa-bolt" style="color:#f59e0b;"></i></a>
+                <a href="#" class="nav-item" id="nav-btn-profile" title="Profil & Ayarlar" onclick="openProfileModal()"><i class="fa-solid fa-user"></i></a>
+            </nav>
+
+            <!-- Taşınabilir Yapay Zeka Başlatma Butonu (Sevimli Beyaz Robot Kafası) -->
+            <div class="sidebar-ai-launcher" style="margin-top:auto; padding-bottom:8px;">
+                <button type="button" class="sidebar-robot-btn" id="sidebar-ai-trigger" onclick="toggleCoddyAiWidget()" title="COD+ AI Taşınabilir Asistanını Başlat">
+                    <svg width="34" height="34" viewBox="0 0 100 85" fill="none">
+                        <rect x="47" y="2" width="6" height="14" rx="3" fill="#64748b"/>
+                        <circle cx="50" cy="3" r="5" fill="#00f2fe"/>
+                        <rect x="8" y="24" width="8" height="26" rx="4" fill="#0f172a" stroke="#334155"/>
+                        <rect x="12" y="28" width="3" height="18" rx="1.5" fill="#00f2fe"/>
+                        <rect x="84" y="24" width="8" height="26" rx="4" fill="#0f172a" stroke="#334155"/>
+                        <rect x="85" y="28" width="3" height="18" rx="1.5" fill="#00f2fe"/>
+                        <rect x="15" y="12" width="70" height="60" rx="22" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                        <rect x="22" y="21" width="56" height="42" rx="15" fill="#090d16" stroke="#1e293b" stroke-width="1.5"/>
+                        <rect x="32" y="32" width="12" height="16" rx="6" fill="#00f2fe"/>
+                        <rect x="34" y="35" width="8" height="10" rx="4" fill="#ffffff" opacity="0.9"/>
+                        <rect x="56" y="32" width="12" height="16" rx="6" fill="#00f2fe"/>
+                        <rect x="58" y="35" width="8" height="10" rx="4" fill="#ffffff" opacity="0.9"/>
+                        <path d="M 45 52 Q 50 56 55 52" fill="none" stroke="#00f2fe" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span class="ai-live-indicator"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Map View -->
+            <div id="view-map" class="view-panel active">
+                <!-- Yüzen Sempatik Kod Parçacıkları & Syntax Öğeleri -->
+                <div class="roadmap-decor-container">
+                    <div class="cute-code-pill pill-html pill-pos-1" title="Web iskeleti">
+                        <span class="pill-tag">HTML</span>
+                        <code>&lt;div class="hero"&gt; 🚀</code>
+                    </div>
+                    <div class="cute-code-pill pill-sql pill-pos-2" title="İlişkisel Veritabanı">
+                        <span class="pill-tag">SQL</span>
+                        <code>SELECT * FROM dreams; 💎</code>
+                    </div>
+                    <div class="cute-code-pill pill-python pill-pos-3" title="Python Veri Bilimi">
+                        <span class="pill-tag">Python</span>
+                        <code>def solve(): return 100 🐍</code>
+                    </div>
+                    <div class="cute-code-pill pill-js pill-pos-4" title="Modern JavaScript">
+                        <span class="pill-tag">JS</span>
+                        <code>console.log("COD+ ❤️") ⚡</code>
+                    </div>
+                    <div class="cute-code-pill pill-csharp pill-pos-5" title=".NET Kurumsal Mimarisi">
+                        <span class="pill-tag">C#</span>
+                        <code>class Hero : IDeveloper 🔮</code>
+                    </div>
+                    <div class="cute-code-pill pill-cpp pill-pos-6" title="C++ Yüksek Performans">
+                        <span class="pill-tag">C++</span>
+                        <code>std::cout &lt;&lt; "Success!"; ⚙️</code>
+                    </div>
+                    <div class="cute-code-pill pill-cute pill-pos-7" title="Tertemiz Kod">
+                        <span class="pill-tag">Temiz Kod</span>
+                        <code>🐞 0 Warnings, 0 Errors ✨</code>
+                    </div>
+                    <div class="cute-code-pill pill-html pill-pos-8" title="Versiyon Kontrol">
+                        <span class="pill-tag">Git</span>
+                        <code>git commit -m "Tamamlandı" 🌿</code>
+                    </div>
+                    <div class="cute-code-pill pill-js pill-pos-9" title="Kodlama Döngüsü">
+                        <span class="pill-tag">Canlı</span>
+                        <code>while(coffee &gt; 0) { code(); } ☕</code>
+                    </div>
+                    <div class="cute-code-pill pill-sql pill-pos-10" title="Modern Stil Tasarımı">
+                        <span class="pill-tag">CSS</span>
+                        <code>border-radius: 999px; 🎨</code>
+                    </div>
+                </div>
+
+                <header class="dash-header">
+                    <div>
+                        <h1 style="display:flex; align-items:center; gap:10px;">
+                            Eğitim Haritası 🚀
+                        </h1>
+                        <p id="dash-track-desc">Dersleri sırasıyla tamamla, Front-End uzmanı ol.</p>
+                        <div style="display:flex; align-items:center; gap:8px; margin-top:8px;">
+                            <span id="dash-active-lang-badge" style="background:rgba(56,189,248,0.15); border:1px solid #38bdf8; color:#38bdf8; padding:3px 10px; border-radius:12px; font-size:12px; font-weight:bold;">
+                                <i class="fa-solid fa-code"></i> Aktif Dil: <span id="dash-lang-name">HTML5</span>
+                            </span>
+                            <button type="button" onclick="openLanguageSwitchModal()" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); color:#e2e8f0; padding:4px 12px; border-radius:12px; font-size:12px; cursor:pointer; font-weight:500; display:flex; align-items:center; gap:6px;">
+                                <i class="fa-solid fa-arrow-right-arrow-left"></i> Yeni Dil Seç / Değiştir
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Coddy Gamification Stats Bar -->
+                    <div class="coddy-stats-bar">
+                        <div class="coddy-stat-item stat-streak" title="Günlük Çalışma Serisi">
+                            <span class="stat-icon">🔥</span>
+                            <span class="stat-value" id="user-streak">3</span>
+                            <span class="stat-label">Gün</span>
+                        </div>
+                        <div class="coddy-stat-item stat-gems" title="Kazanılan Elmaslar">
+                            <span class="stat-icon">💎</span>
+                            <span class="stat-value" id="user-gems">120</span>
+                        </div>
+                        <div class="coddy-stat-item stat-xp" title="Toplam XP">
+                            <span class="stat-icon">⭐</span>
+                            <span class="stat-value" id="user-xp">350</span>
+                            <span class="stat-label">XP</span>
+                        </div>
+                        <div class="coddy-stat-item stat-hearts" title="Canlar">
+                            <span class="stat-icon">❤️</span>
+                            <span class="stat-value" id="user-hearts">5/5</span>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Coddy Interactive Mascot Banner -->
+                <div class="coddy-mascot-banner" onclick="interactWithCoddy()">
+                    <div class="coddy-mini-robot-wrap">
+                        <svg class="cute-robot mini" width="72" height="85" viewBox="0 0 220 260">
+                            <ellipse cx="110" cy="246" rx="50" ry="8" fill="rgba(0,0,0,0.3)"/>
+                            <g class="robo-float-group">
+                                <rect x="107" y="16" width="6" height="20" rx="3" fill="#64748b"/>
+                                <circle cx="110" cy="14" r="7" fill="#00f2fe"/>
+                                <rect x="36" y="62" width="12" height="36" rx="6" fill="#0f172a" stroke="#334155"/>
+                                <rect x="44" y="68" width="4" height="24" rx="2" fill="#00f2fe"/>
+                                <rect x="172" y="62" width="12" height="36" rx="6" fill="#0f172a" stroke="#334155"/>
+                                <rect x="172" y="68" width="4" height="24" rx="2" fill="#00f2fe"/>
+                                <rect x="46" y="34" width="128" height="92" rx="44" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                                <rect x="58" y="48" width="104" height="66" rx="30" fill="#090d16" stroke="#1e293b" stroke-width="1.5"/>
+                                <g class="robo-eyes">
+                                    <rect x="74" y="66" width="22" height="26" rx="11" fill="#00f2fe"/>
+                                    <rect x="78" y="70" width="14" height="18" rx="7" fill="#ffffff" opacity="0.9"/>
+                                    <rect x="124" y="66" width="22" height="26" rx="11" fill="#00f2fe"/>
+                                    <rect x="128" y="70" width="14" height="18" rx="7" fill="#ffffff" opacity="0.9"/>
+                                    <path d="M 102 96 Q 110 101 118 96" fill="none" stroke="#00f2fe" stroke-width="3" stroke-linecap="round"/>
+                                </g>
+                                <rect x="96" y="124" width="28" height="12" rx="4" fill="#334155"/>
+                                <!-- Symmetric Arms -->
+                                <g>
+                                    <circle cx="48" cy="148" r="10" fill="#ffffff" stroke="#cbd5e1"/>
+                                    <rect x="42" y="152" width="12" height="30" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+                                </g>
+                                <g>
+                                    <circle cx="172" cy="148" r="10" fill="#ffffff" stroke="#cbd5e1"/>
+                                    <rect x="166" y="152" width="12" height="30" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+                                </g>
+                                <rect x="60" y="132" width="100" height="78" rx="26" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                                <circle cx="110" cy="168" r="20" fill="#090d16" stroke="#334155"/>
+                                <path d="M 104 164 L 100 168 L 104 172 M 116 164 L 120 168 L 116 172 M 112 163 L 108 173" fill="none" stroke="#00f2fe" stroke-width="2" stroke-linecap="round"/>
+                                <rect x="80" y="206" width="20" height="20" rx="6" fill="#0f172a"/>
+                                <rect x="74" y="222" width="28" height="12" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+                                <rect x="120" y="206" width="20" height="20" rx="6" fill="#0f172a"/>
+                                <rect x="118" y="222" width="28" height="12" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="coddy-bubble-content">
+                        <div class="coddy-bubble-name">COD+ <span>Rehber Asistan</span></div>
+                        <div class="coddy-bubble-text" id="coddy-speech">
+                            "Selam dostum! Harika gidiyorsun. Bugün seriyi devam ettirmek için sıradaki dersi tamamla! 🚀"
+                        </div>
+                    </div>
+                    <div class="coddy-bubble-action">
+                        <button class="btn-coddy-poke" title="COD+ ile konuş"><i class="fa-solid fa-wand-magic-sparkles"></i></button>
+                    </div>
+                </div>
+
+                <div class="roadmap" id="roadmap-container">
+                    <!-- Dinamik olarak JS'den doldurulacak -->
+                </div>
+            </div>
+
+            <!-- IDE View (3-Panel Layout) -->
+            <div id="view-ide" class="view-panel hidden">
+                <div class="ide-container" style="display: flex; flex-direction: row; height: 100%; width: 100%; gap: 15px;">
+                    
+                    <!-- Sol Panel: Ders İçeriği ve Sınav -->
+                    <div class="ide-lesson-panel glass-card" style="flex: 0 0 320px; overflow-y: auto; padding: 20px; display: flex; flex-direction: column;">
+                        <button class="back-btn" onclick="switchView('map')" style="margin-bottom: 15px; align-self: flex-start; font-size: 13px; padding: 6px 12px;"><i class="fa-solid fa-arrow-left"></i> Haritaya Dön</button>
+                        <h2 id="theory-title" style="color: var(--primary-color); margin-bottom: 15px; font-size: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px;">Ders Başlığı</h2>
+                        <div class="theory-box" id="theory-text" style="font-size:14px; line-height:1.6; color:#cbd5e1; margin-bottom: 20px;"></div>
+                        <div class="code-preview" id="theory-code-preview" style="margin-bottom: 20px; font-size: 13px;"></div>
+                        
+                        <div class="quiz-box" style="background: rgba(15, 23, 42, 0.4); padding: 15px; border-radius: 8px; border: 1px solid var(--glass-border); margin-bottom: 20px;">
+                            <h3 style="font-size:14px; margin-bottom:10px; color:#38bdf8;"><i class="fa-solid fa-clipboard-question"></i> Mini Test</h3>
+                            <p id="quiz-question" style="font-size:13px; margin-bottom:10px; color:#e2e8f0;"></p>
+                            <div class="quiz-options" id="quiz-options-container" style="font-size:13px;"></div>
+                        </div>
+
+                        <div style="margin-top: auto;">
+                            <button class="btn-primary" onclick="completeCurrentLesson()" style="width: 100%; background: #10b981; padding: 12px; font-size: 14px;"><i class="fa-solid fa-check-circle"></i> Dersi Tamamla</button>
+                        </div>
+                    </div>
+
+                    <!-- Orta Panel: Kod Editörü -->
+                    <div class="ide-editor-panel glass-card" style="flex: 1; display: flex; flex-direction: column; overflow: hidden; padding:0; min-height: 80vh; position: relative;">
+                        <!-- Editör Kod Arkası Yıldızlı Gökyüzü & Uçuşan Simler -->
+                        <div class="editor-starry-backdrop" id="editor-starry-backdrop">
+                            <div class="editor-nebula-glow"></div>
+                            <div class="editor-star-dust"></div>
+                            <span class="editor-glitter ed-glt-1">✦</span>
+                            <span class="editor-glitter ed-glt-2">✨</span>
+                            <span class="editor-glitter ed-glt-3">✧</span>
+                            <span class="editor-glitter ed-glt-4">⋆</span>
+                            <span class="editor-glitter ed-glt-5">✨</span>
+                            <span class="editor-glitter ed-glt-6">✦</span>
+                        </div>
+
+                        <div class="ide-header" style="padding: 10px 14px; border-bottom: 1px solid var(--glass-border); display:flex; justify-content:space-between; align-items:center; background: rgba(0,0,0,0.3); position: relative; z-index: 2;">
+                            <div class="ide-tabs" id="sandbox-lang-tabs" style="display:flex; gap:6px; overflow-x:auto;">
+                                <button type="button" class="ide-tab active" data-sandbox-lang="HTML" onclick="switchSandboxLang('HTML')" style="font-size:12.5px; padding:6px 12px; border-radius:8px; border:none; background:rgba(30,41,59,0.9); color:#fff; cursor:pointer;"><i class="fa-brands fa-html5" style="color:#f97316;"></i> index.html</button>
+                                <button type="button" class="ide-tab" data-sandbox-lang="JavaScript" onclick="switchSandboxLang('JavaScript')" style="font-size:12.5px; padding:6px 12px; border-radius:8px; border:none; background:transparent; color:#94a3b8; cursor:pointer;"><i class="fa-brands fa-js" style="color:#facc15;"></i> script.js (JavaScript)</button>
+                                <button type="button" class="ide-tab" data-sandbox-lang="Python" onclick="switchSandboxLang('Python')" style="font-size:12.5px; padding:6px 12px; border-radius:8px; border:none; background:transparent; color:#94a3b8; cursor:pointer;"><i class="fa-brands fa-python" style="color:#4ade80;"></i> main.py (Python)</button>
+                                <button type="button" class="ide-tab" data-sandbox-lang="CSharp" onclick="switchSandboxLang('CSharp')" style="font-size:12.5px; padding:6px 12px; border-radius:8px; border:none; background:transparent; color:#94a3b8; cursor:pointer;"><i class="fa-solid fa-code" style="color:#a855f7;"></i> Program.cs (C#)</button>
+                                <button type="button" class="ide-tab" data-sandbox-lang="SQL" onclick="switchSandboxLang('SQL')" style="font-size:12.5px; padding:6px 12px; border-radius:8px; border:none; background:transparent; color:#94a3b8; cursor:pointer;"><i class="fa-solid fa-database" style="color:#0ea5e9;"></i> query.sql (SQL)</button>
+                                <button type="button" class="ide-tab" data-sandbox-lang="CPP" onclick="switchSandboxLang('CPP')" style="font-size:12.5px; padding:6px 12px; border-radius:8px; border:none; background:transparent; color:#94a3b8; cursor:pointer;"><i class="fa-solid fa-microchip" style="color:#38bdf8;"></i> main.cpp (C++)</button>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <button type="button" onclick="explainCurrentIdeCode()" title="Yapay zeka kodunuzu satır satır analiz eder ve açıklar" style="padding: 7px 13px; font-size:12.5px; font-weight:600; background:rgba(56,189,248,0.15); border:1px solid #38bdf8; border-radius:8px; color:#38bdf8; cursor:pointer; display:flex; align-items:center; gap:6px;">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> 🤖 Satır Açıkla
+                                </button>
+                                <button class="btn-run" onclick="runCode()" style="padding: 7px 18px; font-size:13.5px; font-weight:bold; background:#10b981; border-radius:8px; color:white; border:none; cursor:pointer; display:flex; align-items:center; gap:6px;">
+                                    <i class="fa-solid fa-play"></i> Çalıştır
+                                </button>
+                            </div>
+                        </div>
+                        <textarea id="code-editor" spellcheck="false" style="flex:1; width:100%; background:transparent; border:none; color:#e2e8f0; font-family:'Fira Code', Consolas, monospace; padding:18px; resize:none; outline:none; font-size:15px; line-height:1.6; position:relative; z-index:2;"></textarea>
+                    </div>
+
+                    <!-- Sağ Panel: Canlı Çıktı -->
+                    <div class="ide-output-panel glass-card" style="flex: 1; display: flex; flex-direction: column; overflow: hidden; padding:0; min-height: 80vh;">
+                        <div class="output-header" style="padding: 10px 14px; border-bottom: 1px solid var(--glass-border); background:rgba(255,255,255,0.05); font-size:14px; color:#cbd5e1; display:flex; justify-content:space-between; align-items:center; font-weight: bold;">
+                            <span style="display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-terminal" id="output-header-icon" style="color:#38bdf8;"></i> <span id="output-header-title">Canlı Çıktı</span></span>
+                            <span id="output-engine-badge" style="font-size:11px; font-weight:bold; background:rgba(56,189,248,0.15); color:#38bdf8; padding:3px 10px; border-radius:8px; border:1px solid rgba(56,189,248,0.3);">HTML Renderer</span>
+                        </div>
+                        <iframe id="output-frame" style="flex:1; width:100%; border:none; background:#ffffff;"></iframe>
+                        <div id="output-console" style="display:none; flex:1; width:100%; background:#090d16; color:#e2e8f0; font-family:'Fira Code', Consolas, monospace; padding:16px; overflow-y:auto; font-size:13px; line-height:1.6; box-sizing:border-box;"></div>
+                        <div id="output-ai-lines" style="display:none; flex:1; width:100%; background:#090d16; color:#e2e8f0; padding:16px; overflow-y:auto; box-sizing:border-box;"></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Digital Book View -->
+            <div id="view-book" class="view-panel hidden">
+                <div class="glass-card full-height" style="display:flex; flex-direction:column; position:relative; min-height:560px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                        <button type="button" class="back-btn" onclick="goBackToMain()" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:12px; font-size:12.5px; font-weight:600; background:rgba(255,255,255,0.06); border:1px solid var(--glass-border); color:#cbd5e1; cursor:pointer;">
+                            <i class="fa-solid fa-arrow-left"></i> Geri Dön
+                        </button>
+                        <span style="font-size:12px; color:#64748b;"><i class="fa-solid fa-book-bookmark"></i> Dijital Kütüphane</span>
+                    </div>
+                    <header class="dash-header" style="margin-bottom: 14px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+                            <div>
+                                <h1 style="font-size:24px; display:flex; align-items:center; gap:10px;">
+                                    <span>Dijital El Kitabı</span>
+                                    <span style="font-size:12px; font-weight:600; background:rgba(59,130,246,0.15); color:#60a5fa; padding:3px 10px; border-radius:12px; border:1px solid rgba(59,130,246,0.3);">Canlı Rehber</span>
+                                </h1>
+                                <p style="font-size:13px; color:var(--text-muted); margin-top:2px;">Takıldığın yerde başvurabileceğin kapsamlı kod kütüphanesi ve pratik bilgiler.</p>
+                            </div>
+                        </div>
+                    </header>
+                    
+                    <!-- Dil Seçim Sekmeleri (Başlangıçta hiçbiri seçili değil) -->
+                    <div class="book-tabs" style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:15px;">
+                        <button class="book-tab" id="tab-btn-html" onclick="switchBookTab('html')" style="border-radius: 20px;"><i class="fa-brands fa-html5"></i> HTML</button>
+                        <button class="book-tab" id="tab-btn-css" onclick="switchBookTab('css')" style="border-radius: 20px;"><i class="fa-brands fa-css3-alt"></i> CSS</button>
+                        <button class="book-tab" id="tab-btn-javascript" onclick="switchBookTab('javascript')" style="border-radius: 20px;"><i class="fa-brands fa-js"></i> JavaScript</button>
+                        <button class="book-tab" id="tab-btn-python" onclick="switchBookTab('python')" style="border-radius: 20px;"><i class="fa-brands fa-python"></i> Python</button>
+                        <button class="book-tab" id="tab-btn-csharp" onclick="switchBookTab('csharp')" style="border-radius: 20px;"><i class="fa-solid fa-code" style="color:#a855f7;"></i> C# (.NET)</button>
+                        <button class="book-tab" id="tab-btn-sql" onclick="switchBookTab('sql')" style="border-radius: 20px;"><i class="fa-solid fa-database" style="color:#0ea5e9;"></i> SQL (Veritabanı)</button>
+                        <button class="book-tab" id="tab-btn-cpp" onclick="switchBookTab('cpp')" style="border-radius: 20px;"><i class="fa-solid fa-microchip" style="color:#00599c;"></i> C++ (Sistem)</button>
+                        <button class="book-tab" id="tab-btn-editors" onclick="switchBookTab('editors')" style="border-radius: 20px;"><i class="fa-solid fa-laptop-code"></i> Editörler & Araçlar</button>
+                    </div>
+
+                    <!-- 1. BAŞLANGIÇ KARŞILAMA EKRANI (BEYAZ-MAVİ SEVİMLİ CODDY ROBOTU) -->
+                    <div id="pdf-welcome-screen" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px 20px; background:rgba(15,23,42,0.4); border:1px dashed rgba(255,255,255,0.1); border-radius:18px;">
+                        <div class="welcome-robot-wrap" style="margin-bottom:15px; animation:roboFloat 3s ease-in-out infinite;">
+                            <svg class="cute-robot" width="140" height="165" viewBox="0 0 220 260">
+                                <ellipse cx="110" cy="246" rx="55" ry="9" fill="rgba(0,0,0,0.35)"/>
+                                <g class="robo-float-group">
+                                    <rect x="107" y="16" width="6" height="20" rx="3" fill="#64748b"/>
+                                    <circle cx="110" cy="14" r="7" fill="#00f2fe"/>
+                                    <rect x="36" y="62" width="12" height="36" rx="6" fill="#0f172a" stroke="#334155"/>
+                                    <rect x="44" y="68" width="4" height="24" rx="2" fill="#00f2fe"/>
+                                    <rect x="172" y="62" width="12" height="36" rx="6" fill="#0f172a" stroke="#334155"/>
+                                    <rect x="172" y="68" width="4" height="24" rx="2" fill="#00f2fe"/>
+                                    <rect x="46" y="34" width="128" height="92" rx="44" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                                    <rect x="58" y="48" width="104" height="66" rx="30" fill="#090d16" stroke="#1e293b" stroke-width="1.5"/>
+                                    <g class="robo-eyes">
+                                        <rect x="74" y="66" width="22" height="26" rx="11" fill="#00f2fe"/>
+                                        <rect x="78" y="70" width="14" height="18" rx="7" fill="#ffffff" opacity="0.9"/>
+                                        <rect x="124" y="66" width="22" height="26" rx="11" fill="#00f2fe"/>
+                                        <rect x="128" y="70" width="14" height="18" rx="7" fill="#ffffff" opacity="0.9"/>
+                                        <path d="M 102 96 Q 110 101 118 96" fill="none" stroke="#00f2fe" stroke-width="3" stroke-linecap="round"/>
+                                    </g>
+                                    <rect x="96" y="124" width="28" height="12" rx="4" fill="#334155"/>
+                                    <g>
+                                        <circle cx="48" cy="148" r="10" fill="#ffffff" stroke="#cbd5e1"/>
+                                        <rect x="42" y="152" width="12" height="30" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+                                    </g>
+                                    <g>
+                                        <circle cx="172" cy="148" r="10" fill="#ffffff" stroke="#cbd5e1"/>
+                                        <rect x="166" y="152" width="12" height="30" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+                                    </g>
+                                    <rect x="60" y="132" width="100" height="78" rx="26" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                                    <circle cx="110" cy="168" r="20" fill="#090d16" stroke="#334155"/>
+                                    <path d="M 104 164 L 100 168 L 104 172 M 116 164 L 120 168 L 116 172 M 112 163 L 108 173" fill="none" stroke="#00f2fe" stroke-width="2" stroke-linecap="round"/>
+                                    <rect x="80" y="206" width="20" height="20" rx="6" fill="#0f172a"/>
+                                    <rect x="74" y="222" width="28" height="12" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+                                    <rect x="120" y="206" width="20" height="20" rx="6" fill="#0f172a"/>
+                                    <rect x="118" y="222" width="28" height="12" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <h2 style="font-size:36px; font-weight:900; letter-spacing:2px; margin:0 0 6px 0; background:linear-gradient(135deg, #ffffff 0%, #38bdf8 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">COD+</h2>
+                        <div style="font-size:15px; font-weight:600; color:#93c5fd; margin-bottom:10px;">Dijital El Kitabı Kütüphanesi</div>
+                        <p style="font-size:14px; color:#94a3b8; max-width:440px; line-height:1.6; margin:0 auto; padding-bottom:5px;">
+                            Öğrenmek ve kodlarını keşfetmek istediğin dili yukarıdaki sekmelerden seçebilirsin.
+                        </p>
+                    </div>
+
+                    <!-- 2. BEYAZ A5 FORMATINDA PDF / E-KİTAP OKUYUCU (Dile tıklanınca açılır) -->
+                    <div id="pdf-reader-frame" class="pdf-reader-box" style="display:none; flex:1; flex-direction:column; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); border-radius:18px; overflow:hidden; transition:all 0.3s ease;">
+                        
+                        <!-- PDF Araç Çubuğu (Toolbar) -->
+                        <div class="pdf-toolbar" style="display:flex; justify-content:space-between; align-items:center; padding:10px 18px; background:rgba(30,41,59,0.95); border-bottom:1px solid var(--glass-border); gap:12px; flex-wrap:wrap;">
+                            <div style="display:flex; align-items:center; gap:10px; min-width:180px;">
+                                <span id="pdf-doc-icon" style="font-size:20px; color:#38bdf8;"><i class="fa-brands fa-html5"></i></span>
+                                <div>
+                                    <span id="pdf-doc-title" style="font-weight:700; font-size:14px; color:#f8fafc;">HTML5 Kapsamlı El Kitabı</span>
+                                    <span id="pdf-doc-badge" style="font-size:11px; margin-left:6px; color:#94a3b8; background:rgba(255,255,255,0.06); padding:2px 8px; border-radius:10px;">8 Bölüm</span>
+                                </div>
+                            </div>
+
+                            <!-- PDF Üst Arama Kutusu -->
+                            <div style="flex:1; max-width:380px; position:relative;">
+                                <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:12px; top:10px; color:#64748b; font-size:13px;"></i>
+                                <input type="text" id="pdf-search-input" placeholder="Kitapta ara (örn: colspan, flex, let)..." onkeyup="handlePdfSearch()" style="width:100%; padding:8px 12px 8px 34px; border-radius:14px; border:1px solid rgba(255,255,255,0.12); background:rgba(15,23,42,0.85); color:white; font-size:13px; outline:none;" onfocus="this.style.borderColor='#38bdf8'" onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
+                                <span id="pdf-search-counter" style="position:absolute; right:10px; top:9px; font-size:11px; color:#94a3b8; display:none;">0 sonuç</span>
+                            </div>
+
+                            <!-- Sağ Kontroller: Büyütme/Küçültme (Zoom) + Tam Ekran + Kapat -->
+                            <div style="display:flex; align-items:center; gap:6px;">
+                                <!-- Zoom Kontrolleri -->
+                                <div style="display:flex; align-items:center; background:rgba(255,255,255,0.06); border-radius:10px; padding:2px 6px; border:1px solid rgba(255,255,255,0.1);">
+                                    <button onclick="changePdfZoom(-0.1)" title="Yazıyı Küçült" style="background:none; border:none; color:#cbd5e1; cursor:pointer; padding:6px 8px; font-size:13px;"><i class="fa-solid fa-minus"></i></button>
+                                    <span id="pdf-zoom-label" style="font-size:12px; font-weight:600; color:#38bdf8; min-width:44px; text-align:center;">%100</span>
+                                    <button onclick="changePdfZoom(0.1)" title="Yazıyı Büyüt" style="background:none; border:none; color:#cbd5e1; cursor:pointer; padding:6px 8px; font-size:13px;"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+
+                                <!-- Tam Ekran Butonu -->
+                                <button id="pdf-toggle-fullscreen" onclick="togglePdfFullscreen()" title="Tam Ekran Yap" style="background:rgba(255,255,255,0.07); border:1px solid var(--glass-border); color:#f8fafc; padding:8px 12px; border-radius:10px; cursor:pointer; display:flex; align-items:center; gap:6px; font-size:13px;">
+                                    <i id="pdf-fullscreen-icon" class="fa-solid fa-expand"></i>
+                                    <span id="pdf-fullscreen-text">Büyüt</span>
+                                </button>
+
+                                <!-- Kapat / Karşılama Ekranına Dön -->
+                                <button onclick="closePdfReader()" title="Kitabı Kapat ve Karşılama Ekranına Dön" style="background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); color:#f87171; padding:8px 12px; border-radius:10px; cursor:pointer; display:flex; align-items:center; gap:4px; font-size:13px;">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- PDF Görüntüleyici Çerçevesi (Ortalanmış A5 Beyaz Kağıt) -->
+                        <div id="pdf-viewport" style="flex:1; overflow-y:auto; overflow-x:hidden; padding:30px 15px; background:radial-gradient(ellipse at top, #1e293b 0%, #090d16 100%);">
+                            <div id="pdf-a5-sheet" class="pdf-a5-sheet" style="max-width:760px; margin:0 auto; background:#ffffff; color:#0f172a; border-radius:12px; box-shadow:0 25px 50px -12px rgba(0,0,0,0.65), 0 0 0 1px rgba(0,0,0,0.05); padding:45px 50px; transition:transform 0.2s ease, max-width 0.2s ease;">
+                                <!-- Kitap Başlık Anteti -->
+                                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #e2e8f0; padding-bottom:15px; margin-bottom:30px;">
+                                    <div style="display:flex; align-items:center; gap:10px;">
+                                        <div style="font-size:22px; font-weight:900; letter-spacing:1px; color:#2563eb;">COD+</div>
+                                        <div style="font-size:12px; font-weight:700; color:#64748b; text-transform:uppercase; border-left:2px solid #cbd5e1; padding-left:10px;" id="pdf-sheet-subtitle">Resmi Başvuru El Kitabı</div>
+                                    </div>
+                                    <div style="font-size:11px; font-weight:600; color:#64748b; background:#f1f5f9; padding:4px 10px; border-radius:6px;" id="pdf-sheet-page-info">Resmi Dokümantasyon</div>
+                                </div>
+
+                                <!-- Kitap Sayfa İçeriklerinin Aktığı Alan -->
+                                <div id="pdf-book-pages">
+                                    <!-- Dinamik Kitap Konuları Buraya Gelecek -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View Projects & Team Management -->
+            <div id="view-projects" class="view-panel hidden">
+                <div class="glass-card full-height" style="min-height:580px; display:flex; flex-direction:column;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                        <button type="button" class="back-btn" onclick="goBackToMain()" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:12px; font-size:12.5px; font-weight:600; background:rgba(255,255,255,0.06); border:1px solid var(--glass-border); color:#cbd5e1; cursor:pointer;">
+                            <i class="fa-solid fa-arrow-left"></i> Geri Dön
+                        </button>
+                        <span style="font-size:12px; color:#64748b;"><i class="fa-solid fa-diagram-project"></i> Proje & Ekip Yönetim Merkezi</span>
+                    </div>
+                    <header class="dash-header" style="margin-bottom:18px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; width:100%; flex-wrap:wrap; gap:12px;">
+                            <div>
+                                <h1 style="font-size:24px; display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+                                    <i class="fa-solid fa-diagram-project" style="color:#38bdf8;"></i>
+                                    <span>Proje & Ekip Yönetim Merkezi</span>
+                                    <span id="mentor-badge-indicator" style="font-size:12px; font-weight:700; background:rgba(56,189,248,0.15); color:#38bdf8; padding:3px 12px; border-radius:12px; border:1px solid rgba(56,189,248,0.3);">Topluluk Projeleri</span>
+                                </h1>
+                                <p style="font-size:13.5px; color:var(--text-muted);">
+                                    Gerçek dünya projeleri oluşturun, yetenekli ekip arkadaşları ekleyin veya açık pozisyonlara katılın.
+                                </p>
+                            </div>
+                            <div style="display:flex; gap:10px;">
+                                <button type="button" class="btn-primary" onclick="openCreateProjectModal()" style="width:auto; padding:10px 20px; font-size:13.5px; border-radius:16px;">
+                                    <i class="fa-solid fa-plus-circle"></i>
+                                    <span>Yeni Proje & Ekip Oluştur</span>
+                                </button>
+                                <button type="button" onclick="openFriendsModal()" style="background:rgba(16,185,129,0.15); border:1px solid #10b981; color:#10b981; padding:10px 16px; border-radius:16px; font-size:13.5px; cursor:pointer; font-weight:600; display:flex; align-items:center; gap:8px;">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                    <span>Arkadaş Ekle</span>
+                                </button>
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- Gelen Proje Davetleri Bildirim Alanı -->
+                    <div id="project-invites-container" style="display:none; margin-bottom:18px;">
+                        <!-- Dinamik olarak gelen davetler burada listelenecek -->
+                    </div>
+
+                    <!-- Filtreler & İstatistik Şeridi -->
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid var(--glass-border);">
+                        <div class="project-filter-tabs" style="display:flex; gap:8px; flex-wrap:wrap;">
+                            <button class="proj-filter-btn active" data-filter="all" onclick="filterProjects('all')">Tüm Projeler</button>
+                            <button class="proj-filter-btn" data-filter="frontend" onclick="filterProjects('frontend')"><i class="fa-solid fa-code"></i> Frontend Aranıyor</button>
+                            <button class="proj-filter-btn" data-filter="backend" onclick="filterProjects('backend')"><i class="fa-solid fa-server"></i> Backend Aranıyor</button>
+                            <button class="proj-filter-btn" data-filter="db" onclick="filterProjects('db')"><i class="fa-solid fa-database"></i> Veritabanı Aranıyor</button>
+                            <button class="proj-filter-btn" data-filter="my" onclick="filterProjects('my')"><i class="fa-solid fa-user-check"></i> Projelerim</button>
+                        </div>
+                        <div style="font-size:12.5px; color:#94a3b8; display:flex; align-items:center; gap:14px;">
+                            <span><i class="fa-solid fa-layer-group" style="color:#38bdf8;"></i> <strong id="proj-stat-total" style="color:#f8fafc;">3</strong> Aktif Proje</span>
+                            <span><i class="fa-solid fa-bullhorn" style="color:#f59e0b;"></i> <strong id="proj-stat-open" style="color:#f8fafc;">6</strong> Açık Pozisyon</span>
+                        </div>
+                    </div>
+
+                    <!-- Proje Kartları Izgarası -->
+                    <div id="projects-grid" class="projects-card-grid">
+                        <!-- Dinamik olarak yüklenecek -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- View Tasks & Sprint Board (Mentör ve Ekip Görev Panosu) -->
+            <div id="view-tasks" class="view-panel hidden">
+                <div class="glass-card full-height" style="min-height:580px; display:flex; flex-direction:column;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                        <button type="button" class="back-btn" onclick="switchView('projects')" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:12px; font-size:12.5px; font-weight:600; background:rgba(255,255,255,0.06); border:1px solid var(--glass-border); color:#cbd5e1; cursor:pointer;">
+                            <i class="fa-solid fa-arrow-left"></i> Projelere Geri Dön
+                        </button>
+                        <span style="font-size:12px; color:#64748b;"><i class="fa-solid fa-list-check"></i> Görev & Sprint Panosu</span>
+                    </div>
+                    <header class="dash-header" style="margin-bottom:18px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; width:100%; flex-wrap:wrap; gap:12px;">
+                            <div>
+                                <h1 style="font-size:24px; display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+                                    <i class="fa-solid fa-list-check" style="color:#f59e0b;"></i>
+                                    <span>Görev & Sprint Yönetim Panosu</span>
+                                    <span id="tasks-role-badge" style="font-size:12px; font-weight:700; background:rgba(245,158,11,0.15); color:#f59e0b; padding:3px 12px; border-radius:12px; border:1px solid rgba(245,158,11,0.3);">Sprint Takibi</span>
+                                </h1>
+                                <p style="font-size:13.5px; color:var(--text-muted);">
+                                    Ekip üyelerine görev atayın, yapılan çalışmaları inceleyin ve mentör onayı vererek ilerlemeyi denetleyin.
+                                </p>
+                            </div>
+                            <div style="display:flex; gap:10px;">
+                                <button type="button" class="btn-primary" onclick="openAssignTaskModal()" style="width:auto; padding:10px 20px; font-size:13.5px; border-radius:16px; background:linear-gradient(135deg, #f59e0b, #d97706);">
+                                    <i class="fa-solid fa-plus-circle"></i>
+                                    <span>Yeni Görev Ata</span>
+                                </button>
+                                <button type="button" onclick="switchView('projects')" style="background:rgba(56,189,248,0.15); border:1px solid #38bdf8; color:#38bdf8; padding:10px 16px; border-radius:16px; font-size:13.5px; cursor:pointer; font-weight:600; display:flex; align-items:center; gap:8px;">
+                                    <i class="fa-solid fa-diagram-project"></i>
+                                    <span>Projeler & Ekipler</span>
+                                </button>
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- Filtreler: Proje Seçimi ve Durum Filtresi -->
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:18px; padding-bottom:12px; border-bottom:1px solid var(--glass-border);">
+                        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                            <label style="font-size:13px; color:#cbd5e1; font-weight:600;"><i class="fa-solid fa-folder-tree" style="color:#38bdf8;"></i> Proje:</label>
+                            <select id="tasks-project-filter" onchange="filterTasksByProject()" style="background:rgba(15,23,42,0.9); border:1px solid var(--glass-border); color:#f8fafc; padding:7px 14px; border-radius:12px; font-size:13px; outline:none;">
+                                <option value="all">Tüm Projelerim</option>
+                            </select>
+                        </div>
+                        <div class="tasks-filter-pills" style="display:flex; gap:8px; flex-wrap:wrap;">
+                            <button class="task-filter-btn active" data-task-filter="all" onclick="filterTasks('all')">Tüm Görevler</button>
+                            <button class="task-filter-btn" data-task-filter="todo" onclick="filterTasks('todo')"><i class="fa-solid fa-clock"></i> Yapılacak</button>
+                            <button class="task-filter-btn" data-task-filter="in_progress" onclick="filterTasks('in_progress')"><i class="fa-solid fa-spinner"></i> Devam Eden</button>
+                            <button class="task-filter-btn" data-task-filter="review" onclick="filterTasks('review')" style="color:#f59e0b;"><i class="fa-solid fa-magnifying-glass"></i> Yönetici İncelemesi (<span id="task-count-review">0</span>)</button>
+                            <button class="task-filter-btn" data-task-filter="manager_approved" onclick="filterTasks('manager_approved')" style="color:#a78bfa;"><i class="fa-solid fa-user-check"></i> Danışman Onayı Bekleyenler (<span id="task-count-manager">0</span>)</button>
+                            <button class="task-filter-btn" data-task-filter="completed" onclick="filterTasks('completed')" style="color:#10b981;"><i class="fa-solid fa-check"></i> Tamamlananlar</button>
+                        </div>
+                    </div>
+
+                    <!-- Görev Panosu Grid Alanı -->
+                    <div id="tasks-board-grid" class="tasks-board-grid">
+                        <!-- Dinamik olarak yüklenecek -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Coddy Level-Up Celebration Modal -->
+    <div id="coddy-modal" class="coddy-modal-overlay hidden">
+        <div class="coddy-modal-card">
+            <div class="coddy-modal-stars">✨ 🌟 ✨</div>
+            <div class="coddy-modal-robot-wrap">
+                <svg class="cute-robot" width="130" height="150" viewBox="0 0 220 260">
+                    <ellipse cx="110" cy="246" rx="50" ry="8" fill="rgba(0,0,0,0.3)"/>
+                    <g class="robo-float-group">
+                        <rect x="107" y="16" width="6" height="20" rx="3" fill="#64748b"/>
+                        <circle cx="110" cy="14" r="7" fill="#00f2fe"/>
+                        <rect x="36" y="62" width="12" height="36" rx="6" fill="#0f172a" stroke="#334155"/>
+                        <rect x="44" y="68" width="4" height="24" rx="2" fill="#00f2fe"/>
+                        <rect x="172" y="62" width="12" height="36" rx="6" fill="#0f172a" stroke="#334155"/>
+                        <rect x="172" y="68" width="4" height="24" rx="2" fill="#00f2fe"/>
+                        <rect x="46" y="34" width="128" height="92" rx="44" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                        <rect x="58" y="48" width="104" height="66" rx="30" fill="#090d16" stroke="#1e293b" stroke-width="1.5"/>
+                        <g class="robo-eyes">
+                            <rect x="74" y="66" width="22" height="26" rx="11" fill="#00f2fe"/>
+                            <rect x="78" y="70" width="14" height="18" rx="7" fill="#ffffff" opacity="0.9"/>
+                            <rect x="124" y="66" width="22" height="26" rx="11" fill="#00f2fe"/>
+                            <rect x="128" y="70" width="14" height="18" rx="7" fill="#ffffff" opacity="0.9"/>
+                            <path d="M 102 96 Q 110 101 118 96" fill="none" stroke="#00f2fe" stroke-width="3" stroke-linecap="round"/>
+                        </g>
+                        <rect x="96" y="124" width="28" height="12" rx="4" fill="#334155"/>
+                        <!-- Symmetric Arms -->
+                        <g>
+                            <circle cx="48" cy="148" r="10" fill="#ffffff" stroke="#cbd5e1"/>
+                            <rect x="42" y="152" width="12" height="30" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+                        </g>
+                        <g>
+                            <circle cx="172" cy="148" r="10" fill="#ffffff" stroke="#cbd5e1"/>
+                            <rect x="166" y="152" width="12" height="30" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+                        </g>
+                        <rect x="60" y="132" width="100" height="78" rx="26" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                        <circle cx="110" cy="168" r="20" fill="#090d16" stroke="#334155"/>
+                        <path d="M 104 164 L 100 168 L 104 172 M 116 164 L 120 168 L 116 172 M 112 163 L 108 173" fill="none" stroke="#00f2fe" stroke-width="2" stroke-linecap="round"/>
+                        <rect x="80" y="206" width="20" height="20" rx="6" fill="#0f172a"/>
+                        <rect x="74" y="222" width="28" height="12" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+                        <rect x="120" y="206" width="20" height="20" rx="6" fill="#0f172a"/>
+                        <rect x="118" y="222" width="28" height="12" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+                    </g>
+                </svg>
+            </div>
+            <h2 id="coddy-modal-title">Bölüm Tamamlandı! 🎉</h2>
+            <p id="coddy-modal-desc">Kodu başarıyla yazdın ve testleri geçtin.</p>
+            <div class="coddy-rewards-row">
+                <div class="coddy-reward-pill"><span class="rew-icon">⭐</span> +50 XP</div>
+                <div class="coddy-reward-pill"><span class="rew-icon">💎</span> +10 Elmas</div>
+                <div class="coddy-reward-pill"><span class="rew-icon">🔥</span> Seri +1</div>
+            </div>
+            <button class="btn-primary" onclick="closeCoddyModal()" style="width:100%; border-radius:18px; padding:14px; font-size:16px;">
+                <span>Haritaya Devam Et</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Gelişmiş Kullanıcı Profili & Akran Ağı Modalı -->
+    <div id="profile-modal" class="coddy-modal-overlay hidden">
+        <div class="coddy-modal-card" style="max-width: 580px; text-align: left; max-height: 85vh; overflow-y: auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <h2 style="margin:0; font-size:22px; display:flex; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-id-card" style="color:#38bdf8;"></i> Kullanıcı Profili & Akran Ağı
+                </h2>
+                <button onclick="closeProfileModal()" style="background:none; border:none; color:#94a3b8; font-size:24px; cursor:pointer;">&times;</button>
+            </div>
+            
+            <!-- Profil Üst Özeti -->
+            <div style="background: rgba(15, 23, 42, 0.65); padding: 14px 18px; border-radius: 20px; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.08); display:flex; gap:16px; align-items:center;">
+                <div id="modal-avatar-display" style="width:58px; height:58px; border-radius:50%; background: linear-gradient(135deg, #38bdf8, #818cf8); display:flex; align-items:center; justify-content:center; font-size:26px; color:#fff; box-shadow: 0 0 15px rgba(56,189,248,0.3);">
+                    🧑‍🚀
+                </div>
+                <div style="flex:1;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <h3 id="modal-profile-name" style="margin:0; color:#f8fafc; font-size:18px;">Deniz</h3>
+                            <span id="modal-profile-role-badge" style="background:rgba(56,189,248,0.15); color:#38bdf8; padding:2px 8px; border-radius:10px; font-size:11px; font-weight:bold;">Öğrenci</span>
+                        </div>
+                        <button type="button" id="modal-role-toggle-btn" onclick="toggleUserRoleFromModal()" style="display:none; background:rgba(255,255,255,0.08); border:1px solid var(--glass-border); color:#e2e8f0; font-size:11px; padding:4px 10px; border-radius:8px; cursor:pointer; font-weight:600; align-items:center; gap:5px;" title="Danışman / Öğrenci görünümünü değiştir">
+                            <i class="fa-solid fa-arrows-rotate"></i> <span id="modal-role-toggle-text">Öğrenci Görünümüne Geç</span>
+                        </button>
+                    </div>
+                    <div style="display:flex; gap:8px; align-items:center; margin-top:6px; flex-wrap:wrap;">
+                        <span id="modal-profile-badge" class="book-badge" style="background:#0284c7; color:#fff; padding:2px 8px; border-radius:10px; font-size:11px; font-weight:bold;">Çırak Ligi</span>
+                        <span id="modal-profile-points" style="color:#facc15; font-size:12px; font-weight:600;"><i class="fa-solid fa-star"></i> <span id="modal-xp-val">350</span> XP</span>
+                        <span id="modal-gems-container" style="color:#38bdf8; font-size:12px; font-weight:600;">💎 <span id="modal-gems-val">120</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profil Sekmeleri -->
+            <div style="display:flex; gap:6px; margin-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">
+                <button type="button" class="tab active" id="ptab-btn-info" onclick="switchProfileTab('info')" style="padding:6px 14px; font-size:13px; border-radius:12px;">👤 Bilgilerim</button>
+                <button type="button" class="tab" id="ptab-btn-friends" onclick="switchProfileTab('friends')" style="padding:6px 14px; font-size:13px; border-radius:12px;">👥 Arkadaşlarım (<span id="friends-count">2</span>)</button>
+                <button type="button" class="tab" id="ptab-btn-mentor" onclick="switchProfileTab('mentor')" style="padding:6px 14px; font-size:13px; border-radius:12px;">🎓 Mentör & Projeler</button>
+                <button type="button" class="tab" id="ptab-btn-settings" onclick="switchProfileTab('settings')" style="padding:6px 14px; font-size:13px; border-radius:12px;">⚙️ Ayarlar</button>
+            </div>
+
+            <!-- Sekme 1: Detaylı Bilgiler -->
+            <form id="profile-tab-info" onsubmit="saveUserProfile(event)">
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
+                    <div>
+                        <label id="lbl-profile-username" style="display:block; font-size:12px; color:#cbd5e1; margin-bottom:4px; font-weight:600;">İsim / Kullanıcı Adı:</label>
+                        <input type="text" id="profile-username" required style="width:100%; padding:9px 12px; background:#090d16; border:1px solid rgba(255,255,255,0.15); border-radius:10px; color:#fff; font-size:13px; box-sizing:border-box;">
+                    </div>
+                    <div>
+                        <label id="lbl-profile-email" style="display:block; font-size:12px; color:#cbd5e1; margin-bottom:4px; font-weight:600;">E-posta:</label>
+                        <input type="email" id="profile-email" required style="width:100%; padding:9px 12px; background:#090d16; border:1px solid rgba(255,255,255,0.15); border-radius:10px; color:#fff; font-size:13px; box-sizing:border-box;">
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
+                    <div>
+                        <label id="lbl-profile-education" style="display:block; font-size:12px; color:#cbd5e1; margin-bottom:4px; font-weight:600;">Eğitim Düzeyi:</label>
+                        <select id="profile-education" required style="width:100%; padding:9px 12px; background:#090d16; border:1px solid rgba(255,255,255,0.15); border-radius:10px; color:#fff; font-size:13px; box-sizing:border-box;">
+                            <option value="İlköğretim / Ortaokul">İlköğretim / Ortaokul</option>
+                            <option value="Lise">Lise</option>
+                            <option value="Üniversite" selected>Üniversite</option>
+                            <option value="Yüksek Lisans / Doktora">Yüksek Lisans / Doktora</option>
+                            <option value="Mezun / Sektör Profesyoneli">Mezun / Sektör Profesyoneli</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label id="lbl-profile-department" style="display:block; font-size:12px; color:#cbd5e1; margin-bottom:4px; font-weight:600;">Okuduğu Bölüm / Alan:</label>
+                        <input type="text" id="profile-department" placeholder="Örn: Bilgisayar Mühendisliği" style="width:100%; padding:9px 12px; background:#090d16; border:1px solid rgba(255,255,255,0.15); border-radius:10px; color:#fff; font-size:13px; box-sizing:border-box;">
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
+                    <div>
+                        <label id="lbl-profile-domain" style="display:block; font-size:12px; color:#cbd5e1; margin-bottom:4px; font-weight:600;">Uzmanlık / İlgi Alanı:</label>
+                        <select id="profile-domain" style="width:100%; padding:9px 12px; background:#090d16; border:1px solid rgba(255,255,255,0.15); border-radius:10px; color:#fff; font-size:13px; box-sizing:border-box;">
+                            <option value="frontend">Frontend Web Geliştirme</option>
+                            <option value="backend">Backend & Sistem Mimarisi</option>
+                            <option value="fullstack">Full-Stack Geliştirme</option>
+                            <option value="veritabani">Veritabanı & SQL Analitiği</option>
+                            <option value="siber_guvenlik">Siber Güvenlik & Sistem</option>
+                            <option value="yapay_zeka">Yapay Zekâ & Veri Bilimi</option>
+                            <option value="mobil">Mobil Uygulama Geliştirme</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label id="lbl-profile-languages" style="display:block; font-size:12px; color:#cbd5e1; margin-bottom:4px; font-weight:600;">Bildiği / Hedef Diller:</label>
+                        <input type="text" id="profile-languages" placeholder="Örn: HTML, CSS, JavaScript, Python" style="width:100%; padding:9px 12px; background:#090d16; border:1px solid rgba(255,255,255,0.15); border-radius:10px; color:#fff; font-size:13px; box-sizing:border-box;">
+                    </div>
+                </div>
+
+                <div style="margin-bottom:12px;">
+                    <label id="lbl-profile-projects" style="display:block; font-size:12px; color:#cbd5e1; margin-bottom:4px; font-weight:600;">Katıldığı Projeler (TÜBİTAK, Teknofest, Üniversite vb.):</label>
+                    <input type="text" id="profile-projects" placeholder="Örn: TÜBİTAK 2242 Sokratik Öğrenme, Teknofest Sağlıkta AI" style="width:100%; padding:9px 12px; background:#090d16; border:1px solid rgba(255,255,255,0.15); border-radius:10px; color:#fff; font-size:13px; box-sizing:border-box;">
+                </div>
+
+                <div style="margin-bottom:12px;">
+                    <label id="lbl-profile-bio" style="display:block; font-size:12px; color:#cbd5e1; margin-bottom:4px; font-weight:600;">Hakkımda (Biyografi):</label>
+                    <textarea id="profile-bio" rows="2" placeholder="Kendinden, hedeflerinden ve yazılım tutkundan kısaca bahset..." style="width:100%; padding:9px 12px; background:#090d16; border:1px solid rgba(255,255,255,0.15); border-radius:10px; color:#fff; font-size:13px; box-sizing:border-box; resize:vertical;"></textarea>
+                </div>
+
+                <!-- Avatar Seçici -->
+                <div style="margin-bottom:16px;">
+                    <label style="display:block; font-size:12px; color:#cbd5e1; margin-bottom:6px; font-weight:600;">Profil Avatarı Seçin:</label>
+                    <div style="display:flex; gap:10px;">
+                        <button type="button" class="avatar-opt-btn active" onclick="selectAvatar('🧑‍🚀')" style="font-size:22px; padding:6px 12px; border-radius:12px; background:rgba(255,255,255,0.08); border:1px solid #38bdf8; cursor:pointer;">🧑‍🚀</button>
+                        <button type="button" class="avatar-opt-btn" onclick="selectAvatar('🐱')" style="font-size:22px; padding:6px 12px; border-radius:12px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); cursor:pointer;">🐱</button>
+                        <button type="button" class="avatar-opt-btn" onclick="selectAvatar('🤖')" style="font-size:22px; padding:6px 12px; border-radius:12px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); cursor:pointer;">🤖</button>
+                        <button type="button" class="avatar-opt-btn" onclick="selectAvatar('👩‍💻')" style="font-size:22px; padding:6px 12px; border-radius:12px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); cursor:pointer;">👩‍💻</button>
+                        <button type="button" class="avatar-opt-btn" onclick="selectAvatar('🥷')" style="font-size:22px; padding:6px 12px; border-radius:12px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); cursor:pointer;">🥷</button>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:10px;">
+                    <button type="submit" class="btn-primary" style="flex:1; border-radius:12px; padding:11px; font-size:14px;">
+                        <i class="fa-solid fa-floppy-disk"></i> Değişiklikleri Kaydet
+                    </button>
+                    <button type="button" onclick="closeProfileModal()" style="padding:11px 16px; border-radius:12px; background:rgba(255,255,255,0.08); border:none; color:#cbd5e1; cursor:pointer;">
+                        Kapat
+                    </button>
+                </div>
+            </form>
+
+            <!-- Sekme 2: Arkadaşlarım & Akran Ağım -->
+            <div id="profile-tab-friends" style="display:none;">
+                <div style="display:flex; gap:8px; margin-bottom:16px;">
+                    <input type="text" id="add-friend-input" placeholder="Kullanıcı adı ile arkadaş ara..." style="flex:1; padding:10px 14px; background:#090d16; border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#fff; font-size:13px;">
+                    <button type="button" class="btn-primary" onclick="handleAddFriend()" style="padding:10px 16px; border-radius:12px; font-size:13px;">
+                        <i class="fa-solid fa-user-plus"></i> Ekle
+                    </button>
+                </div>
+
+                <div id="friends-list-container" style="display:flex; flex-direction:column; gap:10px;">
+                    <!-- Friend Card 1 -->
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:#090d16; border:1px solid rgba(255,255,255,0.08); padding:12px 14px; border-radius:14px;">
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <div style="font-size:24px;">👨‍💻</div>
+                            <div>
+                                <h4 style="margin:0; font-size:14px; color:#f8fafc;">burak_coder</h4>
+                                <span style="font-size:11px; color:#94a3b8;">Çırak Ligi • Frontend • 100 XP</span>
+                            </div>
+                        </div>
+                        <button type="button" onclick="closeProfileModal(); openDuelModal();" style="padding:6px 12px; font-size:12px; border-radius:8px; background:#0284c7; border:none; color:#fff; cursor:pointer; font-weight:bold;">
+                            <i class="fa-solid fa-bolt"></i> Düello Et
+                        </button>
+                    </div>
+
+                    <!-- Friend Card 2 -->
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:#090d16; border:1px solid rgba(255,255,255,0.08); padding:12px 14px; border-radius:14px;">
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <div style="font-size:24px;">👩‍🔬</div>
+                            <div>
+                                <h4 style="margin:0; font-size:14px; color:#f8fafc;">selin_dev</h4>
+                                <span style="font-size:11px; color:#94a3b8;">Kalfa Ligi • Backend • 150 XP</span>
+                            </div>
+                        </div>
+                        <button type="button" onclick="closeProfileModal(); openDuelModal();" style="padding:6px 12px; font-size:12px; border-radius:8px; background:#0284c7; border:none; color:#fff; cursor:pointer; font-weight:bold;">
+                            <i class="fa-solid fa-bolt"></i> Düello Et
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sekme 3: Mentör / Danışman Takip Paneli -->
+            <div id="profile-tab-mentor" style="display:none;">
+                <div style="background:rgba(56, 189, 248, 0.08); border:1px solid rgba(56, 189, 248, 0.2); border-radius:16px; padding:16px; margin-bottom:14px;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                        <div>
+                            <span style="font-size:11px; text-transform:uppercase; color:#38bdf8; font-weight:bold; letter-spacing:0.5px;">Atanmış Danışman Hoca / Mentör</span>
+                            <h4 style="margin:4px 0 2px 0; color:#f8fafc; font-size:16px;">Dr. Hakan Danışman</h4>
+                            <p style="margin:0; color:#94a3b8; font-size:12px;">Hacettepe Üniversitesi Bilgisayar Mühendisliği</p>
+                        </div>
+                        <span style="background:#22c55e; color:#fff; font-size:11px; padding:2px 8px; border-radius:10px; font-weight:bold;">Aktif Proje</span>
+                    </div>
+                    <div style="margin-top:12px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.06); font-size:13px; color:#cbd5e1;">
+                        📌 <strong>Proje:</strong> TÜBİTAK 2242 Sokratik Yazılım Öğrenme Sistemi
+                    </div>
+                </div>
+
+                <div style="background:#090d16; border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:14px; margin-bottom:16px;">
+                    <h5 style="margin:0 0 6px 0; color:#f8fafc; font-size:13px; display:flex; align-items:center; gap:6px;">
+                        <i class="fa-solid fa-comment-dots" style="color:#f59e0b;"></i> Son Mentör Kod İnceleme Geri Bildirimi:
+                    </h5>
+                    <p style="margin:0 0 8px 0; color:#cbd5e1; font-size:12.5px; line-height:1.5;">
+                        "C++ ve SQL modüllerindeki veri akışı mimarisi gayet temiz. Öğrencilerin takıldığı yerlerde 3 soruluk adaptif teşhis testinin çalışması TÜBİTAK raporunda güçlü bir yenilikçi yön olacak. Çalışmaya aynen devam edin."
+                    </p>
+                    <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; color:#94a3b8;">
+                        <span>Danışman Puanı: ⭐⭐⭐⭐⭐ (5/5)</span>
+                        <span>17 Ekim 2026</span>
+                    </div>
+                </div>
+
+                <div style="text-align:center;">
+                    <p style="font-size:12px; color:#94a3b8; margin-bottom:8px;">Akademisyen veya sektör profesyoneli misiniz?</p>
+                    <button type="button" class="btn-secondary" onclick="alert('Mentörlük başvurunuz alındı. Danışman paneliniz onaylandıktan sonra aktifleşecektir.')" style="border-radius:12px; padding:10px 18px; font-size:13px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:#fff; cursor:pointer;">
+                        <i class="fa-solid fa-chalkboard-user"></i> Danışman / Mentör Paneline Başvur
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sekme 4: Ayarlar (Şifremi Unuttum & Çıkış Yap) -->
+            <div id="profile-tab-settings" style="display:none;">
+                <div style="background:rgba(15,23,42,0.6); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:16px; margin-bottom:12px;">
+                    <h5 style="margin:0 0 6px 0; color:#f8fafc; font-size:14px; display:flex; align-items:center; gap:8px;">
+                        <i class="fa-solid fa-key" style="color:#38bdf8;"></i> Şifre
+                    </h5>
+                    <p style="margin:0 0 12px 0; color:#94a3b8; font-size:12.5px; line-height:1.5;">Şifrenizi unuttuysanız kayıtlı e-posta adresinize tek kullanımlık geçici bir şifre gönderebilirsiniz.</p>
+                    <button type="button" id="settings-forgot-password-btn" onclick="openForgotPasswordModal()" style="border-radius:12px; padding:10px 16px; font-size:13px; background:rgba(56,189,248,0.12); border:1px solid #38bdf8; color:#38bdf8; cursor:pointer; font-weight:600; display:inline-flex; align-items:center; gap:8px;">
+                        <i class="fa-solid fa-unlock-keyhole"></i> Şifremi Unuttum
+                    </button>
+                </div>
+                <div style="background:rgba(15,23,42,0.6); border:1px solid rgba(239,68,68,0.25); border-radius:16px; padding:16px;">
+                    <h5 style="margin:0 0 6px 0; color:#f8fafc; font-size:14px; display:flex; align-items:center; gap:8px;">
+                        <i class="fa-solid fa-right-from-bracket" style="color:#ef4444;"></i> Oturum
+                    </h5>
+                    <p style="margin:0 0 12px 0; color:#94a3b8; font-size:12.5px; line-height:1.5;">Çıkış yaptığınızda giriş sayfasına dönersiniz. Dil, seviye ve ilerlemeniz kayıtlı kalır.</p>
+                    <button type="button" id="settings-logout-btn" onclick="logoutUser()" style="border-radius:12px; padding:10px 16px; font-size:13px; background:rgba(239,68,68,0.12); border:1px solid #ef4444; color:#ef4444; cursor:pointer; font-weight:600; display:inline-flex; align-items:center; gap:8px;">
+                        <i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Şifremi Unuttum Modalı -->
+    <div id="forgot-password-modal" class="coddy-modal-overlay hidden">
+        <div class="coddy-modal-card" style="max-width: 440px; text-align: left;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                <h2 style="margin:0; font-size:20px; display:flex; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-key" style="color:#38bdf8;"></i> Şifremi Unuttum
+                </h2>
+                <button onclick="closeForgotPasswordModal()" style="background:none; border:none; color:#94a3b8; font-size:24px; cursor:pointer;">&times;</button>
+            </div>
+            <p style="color:#94a3b8; font-size:13px; line-height:1.5; margin-bottom:16px;">
+                Kayıtlı e-posta adresinizi girin. Size tek kullanımlık geçici bir giriş şifresi tanımlanacaktır.
+            </p>
+            <form onsubmit="handleForgotPassword(event)">
+                <div style="margin-bottom:16px;">
+                    <label style="display:block; font-size:12px; color:#cbd5e1; margin-bottom:6px; font-weight:600;">E-posta Adresi:</label>
+                    <input type="email" id="forgot-email" required placeholder="ornek@mail.com" style="width:100%; padding:10px 14px; background:#090d16; border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#fff; font-size:14px; box-sizing:border-box;">
+                </div>
+                <div id="forgot-success-box" style="display:none; background:rgba(34,197,94,0.15); border:1px solid #22c55e; border-radius:12px; padding:12px; margin-bottom:16px; font-size:12.5px; color:#4ade80; line-height:1.4;"></div>
+                <button type="submit" class="btn-primary" style="width:100%; border-radius:14px; padding:12px; font-size:14px;">
+                    <i class="fa-solid fa-paper-plane"></i> Geçici Şifre Gönder
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Zorunlu İlk Şifre Yenileme Modalı (Geçici Şifre ile Girişte Çıkar) -->
+    <div id="force-password-change-modal" class="coddy-modal-overlay hidden" style="z-index: 2000;">
+        <div class="coddy-modal-card" style="max-width: 440px; text-align: left;">
+            <div style="margin-bottom:14px;">
+                <h2 style="margin:0 0 6px 0; font-size:20px; color:#f8fafc; display:flex; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-shield-halved" style="color:#f59e0b;"></i> Şifrenizi Yenileyin
+                </h2>
+                <p style="color:#94a3b8; font-size:13px; line-height:1.5; margin:0;">
+                    Geçici şifre ile giriş yaptınız. Hesabınızın güvenliği için lütfen kalıcı yeni bir şifre belirleyin.
+                </p>
+            </div>
+            <form onsubmit="handleForcePasswordChange(event)">
+                <div style="margin-bottom:14px;">
+                    <label style="display:block; font-size:12px; color:#cbd5e1; margin-bottom:6px; font-weight:600;">Yeni Kalıcı Şifre:</label>
+                    <input type="password" id="new-force-pass" required minlength="6" placeholder="••••••••" style="width:100%; padding:10px 14px; background:#090d16; border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#fff; font-size:14px; box-sizing:border-box;">
+                </div>
+                <div style="margin-bottom:18px;">
+                    <label style="display:block; font-size:12px; color:#cbd5e1; margin-bottom:6px; font-weight:600;">Yeni Şifre Tekrar:</label>
+                    <input type="password" id="new-force-pass-confirm" required minlength="6" placeholder="••••••••" style="width:100%; padding:10px 14px; background:#090d16; border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#fff; font-size:14px; box-sizing:border-box;">
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%; border-radius:14px; padding:12px; font-size:14px;">
+                    <i class="fa-solid fa-lock"></i> Şifreyi Kaydet ve Uygulamaya Başla
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- "Sıfırdan Başlıyorum" Dil Keşif ve Yönlendirme Rehberi Modalı -->
+    <div id="orientation-guide-modal" class="coddy-modal-overlay hidden">
+        <div class="coddy-modal-card" style="max-width: 640px; text-align: left; max-height: 85vh; overflow-y: auto;">
+            <!-- Aşama 1: Dillerin Tanıtımı ve İnceleme -->
+            <div id="guide-overview-view">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <h2 style="margin:0; font-size:22px; display:flex; align-items:center; gap:8px;">
+                        <i class="fa-solid fa-compass" style="color:#38bdf8;"></i> Yazılım Dilleri Keşif Rehberi
+                    </h2>
+                    <button onclick="closeOrientationGuide()" style="background:none; border:none; color:#94a3b8; font-size:24px; cursor:pointer;">&times;</button>
+                </div>
+                <p style="color:#94a3b8; font-size:13.5px; line-height:1.5; margin-bottom:16px;">
+                    Yazılıma sıfırdan başlarken hangi dilin ne işe yaradığını bilmek en büyük pusulandır. İşte COD+ platformundaki dillerin uzmanlık alanları:
+                </p>
+
+                <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:20px;">
+                    <!-- HTML5 -->
+                    <div style="background:#090d16; border:1px solid rgba(249,115,22,0.3); border-radius:14px; padding:12px 16px;">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                            <i class="fa-brands fa-html5" style="color:#f97316; font-size:18px;"></i>
+                            <h4 style="margin:0; color:#f8fafc; font-size:15px;">HTML5 — Web'in İskeleti</h4>
+                        </div>
+                        <p style="margin:0; font-size:12.5px; color:#cbd5e1; line-height:1.4;">
+                            İnternetteki her web sayfası HTML ile inşa edilir. Metinleri, görselleri, tabloları ve formları sayfaya yerleştiren ana omurgadır.
+                        </p>
+                    </div>
+
+                    <!-- CSS3 -->
+                    <div style="background:#090d16; border:1px solid rgba(56,189,248,0.3); border-radius:14px; padding:12px 16px;">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                            <i class="fa-brands fa-css3-alt" style="color:#38bdf8; font-size:18px;"></i>
+                            <h4 style="margin:0; color:#f8fafc; font-size:15px;">CSS3 — Görsel Tasarım & Animasyon</h4>
+                        </div>
+                        <p style="margin:0; font-size:12.5px; color:#cbd5e1; line-height:1.4;">
+                            Web sitelerine estetik, modern renkler, cam efektleri ve akıcı animasyonlar kazandırır. Sayfanın telefon, tablet ve bilgisayarda kusursuz görünmesini (Responsive) sağlar.
+                        </p>
+                    </div>
+
+                    <!-- JavaScript -->
+                    <div style="background:#090d16; border:1px solid rgba(250,204,21,0.3); border-radius:14px; padding:12px 16px;">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                            <i class="fa-brands fa-js" style="color:#facc15; font-size:18px;"></i>
+                            <h4 style="margin:0; color:#f8fafc; font-size:15px;">JavaScript — Dinamik Beyin & Etkileşim</h4>
+                        </div>
+                        <p style="margin:0; font-size:12.5px; color:#cbd5e1; line-height:1.4;">
+                            Web sitelerine canlılık katar. Butona tıklandığında veri çekme, web oyunları, sepet hesaplama ve modern web uygulamalarının (React/Node) temelidir.
+                        </p>
+                    </div>
+
+                    <!-- Python -->
+                    <div style="background:#090d16; border:1px solid rgba(74,222,128,0.3); border-radius:14px; padding:12px 16px;">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                            <i class="fa-brands fa-python" style="color:#4ade80; font-size:18px;"></i>
+                            <h4 style="margin:0; color:#f8fafc; font-size:15px;">Python — Yapay Zekâ, Veri & Siber Güvenlik</h4>
+                        </div>
+                        <p style="margin:0; font-size:12.5px; color:#cbd5e1; line-height:1.4;">
+                            Dünyanın en sade ve insan diline en yakın yazılım dilidir. Makine öğrenmesi, veri bilimi, sistem otomasyonları ve siber güvenlik betiklerinde bir numaralı tercihtir.
+                        </p>
+                    </div>
+
+                    <!-- C# -->
+                    <div style="background:#090d16; border:1px solid rgba(168,85,247,0.3); border-radius:14px; padding:12px 16px;">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                            <i class="fa-solid fa-code" style="color:#a855f7; font-size:18px;"></i>
+                            <h4 style="margin:0; color:#f8fafc; font-size:15px;">C# (.NET 9) — Kurumsal Mimari & Oyun Motoru</h4>
+                        </div>
+                        <p style="margin:0; font-size:12.5px; color:#cbd5e1; line-height:1.4;">
+                            Microsoft ekosisteminin amiral gemisidir. Bankacılık sistemleri, yüksek güvenlikli kurumsal web API servisleri ve Unity ile 3D oyun geliştirmede kullanılır.
+                        </p>
+                    </div>
+
+                    <!-- SQL -->
+                    <div style="background:#090d16; border:1px solid rgba(14,165,233,0.3); border-radius:14px; padding:12px 16px;">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                            <i class="fa-solid fa-database" style="color:#0ea5e9; font-size:18px;"></i>
+                            <h4 style="margin:0; color:#f8fafc; font-size:15px;">SQL — Veritabanı Mimarisi & Büyük Veri</h4>
+                        </div>
+                        <p style="margin:0; font-size:12.5px; color:#cbd5e1; line-height:1.4;">
+                            Milyonlarca kullanıcının şifrelerini, siparişlerini ve banka hesaplarını güvenle saklayan, filtreleyen ve raporlayan evrensel veri yönetim dilidir.
+                        </p>
+                    </div>
+
+                    <!-- C++ -->
+                    <div style="background:#090d16; border:1px solid rgba(0,89,156,0.5); border-radius:14px; padding:12px 16px;">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                            <i class="fa-solid fa-microchip" style="color:#38bdf8; font-size:18px;"></i>
+                            <h4 style="margin:0; color:#f8fafc; font-size:15px;">C++ — Yüksek Performanslı Sistem & Siber Güvenlik</h4>
+                        </div>
+                        <p style="margin:0; font-size:12.5px; color:#cbd5e1; line-height:1.4;">
+                            Doğrudan RAM ve işlemciye hükmeden, mikro-saniye hızında dildir. Unreal Engine ile AAA oyunlar, işletim sistemleri, uçak/savunma sanayii ve siber güvenlik araçlarının kalbidir.
+                        </p>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-primary" onclick="proceedToLanguageSelection()" style="width:100%; border-radius:14px; padding:13px; font-size:15px; display:flex; justify-content:center; align-items:center; gap:8px;">
+                    <span>Öğrenmek İstediğin Dili Seçmek İçin Devam Et</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Aşama 2: Başlamak İstediğin Dili Seçme Ekranı -->
+            <div id="guide-lang-selection-view" style="display:none;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <h2 style="margin:0; font-size:20px; display:flex; align-items:center; gap:8px;">
+                        <i class="fa-solid fa-graduation-cap" style="color:#22c55e;"></i> Öğrenmek İstediğin Dili Seç
+                    </h2>
+                    <button onclick="closeOrientationGuide()" style="background:none; border:none; color:#94a3b8; font-size:24px; cursor:pointer;">&times;</button>
+                </div>
+                <p style="color:#94a3b8; font-size:13.5px; line-height:1.5; margin-bottom:16px;">
+                    Yazılım yolculuğuna hangi dille başlamak istersin? İlgilendiğin alana göre istediğin dili seçebilirsin (Diğer dillere daha sonra dilediğin zaman geçebilirsin):
+                </p>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:18px;">
+                    <!-- HTML5 -->
+                    <button type="button" class="lang-select-card" onclick="chooseStartingLanguage('HTML')" style="text-align:left; padding:12px; border-radius:14px; background:#090d16; border:1px solid rgba(249,115,22,0.4); color:#fff; cursor:pointer; display:flex; flex-direction:column; gap:4px; transition:all 0.2s ease;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <i class="fa-brands fa-html5" style="color:#f97316; font-size:20px;"></i>
+                            <span style="font-weight:bold; font-size:14px;">HTML5</span>
+                        </div>
+                        <span style="font-size:11.5px; color:#94a3b8;">Web Tasarımı & Sayfa Yapısı</span>
+                    </button>
+
+                    <!-- CSS3 -->
+                    <button type="button" class="lang-select-card" onclick="chooseStartingLanguage('CSS')" style="text-align:left; padding:12px; border-radius:14px; background:#090d16; border:1px solid rgba(56,189,248,0.4); color:#fff; cursor:pointer; display:flex; flex-direction:column; gap:4px; transition:all 0.2s ease;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <i class="fa-brands fa-css3-alt" style="color:#38bdf8; font-size:20px;"></i>
+                            <span style="font-weight:bold; font-size:14px;">CSS3</span>
+                        </div>
+                        <span style="font-size:11.5px; color:#94a3b8;">Stil, Renkler & Cam Efektleri</span>
+                    </button>
+
+                    <!-- JavaScript -->
+                    <button type="button" class="lang-select-card" onclick="chooseStartingLanguage('JavaScript')" style="text-align:left; padding:12px; border-radius:14px; background:#090d16; border:1px solid rgba(250,204,21,0.4); color:#fff; cursor:pointer; display:flex; flex-direction:column; gap:4px; transition:all 0.2s ease;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <i class="fa-brands fa-js" style="color:#facc15; font-size:20px;"></i>
+                            <span style="font-weight:bold; font-size:14px;">JavaScript</span>
+                        </div>
+                        <span style="font-size:11.5px; color:#94a3b8;">Dinamik Web & Etkileşim</span>
+                    </button>
+
+                    <!-- Python -->
+                    <button type="button" class="lang-select-card" onclick="chooseStartingLanguage('Python')" style="text-align:left; padding:12px; border-radius:14px; background:#090d16; border:1px solid rgba(74,222,128,0.4); color:#fff; cursor:pointer; display:flex; flex-direction:column; gap:4px; transition:all 0.2s ease;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <i class="fa-brands fa-python" style="color:#4ade80; font-size:20px;"></i>
+                            <span style="font-weight:bold; font-size:14px;">Python</span>
+                        </div>
+                        <span style="font-size:11.5px; color:#94a3b8;">Yapay Zekâ, Veri & Siber Güvenlik</span>
+                    </button>
+
+                    <!-- C# -->
+                    <button type="button" class="lang-select-card" onclick="chooseStartingLanguage('C#')" style="text-align:left; padding:12px; border-radius:14px; background:#090d16; border:1px solid rgba(168,85,247,0.4); color:#fff; cursor:pointer; display:flex; flex-direction:column; gap:4px; transition:all 0.2s ease;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <i class="fa-solid fa-code" style="color:#a855f7; font-size:20px;"></i>
+                            <span style="font-weight:bold; font-size:14px;">C# (.NET 9)</span>
+                        </div>
+                        <span style="font-size:11.5px; color:#94a3b8;">Kurumsal Backend & Unity Oyun</span>
+                    </button>
+
+                    <!-- SQL -->
+                    <button type="button" class="lang-select-card" onclick="chooseStartingLanguage('SQL')" style="text-align:left; padding:12px; border-radius:14px; background:#090d16; border:1px solid rgba(14,165,233,0.4); color:#fff; cursor:pointer; display:flex; flex-direction:column; gap:4px; transition:all 0.2s ease;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <i class="fa-solid fa-database" style="color:#0ea5e9; font-size:20px;"></i>
+                            <span style="font-weight:bold; font-size:14px;">SQL</span>
+                        </div>
+                        <span style="font-size:11.5px; color:#94a3b8;">Veritabanı & Büyük Veri</span>
+                    </button>
+
+                    <!-- C++ -->
+                    <button type="button" class="lang-select-card" onclick="chooseStartingLanguage('C++')" style="text-align:left; padding:12px; border-radius:14px; background:#090d16; border:1px solid rgba(56,189,248,0.4); color:#fff; cursor:pointer; display:flex; flex-direction:column; gap:4px; grid-column: span 2; transition:all 0.2s ease;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <i class="fa-solid fa-microchip" style="color:#38bdf8; font-size:20px;"></i>
+                            <span style="font-weight:bold; font-size:14px;">C++</span>
+                        </div>
+                        <span style="font-size:11.5px; color:#94a3b8;">Yüksek Performans, Sistem Programlama & Siber Güvenlik</span>
+                    </button>
+                </div>
+
+                <button type="button" onclick="backToOrientationGuide()" style="width:100%; border-radius:12px; padding:11px; font-size:13px; background:rgba(255,255,255,0.08); border:none; color:#cbd5e1; cursor:pointer; display:flex; justify-content:center; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-arrow-left"></i> Dilleri Tekrar İncele
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google / Apple Kimlik Onay ve Profil Belirleme Modalı (Sıfır Browser Alert/Prompt) -->
+    <div id="social-auth-modal" class="coddy-modal-overlay hidden">
+        <div class="coddy-modal-card" style="max-width: 480px; text-align: left;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                <h2 id="social-modal-title" style="margin:0; font-size:18px; display:flex; align-items:center; gap:10px;">
+                    <i id="social-modal-icon" class="fa-brands fa-google" style="color:#ef4444;"></i> Google ile Hızlı Kayıt
+                </h2>
+                <button type="button" onclick="closeSocialAuthModal()" style="background:none; border:none; color:#94a3b8; font-size:24px; cursor:pointer;">&times;</button>
+            </div>
+
+            <p style="color:#94a3b8; font-size:13px; margin-bottom:16px; line-height:1.5;">
+                Kimliğiniz doğrulandı! Platformda görünecek adınızı ve eğitim bilgilerinizi onaylayarak hemen başlayın.
+            </p>
+
+            <form id="social-auth-form" onsubmit="event.preventDefault(); submitSocialAuth();">
+                <div class="input-group" style="margin-bottom:12px;">
+                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Bağlı E-posta</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="social-email" readonly style="border-radius:14px; background:rgba(255,255,255,0.04); color:#94a3b8; cursor:not-allowed;" />
+                    </div>
+                </div>
+
+                <div class="input-group" style="margin-bottom:12px;">
+                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Adınız / Kullanıcı Adınız</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="social-name" required placeholder="Geliştirici Adınız" style="border-radius:14px;" />
+                    </div>
+                </div>
+
+                <div class="input-group" style="margin-bottom:12px;">
+                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Eğitim Düzeyi</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <select id="social-education" required style="border-radius:14px; width:100%; padding:12px 14px 12px 38px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:13px;">
+                            <option value="İlköğretim / Ortaokul">İlköğretim / Ortaokul</option>
+                            <option value="Lise">Lise</option>
+                            <option value="Üniversite" selected>Üniversite</option>
+                            <option value="Yüksek Lisans / Doktora">Yüksek Lisans / Doktora</option>
+                            <option value="Mezun / Sektör">Mezun / Sektör</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group" style="margin-bottom:12px;">
+                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Hesap Türü</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fa-solid fa-user-tie"></i>
+                        <select id="social-role" onchange="toggleMentorRegistrationFields('social')" style="border-radius:14px; width:100%; padding:12px 14px 12px 38px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:13px;">
+                            <option value="ogrenci" selected>Öğrenci</option>
+                            <option value="danisman">Mentör / Danışman</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Mentör / Danışman Seçildiğinde Açılan Özel Danışman Alanları (Sosyal Giriş) -->
+                <div id="social-mentor-extra-fields" style="display:none; margin-top:8px; margin-bottom:14px; padding:16px; background:rgba(56,189,248,0.06); border:1px dashed rgba(56,189,248,0.4); border-radius:18px;">
+                    <div style="font-size:12.5px; font-weight:700; color:#38bdf8; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
+                        <i class="fa-solid fa-chalkboard-user"></i> Danışman / Mentör Profil Bilgileri
+                    </div>
+                    <div class="input-group" style="margin-bottom:10px;">
+                        <label style="font-size:12px; color:#cbd5e1; margin-bottom:4px; display:block;">Uzmanlık / Danışmanlık Alanı</label>
+                        <select id="social-mentor-field" style="border-radius:14px; width:100%; padding:10px 12px; background:rgba(15,23,42,0.85); border:1px solid var(--glass-border); color:white; font-size:12.5px;">
+                            <option value="Frontend & UI/UX">Frontend & UI/UX Mimarisi</option>
+                            <option value="Backend & Mikroservisler">Backend & Mikroservis Mimarisi</option>
+                            <option value="Fullstack Web Geliştirme" selected>Fullstack Web Geliştirme</option>
+                            <option value="Veritabanı & Büyük Veri">Veritabanı & SQL / NoSQL Mimarisi</option>
+                            <option value="Yapay Zeka & Veri Bilimi">Yapay Zeka & Veri Bilimi (Python)</option>
+                            <option value="Mobil Geliştirme">Mobil Uygulama (iOS / Android / Flutter)</option>
+                            <option value="Siber Güvenlik & DevOps">Siber Güvenlik, DevOps & Bulut</option>
+                            <option value="Sistem & Oyun Motoru">Sistem Programlama & C++ Oyun Motoru</option>
+                        </select>
+                    </div>
+                    <div style="display:flex; gap:10px; margin-bottom:10px;">
+                        <div class="input-group" style="flex:1; margin-bottom:0;">
+                            <label style="font-size:12px; color:#cbd5e1; margin-bottom:4px; display:block;">Deneyim Seviyesi</label>
+                            <select id="social-mentor-exp" style="border-radius:14px; width:100%; padding:10px 12px; background:rgba(15,23,42,0.85); border:1px solid var(--glass-border); color:white; font-size:12.5px;">
+                                <option value="1-2 Yıl">1-2 Yıl</option>
+                                <option value="3-5 Yıl (Mid-Senior)" selected>3-5 Yıl (Mid-Senior)</option>
+                                <option value="5-8 Yıl (Senior)">5-8 Yıl (Senior)</option>
+                                <option value="8+ Yıl (Lead / Principal)">8+ Yıl (Lead / Principal)</option>
+                            </select>
+                        </div>
+                        <div class="input-group" style="flex:1; margin-bottom:0;">
+                            <label style="font-size:12px; color:#cbd5e1; margin-bottom:4px; display:block;">Kurum / Şirket</label>
+                            <input type="text" id="social-mentor-company" placeholder="Örn: Teknopark, Google, İTÜ" style="border-radius:14px; padding:10px 12px; font-size:12.5px; width:100%;" />
+                        </div>
+                    </div>
+                    <div class="input-group" style="margin-bottom:0;">
+                        <label style="font-size:12px; color:#cbd5e1; margin-bottom:4px; display:block;">Mentörlük Biyografisi / Vizyonu</label>
+                        <input type="text" id="social-mentor-bio" placeholder="Örn: Genç geliştiricilerle birlikte büyük projeler geliştirmek istiyorum." style="border-radius:14px; padding:10px 12px; font-size:12.5px; width:100%;" />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width:100%; border-radius:14px; padding:12px; font-size:14px; display:flex; justify-content:center; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <span>Bilgileri Onayla & COD+'a Başla</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Yeni Dil Değiştirme ve Pedagojik Uyarı Modalı -->
+    <div id="lang-switch-warning-modal" class="coddy-modal-overlay hidden">
+        <div class="coddy-modal-card" style="max-width: 520px; text-align: left;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                <h2 style="margin:0; font-size:20px; display:flex; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> Yeni Bir Dil Öğrenmeye Başla
+                </h2>
+                <button onclick="closeLanguageSwitchModal()" style="background:none; border:none; color:#94a3b8; font-size:24px; cursor:pointer;">&times;</button>
+            </div>
+
+            <!-- Pedagojik Uyarı Kutusu -->
+            <div style="background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.3); border-radius:14px; padding:16px; margin-bottom:18px;">
+                <h4 style="margin:0 0 6px 0; color:#fbbf24; font-size:14.5px; display:flex; align-items:center; gap:6px;">
+                    <i class="fa-solid fa-lightbulb"></i> Önemli Eğitim Tavsiyesi
+                </h4>
+                <p style="margin:0; color:#cbd5e1; font-size:13px; line-height:1.5;">
+                    Birkaç farklı yazılım dilini aynı anda yürütmeni <strong>tercih etmeyiz</strong>. Aynı anda birden fazla dille uğraşmak odağını dağıtabilir ve konuları <strong>yarım bırakmana</strong> sebep olabilir.
+                    <br><br>
+                    En kalıcı öğrenme yöntemi; şu anki dilinde (<span id="warn-current-lang" style="color:#38bdf8; font-weight:bold;">HTML5</span>) temel konuları ve projeleri tamamladıktan sonra bir sonraki dile geçmektir.
+                </p>
+            </div>
+
+            <p style="color:#94a3b8; font-size:13px; margin-bottom:16px;">
+                Yine de başka bir dile geçiş yapmak veya yeni bir dil keşfetmek istiyor musun?
+            </p>
+
+            <div style="display:flex; flex-direction:column; gap:10px;">
+                <button type="button" class="btn-primary" onclick="closeLanguageSwitchModal()" style="border-radius:12px; padding:12px; font-size:14px; background:#10b981; display:flex; justify-content:center; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-shield-heart"></i>
+                    <span>Tavsiyeye Uy, Mevcut Dilime Devam Et (Önerilen)</span>
+                </button>
+                <button type="button" onclick="confirmProceedToNewLanguage()" style="border-radius:12px; padding:11px; font-size:13px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:#cbd5e1; cursor:pointer; display:flex; justify-content:center; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-forward"></i>
+                    <span>Yine de Devam Et & Yeni Dil Seç</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1v1 Akran Düellosu (Peer Duel) Modalı -->
+    <div id="duel-modal" class="coddy-modal-overlay hidden">
+        <div class="coddy-modal-card" style="max-width: 540px; text-align: left;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                <h2 style="margin:0; font-size:22px; display:flex; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-bolt" style="color:#f59e0b;"></i> 1v1 Akran Düellosu
+                </h2>
+                <button onclick="closeDuelModal()" style="background:none; border:none; color:#94a3b8; font-size:24px; cursor:pointer;">&times;</button>
+            </div>
+
+            <!-- Aşama 1: Düello Kurulumu -->
+            <div id="duel-setup-view">
+                <p style="color:#94a3b8; font-size:13.5px; margin-bottom:16px; line-height:1.5;">
+                    Öğrendiğin dilde akranınla canlı düelloya gir! 5 soruluk yarışta en yüksek doğruyu yapan <strong>+50 XP & +15 Elmas</strong> kazanır.
+                </p>
+
+                <div style="margin-bottom:16px;">
+                    <label style="display:block; font-size:13px; color:#cbd5e1; margin-bottom:8px; font-weight:600;">1. Düello Dili (Yalnızca bu dilden sorular gelecektir):</label>
+                    <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:6px;">
+                        <button type="button" class="duel-lang-btn active" data-lang="html" onclick="selectDuelLang('html')">HTML</button>
+                        <button type="button" class="duel-lang-btn" data-lang="css" onclick="selectDuelLang('css')">CSS</button>
+                        <button type="button" class="duel-lang-btn" data-lang="javascript" onclick="selectDuelLang('javascript')">JavaScript</button>
+                        <button type="button" class="duel-lang-btn" data-lang="python" onclick="selectDuelLang('python')">Python</button>
+                        <button type="button" class="duel-lang-btn" data-lang="csharp" onclick="selectDuelLang('csharp')">C#</button>
+                        <button type="button" class="duel-lang-btn" data-lang="sql" onclick="selectDuelLang('sql')">SQL</button>
+                        <button type="button" class="duel-lang-btn" data-lang="cpp" onclick="selectDuelLang('cpp')">C++</button>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:20px;">
+                    <label style="display:block; font-size:13px; color:#cbd5e1; margin-bottom:8px; font-weight:600;">2. Rakip / Arkadaş Seçimi:</label>
+                    <select id="duel-opponent-select" style="width:100%; padding:10px 14px; background:#090d16; border:1px solid rgba(255,255,255,0.15); border-radius:12px; color:#fff; font-size:14px; box-sizing:border-box;">
+                        <option value="burak_coder">burak_coder (Çırak Ligi - Çevrimiçi)</option>
+                        <option value="selin_dev">selin_dev (Kalfa Ligi - Çevrimiçi)</option>
+                        <option value="can_alp">can_alp (Usta Ligi - Çevrimiçi)</option>
+                        <option value="random">Rastgele Akran Eşleşmesi 🎲</option>
+                    </select>
+                </div>
+
+                <button type="button" class="btn-primary" onclick="startDuel()" style="width:100%; border-radius:16px; padding:14px; font-size:16px; display:flex; justify-content:center; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-play"></i> Düelloyu Başlat (5 Soru)
+                </button>
+            </div>
+
+            <!-- Aşama 2: Canlı Düello Soru Ekranı -->
+            <div id="duel-arena-view" style="display:none;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; padding:10px 14px; background:rgba(0,0,0,0.3); border-radius:12px;">
+                    <div style="font-size:13px; color:#94a3b8;">
+                        <span id="duel-q-counter" style="color:#38bdf8; font-weight:bold;">Soru 1 / 5</span> 
+                        <span id="duel-active-lang" style="text-transform:uppercase; margin-left:8px; background:rgba(56,189,248,0.2); padding:2px 8px; border-radius:6px; font-size:11px; color:#38bdf8; font-weight:bold;">HTML</span>
+                    </div>
+                    <div style="display:flex; gap:16px; font-size:14px; font-weight:bold;">
+                        <span style="color:#22c55e;">Sen: <span id="duel-user-score">0</span></span>
+                        <span style="color:#f43f5e;">Rakip: <span id="duel-opp-score">0</span></span>
+                        <span style="color:#f59e0b;"><i class="fa-solid fa-stopwatch"></i> <span id="duel-timer">15</span>s</span>
+                    </div>
+                </div>
+
+                <div id="duel-question-card" style="background:#090d16; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:18px; margin-bottom:16px;">
+                    <p id="duel-question-text" style="color:#f8fafc; font-size:15px; line-height:1.5; margin:0 0 16px 0; font-weight:600;"></p>
+                    <div id="duel-options-container" style="display:flex; flex-direction:column; gap:8px;"></div>
+                </div>
+            </div>
+
+            <!-- Aşama 3: Düello Sonuç Ekranı -->
+            <div id="duel-result-view" style="display:none; text-align:center;">
+                <div id="duel-result-icon" style="font-size:50px; margin-bottom:12px;">🏆</div>
+                <h3 id="duel-result-title" style="font-size:22px; color:#f8fafc; margin:0 0 8px 0;">Tebrikler! Kazandın!</h3>
+                <p id="duel-result-desc" style="color:#94a3b8; font-size:14px; margin-bottom:20px; line-height:1.5;"></p>
+                <div class="coddy-rewards-row" id="duel-rewards-row">
+                    <div class="coddy-reward-pill"><span class="rew-icon">⭐</span> +50 XP</div>
+                    <div class="coddy-reward-pill"><span class="rew-icon">💎</span> +15 Elmas</div>
+                </div>
+                <button type="button" class="btn-primary" onclick="closeDuelModal()" style="width:100%; border-radius:14px; padding:12px; font-size:15px;">
+                    Tamamla & Haritaya Dön
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- YENİ PROJE & EKİP OLUŞTURMA MODALI                           -->
+    <!-- ============================================================ -->
+    <div id="create-project-modal" class="coddy-modal-overlay hidden">
+        <div class="coddy-modal-card" style="max-width: 580px; text-align: left; padding: 26px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                <h2 style="font-size:20px; margin:0; display:flex; align-items:center; gap:10px;">
+                    <i class="fa-solid fa-diagram-project" style="color:#38bdf8;"></i> Yeni Proje & Ekip Başlat
+                </h2>
+                <button type="button" onclick="closeCreateProjectModal()" style="background:transparent; border:none; color:#94a3b8; font-size:20px; cursor:pointer;">✕</button>
+            </div>
+            
+            <form id="new-project-form" onsubmit="event.preventDefault(); submitCreateProject();">
+                <div class="input-group" style="margin-bottom:12px;">
+                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Proje Başlığı</label>
+                    <input type="text" id="new-proj-title" required placeholder="Örn: AI Harcama Analitiği & Fintech Paneli" style="border-radius:14px; width:100%; padding:10px 14px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:13.5px;" />
+                </div>
+
+                <div class="input-group" style="margin-bottom:12px;">
+                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Proje Açıklaması & Hedefi</label>
+                    <textarea id="new-proj-desc" required rows="3" placeholder="Projenin amacı, mimari hedefleri ve yapılacak işler..." style="border-radius:14px; width:100%; padding:10px 14px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:13px; font-family:inherit; resize:vertical;"></textarea>
+                </div>
+
+                <div class="input-group" style="margin-bottom:14px;">
+                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Kullanılan Teknolojiler (Virgülle ayırın)</label>
+                    <input type="text" id="new-proj-tech" placeholder="Örn: React, Node.js, SQL, Python, Docker" style="border-radius:14px; width:100%; padding:10px 14px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:13px;" />
+                </div>
+
+                <!-- Aranan Roller / Pozisyonlar -->
+                <div style="margin-bottom:14px;">
+                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:6px; display:block; font-weight:600;">
+                        <i class="fa-solid fa-bullhorn" style="color:#f59e0b;"></i> Projede Aranan Roller / Ekip İhtiyaçları
+                    </label>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+                        <label class="role-checkbox-item">
+                            <input type="checkbox" name="proj_roles" value="Frontend Geliştirici" checked>
+                            <span>Frontend Geliştirici Aranıyor</span>
+                        </label>
+                        <label class="role-checkbox-item">
+                            <input type="checkbox" name="proj_roles" value="Backend Geliştirici" checked>
+                            <span>Backend Geliştirici Aranıyor</span>
+                        </label>
+                        <label class="role-checkbox-item">
+                            <input type="checkbox" name="proj_roles" value="Veritabanı Mimarı">
+                            <span>Veritabanı Mimarı Aranıyor</span>
+                        </label>
+                        <label class="role-checkbox-item">
+                            <input type="checkbox" name="proj_roles" value="Mobil Geliştirici">
+                            <span>Mobil Geliştirici Aranıyor</span>
+                        </label>
+                        <label class="role-checkbox-item">
+                            <input type="checkbox" name="proj_roles" value="UI/UX Tasarımcı">
+                            <span>UI/UX Tasarımcı Aranıyor</span>
+                        </label>
+                        <label class="role-checkbox-item">
+                            <input type="checkbox" name="proj_roles" value="DevOps & Bulut">
+                            <span>DevOps & Bulut Aranıyor</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Arkadaş Listesinden Doğrudan Ekip Üyesi Ekleme -->
+                <div style="margin-bottom:16px; padding:12px; background:rgba(16,185,129,0.06); border:1px dashed rgba(16,185,129,0.3); border-radius:16px;">
+                    <label style="font-size:12.5px; color:#10b981; margin-bottom:4px; display:flex; align-items:center; gap:6px; font-weight:700;">
+                        <i class="fa-solid fa-user-check"></i> Arkadaş Listenden Doğrudan Ekip Üyesi Seç:
+                    </label>
+                    <p style="font-size:11.5px; color:#94a3b8; margin-bottom:8px;">
+                        Kural: Ekip üyesi ekleyebilmeniz için öncelikle arkadaş olarak ekleşmeniz gerekmektedir.
+                    </p>
+                    <div id="new-proj-friends-picker" style="display:flex; flex-direction:column; gap:6px; max-height:110px; overflow-y:auto;">
+                        <!-- Onaylı arkadaşlar dinamik listelenecek -->
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:10px;">
+                    <button type="button" class="btn-secondary" onclick="closeCreateProjectModal()" style="flex:1; border-radius:14px; padding:10px; background:rgba(255,255,255,0.05); border:1px solid var(--glass-border); color:#e2e8f0; cursor:pointer;">İptal</button>
+                    <button type="submit" class="btn-primary" style="flex:2; border-radius:14px; padding:10px; font-size:14px;">Projeyi Yayınla & Ekibi Kur</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- EKİBE ARKADAŞ DAVET ETME MODALI                              -->
+    <!-- ============================================================ -->
+    <div id="invite-member-modal" class="coddy-modal-overlay hidden">
+        <div class="coddy-modal-card" style="max-width: 500px; text-align: left; padding: 24px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                <h2 style="font-size:19px; margin:0; display:flex; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-user-plus" style="color:#10b981;"></i> Projeye Arkadaş Davet Et
+                </h2>
+                <button type="button" onclick="closeInviteMemberModal()" style="background:transparent; border:none; color:#94a3b8; font-size:20px; cursor:pointer;">✕</button>
+            </div>
+            <input type="hidden" id="invite-project-id" />
+            <p id="invite-project-title" style="font-size:13px; color:#38bdf8; font-weight:600; margin-bottom:14px;"></p>
+
+            <form onsubmit="event.preventDefault(); submitSendProjectInvite();">
+                <div class="input-group" style="margin-bottom:14px;">
+                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Davet Edilecek Arkadaş:</label>
+                    <select id="invite-friend-select" required style="width:100%; border-radius:12px; padding:10px 14px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:13px; outline:none;">
+                    </select>
+                </div>
+
+                <div class="input-group" style="margin-bottom:16px;">
+                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Ekipteki Rolü / Açık Pozisyon:</label>
+                    <select id="invite-role-select" required style="width:100%; border-radius:12px; padding:10px 14px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:13px; outline:none;">
+                        <option value="Frontend Geliştirici">Frontend Geliştirici</option>
+                        <option value="Backend Geliştirici">Backend Geliştirici</option>
+                        <option value="Veritabanı / SQL Mimarı">Veritabanı / SQL Mimarı</option>
+                        <option value="Mobil / React Geliştirici">Mobil / React Geliştirici</option>
+                        <option value="UI/UX Tasarımcı">UI/UX Tasarımcı</option>
+                    </select>
+                </div>
+
+                <div style="font-size:12px; color:#94a3b8; background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.2); padding:10px; border-radius:12px; margin-bottom:16px;">
+                    <i class="fa-solid fa-circle-info" style="color:#38bdf8;"></i> Davet gönderildikten sonra karşı tarafın onaylaması beklenecektir. Onayladığı an resmi olarak ekibe dahil olacaktır.
+                </div>
+
+                <div style="display:flex; gap:10px;">
+                    <button type="button" class="btn-secondary" onclick="closeInviteMemberModal()" style="flex:1; border-radius:14px; padding:10px; background:rgba(255,255,255,0.05); border:1px solid var(--glass-border); color:#e2e8f0; cursor:pointer;">Vazgeç</button>
+                    <button type="submit" class="btn-primary" style="flex:2; border-radius:14px; padding:10px; font-size:14px;">Davet Gönder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- GÖREV ATAMA MODALI (MENTÖR / PROJE LİDERİ İÇİN)               -->
+    <!-- ============================================================ -->
+    <div id="assign-task-modal" class="coddy-modal-overlay hidden">
+        <div class="coddy-modal-card" style="max-width: 560px; text-align: left; padding: 24px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                <h2 style="font-size:19px; margin:0; display:flex; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-plus-circle" style="color:#f59e0b;"></i> Ekip Üyesine Yeni Görev Ata
+                </h2>
+                <button type="button" onclick="closeAssignTaskModal()" style="background:transparent; border:none; color:#94a3b8; font-size:20px; cursor:pointer;">✕</button>
+            </div>
+
+            <form onsubmit="event.preventDefault(); submitNewTask();">
+                <div class="input-group" style="margin-bottom:12px;">
+                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">İlgili Proje:</label>
+                    <select id="task-modal-project" onchange="updateTaskAssigneeDropdown()" required style="width:100%; border-radius:12px; padding:10px 14px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:13px; outline:none;">
+                    </select>
+                </div>
+
+                <div class="input-group" style="margin-bottom:12px;">
+                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Görevin Başlığı:</label>
+                    <input type="text" id="task-modal-title" required placeholder="Örn: Kullanıcı Kimlik Doğrulama & JWT Entegrasyonu" style="border-radius:12px; width:100%; padding:10px 14px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:13px;" />
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:12px;">
+                    <div class="input-group">
+                        <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Atanacak Ekip Üyesi:</label>
+                        <select id="task-modal-assignee" required style="width:100%; border-radius:12px; padding:10px 14px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:13px; outline:none;">
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Teknoloji / Alan:</label>
+                        <select id="task-modal-tech" style="width:100%; border-radius:12px; padding:10px 14px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:13px; outline:none;">
+                            <option value="Frontend (HTML/JS)">Frontend (HTML/JS)</option>
+                            <option value="Backend (Node/Python)">Backend (Node/Python)</option>
+                            <option value="SQL Veritabanı">SQL Veritabanı</option>
+                            <option value="C# .NET">C# .NET</option>
+                            <option value="C++ Sistem">C++ Sistem</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group" style="margin-bottom:16px;">
+                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Görev Açıklaması & Kabul Kriterleri:</label>
+                    <textarea id="task-modal-desc" rows="3" required placeholder="Geliştiricinin ne yapması bekleniyor? Kod kuralları, beklenen çıktılar..." style="border-radius:12px; width:100%; padding:10px 14px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:13px; font-family:inherit; resize:vertical;"></textarea>
+                </div>
+
+                <div style="display:flex; gap:10px;">
+                    <button type="button" class="btn-secondary" onclick="closeAssignTaskModal()" style="flex:1; border-radius:14px; padding:10px; background:rgba(255,255,255,0.05); border:1px solid var(--glass-border); color:#e2e8f0; cursor:pointer;">İptal</button>
+                    <button type="submit" class="btn-primary" style="flex:2; border-radius:14px; padding:10px; font-size:14px; background:linear-gradient(135deg, #f59e0b, #d97706);">Görevi Ata & Bildir</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- GÖREVİ TAMAMLAYIP MENTÖR ONAYINA GÖNDERME MODALI             -->
+    <!-- ============================================================ -->
+    <!-- ============================================================ -->
+    <!-- GÖREVİ TAMAMLAYIP MENTÖR ONAYINA GÖNDERME MODALI             -->
+    <!-- ============================================================ -->
+    <div id="submit-task-modal" class="coddy-modal-overlay hidden">
+        <div class="coddy-modal-card" style="max-width: 620px; text-align: left; padding: 24px; max-height:88vh; overflow-y:auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <h2 style="font-size:19px; margin:0; display:flex; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-paper-plane" style="color:#10b981;"></i> Görevi Mentör Onayına Gönder
+                </h2>
+                <button type="button" onclick="closeSubmitTaskModal()" style="background:transparent; border:none; color:#94a3b8; font-size:20px; cursor:pointer;">✕</button>
+            </div>
+            <input type="hidden" id="submit-task-id" />
+            <h4 id="submit-task-title" style="color:#f8fafc; font-size:15px; margin:0 0 6px 0;"></h4>
+            <p id="submit-task-desc" style="color:#94a3b8; font-size:12.5px; margin-bottom:14px;"></p>
+
+            <form onsubmit="event.preventDefault(); confirmSubmitTaskForReview();">
+                <div class="input-group" style="margin-bottom:12px;">
+                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Yapılan İşin Özeti / Çözüm Notu:</label>
+                    <input type="text" id="submit-task-note" required placeholder="Örn: Kullanıcı doğrulama endpointi yazıldı ve hashleme test edildi." style="border-radius:12px; width:100%; padding:10px 14px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:13px;" />
+                </div>
+
+                <div class="input-group" style="margin-bottom:16px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:6px;">
+                        <label style="font-size:12.5px; color:#cbd5e1; margin:0; display:flex; align-items:center; gap:6px;">
+                            <i class="fa-solid fa-code" style="color:#38bdf8;"></i> Yazdığınız Kodlar / PR Özeti:
+                        </label>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span id="task-code-autosave-indicator" style="font-size:11px; color:#10b981; display:flex; align-items:center; gap:4px;">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> Otomatik Kaydedildi
+                            </span>
+                            <button type="button" onclick="generateAiLineAnnotationForSubmit()" style="background:rgba(56,189,248,0.15); border:1px solid #38bdf8; color:#38bdf8; font-size:11.5px; font-weight:600; padding:3px 9px; border-radius:8px; cursor:pointer; display:flex; align-items:center; gap:5px;">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> 🤖 AI Satır Açıklaması
+                            </button>
+                        </div>
+                    </div>
+                    <div style="font-size:11px; color:#64748b; margin-bottom:6px; display:flex; align-items:center; gap:5px;">
+                        <i class="fa-solid fa-bolt" style="color:#38bdf8;"></i> VS Code IntelliSense aktif: Yazmaya başlayın veya öneri için <strong>Ctrl + Space</strong> tuşuna basın.
+                    </div>
+                    <textarea id="submit-task-code" rows="6" placeholder="// Yazdığınız fonksiyon, sorgu veya kod bloğunu buraya yazın..." style="border-radius:12px; width:100%; padding:12px 14px; background:rgba(15,23,42,0.95); border:1px solid var(--glass-border); color:#38bdf8; font-size:12.5px; font-family:'Fira Code', monospace; resize:vertical; line-height:1.5;"></textarea>
+                    
+                    <!-- AI Satır Açıklama Kutusu -->
+                    <div id="submit-task-ai-annotations" style="display:none;" class="ai-line-annotations-container"></div>
+                </div>
+
+                <div style="display:flex; gap:10px;">
+                    <button type="button" class="btn-secondary" onclick="closeSubmitTaskModal()" style="flex:1; border-radius:14px; padding:10px; background:rgba(255,255,255,0.05); border:1px solid var(--glass-border); color:#e2e8f0; cursor:pointer;">Vazgeç</button>
+                    <button type="submit" class="btn-primary" style="flex:2; border-radius:14px; padding:10px; font-size:14px;">Mentör Onayına Gönder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MENTÖR GÖREV & KOD İNCELEME MODALI (CODE REVIEW)             -->
+    <!-- ============================================================ -->
+    <div id="review-task-modal" class="coddy-modal-overlay hidden">
+        <div class="coddy-modal-card" style="max-width: 640px; text-align: left; padding: 24px; max-height:88vh; overflow-y:auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <h2 style="font-size:19px; margin:0; display:flex; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-code-compare" style="color:#f59e0b;"></i> <span id="review-modal-title">Görev & Kod İncelemesi</span>
+                </h2>
+                <button type="button" onclick="closeReviewTaskModal()" style="background:transparent; border:none; color:#94a3b8; font-size:20px; cursor:pointer;">✕</button>
+            </div>
+            <input type="hidden" id="review-task-id" />
+            <div id="review-manager-box" style="display:none; font-size:12px; color:#e2e8f0; background:rgba(245,158,11,0.08); border-left:3px solid #f59e0b; padding:8px 12px; margin-bottom:12px; border-radius:0 10px 10px 0;"></div>
+            
+            <div style="background:rgba(15,23,42,0.6); border:1px solid var(--glass-border); border-radius:14px; padding:14px; margin-bottom:14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <h3 id="review-task-title" style="color:#f8fafc; font-size:16px; margin:0;"></h3>
+                    <span id="review-task-author" style="font-size:12px; color:#38bdf8; background:rgba(56,189,248,0.15); padding:2px 8px; border-radius:8px;"></span>
+                </div>
+                <p id="review-task-desc" style="color:#94a3b8; font-size:12.5px; margin:0 0 8px 0;"></p>
+                <div style="font-size:12px; color:#e2e8f0; border-top:1px dashed var(--glass-border); padding-top:8px;">
+                    <strong>Üyenin Notu:</strong> <span id="review-task-note" style="color:#cbd5e1;"></span>
+                </div>
+            </div>
+
+            <!-- Üyenin Sunduğu Kod -->
+            <div style="margin-bottom:14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <div style="font-size:12px; font-weight:700; color:#38bdf8; display:flex; align-items:center; gap:6px;">
+                        <i class="fa-solid fa-file-code"></i> Teslim Edilen Kod Bloğu:
+                    </div>
+                    <button type="button" onclick="triggerReviewAiAnnotation()" style="background:rgba(56,189,248,0.15); border:1px solid #38bdf8; color:#38bdf8; font-size:11.5px; font-weight:600; padding:2px 9px; border-radius:8px; cursor:pointer; display:flex; align-items:center; gap:5px;">
+                        <i class="fa-solid fa-microchip"></i> 🤖 AI Satır Satır Analiz
+                    </button>
+                </div>
+                <pre id="review-task-code-preview" style="background:#090d16; border:1px solid var(--glass-border); border-radius:12px; padding:12px; color:#38bdf8; font-family:'Fira Code', monospace; font-size:12px; max-height:160px; overflow-y:auto; white-space:pre-wrap;"></pre>
+                
+                <!-- Mentör Kontrolü İçin AI Satır Analiz Kutusu -->
+                <div id="review-task-ai-annotations" style="display:none;" class="ai-line-annotations-container"></div>
+            </div>
+
+            <!-- Danışman Geri Bildirimi & Tavsiyesi (Yapay Zeka Buradan Öğrenir!) -->
+            <div style="margin-bottom:16px;">
+                <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:flex; align-items:center; gap:6px; font-weight:600;">
+                    <i class="fa-solid fa-graduation-cap" style="color:#f59e0b;"></i> Danışman Geri Bildirimi / Mimari Tavsiye:
+                </label>
+                <p style="font-size:11px; color:#94a3b8; margin:0 0 6px 0;">
+                    💡 Not: Buraya yazacağınız tavsiyeler yapay zeka tarafından analiz edilecek ve danışman klonunuz bu yaklaşımı taklit edecektir.
+                </p>
+                <textarea id="review-mentor-feedback" rows="2" placeholder="Örn: Endpoint güvenliği güzel kurgulanmış, ancak SQL tarafında parametreli sorgu kullanılmasına dikkat edelim." style="border-radius:12px; width:100%; padding:10px 14px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:12.5px; font-family:inherit; resize:vertical;"></textarea>
+            </div>
+
+            <div style="display:flex; gap:10px;">
+                <button type="button" onclick="confirmTaskRevision()" style="flex:1; border-radius:14px; padding:11px; background:rgba(239,68,68,0.15); border:1px solid #ef4444; color:#ef4444; cursor:pointer; font-weight:600; font-size:13px; display:flex; align-items:center; justify-content:center; gap:6px;">
+                    <i class="fa-solid fa-rotate-left"></i> Revize İste
+                </button>
+                <button type="button" onclick="confirmTaskApproval()" class="btn-primary" style="flex:2; border-radius:14px; padding:11px; font-size:13.5px; background:linear-gradient(135deg, #10b981, #059669); display:flex; align-items:center; justify-content:center; gap:6px;">
+                    <i class="fa-solid fa-check-circle"></i> <span id="review-approve-label">Onayla</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================ -->
+    <div id="friends-modal" class="coddy-modal-overlay hidden">
+        <div class="coddy-modal-card" style="max-width: 600px; text-align: left; padding: 24px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                <h2 style="font-size:20px; margin:0; display:flex; align-items:center; gap:10px;">
+                    <i class="fa-solid fa-user-group" style="color:#10b981;"></i> Arkadaşlar & Ağım
+                </h2>
+                <button type="button" onclick="closeFriendsModal()" style="background:transparent; border:none; color:#94a3b8; font-size:20px; cursor:pointer;">✕</button>
+            </div>
+
+            <!-- Modal Sekmeleri -->
+            <div class="friends-modal-tabs" style="display:flex; gap:8px; margin-bottom:16px;">
+                <button type="button" class="friend-tab-btn active" id="ftab-friends" onclick="switchFriendTab('friends')">
+                    <i class="fa-solid fa-users"></i> Arkadaşlarım (<span id="ftab-friends-count">3</span>)
+                </button>
+                <button type="button" class="friend-tab-btn" id="ftab-search" onclick="switchFriendTab('search')">
+                    <i class="fa-solid fa-user-plus"></i> Arkadaş Ekle & Ara
+                </button>
+                <button type="button" class="friend-tab-btn" id="ftab-requests" onclick="switchFriendTab('requests')">
+                    <i class="fa-solid fa-inbox"></i> İstekler (<span id="ftab-req-count">1</span>)
+                </button>
+            </div>
+
+            <!-- Sekme 1: Arkadaşlarım Listesi -->
+            <div id="friend-tab-content-friends" class="friend-tab-view">
+                <div id="friends-list-container" style="display:flex; flex-direction:column; gap:10px; max-height:360px; overflow-y:auto; padding-right:4px;">
+                    <!-- Dinamik Liste -->
+                </div>
+            </div>
+
+            <!-- Sekme 2: Arkadaş Ekle & Arama -->
+            <div id="friend-tab-content-search" class="friend-tab-view hidden">
+                <div style="display:flex; gap:8px; margin-bottom:14px;">
+                    <input type="text" id="friend-search-input" placeholder="Kullanıcı adı veya e-posta ile ara..." style="flex:1; border-radius:14px; padding:10px 14px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:13px;" />
+                    <button type="button" class="btn-primary" onclick="searchFriends()" style="width:auto; padding:0 18px; border-radius:14px;">Ara</button>
+                </div>
+                <div style="font-size:12px; color:#94a3b8; margin-bottom:8px; font-weight:600;">Önerilen Geliştiriciler & Mentörler:</div>
+                <div id="friend-suggestions-container" style="display:flex; flex-direction:column; gap:8px; max-height:300px; overflow-y:auto;">
+                    <!-- Öneriler -->
+                </div>
+            </div>
+
+            <!-- Sekme 3: Gelen İstekler -->
+            <div id="friend-tab-content-requests" class="friend-tab-view hidden">
+                <div id="friend-requests-container" style="display:flex; flex-direction:column; gap:10px; max-height:360px; overflow-y:auto;">
+                    <!-- Gelen İstekler -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SOHBET / MESAJLAŞMA MODALI                                   -->
+    <!-- ============================================================ -->
+    <div id="chat-messenger-modal" class="coddy-modal-overlay hidden">
+        <div class="coddy-modal-card" style="max-width: 760px; width:95%; height: 560px; text-align: left; padding: 0; display:flex; flex-direction:column; overflow:hidden;">
+            <!-- Messenger Header -->
+            <div style="padding:14px 20px; background:rgba(15,23,42,0.95); border-bottom:1px solid var(--glass-border); display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <i class="fa-solid fa-comments" style="color:#a855f7; font-size:20px;"></i>
+                    <h3 style="margin:0; font-size:17px; color:#f8fafc;">COD+ Geliştirici & Mentör Sohbeti</h3>
+                </div>
+                <button type="button" onclick="closeChatMessengerModal()" style="background:transparent; border:none; color:#94a3b8; font-size:20px; cursor:pointer;">✕</button>
+            </div>
+
+            <!-- Messenger Two-Column Body -->
+            <div style="flex:1; display:flex; min-height:0;">
+                <!-- Sol Panel: Arkadaşlar Listesi -->
+                <div style="width:240px; background:rgba(15,23,42,0.7); border-right:1px solid var(--glass-border); display:flex; flex-direction:column;">
+                    <div style="padding:10px 14px; font-size:11.5px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px;">
+                        Arkadaşlarım (<span id="chat-friends-count">3</span>)
+                    </div>
+                    <div id="chat-friends-list" style="flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:4px; padding:4px 8px;">
+                        <!-- Dinamik Arkadaş Listesi -->
+                    </div>
+                </div>
+
+                <!-- Sağ Panel: Aktif Mesaj Akışı -->
+                <div style="flex:1; display:flex; flex-direction:column; background:rgba(2,6,23,0.5);">
+                    <!-- Aktif Kişi Başlığı & Düello Butonu -->
+                    <div id="chat-active-header" style="padding:10px 16px; background:rgba(30,41,59,0.4); border-bottom:1px solid var(--glass-border); display:flex; justify-content:space-between; align-items:center;">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <span id="chat-active-avatar" style="font-size:24px;">👨‍💻</span>
+                            <div>
+                                <div id="chat-active-name" style="font-size:14px; font-weight:700; color:#f8fafc;">Ahmet Yılmaz</div>
+                                <div id="chat-active-status" style="font-size:11.5px; color:#10b981;">● Çevrimiçi (Frontend Geliştirici)</div>
+                            </div>
+                        </div>
+                        <button type="button" id="chat-invite-duel-btn" onclick="inviteActiveChatFriendToDuel()" style="background:rgba(245,158,11,0.15); border:1px solid #f59e0b; color:#f59e0b; padding:6px 12px; border-radius:12px; font-size:12px; cursor:pointer; font-weight:600; display:flex; align-items:center; gap:6px;">
+                            <i class="fa-solid fa-bolt"></i> Düelloya Davet Et
+                        </button>
+                    </div>
+
+                    <!-- Mesajlar Listesi -->
+                    <div id="chat-messages-container" style="flex:1; padding:16px; overflow-y:auto; display:flex; flex-direction:column; gap:10px;">
+                        <!-- Mesajlar -->
+                    </div>
+
+                    <!-- Mesaj Yazma Alanı -->
+                    <form id="chat-send-form" onsubmit="event.preventDefault(); sendChatMessage();" style="padding:12px 16px; border-top:1px solid var(--glass-border); display:flex; gap:8px; background:rgba(15,23,42,0.85);">
+                        <input type="text" id="chat-input-text" placeholder="Bir mesaj yazın..." style="flex:1; border-radius:14px; padding:10px 14px; background:rgba(30,41,59,0.7); border:1px solid var(--glass-border); color:white; font-size:13px;" />
+                        <button type="submit" class="btn-primary" style="width:auto; padding:0 18px; border-radius:14px;">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TAŞINABİLİR YAPAY ZEKA ASİSTANI (CODDY AI)                    -->
+    <!-- ============================================================ -->
+    <div id="coddy-ai-widget" class="hidden">
+        <!-- Draggable Header -->
+        <div id="coddy-ai-header" class="coddy-ai-handle" title="Başlıktan tutarak ekranda istediğiniz yere taşıyabilirsiniz">
+            <div style="display:flex; align-items:center; gap:8px;">
+                <!-- Sol: Robot Kafası SVG + İsim -->
+                <svg width="22" height="22" viewBox="0 0 100 85" fill="none">
+                    <rect x="47" y="2" width="6" height="14" rx="3" fill="#64748b"/>
+                    <circle cx="50" cy="3" r="5" fill="#00f2fe"/>
+                    <rect x="8" y="24" width="8" height="26" rx="4" fill="#0f172a" stroke="#334155"/>
+                    <rect x="15" y="12" width="70" height="60" rx="22" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                    <rect x="22" y="21" width="56" height="42" rx="15" fill="#090d16"/>
+                    <rect x="32" y="32" width="12" height="16" rx="6" fill="#00f2fe"/>
+                    <rect x="56" y="32" width="12" height="16" rx="6" fill="#00f2fe"/>
+                </svg>
+                <span style="font-size:13px; font-weight:700; color:#f8fafc;">COD+ AI Asistanı</span>
+            </div>
+
+            <!-- Sağ: Robot Kafası + COD+ Yazısı + Kontroller -->
+            <div style="display:flex; align-items:center; gap:8px;">
+                <div class="ai-header-brand" style="display:flex; align-items:center; gap:4px; background:rgba(0,242,254,0.12); border:1px solid rgba(0,242,254,0.35); padding:2px 8px; border-radius:8px;">
+                    <svg width="15" height="15" viewBox="0 0 100 85" fill="none">
+                        <circle cx="50" cy="3" r="5" fill="#00f2fe"/>
+                        <rect x="15" y="12" width="70" height="60" rx="22" fill="#ffffff"/>
+                        <rect x="22" y="21" width="56" height="42" rx="15" fill="#090d16"/>
+                        <rect x="32" y="32" width="12" height="16" rx="6" fill="#00f2fe"/>
+                        <rect x="56" y="32" width="12" height="16" rx="6" fill="#00f2fe"/>
+                    </svg>
+                    <span style="font-size:11px; font-weight:800; color:#00f2fe; letter-spacing:0.5px;">COD+</span>
+                </div>
+                <button type="button" class="ai-ctl-btn" onclick="minimizeCoddyAiWidget()" title="Küçült / Büyüt">−</button>
+                <button type="button" class="ai-ctl-btn" onclick="toggleCoddyAiWidget()" title="Kapat">✕</button>
+            </div>
+        </div>
+
+        <!-- Widget Body -->
+        <div id="coddy-ai-body" style="display:flex; flex-direction:column; height:calc(100% - 44px);">
+            <!-- Hızlı Öneri Hapları -->
+            <div class="ai-quick-pills" style="padding:8px 10px; display:flex; gap:6px; overflow-x:auto; background:rgba(15,23,42,0.6); border-bottom:1px solid rgba(255,255,255,0.06);">
+                <button type="button" class="ai-pill" onclick="quickAiPrompt('mentor_klon')">🧠 Danışman Klonu</button>
+                <button type="button" class="ai-pill" onclick="quickAiPrompt('proje_fikri')">💡 Proje Fikri Ver</button>
+                <button type="button" class="ai-pill" onclick="quickAiPrompt('kod_ipucu')">🐞 Kod İpucu İste</button>
+                <button type="button" class="ai-pill" onclick="quickAiPrompt('mentor_tavsiye')">👨‍🏫 Mentör Tavsiyesi</button>
+                <button type="button" class="ai-pill" onclick="quickAiPrompt('hangi_dil')">🌐 Hangi Dili Seçmeliyim?</button>
+            </div>
+
+            <!-- Mesaj Akışı -->
+            <div id="coddy-ai-chat-stream" style="flex:1; padding:12px; overflow-y:auto; display:flex; flex-direction:column; gap:10px;">
+                <div class="ai-msg ai-msg-bot">
+                    <div style="font-size:11px; font-weight:700; color:#00f2fe; margin-bottom:4px; display:flex; align-items:center; gap:5px;">
+                        <span>🤖 COD+ AI</span>
+                    </div>
+                    <div class="ai-msg-text">
+                        Merhaba! Ben <strong>COD+ AI</strong> 👋 Kodlamada takıldığın yerlerde, proje ekibi kurarken veya mentörlük adımlarında her zaman yanındayım. Ne öğrenmek istersin?
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mesaj Gönderme Kutusu -->
+            <form id="coddy-ai-form" onsubmit="event.preventDefault(); submitCoddyAiMessage();" style="padding:10px 12px; background:rgba(15,23,42,0.9); border-top:1px solid var(--glass-border); display:flex; gap:6px;">
+                <input type="text" id="coddy-ai-input" placeholder="COD+'a bir soru sor..." style="flex:1; border-radius:12px; padding:8px 12px; background:rgba(30,41,59,0.7); border:1px solid var(--glass-border); color:white; font-size:12.5px;" />
+                <button type="submit" class="btn-primary" style="width:auto; padding:0 14px; border-radius:12px; font-size:13px;">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="courseData.js?v=20"></script>
+    <script src="bookData.js?v=20"></script>
+    <script src="quizBankData.js?v=20"></script>
+    <script src="script.js?v=20"></script>
+</body>
+</html>
+
