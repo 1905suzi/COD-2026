@@ -484,9 +484,9 @@
         <div class="sidebar">
             <div class="logo" title="COD+ 2026"><i class="fa-solid fa-code"></i></div>
             <nav id="sidebar-nav">
-                <a href="#" class="nav-item active" id="nav-btn-map" title="Eğitim Haritası" onclick="switchView('map')"><i class="fa-solid fa-map"></i></a>
-                <a href="#" class="nav-item" id="nav-btn-ide" title="Serbest Kod Alanı (IDE)" onclick="switchView('ide-sandbox')"><i class="fa-solid fa-laptop-code"></i></a>
-                <a href="#" class="nav-item" id="nav-btn-book" title="Dijital Kod El Kitabı" onclick="switchView('book')"><i class="fa-solid fa-book"></i></a>
+                <a href="#" class="nav-item nav-student-only active" id="nav-btn-map" title="Eğitim Haritası" onclick="switchView('map')"><i class="fa-solid fa-map"></i></a>
+                <a href="#" class="nav-item nav-student-only" id="nav-btn-ide" title="Serbest Kod Alanı (IDE)" onclick="switchView('ide-sandbox')"><i class="fa-solid fa-laptop-code"></i></a>
+                <a href="#" class="nav-item nav-student-only" id="nav-btn-book" title="Dijital Kod El Kitabı" onclick="switchView('book')"><i class="fa-solid fa-book"></i></a>
                 <a href="#" class="nav-item" id="nav-btn-projects" title="Projeler & Ekip Yönetimi" onclick="switchView('projects')"><i class="fa-solid fa-diagram-project" style="color:#38bdf8;"></i></a>
                 <a href="#" class="nav-item" id="nav-btn-tasks" title="Görev & Sprint Panosu" onclick="switchView('tasks')"><i class="fa-solid fa-list-check" style="color:#f59e0b;"></i><span id="tasks-nav-badge" class="nav-badge-dot" style="display:none; background:#f59e0b;"></span></a>
                 <a href="#" class="nav-item" id="nav-btn-friends" title="Arkadaşlar & Ağım" onclick="openFriendsModal()"><i class="fa-solid fa-user-group" style="color:#10b981;"></i><span id="friends-nav-badge" class="nav-badge-dot"></span></a>
@@ -1013,7 +1013,7 @@
             <div id="view-projects" class="view-panel hidden">
                 <div class="glass-card full-height" style="min-height:580px; display:flex; flex-direction:column;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                        <button type="button" class="back-btn" onclick="goBackToMain()" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:12px; font-size:12.5px; font-weight:600; background:rgba(255,255,255,0.06); border:1px solid var(--glass-border); color:#cbd5e1; cursor:pointer;">
+                        <button type="button" class="back-btn nav-student-only" onclick="goBackToMain()" style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:12px; font-size:12.5px; font-weight:600; background:rgba(255,255,255,0.06); border:1px solid var(--glass-border); color:#cbd5e1; cursor:pointer;">
                             <i class="fa-solid fa-arrow-left"></i> Geri Dön
                         </button>
                         <span style="font-size:12px; color:#64748b;"><i class="fa-solid fa-diagram-project"></i> Proje & Ekip Yönetim Merkezi</span>
@@ -2266,7 +2266,7 @@
                                 <div id="chat-active-status" style="font-size:11.5px; color:#10b981;">● Çevrimiçi (Frontend Geliştirici)</div>
                             </div>
                         </div>
-                        <button type="button" id="chat-invite-duel-btn" onclick="inviteActiveChatFriendToDuel()" style="background:rgba(245,158,11,0.15); border:1px solid #f59e0b; color:#f59e0b; padding:6px 12px; border-radius:12px; font-size:12px; cursor:pointer; font-weight:600; display:flex; align-items:center; gap:6px;">
+                        <button type="button" id="chat-invite-duel-btn" class="nav-student-only" onclick="inviteActiveChatFriendToDuel()" style="background:rgba(245,158,11,0.15); border:1px solid #f59e0b; color:#f59e0b; padding:6px 12px; border-radius:12px; font-size:12px; cursor:pointer; font-weight:600; display:flex; align-items:center; gap:6px;">
                             <i class="fa-solid fa-bolt"></i> Düelloya Davet Et
                         </button>
                     </div>
@@ -2358,10 +2358,10 @@
         </div>
     </div>
 
-    <script src="courseData.js?v=23"></script>
-    <script src="bookData.js?v=23"></script>
-    <script src="quizBankData.js?v=23"></script>
-    <script src="script.js?v=23"></script>
+    <script src="courseData.js?v=24"></script>
+    <script src="bookData.js?v=24"></script>
+    <script src="quizBankData.js?v=24"></script>
+    <script src="script.js?v=24"></script>
 </body>
 </html>
 

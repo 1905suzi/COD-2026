@@ -176,11 +176,11 @@ function toggleMentorRegistrationFields(prefix) {
 
 function applyRoleUI(role) {
     const isMentor = (role === 'danisman');
-    const duelNav = document.getElementById("nav-btn-duel");
+    const studentOnlyEls = document.querySelectorAll(".nav-student-only");
     
     if (isMentor) {
         document.body.classList.add("mentor-mode");
-        if (duelNav) duelNav.style.display = "none";
+        studentOnlyEls.forEach(el => { el.style.display = "none"; });
         
         const tasksBadge = document.getElementById("tasks-nav-badge");
         if (tasksBadge) tasksBadge.style.display = "block";
@@ -192,7 +192,7 @@ function applyRoleUI(role) {
         }
     } else {
         document.body.classList.remove("mentor-mode");
-        if (duelNav) duelNav.style.display = "";
+        studentOnlyEls.forEach(el => { el.style.display = ""; });
     }
 
     updateMentorQuickToggleBtn();
@@ -272,6 +272,13 @@ function toggleMentorStudentView() {
         userProfile.isMentorAccount = true;
         saveUserProfileToStorage();
         applyRoleUI('ogrenci');
+
+        const currentLangKey = getLanguageKey(selectedLang || (userProfile && userProfile.selectedLanguage) || 'html');
+        if (typeof setCourseDataForLang === 'function') {
+            courseData = setCourseDataForLang(currentLangKey);
+        }
+        updateActiveLanguageBadge();
+        renderRoadmap();
         switchView('map');
     } else {
         userProfile.role = 'danisman';
@@ -1063,10 +1070,9 @@ let currentActiveView = 'map';
 let previousActiveView = 'map';
 
 function switchView(viewName) {
-    if (viewName === 'projects' && isMentorUser() && userProfile && userProfile.role === 'ogrenci') {
-        userProfile.role = 'danisman';
-        saveUserProfileToStorage();
-        applyRoleUI('danisman');
+    // Danışman modundayken öğrenci ekranlarına (harita, ide, el kitabı) girilmesini engelle
+    if (userProfile && userProfile.role === 'danisman' && (viewName === 'map' || viewName === 'ide' || viewName === 'ide-sandbox' || viewName === 'book')) {
+        viewName = 'projects';
     }
 
     if (currentActiveView && currentActiveView !== viewName) {
@@ -1120,10 +1126,20 @@ function switchView(viewName) {
         if (navBtn) navBtn.classList.add("active");
 
         if(viewName === 'map') {
-            setTimeout(() => {
-                drawCurvedRoadmapPath();
-                scrollToActiveLesson();
-            }, 80);
+            const roadmapPath = document.getElementById("roadmap-path");
+            if (!roadmapPath || roadmapPath.children.length === 0 || !courseData || courseData.length === 0) {
+                const currentLangKey = getLanguageKey(selectedLang || (userProfile && userProfile.selectedLanguage) || 'html');
+                if (typeof setCourseDataForLang === 'function') {
+                    courseData = setCourseDataForLang(currentLangKey);
+                }
+                updateActiveLanguageBadge();
+                renderRoadmap();
+            } else {
+                setTimeout(() => {
+                    drawCurvedRoadmapPath();
+                    scrollToActiveLesson();
+                }, 80);
+            }
         }
         if(viewName === 'book') {
             if (currentPdfLang) {
@@ -3261,6 +3277,7 @@ function renderFriendsList() {
         return;
     }
 
+    const isMentor = (userProfile && userProfile.role === 'danisman');
     userProfile.friends.forEach((fr) => {
         const card = document.createElement("div");
         card.style.cssText = "display:flex; justify-content:space-between; align-items:center; background:#090d16; border:1px solid rgba(255,255,255,0.08); padding:12px 14px; border-radius:14px;";
@@ -3272,9 +3289,9 @@ function renderFriendsList() {
                     <span style="font-size:11px; color:#94a3b8;">${fr.league || 'Çırak Ligi'} • ${fr.domain || 'Frontend'} • ${fr.xp || 100} XP</span>
                 </div>
             </div>
-            <button type="button" onclick="challengeFriend('${fr.name}')" style="padding:6px 12px; font-size:12px; border-radius:8px; background:#0284c7; border:none; color:#fff; cursor:pointer; font-weight:bold;">
+            ${isMentor ? '' : `<button type="button" class="nav-student-only" onclick="challengeFriend('${fr.name}')" style="padding:6px 12px; font-size:12px; border-radius:8px; background:#0284c7; border:none; color:#fff; cursor:pointer; font-weight:bold;">
                 <i class="fa-solid fa-bolt"></i> Düello Et
-            </button>
+            </button>`}
         `;
         container.appendChild(card);
     });
@@ -5562,6 +5579,7 @@ function renderFriendsList() {
         return;
     }
 
+    const isMentor = (userProfile && userProfile.role === 'danisman');
     friends.forEach(f => {
         const item = document.createElement("div");
         item.className = "friend-row-card";
@@ -5580,9 +5598,9 @@ function renderFriendsList() {
                 <button type="button" onclick="openChatMessengerModal('${escapeHtml(f.name)}')" title="Mesaj Gönder" style="background:rgba(168,85,247,0.15); border:1px solid #a855f7; color:#a855f7; padding:6px 10px; border-radius:10px; font-size:12px; cursor:pointer; font-weight:600; display:flex; align-items:center; gap:5px;">
                     <i class="fa-solid fa-comment-dots"></i> Mesaj
                 </button>
-                <button type="button" onclick="inviteFriendToDuel('${escapeHtml(f.name)}')" title="1v1 Düelloya Davet Et" style="background:rgba(245,158,11,0.15); border:1px solid #f59e0b; color:#f59e0b; padding:6px 10px; border-radius:10px; font-size:12px; cursor:pointer; font-weight:600; display:flex; align-items:center; gap:5px;">
+                ${isMentor ? '' : `<button type="button" class="nav-student-only" onclick="inviteFriendToDuel('${escapeHtml(f.name)}')" title="1v1 Düelloya Davet Et" style="background:rgba(245,158,11,0.15); border:1px solid #f59e0b; color:#f59e0b; padding:6px 10px; border-radius:10px; font-size:12px; cursor:pointer; font-weight:600; display:flex; align-items:center; gap:5px;">
                     <i class="fa-solid fa-bolt"></i> Düello
-                </button>
+                </button>`}
             </div>
         `;
         container.appendChild(item);
