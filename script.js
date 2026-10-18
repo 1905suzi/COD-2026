@@ -1147,6 +1147,7 @@ function switchView(viewName) {
         switchSandboxLang(targetLang);
         const ideNav = document.getElementById('nav-btn-ide');
         if (ideNav) ideNav.classList.add("active");
+        applyResponsiveIdeLayout(false);
     } else if (viewName === 'ide') {
         const idePanel = document.getElementById('view-ide');
         if (idePanel) idePanel.classList.remove("hidden");
@@ -1154,6 +1155,7 @@ function switchView(viewName) {
         if (lessonPanel) lessonPanel.style.display = 'flex'; // Ders panelini göster
         const ideNav = document.getElementById('nav-btn-ide');
         if (ideNav) ideNav.classList.add("active");
+        applyResponsiveIdeLayout(true);
     } else {
         const target = document.getElementById(`view-${viewName}`);
         if(target) target.classList.remove("hidden");
@@ -1470,9 +1472,70 @@ function renderRoadmap() {
 
 // Haritada kullanıcının kaldığı / aktif ders düğümüne otomatik yumuşak kaydırma
 function scrollToActiveLesson() {
+    const mapPanel = document.getElementById("view-map");
+    if (!mapPanel || mapPanel.classList.contains("hidden") || currentActiveView !== 'map') return;
+
     const activeNode = document.querySelector(".duo-node-row[data-active='true']") || document.getElementById(`duo-row-${unlockedLevel}`);
-    if (activeNode) {
-        activeNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const mainContent = document.querySelector(".main-content");
+    if (activeNode && mainContent) {
+        const nodeRect = activeNode.getBoundingClientRect();
+        const mainRect = mainContent.getBoundingClientRect();
+        const targetScrollTop = mainContent.scrollTop + (nodeRect.top - mainRect.top) - (mainRect.height / 2) + (nodeRect.height / 2);
+        mainContent.scrollTo({ top: Math.max(0, targetScrollTop), behavior: 'smooth' });
+    }
+}
+
+function applyResponsiveIdeLayout(showLessonPanel = true) {
+    const ideView = document.getElementById("view-ide");
+    const ideContainer = document.querySelector("#view-ide .ide-container");
+    const lessonPanel = document.querySelector("#view-ide .ide-lesson-panel");
+    const editorPanel = document.querySelector("#view-ide .ide-editor-panel");
+    const outputPanel = document.querySelector("#view-ide .ide-output-panel");
+    const mainContent = document.querySelector(".main-content");
+    const dashboard = document.getElementById("dashboard");
+
+    if (window.scrollTo) window.scrollTo(0, 0);
+    if (document.documentElement) document.documentElement.scrollTop = 0;
+    if (document.body) document.body.scrollTop = 0;
+    if (dashboard) dashboard.scrollTop = 0;
+    if (mainContent) mainContent.scrollTop = 0;
+    if (lessonPanel) lessonPanel.scrollTop = 0;
+
+    if (!ideView || ideView.classList.contains("hidden")) return;
+
+    const isMobileOrTablet = window.innerWidth <= 820;
+
+    if (!isMobileOrTablet) {
+        // Masaüstü ve Dizüstü (tüm çözünürlükler: 1280x720, 1366x768, 1536x864, 1920x1080, 4K)
+        ideView.style.cssText = "position: fixed !important; top: 0 !important; left: 80px !important; right: 0 !important; bottom: 0 !important; width: calc(100vw - 80px) !important; max-width: calc(100vw - 80px) !important; height: 100dvh !important; max-height: 100dvh !important; margin: 0 !important; padding: 10px 12px !important; box-sizing: border-box !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; z-index: 40 !important; animation: none !important; transform: none !important;";
+        if (ideContainer) {
+            ideContainer.style.cssText = "display: flex !important; flex-direction: row !important; width: 100% !important; height: 100% !important; max-height: 100% !important; min-height: 0 !important; gap: 10px !important; overflow: hidden !important; align-items: stretch !important; box-sizing: border-box !important;";
+        }
+        if (lessonPanel) {
+            const panelW = window.innerWidth <= 1366 ? "clamp(235px, 25vw, 300px)" : "clamp(260px, 24vw, 345px)";
+            lessonPanel.style.cssText = `display: ${showLessonPanel ? 'flex' : 'none'} !important; flex-direction: column !important; flex: 0 0 ${panelW} !important; width: ${panelW} !important; height: 100% !important; max-height: 100% !important; min-height: 0 !important; overflow-y: auto !important; overflow-x: hidden !important; padding: 12px 14px !important; border-radius: 16px !important; box-sizing: border-box !important; margin: 0 !important;`;
+        }
+        if (editorPanel) {
+            editorPanel.style.cssText = "flex: 1.15 1 0% !important; min-width: 0 !important; height: 100% !important; max-height: 100% !important; min-height: 0 !important; display: flex !important; flex-direction: column !important; overflow: hidden !important; padding: 0 !important; border-radius: 16px !important; position: relative !important; box-sizing: border-box !important; margin: 0 !important;";
+        }
+        if (outputPanel) {
+            outputPanel.style.cssText = "flex: 0.95 1 0% !important; min-width: 0 !important; height: 100% !important; max-height: 100% !important; min-height: 0 !important; display: flex !important; flex-direction: column !important; overflow: hidden !important; padding: 0 !important; border-radius: 16px !important; box-sizing: border-box !important; margin: 0 !important;";
+        }
+    } else {
+        // Mobil ve Küçük Tabletler (<= 820px)
+        ideView.style.cssText = "position: relative !important; width: 100% !important; max-width: 100% !important; height: auto !important; max-height: none !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; display: flex !important; flex-direction: column !important;";
+        if (ideContainer) {
+            ideContainer.style.cssText = "display: flex !important; flex-direction: column !important; width: 100% !important; height: auto !important; gap: 12px !important; overflow: visible !important;";
+        }
+        if (lessonPanel) {
+            lessonPanel.style.cssText = `display: ${showLessonPanel ? 'flex' : 'none'} !important; flex-direction: column !important; width: 100% !important; max-width: 100% !important; height: auto !important; max-height: none !important; overflow-y: visible !important; padding: 14px !important; border-radius: 16px !important; box-sizing: border-box !important;`;
+        }
+        if (editorPanel) {
+            editorPanel.style.cssText = "width: 100% !important; max-width: 100% !important; height: 380px !important; min-height: 330px !important; display: flex !important; flex-direction: column !important; overflow: hidden !important; padding: 0 !important; border-radius: 16px !important; position: relative !important; box-sizing: border-box !important;";
+        }
+        if (outputPanel) {
+            outputPanel.style.cssText = "width: 100% !important; max-width: 100% !important; height: 340px !important; min-height: 280px !important; display: flex !important; flex-direction: column !important; overflow: hidden !important; padding: 0 !important; border-radius: 16px !important; box-sizing: border-box !important;";
+        }
     }
 }
 
@@ -1539,15 +1602,18 @@ function drawCurvedRoadmapPath() {
     }
 }
 
-// Pencere veya cihaz boyutu değiştiğinde yılan yolu ve eğrileri ekran genişliğine göre yeniden hesapla
+// Pencere veya cihaz boyutu değiştiğinde yılan yolu ve IDE yerleşimini ekran genişliğine göre yeniden hesapla
 let duoResizeTimer = null;
 window.addEventListener("resize", () => {
     clearTimeout(duoResizeTimer);
     duoResizeTimer = setTimeout(() => {
-        if(document.getElementById("view-map") && !document.getElementById("view-map").classList.contains("hidden")) {
+        if (document.getElementById("view-map") && !document.getElementById("view-map").classList.contains("hidden")) {
             renderRoadmap();
         }
-    }, 120);
+        if (document.getElementById("view-ide") && !document.getElementById("view-ide").classList.contains("hidden")) {
+            applyResponsiveIdeLayout(currentActiveView !== 'ide-sandbox');
+        }
+    }, 100);
 });
 
 let hasRunCurrentCode = false;
@@ -1569,6 +1635,9 @@ function formatLessonProseHtml(rawText) {
 
 function startLesson(id) {
     currentLessonId = id;
+    try {
+        localStorage.setItem("codplus_active_lesson_id", String(id));
+    } catch (e) {}
     currentLessonAttempts = 0; // Her ders açılışında hata sayısını sıfırla
     hasRunCurrentCode = false; // Kod çalıştırma durumunu sıfırla
 
@@ -1583,8 +1652,9 @@ function startLesson(id) {
     if (typeof setCourseDataForLang === 'function') {
         courseData = setCourseDataForLang(langKey);
     }
-    const lesson = courseData.find(l => l.id === id);
+    const lesson = courseData.find(l => l.id === id) || courseData[0];
     if (!lesson) return;
+    currentLessonId = lesson.id;
     
     const isMiniProject = !!(lesson.isMiniProject || (lesson.title && lesson.title.includes("MİNİ PROJE")) || (lesson.title && lesson.title.includes("BİTİRME PROJESİ")));
 
@@ -1615,11 +1685,11 @@ function startLesson(id) {
         }
         if (taskText) {
             taskText.innerHTML = `
-                <div style="font-size: 13px; line-height: 1.6; color: #f1f5f9; margin-bottom: 10px;">
+                <div style="font-size: 12px; line-height: 1.45; color: #f1f5f9; margin-bottom: 6px;">
                     ${formatLessonProseHtml(lesson.task || lesson.theory || "Bu mini projede öğrendiğiniz tüm yapıları kullanarak kodunuzu kendiniz yazmalısınız.")}
                 </div>
-                <div style="padding: 8px 12px; background: rgba(15, 23, 42, 0.85); border-left: 3px solid #f59e0b; border-radius: 4px; font-size: 12px; color: #fbbf24;">
-                    <i class="fa-solid fa-triangle-exclamation"></i> <strong>Proje Kuralı:</strong> Bu aşama bir mini projedir; test sorusuyla geçilemez. Çözüm ekranda verilmemiştir. Kodunuzu editörde kendiniz yazıp <strong>'Çalıştır'</strong> ile doğruladıktan sonra <strong>'Dersi Tamamla'</strong> butonuna basmalısınız.
+                <div style="padding: 6px 9px; background: rgba(15, 23, 42, 0.85); border-left: 3px solid #f59e0b; border-radius: 4px; font-size: 11px; color: #fbbf24;">
+                    <i class="fa-solid fa-triangle-exclamation"></i> <strong>Proje Kuralı:</strong> Bu aşama bir mini projedir; test sorusuyla geçilemez. Kodunuzu editörde yazıp <strong>'Çalıştır'</strong> ile doğruladıktan sonra <strong>'Dersi Tamamla'</strong> butonuna basmalısınız.
                 </div>
             `;
         }
@@ -1657,9 +1727,9 @@ function startLesson(id) {
                 if (lesson.quiz && lesson.quiz.options) {
                     lesson.quiz.options.forEach((opt, idx) => {
                         optsContainer.innerHTML += `
-                            <label class="quiz-opt" style="display:flex; align-items:center; gap:8px; margin-bottom:10px; cursor:pointer;">
-                                <input type="radio" name="quiz_answer" value="${idx}">
-                                <span>${escapeHtml(opt)}</span>
+                            <label class="quiz-opt" style="display:flex; align-items:center; gap:8px; padding:6px 10px; margin-bottom:0; border-radius:8px; font-size:12px; cursor:pointer;">
+                                <input type="radio" name="quiz_answer" value="${idx}" style="width:14px; height:14px; flex-shrink:0;">
+                                <span style="font-size:12px; line-height:1.3;">${escapeHtml(opt)}</span>
                             </label>
                         `;
                     });
@@ -1698,11 +1768,7 @@ function startLesson(id) {
     });
 
     switchSandboxLang(targetSandboxLang, lesson.initialCode, true);
-
-    const lessonPanel = document.querySelector(".ide-lesson-panel");
-    if (lessonPanel) lessonPanel.scrollTop = 0;
-    const mainContent = document.querySelector(".main-content");
-    if (mainContent) mainContent.scrollTop = 0;
+    applyResponsiveIdeLayout(true);
 }
 
 // --- AKTİF DİL ROZETİ VE DİL DEĞİŞTİRME UYARI MODALI ---
@@ -6390,7 +6456,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         } else {
             startApp();
-            if (savedView) {
+            if (savedView === 'ide') {
+                const savedLessonId = parseInt(localStorage.getItem("codplus_active_lesson_id"), 10) || unlockedLevel || 1;
+                startLesson(savedLessonId);
+            } else if (savedView) {
                 switchView(savedView);
             }
         }
