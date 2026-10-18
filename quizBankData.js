@@ -838,7 +838,7 @@ const quizBank = {
             "question": "pattern niteliği hangi amaçla kullanılır?",
             "options": [
                 "CSS pattern uygulamak için",
-                "Placholder şekli vermek için",
+                "Placeholder şekli vermek için",
                 "Alan şablonu oluşturmak için",
                 "Regex ile girdi formatını doğrulamak için"
             ],
@@ -3587,8 +3587,8 @@ const quizBank = {
             "topic": "py_veri_yapilari",
             "question": "İki kümenin ortak elemanlarını (kesişim) bulmak için hangi operatör kullanılır?",
             "options": [
-                "",
-                "|^",
+                "|",
+                "^",
                 "&",
                 "-"
             ],
@@ -4529,8 +4529,8 @@ const quizBank = {
             "options": [
                 "Interface lerin hafızada yer tutmaması",
                 "Derleyicinin hızlanması",
-                "C# ın çoklu sınıf kalıtımındaki Elmas Problemini (Diamond Problem) önlemek için çoklu Interface i desteklemesi",
-                "Interface lerin sadece metin içermesi"
+                "Interface lerin sadece metin içermesi",
+                "C# ın çoklu sınıf kalıtımındaki Elmas Problemini (Diamond Problem) önlemek için çoklu Interface i desteklemesi"
             ],
             "correctIndex": 3,
             "correctLetter": "D",
@@ -5397,7 +5397,7 @@ const quizBank = {
         {
             "id": 400,
             "topic": "cpp_fonksiyonlar_referanslar",
-            "question": "void takas(int a, int b) şeklinde yazılan bir fonksiyona gonderilen değişkenlerin orijinal değerlerinin değişmemesinin sebebi nedir?",
+            "question": "void takas(int a, int b) şeklinde yazılan bir fonksiyona gönderilen değişkenlerin orijinal değerlerinin değişmemesinin sebebi nedir?",
             "options": [
                 "C++ takasa izin vermez",
                 "Parametreler değer ile aktarıldığı (pass-by-value) için fonksiyon içinde kopyaları üzerinde çalışılır",

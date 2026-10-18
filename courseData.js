@@ -735,12 +735,11 @@ const courseDataByLang = {
       "mustInclude": [
         "<h1",
         "<p",
-        "<a",
-        "<div"
+        "<img"
       ],
-      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (<h1, <p, <a, <div) yer aldığından emin olun.",
+      "errorMsg": "Lütfen kodunuzda <h1>, <p> ve <img> etiketlerinin yer aldığından emin olun.",
       "isMiniProject": true,
-      "task": "1. <code>&lt;h1&gt;</code> veya <code>&lt;h2&gt;</code> başlığı ile adınızı yazın.<br>2. <code>&lt;p&gt;</code> etiketi ile kısa bir hakkımda paragrafı ekleyin.<br>3. <code>&lt;img&gt;</code> etiketi kullanarak (src='...') bir profil görseli ekleyin.",
+      "task": "1. <code>&lt;h1&gt;</code> başlığı ile adınızı yazın.<br>2. <code>&lt;p&gt;</code> etiketi ile kısa bir hakkımda paragrafı ekleyin.<br>3. <code>&lt;img&gt;</code> etiketi kullanarak (src='...') bir profil görseli ekleyin.",
       "expectedOutput": "Ekranda başlık, tanıtım paragrafı ve görselden oluşan profil kartı."
     },
     {
@@ -858,10 +857,9 @@ const courseDataByLang = {
       },
       "initialCode": "<style>\n  .nav { display: flex; gap: 10px; }\n</style>\n<div class='nav'><span>A</span><span>B</span></div>",
       "mustInclude": [
-        "display: flex",
-        "display:flex"
+        "display: flex"
       ],
-      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (display: flex, display:flex) yer aldığından emin olun.",
+      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (display: flex) yer aldığından emin olun.",
       "isMiniProject": false
     },
     {
@@ -979,12 +977,10 @@ const courseDataByLang = {
       },
       "initialCode": "<style>\n  .fiyat-karti {\n    /* GÖREV: display: flex ve box-shadow kurallarını buraya yazın */\n    padding: 24px;\n    border-radius: 16px;\n    background: #1e293b;\n    color: #fff;\n  }\n</style>\n<div class='fiyat-karti'>\n  <h3>Pro Paket</h3>\n  <p>₺199 / Ay</p>\n</div>",
       "mustInclude": [
-        "padding",
-        "border-radius",
         "display: flex",
-        "display:flex"
+        "box-shadow"
       ],
-      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (padding, border-radius, display: flex, display:flex) yer aldığından emin olun.",
+      "errorMsg": "Lütfen kodunuzda display: flex ve box-shadow kurallarının yer aldığından emin olun.",
       "isMiniProject": true,
       "task": "1. Kart kapsayıcısına <code>display: flex</code> kuralını uygulayın.<br>2. Karta derinlik kazandırmak için <code>box-shadow</code> (örn: <code>0 10px 25px rgba(0,0,0,0.3)</code>) ekleyin.<br>3. Kart içeriğine paket adı, fiyat ve satın al butonu yerleştirin.",
       "expectedOutput": "Gölge efektli, modern ve esnek kutu düzenine (Flexbox) sahip fiyatlandırma kartı."
@@ -1008,10 +1004,9 @@ const courseDataByLang = {
       },
       "initialCode": "<script>\n  const ad = 'Deniz';\n  console.log(ad);\n</script>",
       "mustInclude": [
-        "const",
-        "let"
+        "const"
       ],
-      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (const, let) yer aldığından emin olun.",
+      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (const) yer aldığından emin olun.",
       "isMiniProject": false
     },
     {
@@ -1177,10 +1172,9 @@ const courseDataByLang = {
       },
       "initialCode": "<button id='btn'>Tıkla</button>\n<script>\n  document.getElementById('btn').addEventListener('click', function() { alert('Başarılı!'); });\n</script>",
       "mustInclude": [
-        "addEventListener",
-        "onclick"
+        "addEventListener"
       ],
-      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (addEventListener, onclick) yer aldığından emin olun.",
+      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (addEventListener) yer aldığından emin olun.",
       "isMiniProject": false
     },
     {
@@ -1227,10 +1221,11 @@ const courseDataByLang = {
       },
       "initialCode": "<input id='gorev-input' placeholder='Yeni görev...'>\n<button id='ekle-btn'>Ekle</button>\n<ul id='gorev-listesi'></ul>\n\n<script>\n  // GÖREV: Butona click dinleyicisi ekleyip listeye createElement ile <li> ekleyin:\n  \n</script>",
       "mustInclude": [
-        "function",
-        "document.getElementById"
+        "document.getElementById",
+        "addEventListener",
+        "createElement"
       ],
-      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (function, document.getElementById) yer aldığından emin olun.",
+      "errorMsg": "Lütfen kodunuzda document.getElementById, addEventListener ve createElement ifadelerinin yer aldığından emin olun.",
       "isMiniProject": true,
       "task": "1. <code>document.getElementById</code> ile 'ekle-btn' butonunu seçin.<br>2. <code>addEventListener('click', ...)</code> dinleyicisi ekleyin.<br>3. Butona tıklandığında <code>document.createElement('li')</code> ile yeni liste elemanı üretip listeye ekleyin.",
       "expectedOutput": "Butona her tıklandığında görev listesine dinamik olarak yeni bir görev eklenmesi."
@@ -1696,10 +1691,9 @@ const courseDataByLang = {
       },
       "initialCode": "CREATE TABLE notlar (id INT PRIMARY KEY, ogrenci_id INT REFERENCES ogrenciler(id));",
       "mustInclude": [
-        "REFERENCES",
-        "FOREIGN KEY"
+        "REFERENCES"
       ],
-      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (REFERENCES, FOREIGN KEY) yer aldığından emin olun.",
+      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (REFERENCES) yer aldığından emin olun.",
       "isMiniProject": false
     },
     {
@@ -1723,9 +1717,9 @@ const courseDataByLang = {
       "mustInclude": [
         "CREATE TABLE",
         "INSERT INTO",
-        "UPDATE"
+        "SELECT"
       ],
-      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (CREATE TABLE, INSERT INTO, UPDATE) yer aldığından emin olun.",
+      "errorMsg": "Lütfen kodunuzda CREATE TABLE, INSERT INTO ve SELECT komutlarının yer aldığından emin olun.",
       "isMiniProject": true,
       "task": "1. <code>CREATE TABLE siparisler (...)</code> komutu ile id, urun_adi ve fiyat sütunları olan bir tablo oluşturun.<br>2. <code>INSERT INTO siparisler</code> komutu ile tabloya en az bir sipariş kaydı ekleyin.<br>3. <code>SELECT * FROM siparisler;</code> ile eklenen kayıtları görüntüleyin.",
       "expectedOutput": "Tablonun başarıyla oluşturulması ve yeni sipariş kaydının sorgu sonucunda listelenmesi."
@@ -1798,10 +1792,9 @@ const courseDataByLang = {
       },
       "initialCode": "SELECT * FROM bolumler RIGHT JOIN ogrenciler ON bolumler.id = ogrenciler.bolum_id;",
       "mustInclude": [
-        "RIGHT JOIN",
-        "FULL OUTER JOIN"
+        "RIGHT JOIN"
       ],
-      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (RIGHT JOIN, FULL OUTER JOIN) yer aldığından emin olun.",
+      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (RIGHT JOIN) yer aldığından emin olun.",
       "isMiniProject": false
     },
     {
@@ -1971,10 +1964,10 @@ const courseDataByLang = {
       "mustInclude": [
         "SELECT",
         "FROM",
-        "GROUP BY",
-        "HAVING"
+        "JOIN",
+        "GROUP BY"
       ],
-      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (SELECT, FROM, GROUP BY, HAVING) yer aldığından emin olun.",
+      "errorMsg": "Lütfen kodunuzda SELECT, FROM, JOIN ve GROUP BY ifadelerinin yer aldığından emin olun.",
       "isMiniProject": true,
       "task": "1. <code>musteriler</code> ve <code>hesaplar</code> tablolarını <code>INNER JOIN</code> ile müşteri ID üzerinden birleştirin.<br>2. <code>GROUP BY musteriler.ad</code> ile her müşterinin toplam bakiyesini gruplayın.<br>3. Sonuçları ekranda listeleyin.",
       "expectedOutput": "Müşterilerin adları ve sahip oldukları hesaplardaki toplam bakiyelerin birleşik raporu."
@@ -2465,10 +2458,10 @@ const courseDataByLang = {
       },
       "initialCode": "# 📊 20. MİNİ PROJE: Öğrenci Not & Performans Sistemi\nnotlar = [85, 90, 78, 95]\n\n# GÖREV: for döngüsü ile notları toplayıp ortalamayı ekrana yazdırın:\n",
       "mustInclude": [
-        "def",
-        "len("
+        "for",
+        "print"
       ],
-      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (def, len() yer aldığından emin olun.",
+      "errorMsg": "Lütfen kodunuzda for döngüsü ve print fonksiyonunun yer aldığından emin olun.",
       "isMiniProject": true,
       "task": "1. <code>notlar = [85, 90, 78, 95]</code> listesini tanımlayın.<br>2. <code>for n in notlar:</code> döngüsü kurarak tüm notları toplayın.<br>3. Ortalamayı hesaplayıp <code>print(f'Ortalama: {ortalama}')</code> şeklinde yazdırın.",
       "expectedOutput": "Ortalama: 87.0"
@@ -2790,10 +2783,9 @@ const courseDataByLang = {
       "initialCode": "string str = \"42\";\nint deger = Convert.ToInt32(str);\nConsole.WriteLine(deger + 8);",
       "mustInclude": [
         "Convert",
-        "Parse",
         "Console.WriteLine"
       ],
-      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (Convert, Parse, Console.WriteLine) yer aldığından emin olun.",
+      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (Convert, Console.WriteLine) yer aldığından emin olun.",
       "isMiniProject": false
     },
     {
@@ -3037,10 +3029,9 @@ const courseDataByLang = {
       },
       "initialCode": "string[] diller = { \"C#\", \"SQL\", \"Python\" };\nConsole.WriteLine(diller[0]);",
       "mustInclude": [
-        "string[]",
-        "int[]"
+        "string[]"
       ],
-      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (string[], int[]) yer aldığından emin olun.",
+      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (string[]) yer aldığından emin olun.",
       "isMiniProject": false
     },
     {
@@ -3135,10 +3126,9 @@ const courseDataByLang = {
       },
       "initialCode": "static void Arttir(ref int sayi) { sayi += 5; }\nint a = 10;\nArttir(ref a);\nConsole.WriteLine(a);",
       "mustInclude": [
-        "ref",
-        "out"
+        "ref"
       ],
-      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (ref, out) yer aldığından emin olun.",
+      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (ref) yer aldığından emin olun.",
       "isMiniProject": false
     },
     {
@@ -3208,10 +3198,10 @@ const courseDataByLang = {
       },
       "initialCode": "// 💼 20. MİNİ PROJE: Personel Maaş & Prim Hesaplayıcı\nint[] maaslar = { 25000, 32000, 45000 };\nint toplam = 0;\n\n// GÖREV: foreach döngüsü kurarak toplam maaşı hesaplayıp ekrana yazdırın:\n",
       "mustInclude": [
-        "static",
-        "return"
+        "foreach",
+        "Console.WriteLine"
       ],
-      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (static, return) yer aldığından emin olun.",
+      "errorMsg": "Lütfen kodunuzda foreach döngüsü ve Console.WriteLine ifadesinin yer aldığından emin olun.",
       "isMiniProject": true,
       "task": "1. <code>int[] maaslar = { 25000, 32000, 45000 };</code> dizisini tanımlayın.<br>2. <code>foreach (int maas in maaslar)</code> döngüsü ile tüm maaşları toplayın.<br>3. <code>Console.WriteLine($\"Toplam Bordro: {toplam} TL\");</code> ile sonucu konsola yazdırın.",
       "expectedOutput": "Toplam Bordro: 102000 TL"
@@ -3950,9 +3940,10 @@ const courseDataByLang = {
       "initialCode": "// 💾 20. MİNİ PROJE: RAM Bellek Blok Tahsis Simülatörü\n#include <iostream>\n\nint main() {\n    // GÖREV: new ile dinamik bellek tahsis edin, yazdırın ve delete ile temizleyin:\n    \n    return 0;\n}",
       "mustInclude": [
         "new",
-        "delete[]"
+        "std::cout",
+        "delete"
       ],
-      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (new, delete[]) yer aldığından emin olun.",
+      "errorMsg": "Lütfen kodunuzda new, std::cout ve delete ifadelerinin yer aldığından emin olun.",
       "isMiniProject": true,
       "task": "1. <code>int* p = new int(1024);</code> ile Heap bölgesinden dinamik bellek tahsis edin.<br>2. Değeri <code>std::cout</code> ile konsola yazdırın.<br>3. <code>delete p;</code> komutu ile ayrılan belleği işletim sistemine iade edin.",
       "expectedOutput": "Bellek Tahsis Edildi: 1024 Byte\nBellek Serbest Bırakıldı."
@@ -4173,10 +4164,9 @@ const courseDataByLang = {
       },
       "initialCode": "#include <iostream>\n#include <memory>\nint main() {\n    auto p = std::make_unique<int>(99);\n    std::cout << *p << std::endl;\n    return 0;\n}",
       "mustInclude": [
-        "std::make_unique",
-        "std::unique_ptr"
+        "std::make_unique"
       ],
-      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (std::make_unique, std::unique_ptr) yer aldığından emin olun.",
+      "errorMsg": "Lütfen kodunuzda istenen anahtar ifadelerin (std::make_unique) yer aldığından emin olun.",
       "isMiniProject": false
     },
     {
@@ -4686,10 +4676,10 @@ const courseDataByLang = {
       },
       "initialCode": "<style>\n  .vitrin {\n    /* GÖREV: display: flex ve gap kurallarını ekleyin */\n  }\n  .kart { background: #334155; padding: 20px; border-radius: 8px; color: #fff; }\n</style>\n<div class='vitrin'><div class='kart'>Ürün 1</div><div class='kart'>Ürün 2</div></div>",
       "mustInclude": [
-        "display: grid",
+        "display:",
         "gap:"
       ],
-      "errorMsg": "Lütfen display: grid ve gap kurallarını vitrininize uygulayın.",
+      "errorMsg": "Lütfen display: flex (veya grid) ve gap kurallarını vitrininize uygulayın.",
       "isMiniProject": true,
       "task": "1. Vitrin kapsayıcısına <code>display: flex;</code> veya <code>display: grid;</code> kuralını uygulayın.<br>2. Kartlar arasına <code>gap: 16px;</code> boşluk verin.<br>3. Kartları düzgünce hizalayın.",
       "expectedOutput": "Esnek ve modern aralıklarla dizilmiş responsive ürün vitrini."

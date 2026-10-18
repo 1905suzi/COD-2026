@@ -2562,6 +2562,21 @@ window.addEventListener('message', function(e) {
 
 let currentLessonAttempts = 0;
 
+function stripCodeComments(code, langKey) {
+    if (!code) return "";
+    let cleaned = code
+        .replace(/\/\*[\s\S]*?\*\//g, "")
+        .replace(/<!--[\s\S]*?-->/g, "")
+        .replace(/\/\/.*$/gm, "");
+    if (langKey === "sql") {
+        cleaned = cleaned.replace(/--.*$/gm, "");
+    }
+    if (langKey === "python") {
+        cleaned = cleaned.replace(/^\s*#.*$/gm, "");
+    }
+    return cleaned;
+}
+
 function completeCurrentLesson() {
     const langKey = getLanguageKey(selectedLang || (userProfile && userProfile.selectedLanguage) || 'html');
     if (typeof setCourseDataForLang === 'function') {
@@ -2570,6 +2585,8 @@ function completeCurrentLesson() {
     const lesson = courseData.find(l => l.id === currentLessonId);
     
     const isMiniProject = !!(lesson.isMiniProject || (lesson.title && lesson.title.includes("MİNİ PROJE")) || (lesson.title && lesson.title.includes("BİTİRME PROJESİ")));
+    const rawEditorText = document.getElementById("code-editor").value;
+    const strippedEditorText = stripCodeComments(rawEditorText, langKey);
 
     // 1. Sınav Kontrolü (Mini projelerde test sorusuyla geçilemez, kod yazılmalıdır)
     if (!isMiniProject) {
@@ -2592,15 +2609,17 @@ function completeCurrentLesson() {
             return;
         }
 
-        const rawEditorVal = document.getElementById("code-editor").value.toLowerCase();
-        if (rawEditorVal.includes("// görev: aşağıya") || rawEditorVal.includes("todo:") || rawEditorVal.includes("buraya kodunuzu")) {
+        const cleanUserNorm = strippedEditorText.replace(/\s+/g, " ").trim().toLowerCase();
+        const cleanInitNorm = stripCodeComments(lesson.initialCode || "", langKey).replace(/\s+/g, " ").trim().toLowerCase();
+        if (!cleanUserNorm || cleanUserNorm === cleanInitNorm) {
             alert("⚠️ Mini Proje Tamamlanmadı:\n\nLütfen projedeki yönergeleri uygulayarak kodunuzu kendiniz yazınız!");
             return;
         }
     }
 
-    // 2. Kod Validasyonu
-    const userCode = document.getElementById("code-editor").value.toLowerCase();
+    // 2. Kod Validasyonu (Mini projelerde yorum satırları hariç tutularak kontrol edilir)
+    const userCode = (isMiniProject ? strippedEditorText : rawEditorText).toLowerCase();
+    const userCodeNormColon = userCode.replace(/:\s+/g, ":");
     
     if (lesson.mustInclude && lesson.mustInclude.length > 0) {
         // f-string kontrolü varsa hem f' hem f" geçerli sayılsın
@@ -2619,7 +2638,9 @@ function completeCurrentLesson() {
             // f-string tırnak alternatiflerini yukarıda kontrol ettiğimiz için loopta tekrar engelleme
             if (rule === 'f"' || rule === "f'") continue;
 
-            if (!userCode.includes(rule.toLowerCase())) {
+            const ruleLower = rule.toLowerCase();
+            const ruleNormColon = ruleLower.replace(/:\s+/g, ":");
+            if (!userCode.includes(ruleLower) && !userCodeNormColon.includes(ruleNormColon)) {
                 currentLessonAttempts++;
                 alert(`❌ Kodunuzda eksikler var!\n\n${lesson.errorMsg}`);
                 checkFailure(lesson);
