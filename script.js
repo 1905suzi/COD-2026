@@ -1552,6 +1552,21 @@ window.addEventListener("resize", () => {
 
 let hasRunCurrentCode = false;
 
+function formatLessonProseHtml(rawText) {
+    if (!rawText) return "";
+    const allowedTags = [];
+    const placeholderText = String(rawText).replace(/<\/?(strong|b|em|i|code|br)\s*\/?>/gi, (match) => {
+        allowedTags.push(match);
+        return `__SAFE_TAG_${allowedTags.length - 1}__`;
+    });
+    let escaped = escapeHtml(placeholderText).replace(
+        /&lt;([^&]+)&gt;/g,
+        '<span style="background:rgba(56,189,248,0.14); color:#38bdf8; padding:1px 5px; border-radius:4px; font-family:\'Fira Code\',monospace; font-size:0.92em;">&lt;$1&gt;</span>'
+    );
+    escaped = escaped.replace(/__SAFE_TAG_(\d+)__/g, (_, idx) => allowedTags[Number(idx)] || "");
+    return escaped;
+}
+
 function startLesson(id) {
     currentLessonId = id;
     currentLessonAttempts = 0; // Her ders açılışında hata sayısını sıfırla
@@ -1574,7 +1589,7 @@ function startLesson(id) {
     const isMiniProject = !!(lesson.isMiniProject || (lesson.title && lesson.title.includes("MİNİ PROJE")) || (lesson.title && lesson.title.includes("BİTİRME PROJESİ")));
 
     document.getElementById("theory-title").innerText = lesson.title;
-    document.getElementById("theory-text").innerHTML = `<p>${lesson.theory}</p>`;
+    document.getElementById("theory-text").innerHTML = `<p style="margin:0;">${formatLessonProseHtml(lesson.theory)}</p>`;
     
     const previewEl = document.getElementById("theory-code-preview");
     if (isMiniProject) {
@@ -1601,7 +1616,7 @@ function startLesson(id) {
         if (taskText) {
             taskText.innerHTML = `
                 <div style="font-size: 13px; line-height: 1.6; color: #f1f5f9; margin-bottom: 10px;">
-                    ${lesson.task || lesson.theory || "Bu mini projede öğrendiğiniz tüm yapıları kullanarak kodunuzu kendiniz yazmalısınız."}
+                    ${formatLessonProseHtml(lesson.task || lesson.theory || "Bu mini projede öğrendiğiniz tüm yapıları kullanarak kodunuzu kendiniz yazmalısınız.")}
                 </div>
                 <div style="padding: 8px 12px; background: rgba(15, 23, 42, 0.85); border-left: 3px solid #f59e0b; border-radius: 4px; font-size: 12px; color: #fbbf24;">
                     <i class="fa-solid fa-triangle-exclamation"></i> <strong>Proje Kuralı:</strong> Bu aşama bir mini projedir; test sorusuyla geçilemez. Çözüm ekranda verilmemiştir. Kodunuzu editörde kendiniz yazıp <strong>'Çalıştır'</strong> ile doğruladıktan sonra <strong>'Dersi Tamamla'</strong> butonuna basmalısınız.
@@ -1616,10 +1631,10 @@ function startLesson(id) {
             taskBox.style.background = "rgba(30, 41, 59, 0.7)";
         }
         if (lesson.task) {
-            if (taskText) taskText.innerHTML = lesson.task;
+            if (taskText) taskText.innerHTML = formatLessonProseHtml(lesson.task);
             if (expPre) expPre.innerText = lesson.expectedOutput || "Program hatasız çalıştırılmalıdır.";
         } else {
-            let defaultTask = `Editördeki kodu inceleyin. <strong>${lesson.desc || lesson.title}</strong> konusunu uygulamak için gerekli kodu yazıp <strong>Çalıştır</strong> butonuna basın.`;
+            let defaultTask = `Editördeki kodu inceleyin. <strong>${escapeHtml(lesson.desc || lesson.title)}</strong> konusunu uygulamak için gerekli kodu yazıp <strong>Çalıştır</strong> butonuna basın.`;
             let defaultExp = "Konsol çıktısı gözlemlenmeli ve ders tamamlanmalıdır.";
             if (taskText) taskText.innerHTML = defaultTask;
             if (expPre) expPre.innerText = defaultExp;
@@ -1683,6 +1698,11 @@ function startLesson(id) {
     });
 
     switchSandboxLang(targetSandboxLang, lesson.initialCode, true);
+
+    const lessonPanel = document.querySelector(".ide-lesson-panel");
+    if (lessonPanel) lessonPanel.scrollTop = 0;
+    const mainContent = document.querySelector(".main-content");
+    if (mainContent) mainContent.scrollTop = 0;
 }
 
 // --- AKTİF DİL ROZETİ VE DİL DEĞİŞTİRME UYARI MODALI ---

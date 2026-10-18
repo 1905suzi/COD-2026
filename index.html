@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     
-    <link rel="stylesheet" href="style.css?v=25" />
+    <link rel="stylesheet" href="style.css?v=28" />
 </head>
 <body>
     <div class="background-effects">
@@ -778,43 +778,43 @@
 
             <!-- IDE View (3-Panel Layout) -->
             <div id="view-ide" class="view-panel hidden">
-                <div class="ide-container" style="display: flex; flex-direction: row; height: 100%; width: 100%; gap: 15px;">
+                <div class="ide-container">
                     
                     <!-- Sol Panel: Ders İçeriği ve Sınav -->
-                    <div class="ide-lesson-panel glass-card" style="flex: 0 0 320px; overflow-y: auto; padding: 20px; display: flex; flex-direction: column;">
-                        <button class="back-btn" onclick="switchView('map')" style="margin-bottom: 15px; align-self: flex-start; font-size: 13px; padding: 6px 12px;"><i class="fa-solid fa-arrow-left"></i> Haritaya Dön</button>
-                        <h2 id="theory-title" style="color: var(--primary-color); margin-bottom: 15px; font-size: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px;">Ders Başlığı</h2>
-                        <div class="theory-box" id="theory-text" style="font-size:14px; line-height:1.6; color:#cbd5e1; margin-bottom: 20px;"></div>
-                        <div class="code-preview" id="theory-code-preview" style="margin-bottom: 20px; font-size: 13px;"></div>
+                    <div class="ide-lesson-panel glass-card">
+                        <button class="back-btn" onclick="switchView('map')" style="margin-bottom: 12px; align-self: flex-start; font-size: 12.5px; padding: 6px 12px; flex-shrink: 0;"><i class="fa-solid fa-arrow-left"></i> Haritaya Dön</button>
+                        <h2 id="theory-title" style="color: var(--primary-color); margin-bottom: 12px; font-size: 18px; border-bottom: 1px solid var(--glass-border); padding-bottom: 8px; flex-shrink: 0;">Ders Başlığı</h2>
+                        <div class="theory-box" id="theory-text" style="font-size:13.5px; line-height:1.6; color:#cbd5e1; margin-bottom: 14px;"></div>
+                        <div class="code-preview" id="theory-code-preview" style="margin-bottom: 14px; font-size: 12.5px;"></div>
                         
                         <!-- Ders Kodlama Görevi ve Beklenen Çıktı -->
-                        <div class="task-box" id="lesson-task-box" style="background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 10px; padding: 14px; margin-bottom: 20px;">
-                            <h3 style="font-size: 13.5px; font-weight: 700; color: #38bdf8; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                        <div class="task-box" id="lesson-task-box" style="background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 10px; padding: 12px; margin-bottom: 14px;">
+                            <h3 style="font-size: 13px; font-weight: 700; color: #38bdf8; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
                                 <i class="fa-solid fa-bullseye"></i> Kodlama Görevi & Hedef
                             </h3>
-                            <div id="lesson-task-text" style="font-size: 13px; line-height: 1.6; color: #e2e8f0; margin-bottom: 12px;"></div>
+                            <div id="lesson-task-text" style="font-size: 12.5px; line-height: 1.55; color: #e2e8f0; margin-bottom: 10px;"></div>
                             
-                            <div id="lesson-expected-wrapper" style="background: rgba(15, 23, 42, 0.85); border: 1px dashed rgba(74, 222, 128, 0.4); border-radius: 8px; padding: 10px;">
-                                <div style="font-size: 11.5px; font-weight: 700; color: #4ade80; margin-bottom: 5px; display: flex; align-items: center; gap: 5px;">
+                            <div id="lesson-expected-wrapper" style="background: rgba(15, 23, 42, 0.85); border: 1px dashed rgba(74, 222, 128, 0.4); border-radius: 8px; padding: 9px;">
+                                <div style="font-size: 11px; font-weight: 700; color: #4ade80; margin-bottom: 4px; display: flex; align-items: center; gap: 5px;">
                                     <i class="fa-solid fa-terminal"></i> Beklenen Terminal / Ekran Çıktısı:
                                 </div>
-                                <pre id="lesson-expected-output" style="margin: 0; font-family: 'Fira Code', monospace; font-size: 12.5px; color: #f8fafc; white-space: pre-wrap; word-break: break-all;"></pre>
+                                <pre id="lesson-expected-output" style="margin: 0; font-family: 'Fira Code', monospace; font-size: 12px; color: #f8fafc; white-space: pre-wrap; word-break: break-word;"></pre>
                             </div>
                         </div>
                         
-                        <div class="quiz-box" style="background: rgba(15, 23, 42, 0.4); padding: 15px; border-radius: 8px; border: 1px solid var(--glass-border); margin-bottom: 20px;">
-                            <h3 style="font-size:14px; margin-bottom:10px; color:#38bdf8;"><i class="fa-solid fa-clipboard-question"></i> Mini Test</h3>
-                            <p id="quiz-question" style="font-size:13px; margin-bottom:10px; color:#e2e8f0;"></p>
-                            <div class="quiz-options" id="quiz-options-container" style="font-size:13px;"></div>
+                        <div class="quiz-box" style="background: rgba(15, 23, 42, 0.4); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border); margin-bottom: 14px;">
+                            <h3 style="font-size:13.5px; margin-bottom:8px; color:#38bdf8;"><i class="fa-solid fa-clipboard-question"></i> Mini Test</h3>
+                            <p id="quiz-question" style="font-size:12.5px; margin-bottom:8px; color:#e2e8f0;"></p>
+                            <div class="quiz-options" id="quiz-options-container" style="font-size:12.5px;"></div>
                         </div>
 
-                        <div style="margin-top: auto;">
-                            <button class="btn-primary" onclick="completeCurrentLesson()" style="width: 100%; background: #10b981; padding: 12px; font-size: 14px;"><i class="fa-solid fa-check-circle"></i> Dersi Tamamla</button>
+                        <div style="margin-top: auto; padding-top: 4px; flex-shrink: 0;">
+                            <button class="btn-primary" onclick="completeCurrentLesson()" style="width: 100%; background: #10b981; padding: 11px; font-size: 13.5px;"><i class="fa-solid fa-check-circle"></i> Dersi Tamamla</button>
                         </div>
                     </div>
 
                     <!-- Orta Panel: Kod Editörü -->
-                    <div class="ide-editor-panel glass-card" style="flex: 1; display: flex; flex-direction: column; overflow: hidden; padding:0; min-height: 80vh; position: relative;">
+                    <div class="ide-editor-panel glass-card">
                         <!-- Editör Kod Arkası Yıldızlı Gökyüzü & Uçuşan Simler -->
                         <div class="editor-starry-backdrop" id="editor-starry-backdrop">
                             <div class="editor-nebula-glow"></div>
@@ -827,39 +827,39 @@
                             <span class="editor-glitter ed-glt-6">✦</span>
                         </div>
 
-                        <div class="ide-header" style="padding: 10px 14px; border-bottom: 1px solid var(--glass-border); display:flex; justify-content:space-between; align-items:center; background: rgba(0,0,0,0.3); position: relative; z-index: 2;">
-                            <div class="ide-tabs" id="sandbox-lang-tabs" style="display:flex; gap:6px; overflow-x:auto;">
-                                <button type="button" class="ide-tab active" data-sandbox-lang="HTML" onclick="switchSandboxLang('HTML')" style="font-size:12.5px; padding:6px 12px; border-radius:8px; border:none; background:rgba(30,41,59,0.9); color:#fff; cursor:pointer;"><i class="fa-brands fa-html5" style="color:#f97316;"></i> index.html</button>
-                                <button type="button" class="ide-tab" data-sandbox-lang="JavaScript" onclick="switchSandboxLang('JavaScript')" style="font-size:12.5px; padding:6px 12px; border-radius:8px; border:none; background:transparent; color:#94a3b8; cursor:pointer;"><i class="fa-brands fa-js" style="color:#facc15;"></i> script.js (JavaScript)</button>
-                                <button type="button" class="ide-tab" data-sandbox-lang="Python" onclick="switchSandboxLang('Python')" style="font-size:12.5px; padding:6px 12px; border-radius:8px; border:none; background:transparent; color:#94a3b8; cursor:pointer;"><i class="fa-brands fa-python" style="color:#4ade80;"></i> main.py (Python)</button>
-                                <button type="button" class="ide-tab" data-sandbox-lang="CSharp" onclick="switchSandboxLang('CSharp')" style="font-size:12.5px; padding:6px 12px; border-radius:8px; border:none; background:transparent; color:#94a3b8; cursor:pointer;"><i class="fa-solid fa-code" style="color:#a855f7;"></i> Program.cs (C#)</button>
-                                <button type="button" class="ide-tab" data-sandbox-lang="SQL" onclick="switchSandboxLang('SQL')" style="font-size:12.5px; padding:6px 12px; border-radius:8px; border:none; background:transparent; color:#94a3b8; cursor:pointer;"><i class="fa-solid fa-database" style="color:#0ea5e9;"></i> query.sql (SQL)</button>
-                                <button type="button" class="ide-tab" data-sandbox-lang="CPP" onclick="switchSandboxLang('CPP')" style="font-size:12.5px; padding:6px 12px; border-radius:8px; border:none; background:transparent; color:#94a3b8; cursor:pointer;"><i class="fa-solid fa-microchip" style="color:#38bdf8;"></i> main.cpp (C++)</button>
+                        <div class="ide-header" style="padding: 8px 12px; border-bottom: 1px solid var(--glass-border); display:flex; justify-content:space-between; align-items:center; gap:8px; background: rgba(0,0,0,0.35); position: relative; z-index: 2; flex-shrink: 0;">
+                            <div class="ide-tabs" id="sandbox-lang-tabs" style="display:flex; gap:5px; overflow-x:auto; flex:1; min-width:0; scrollbar-width:none;">
+                                <button type="button" class="ide-tab active" data-sandbox-lang="HTML" onclick="switchSandboxLang('HTML')" style="font-size:12px; padding:6px 10px; border-radius:8px; border:none; background:rgba(30,41,59,0.9); color:#fff; cursor:pointer; white-space:nowrap; flex-shrink:0;"><i class="fa-brands fa-html5" style="color:#f97316;"></i> index.html</button>
+                                <button type="button" class="ide-tab" data-sandbox-lang="JavaScript" onclick="switchSandboxLang('JavaScript')" style="font-size:12px; padding:6px 10px; border-radius:8px; border:none; background:transparent; color:#94a3b8; cursor:pointer; white-space:nowrap; flex-shrink:0;"><i class="fa-brands fa-js" style="color:#facc15;"></i> script.js</button>
+                                <button type="button" class="ide-tab" data-sandbox-lang="Python" onclick="switchSandboxLang('Python')" style="font-size:12px; padding:6px 10px; border-radius:8px; border:none; background:transparent; color:#94a3b8; cursor:pointer; white-space:nowrap; flex-shrink:0;"><i class="fa-brands fa-python" style="color:#4ade80;"></i> main.py</button>
+                                <button type="button" class="ide-tab" data-sandbox-lang="CSharp" onclick="switchSandboxLang('CSharp')" style="font-size:12px; padding:6px 10px; border-radius:8px; border:none; background:transparent; color:#94a3b8; cursor:pointer; white-space:nowrap; flex-shrink:0;"><i class="fa-solid fa-code" style="color:#a855f7;"></i> Program.cs</button>
+                                <button type="button" class="ide-tab" data-sandbox-lang="SQL" onclick="switchSandboxLang('SQL')" style="font-size:12px; padding:6px 10px; border-radius:8px; border:none; background:transparent; color:#94a3b8; cursor:pointer; white-space:nowrap; flex-shrink:0;"><i class="fa-solid fa-database" style="color:#0ea5e9;"></i> query.sql</button>
+                                <button type="button" class="ide-tab" data-sandbox-lang="CPP" onclick="switchSandboxLang('CPP')" style="font-size:12px; padding:6px 10px; border-radius:8px; border:none; background:transparent; color:#94a3b8; cursor:pointer; white-space:nowrap; flex-shrink:0;"><i class="fa-solid fa-microchip" style="color:#38bdf8;"></i> main.cpp</button>
                             </div>
-                            <div style="display:flex; align-items:center; gap:8px;">
-                                <button type="button" onclick="explainCurrentIdeCode()" title="Yapay zeka kodunuzu satır satır analiz eder ve açıklar" style="padding: 7px 13px; font-size:12.5px; font-weight:600; background:rgba(56,189,248,0.15); border:1px solid #38bdf8; border-radius:8px; color:#38bdf8; cursor:pointer; display:flex; align-items:center; gap:6px;">
+                            <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+                                <button type="button" onclick="explainCurrentIdeCode()" title="Yapay zeka kodunuzu satır satır analiz eder ve açıklar" style="padding: 6px 11px; font-size:12px; font-weight:600; background:rgba(56,189,248,0.15); border:1px solid #38bdf8; border-radius:8px; color:#38bdf8; cursor:pointer; display:flex; align-items:center; gap:5px; white-space:nowrap;">
                                     <i class="fa-solid fa-wand-magic-sparkles"></i> 🤖 Satır Açıkla
                                 </button>
-                                <button class="btn-run" onclick="runCode()" style="padding: 7px 18px; font-size:13.5px; font-weight:bold; background:#10b981; border-radius:8px; color:white; border:none; cursor:pointer; display:flex; align-items:center; gap:6px;">
+                                <button class="btn-run" onclick="runCode()" style="padding: 6px 14px; font-size:12.5px; font-weight:bold; background:#10b981; border-radius:8px; color:white; border:none; cursor:pointer; display:flex; align-items:center; gap:5px; white-space:nowrap;">
                                     <i class="fa-solid fa-play"></i> Çalıştır
                                 </button>
                             </div>
                         </div>
-                        <textarea id="code-editor" spellcheck="false" style="flex:1; width:100%; background:transparent; border:none; color:#e2e8f0; font-family:'Fira Code', Consolas, monospace; padding:18px; resize:none; outline:none; font-size:15px; line-height:1.6; position:relative; z-index:2;"></textarea>
+                        <textarea id="code-editor" spellcheck="false" style="flex:1; width:100%; min-height:0; background:transparent; border:none; color:#e2e8f0; font-family:'Fira Code', Consolas, monospace; padding:16px; resize:none; outline:none; font-size:14.5px; line-height:1.6; position:relative; z-index:2; box-sizing:border-box;"></textarea>
                     </div>
 
                     <!-- Sağ Panel: Canlı Çıktı -->
-                    <div class="ide-output-panel glass-card" style="flex: 1; display: flex; flex-direction: column; overflow: hidden; padding:0; min-height: 80vh;">
-                        <div class="output-header" style="padding: 8px 14px; border-bottom: 1px solid var(--glass-border); background:rgba(255,255,255,0.05); font-size:14px; color:#cbd5e1; display:flex; justify-content:space-between; align-items:center; font-weight: bold;">
-                            <span style="display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-terminal" id="output-header-icon" style="color:#38bdf8;"></i> <span id="output-header-title">Canlı Çıktı</span></span>
-                            <div style="display:flex; align-items:center; gap:8px;">
-                                <span id="output-engine-badge" style="font-size:11px; font-weight:bold; background:rgba(56,189,248,0.15); color:#38bdf8; padding:3px 10px; border-radius:8px; border:1px solid rgba(56,189,248,0.3);">HTML Renderer</span>
-                                <button type="button" class="btn-run" onclick="runCode()" style="padding: 5px 14px; font-size:12.5px; font-weight:bold; background:#10b981; border-radius:8px; color:white; border:none; cursor:pointer; display:flex; align-items:center; gap:6px; transition:transform 0.1s ease;" onmouseover="this.style.filter='brightness(1.1)'" onmouseout="this.style.filter='none'" title="Kodu Çalıştır"><i class="fa-solid fa-play"></i> Çalıştır</button>
+                    <div class="ide-output-panel glass-card">
+                        <div class="output-header" style="padding: 8px 12px; border-bottom: 1px solid var(--glass-border); background:rgba(255,255,255,0.05); font-size:13.5px; color:#cbd5e1; display:flex; justify-content:space-between; align-items:center; gap:8px; font-weight: bold; flex-shrink: 0;">
+                            <span style="display:flex; align-items:center; gap:7px; white-space:nowrap;"><i class="fa-solid fa-terminal" id="output-header-icon" style="color:#38bdf8;"></i> <span id="output-header-title">Canlı Çıktı</span></span>
+                            <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+                                <span id="output-engine-badge" style="font-size:11px; font-weight:bold; background:rgba(56,189,248,0.15); color:#38bdf8; padding:3px 9px; border-radius:8px; border:1px solid rgba(56,189,248,0.3); white-space:nowrap;">HTML Renderer</span>
+                                <button type="button" class="btn-run" onclick="runCode()" style="padding: 5px 12px; font-size:12px; font-weight:bold; background:#10b981; border-radius:8px; color:white; border:none; cursor:pointer; display:flex; align-items:center; gap:5px; white-space:nowrap; transition:transform 0.1s ease;" onmouseover="this.style.filter='brightness(1.1)'" onmouseout="this.style.filter='none'" title="Kodu Çalıştır"><i class="fa-solid fa-play"></i> Çalıştır</button>
                             </div>
                         </div>
-                        <iframe id="output-frame" style="flex:1; width:100%; border:none; background:#ffffff;"></iframe>
-                        <div id="output-console" style="display:none; flex:1; width:100%; background:#090d16; color:#e2e8f0; font-family:'Fira Code', Consolas, monospace; padding:16px; overflow-y:auto; font-size:13px; line-height:1.6; box-sizing:border-box;"></div>
-                        <div id="output-ai-lines" style="display:none; flex:1; width:100%; background:#090d16; color:#e2e8f0; padding:16px; overflow-y:auto; box-sizing:border-box;"></div>
+                        <iframe id="output-frame" style="flex:1; width:100%; min-height:0; border:none; background:#ffffff;"></iframe>
+                        <div id="output-console" style="display:none; flex:1; width:100%; min-height:0; background:#090d16; color:#e2e8f0; font-family:'Fira Code', Consolas, monospace; padding:14px; overflow-y:auto; font-size:13px; line-height:1.6; box-sizing:border-box;"></div>
+                        <div id="output-ai-lines" style="display:none; flex:1; width:100%; min-height:0; background:#090d16; color:#e2e8f0; padding:14px; overflow-y:auto; box-sizing:border-box;"></div>
                     </div>
 
                 </div>
@@ -2358,10 +2358,10 @@
         </div>
     </div>
 
-    <script src="courseData.js?v=27"></script>
-    <script src="bookData.js?v=27"></script>
-    <script src="quizBankData.js?v=27"></script>
-    <script src="script.js?v=27"></script>
+    <script src="courseData.js?v=28"></script>
+    <script src="bookData.js?v=28"></script>
+    <script src="quizBankData.js?v=28"></script>
+    <script src="script.js?v=28"></script>
 </body>
 </html>
 

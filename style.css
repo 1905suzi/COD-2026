@@ -442,20 +442,50 @@ body {
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: clamp(14px, 2vw, 32px);
+    padding: clamp(12px, 1.8vw, 26px);
     width: 100%;
     max-width: 100%;
+    height: 100vh;
+    height: 100dvh;
     box-sizing: border-box;
 }
 
 .view-panel {
-    max-width: 1350px;
+    max-width: 1640px;
     width: 100%;
     margin: 0 auto;
     animation: slideUp 0.4s ease;
     box-sizing: border-box;
     overflow-x: hidden;
     position: relative;
+}
+
+/* IDE Ders Ekranı Açıkken Tam Ekran (Full-Viewport)Yerleşim - Sayfa Kaymasını Önler */
+@media (min-width: 901px) {
+    .main-content:has(#view-ide:not(.hidden)) {
+        padding: 12px 14px !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    #view-ide {
+        max-width: 100% !important;
+        width: 100% !important;
+        flex: 1 1 auto !important;
+        height: calc(100dvh - 24px) !important;
+        max-height: calc(100dvh - 24px) !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    #view-ide.hidden {
+        display: none !important;
+    }
 }
 
 .dash-header {
@@ -847,31 +877,104 @@ body {
     cursor: pointer;
 }
 
-/* IDE */
+/* IDE (3-Panel Tam Ekran Uyumlu Mimari) */
 .ide-container {
     display: flex;
-    flex-direction: column;
-    height: calc(100vh - 80px);
-    background: rgba(15, 23, 42, 0.9);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
+    gap: 12px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
     overflow: hidden;
+    align-items: stretch;
+    box-sizing: border-box;
 }
+
+.ide-lesson-panel {
+    flex: 0 0 clamp(275px, 25vw, 370px);
+    width: clamp(275px, 25vw, 370px);
+    max-width: 36vw;
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 16px 18px !important;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(56, 189, 248, 0.35) rgba(15, 23, 42, 0.4);
+}
+
+.ide-lesson-panel::-webkit-scrollbar {
+    width: 6px;
+}
+.ide-lesson-panel::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.4);
+    border-radius: 8px;
+}
+.ide-lesson-panel::-webkit-scrollbar-thumb {
+    background: rgba(56, 189, 248, 0.35);
+    border-radius: 8px;
+}
+.ide-lesson-panel::-webkit-scrollbar-thumb:hover {
+    background: rgba(56, 189, 248, 0.6);
+}
+
+.ide-lesson-panel .theory-box,
+.ide-lesson-panel .task-box,
+.ide-lesson-panel .quiz-box {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.ide-editor-panel {
+    flex: 1.15 1 0%;
+    min-width: 0;
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0 !important;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.ide-output-panel {
+    flex: 0.95 1 0%;
+    min-width: 0;
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0 !important;
+    box-sizing: border-box;
+}
+
 .ide-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #020617;
-    padding: 0 16px;
+    padding: 0 14px;
     border-bottom: 1px solid var(--glass-border);
 }
 .ide-tabs {
     display: flex;
 }
 .ide-tab {
-    padding: 16px 24px;
+    padding: 12px 16px;
     font-family: 'Fira Code', monospace;
-    font-size: 14px;
+    font-size: 13px;
     color: var(--text-muted);
     cursor: pointer;
 }
@@ -2378,22 +2481,14 @@ body.mentor-mode #view-book {
    ============================================================ */
 
 /* 1. DİZÜSTÜ VE ORTA BOY EKRANLAR (max-width: 1366px) */
-@media (max-width: 1366px) {
+@media (max-width: 1366px) and (min-width: 901px) {
     .ide-container {
-        flex-direction: column !important;
-        height: auto !important;
-        min-height: 0 !important;
+        gap: 10px !important;
     }
-    .ide-lesson-panel,
-    .ide-editor-panel,
-    .ide-output-panel {
-        width: 100% !important;
-        max-width: 100% !important;
-        flex: 1 1 auto !important;
-        box-sizing: border-box !important;
-        min-height: 320px !important;
-        margin-bottom: 16px !important;
-        border-radius: 16px !important;
+    .ide-lesson-panel {
+        flex: 0 0 clamp(245px, 26vw, 310px) !important;
+        width: clamp(245px, 26vw, 310px) !important;
+        padding: 14px !important;
     }
     .landing-inner {
         gap: 32px !important;
@@ -2406,6 +2501,53 @@ body.mentor-mode #view-book {
     .cute-code-pill .pill-tag {
         font-size: 7.5px !important;
         padding: 1px 4px !important;
+    }
+}
+
+/* 1B. TABLET VE DAR EKRANLARDA IDE DİKEY YERLEŞİMİ (max-width: 900px) */
+@media (max-width: 900px) {
+    #view-ide {
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+    .ide-container {
+        flex-direction: column !important;
+        height: auto !important;
+        max-height: none !important;
+        min-height: 0 !important;
+        gap: 14px !important;
+        overflow: visible !important;
+    }
+    .ide-lesson-panel {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 1 1 auto !important;
+        height: auto !important;
+        max-height: none !important;
+        overflow-y: visible !important;
+        box-sizing: border-box !important;
+        border-radius: 16px !important;
+    }
+    .ide-editor-panel {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 0 auto !important;
+        height: 400px !important;
+        min-height: 350px !important;
+        max-height: 65vh !important;
+        box-sizing: border-box !important;
+        border-radius: 16px !important;
+    }
+    .ide-output-panel {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 0 auto !important;
+        height: 360px !important;
+        min-height: 300px !important;
+        max-height: 60vh !important;
+        box-sizing: border-box !important;
+        border-radius: 16px !important;
     }
 }
 
