@@ -6279,6 +6279,58 @@ function generateCodPlusAiResponse(query) {
     Sorun için teşekkürler! ${isMentor ? 'Sayın Danışmanım' : 'Sevgili Geliştirici'}, COD+ platformunda 150 kapsamlı ders, çok dilli konsol motoru, görev panosu, akran düelloları ve danışman kod inceleme sistemi aktif. Proje mimarisi ve kodlama konularında sormak istediğin her şeyi yanıtlamaya hazırım!`;
 }
 
+// Tüm modalların (Sohbet, Arkadaşlar, Profil, Proje, Görev vb.) hem çarpı (✕) butonuyla
+// hem de modal dışındaki ekrana (boşluğa) tıklanınca veya ESC tuşuna basılınca kapanmasını sağlar.
+function setupModalOutsideClickAndEsc() {
+    if (window._modalOutsideClickInitialized) return;
+    window._modalOutsideClickInitialized = true;
+
+    document.addEventListener("mousedown", (e) => {
+        // 1. Herhangi bir modal overlay arka planına (kartın dışına) tıklandıysa kapat
+        if (e.target && e.target.classList && e.target.classList.contains("coddy-modal-overlay")) {
+            if (e.target.id === "force-password-change-modal") return; // Zorunlu şifre ekranı hariç
+            if (e.target.id === "duel-modal" && typeof closeDuelModal === "function") {
+                closeDuelModal();
+            } else if (e.target.id === "coddy-modal" && typeof closeCoddyModal === "function") {
+                closeCoddyModal();
+            } else {
+                e.target.classList.add("hidden");
+            }
+            return;
+        }
+
+        // 2. Taşınabilir COD+ AI penceresi açıksa ve dışına (veya yan menüdeki başka bir yere) tıklandıysa kapat
+        const aiWidget = document.getElementById("coddy-ai-widget");
+        if (aiWidget && !aiWidget.classList.contains("hidden")) {
+            const clickedInsideAi = aiWidget.contains(e.target);
+            const clickedTrigger = e.target.closest && e.target.closest("#sidebar-ai-trigger");
+            if (!clickedInsideAi && !clickedTrigger) {
+                aiWidget.classList.add("hidden");
+            }
+        }
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            const openModals = document.querySelectorAll(".coddy-modal-overlay:not(.hidden)");
+            openModals.forEach(modal => {
+                if (modal.id === "force-password-change-modal") return;
+                if (modal.id === "duel-modal" && typeof closeDuelModal === "function") {
+                    closeDuelModal();
+                } else if (modal.id === "coddy-modal" && typeof closeCoddyModal === "function") {
+                    closeCoddyModal();
+                } else {
+                    modal.classList.add("hidden");
+                }
+            });
+            const aiWidget = document.getElementById("coddy-ai-widget");
+            if (aiWidget && !aiWidget.classList.contains("hidden")) {
+                aiWidget.classList.add("hidden");
+            }
+        }
+    });
+}
+
 // Sayfa ilk yüklendiğinde profili, arkadaşları ve araçları hazırla
 document.addEventListener("DOMContentLoaded", () => {
     closePdfReader();
@@ -6287,6 +6339,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateFriendsBadge();
     renderProjectInvites();
     initDraggableCoddyAi();
+    setupModalOutsideClickAndEsc();
     initGlobalStarrySky();
 
     // IDE kod editörüne VS Code IntelliSense bağla
@@ -6534,6 +6587,7 @@ function initGlobalStarrySky() {
 
 // Sayfa zaten yüklenmişse hemen başlat
 if (document.readyState === "complete" || document.readyState === "interactive") {
+    setupModalOutsideClickAndEsc();
     setTimeout(initGlobalStarrySky, 50);
 }
 
