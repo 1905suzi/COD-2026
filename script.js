@@ -298,7 +298,9 @@ function toggleMentorStudentView() {
         userProfile.isMentorAccount = true;
     }
 
-    if (userProfile.role === 'danisman') {
+    const isCurrentlyInMentorMode = (userProfile.role === 'danisman' && document.body.classList.contains('mentor-mode'));
+
+    if (isCurrentlyInMentorMode) {
         userProfile.role = 'ogrenci';
         userProfile.originalRole = 'danisman';
         userProfile.isMentorAccount = true;
@@ -401,7 +403,7 @@ function getUsersDb() {
     db['szn.ozer1905@mail.com'] = { ...suzanTemplate, email: 'szn.ozer1905@mail.com', ...(db['szn.ozer1905@mail.com'] || {}) };
     db['szn.ozer1905@mail.com'].username = 'Suzan';
     db['szn.ozer1905@mail.com'].name = 'Suzan';
-    db['szn.ozer1905@mail.com'].role = 'danisman';
+    if (!db['szn.ozer1905@mail.com'].role) db['szn.ozer1905@mail.com'].role = 'danisman';
     db['szn.ozer1905@mail.com'].originalRole = 'danisman';
     db['szn.ozer1905@mail.com'].isMentorAccount = true;
     db['szn.ozer1905@mail.com'].level = 'Uzman';
@@ -410,7 +412,9 @@ function getUsersDb() {
     db['szn.ozer1905@mail.com'].department = 'Yazılım Mimarisi';
     db['szn.ozer1905@mail.com'].bio = 'Yazılım Mimarisi, Temiz Kod ve Mentörlük Rehberliği.';
 
+    const existingGmailRole = db['szn.ozer1905@gmail.com'] && db['szn.ozer1905@gmail.com'].role;
     db['szn.ozer1905@gmail.com'] = { ...db['szn.ozer1905@mail.com'], email: 'szn.ozer1905@gmail.com' };
+    if (existingGmailRole) db['szn.ozer1905@gmail.com'].role = existingGmailRole;
     needsSave = true;
 
     // 2. Esma (Öğrenci)
@@ -3091,9 +3095,9 @@ function initUserProfile() {
                 email: userProfile.email,
                 username: dbUser.username || dbUser.name || userProfile.username,
                 name: dbUser.name || dbUser.username || userProfile.name,
-                role: dbUser.role || userProfile.role,
+                role: userProfile.role || dbUser.role || 'ogrenci',
                 originalRole: dbUser.originalRole || dbUser.role || 'danisman',
-                isMentorAccount: (dbUser.role === 'danisman' || dbUser.isMentorAccount),
+                isMentorAccount: !!(dbUser.role === 'danisman' || dbUser.originalRole === 'danisman' || dbUser.isMentorAccount),
                 level: dbUser.level || userProfile.level,
                 xp: (dbUser.xp !== undefined && dbUser.xp > 0) ? Math.max(dbUser.xp, userProfile.xp || 0) : userProfile.xp,
                 gems: (dbUser.gems !== undefined && dbUser.gems > 0) ? Math.max(dbUser.gems, userProfile.gems || 0) : userProfile.gems,
@@ -3213,7 +3217,7 @@ function renderMentorProfileTab() {
     const panel = document.getElementById("profile-tab-mentor");
     if (!panel) return;
 
-    const isMentor = (userProfile.role === 'danisman');
+    const isMentor = isMentorUser() || (userProfile.role === 'danisman');
     if (isMentor) {
         const mentorDisplayName = userProfile.username || userProfile.name || 'Danışman';
         const myProjects = getProjects().filter(p => p.creator === mentorDisplayName);
@@ -3414,8 +3418,8 @@ function openProfileModal() {
                 userProfile.gems = dbUser.gems;
                 userGems = dbUser.gems;
             }
-            if (dbUser.role === 'danisman') {
-                userProfile.role = 'danisman';
+            if (dbUser.role === 'danisman' || dbUser.originalRole === 'danisman' || dbUser.isMentorAccount) {
+                if (!userProfile.role) userProfile.role = 'danisman';
                 userProfile.originalRole = 'danisman';
                 userProfile.isMentorAccount = true;
                 userProfile.level = 'Uzman';
@@ -3423,7 +3427,8 @@ function openProfileModal() {
         }
     }
 
-    const isMentor = (userProfile.role === 'danisman');
+    const isMentor = isMentorUser();
+    const isCurrentlyMentorMode = (userProfile.role === 'danisman');
     const displayName = userProfile.username || userProfile.name || (isMentor ? "Danışman" : "Kullanıcı");
     const displayEmail = userProfile.email || "";
     
@@ -3453,11 +3458,16 @@ function openProfileModal() {
     const xpVal = document.getElementById("modal-xp-val");
 
     if (roleBadge) {
-        if (isMentor) {
+        if (isCurrentlyMentorMode) {
             roleBadge.innerText = "Danışman & Mentör";
             roleBadge.style.background = "linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(217, 119, 6, 0.35))";
             roleBadge.style.color = "#fbbf24";
             roleBadge.style.border = "1px solid #f59e0b";
+        } else if (isMentor) {
+            roleBadge.innerText = "Öğrenci Önizleme";
+            roleBadge.style.background = "rgba(168,85,247,0.2)";
+            roleBadge.style.color = "#e9d5ff";
+            roleBadge.style.border = "1px solid #a855f7";
         } else {
             roleBadge.innerText = "Öğrenci";
             roleBadge.style.background = "rgba(56,189,248,0.15)";
@@ -3468,9 +3478,9 @@ function openProfileModal() {
 
     const roleToggleBtn = document.getElementById("modal-role-toggle-btn");
     if (roleToggleBtn) {
-        if (isMentorUser()) {
+        if (isMentor) {
             roleToggleBtn.style.display = "inline-flex";
-            if (roleToggleText) roleToggleText.innerText = (userProfile.role === 'danisman') ? "Öğrenci Görünümüne Geç" : "Danışman Paneline Dön";
+            if (roleToggleText) roleToggleText.innerText = isCurrentlyMentorMode ? "Öğrenci Görünümüne Geç" : "Danışman Paneline Dön";
         } else {
             roleToggleBtn.style.display = "none";
         }
