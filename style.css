@@ -460,36 +460,31 @@ body {
     position: relative;
 }
 
-/* IDE Ders Ekranı Açıkken Tam Ekran (Full-Viewport) Yerleşim - Üst Kısmın Kaybolmasını ve Sayfa Kaymasını Kesin Önler */
+/* IDE Ders Ekranı Açıkken Dengeli, Orantılı ve Ekrana Tam Sığan Yerleşim */
 @media (min-width: 821px) {
     .main-content:has(#view-ide:not(.hidden)) {
-        padding: 0 !important;
+        padding: 16px 24px !important;
         height: 100vh !important;
         height: 100dvh !important;
         overflow: hidden !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
 
     #view-ide:not(.hidden) {
-        position: fixed !important;
-        top: 0 !important;
-        left: 80px !important;
-        right: 0 !important;
-        bottom: 0 !important;
-        width: calc(100vw - 80px) !important;
-        max-width: calc(100vw - 80px) !important;
-        height: 100vh !important;
-        height: 100dvh !important;
-        max-height: 100dvh !important;
-        min-height: 0 !important;
-        margin: 0 !important;
-        padding: 10px 12px !important;
+        position: relative !important;
+        max-width: 1280px !important;
+        width: 100% !important;
+        height: calc(100dvh - 36px) !important;
+        max-height: 760px !important;
+        min-height: 480px !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
         box-sizing: border-box !important;
         overflow: hidden !important;
         display: flex !important;
         flex-direction: column !important;
-        z-index: 40 !important;
-        animation: none !important;
-        transform: none !important;
     }
     #view-ide.hidden {
         display: none !important;
@@ -910,9 +905,9 @@ body {
 }
 
 .ide-lesson-panel {
-    flex: 0 0 clamp(260px, 24vw, 345px);
-    width: clamp(260px, 24vw, 345px);
-    max-width: 34vw;
+    flex: 0 0 clamp(290px, 28%, 350px);
+    width: clamp(290px, 28%, 350px);
+    max-width: 36%;
     height: 100%;
     max-height: 100%;
     min-height: 0;
@@ -950,7 +945,7 @@ body {
 }
 
 .ide-editor-panel {
-    flex: 1.15 1 0%;
+    flex: 1 1 0%;
     min-width: 0;
     height: 100%;
     max-height: 100%;
@@ -964,7 +959,7 @@ body {
 }
 
 .ide-output-panel {
-    flex: 0.95 1 0%;
+    flex: 0.9 1 0%;
     min-width: 0;
     height: 100%;
     max-height: 100%;

@@ -1111,6 +1111,10 @@ function switchView(viewName) {
         viewName = 'projects';
     }
 
+    if (viewName === 'ide-sandbox') {
+        viewName = 'ide';
+    }
+
     if (currentActiveView && currentActiveView !== viewName) {
         previousActiveView = currentActiveView;
     }
@@ -1120,41 +1124,36 @@ function switchView(viewName) {
     } catch(e) {}
 
     const panels = document.querySelectorAll(".view-panel");
-    panels.forEach(p => p.classList.add("hidden"));
+    panels.forEach(p => {
+        p.classList.add("hidden");
+        if (p.id === "view-ide") {
+            p.style.cssText = "";
+        }
+    });
     
     const navs = document.querySelectorAll(".nav-item");
     navs.forEach(n => n.classList.remove("active"));
     
-    if (viewName === 'ide-sandbox') {
+    if (viewName === 'ide') {
         const idePanel = document.getElementById('view-ide');
-        if (idePanel) idePanel.classList.remove("hidden");
+        if (idePanel) {
+            idePanel.style.cssText = "";
+            idePanel.classList.remove("hidden");
+        }
         const lessonPanel = document.querySelector('.ide-lesson-panel');
-        if (lessonPanel) lessonPanel.style.display = 'none'; // Serbest modda sol ders panelini gizle
-        
-        // Serbest modda tüm dillerin sekmelerini görünür yap
-        const tabs = document.querySelectorAll("#sandbox-lang-tabs .ide-tab");
-        tabs.forEach(tab => {
-            tab.style.display = "inline-flex";
-        });
-        
-        const currentLang = (selectedLang || (userProfile && userProfile.selectedLanguage) || 'html').toLowerCase();
-        let targetLang = 'HTML';
-        if (currentLang.includes('python')) targetLang = 'Python';
-        else if (currentLang.includes('sql')) targetLang = 'SQL';
-        else if (currentLang.includes('c#') || currentLang.includes('csharp')) targetLang = 'CSharp';
-        else if (currentLang.includes('c++') || currentLang.includes('cpp')) targetLang = 'CPP';
-        
-        switchSandboxLang(targetLang);
+        if (lessonPanel) {
+            lessonPanel.style.cssText = "";
+            lessonPanel.style.display = 'flex';
+        }
         const ideNav = document.getElementById('nav-btn-ide');
         if (ideNav) ideNav.classList.add("active");
-        applyResponsiveIdeLayout(false);
-    } else if (viewName === 'ide') {
-        const idePanel = document.getElementById('view-ide');
-        if (idePanel) idePanel.classList.remove("hidden");
-        const lessonPanel = document.querySelector('.ide-lesson-panel');
-        if (lessonPanel) lessonPanel.style.display = 'flex'; // Ders panelini göster
-        const ideNav = document.getElementById('nav-btn-ide');
-        if (ideNav) ideNav.classList.add("active");
+
+        const theoryTextEl = document.getElementById("theory-text");
+        if (!window._inStartLesson && (!theoryTextEl || !theoryTextEl.innerText.trim())) {
+            const fallbackId = currentLessonId || parseInt(localStorage.getItem("codplus_active_lesson_id"), 10) || unlockedLevel || 1;
+            startLesson(fallbackId);
+            return;
+        }
         applyResponsiveIdeLayout(true);
     } else {
         const target = document.getElementById(`view-${viewName}`);
@@ -1501,41 +1500,13 @@ function applyResponsiveIdeLayout(showLessonPanel = true) {
     if (mainContent) mainContent.scrollTop = 0;
     if (lessonPanel) lessonPanel.scrollTop = 0;
 
-    if (!ideView || ideView.classList.contains("hidden")) return;
-
-    const isMobileOrTablet = window.innerWidth <= 820;
-
-    if (!isMobileOrTablet) {
-        // Masaüstü ve Dizüstü (tüm çözünürlükler: 1280x720, 1366x768, 1536x864, 1920x1080, 4K)
-        ideView.style.cssText = "position: fixed !important; top: 0 !important; left: 80px !important; right: 0 !important; bottom: 0 !important; width: calc(100vw - 80px) !important; max-width: calc(100vw - 80px) !important; height: 100dvh !important; max-height: 100dvh !important; margin: 0 !important; padding: 10px 12px !important; box-sizing: border-box !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; z-index: 40 !important; animation: none !important; transform: none !important;";
-        if (ideContainer) {
-            ideContainer.style.cssText = "display: flex !important; flex-direction: row !important; width: 100% !important; height: 100% !important; max-height: 100% !important; min-height: 0 !important; gap: 10px !important; overflow: hidden !important; align-items: stretch !important; box-sizing: border-box !important;";
-        }
-        if (lessonPanel) {
-            const panelW = window.innerWidth <= 1366 ? "clamp(235px, 25vw, 300px)" : "clamp(260px, 24vw, 345px)";
-            lessonPanel.style.cssText = `display: ${showLessonPanel ? 'flex' : 'none'} !important; flex-direction: column !important; flex: 0 0 ${panelW} !important; width: ${panelW} !important; height: 100% !important; max-height: 100% !important; min-height: 0 !important; overflow-y: auto !important; overflow-x: hidden !important; padding: 12px 14px !important; border-radius: 16px !important; box-sizing: border-box !important; margin: 0 !important;`;
-        }
-        if (editorPanel) {
-            editorPanel.style.cssText = "flex: 1.15 1 0% !important; min-width: 0 !important; height: 100% !important; max-height: 100% !important; min-height: 0 !important; display: flex !important; flex-direction: column !important; overflow: hidden !important; padding: 0 !important; border-radius: 16px !important; position: relative !important; box-sizing: border-box !important; margin: 0 !important;";
-        }
-        if (outputPanel) {
-            outputPanel.style.cssText = "flex: 0.95 1 0% !important; min-width: 0 !important; height: 100% !important; max-height: 100% !important; min-height: 0 !important; display: flex !important; flex-direction: column !important; overflow: hidden !important; padding: 0 !important; border-radius: 16px !important; box-sizing: border-box !important; margin: 0 !important;";
-        }
-    } else {
-        // Mobil ve Küçük Tabletler (<= 820px)
-        ideView.style.cssText = "position: relative !important; width: 100% !important; max-width: 100% !important; height: auto !important; max-height: none !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; display: flex !important; flex-direction: column !important;";
-        if (ideContainer) {
-            ideContainer.style.cssText = "display: flex !important; flex-direction: column !important; width: 100% !important; height: auto !important; gap: 12px !important; overflow: visible !important;";
-        }
-        if (lessonPanel) {
-            lessonPanel.style.cssText = `display: ${showLessonPanel ? 'flex' : 'none'} !important; flex-direction: column !important; width: 100% !important; max-width: 100% !important; height: auto !important; max-height: none !important; overflow-y: visible !important; padding: 14px !important; border-radius: 16px !important; box-sizing: border-box !important;`;
-        }
-        if (editorPanel) {
-            editorPanel.style.cssText = "width: 100% !important; max-width: 100% !important; height: 380px !important; min-height: 330px !important; display: flex !important; flex-direction: column !important; overflow: hidden !important; padding: 0 !important; border-radius: 16px !important; position: relative !important; box-sizing: border-box !important;";
-        }
-        if (outputPanel) {
-            outputPanel.style.cssText = "width: 100% !important; max-width: 100% !important; height: 340px !important; min-height: 280px !important; display: flex !important; flex-direction: column !important; overflow: hidden !important; padding: 0 !important; border-radius: 16px !important; box-sizing: border-box !important;";
-        }
+    if (ideView) ideView.style.cssText = "";
+    if (ideContainer) ideContainer.style.cssText = "";
+    if (editorPanel) editorPanel.style.cssText = "";
+    if (outputPanel) outputPanel.style.cssText = "";
+    if (lessonPanel) {
+        lessonPanel.style.cssText = "";
+        lessonPanel.style.display = showLessonPanel ? "flex" : "none";
     }
 }
 
@@ -1611,7 +1582,7 @@ window.addEventListener("resize", () => {
             renderRoadmap();
         }
         if (document.getElementById("view-ide") && !document.getElementById("view-ide").classList.contains("hidden")) {
-            applyResponsiveIdeLayout(currentActiveView !== 'ide-sandbox');
+            applyResponsiveIdeLayout(true);
         }
     }, 100);
 });
@@ -1621,8 +1592,8 @@ let hasRunCurrentCode = false;
 function formatLessonProseHtml(rawText) {
     if (!rawText) return "";
     const allowedTags = [];
-    const placeholderText = String(rawText).replace(/<\/?(strong|b|em|i|code|br)\s*\/?>/gi, (match) => {
-        allowedTags.push(match);
+    const placeholderText = String(rawText).replace(/<br\s*\/?>/gi, (match) => {
+        allowedTags.push("<br>");
         return `__SAFE_TAG_${allowedTags.length - 1}__`;
     });
     let escaped = escapeHtml(placeholderText).replace(
@@ -1634,6 +1605,7 @@ function formatLessonProseHtml(rawText) {
 }
 
 function startLesson(id) {
+    window._inStartLesson = true;
     currentLessonId = id;
     try {
         localStorage.setItem("codplus_active_lesson_id", String(id));
@@ -1653,7 +1625,10 @@ function startLesson(id) {
         courseData = setCourseDataForLang(langKey);
     }
     const lesson = courseData.find(l => l.id === id) || courseData[0];
-    if (!lesson) return;
+    if (!lesson) {
+        window._inStartLesson = false;
+        return;
+    }
     currentLessonId = lesson.id;
     
     const isMiniProject = !!(lesson.isMiniProject || (lesson.title && lesson.title.includes("MİNİ PROJE")) || (lesson.title && lesson.title.includes("BİTİRME PROJESİ")));
@@ -1769,6 +1744,7 @@ function startLesson(id) {
 
     switchSandboxLang(targetSandboxLang, lesson.initialCode, true);
     applyResponsiveIdeLayout(true);
+    window._inStartLesson = false;
 }
 
 // --- AKTİF DİL ROZETİ VE DİL DEĞİŞTİRME UYARI MODALI ---
@@ -6456,7 +6432,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         } else {
             startApp();
-            if (savedView === 'ide') {
+            if (savedView === 'ide' || savedView === 'ide-sandbox') {
                 const savedLessonId = parseInt(localStorage.getItem("codplus_active_lesson_id"), 10) || unlockedLevel || 1;
                 startLesson(savedLessonId);
             } else if (savedView) {
