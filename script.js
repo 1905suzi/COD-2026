@@ -176,11 +176,18 @@ function toggleMentorRegistrationFields(prefix) {
 
 function applyRoleUI(role) {
     const isMentor = (role === 'danisman');
+    const studentNavIds = ["nav-btn-map", "nav-btn-ide", "nav-btn-book", "nav-btn-duel", "chat-invite-duel-btn"];
     const studentOnlyEls = document.querySelectorAll(".nav-student-only");
     
     if (isMentor) {
         document.body.classList.add("mentor-mode");
-        studentOnlyEls.forEach(el => { el.style.display = "none"; });
+        studentNavIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.style.setProperty("display", "none", "important");
+        });
+        studentOnlyEls.forEach(el => {
+            el.style.setProperty("display", "none", "important");
+        });
         
         const tasksBadge = document.getElementById("tasks-nav-badge");
         if (tasksBadge) tasksBadge.style.display = "block";
@@ -190,9 +197,34 @@ function applyRoleUI(role) {
             mentorBadge.innerText = (userProfile && userProfile.mentorProfile && userProfile.mentorProfile.field) ? 
                 `Mentör: ${userProfile.mentorProfile.field}` : "Mentör & Danışman Paneli";
         }
+
+        // Eğer öğrenci ekranlarından biri (harita, ide, el kitabı) açıksa derhal kapat ve projeleri göster
+        const projView = document.getElementById("view-projects");
+        const tasksView = document.getElementById("view-tasks");
+        const isMentorPanelVisible = (projView && !projView.classList.contains("hidden")) || (tasksView && !tasksView.classList.contains("hidden"));
+        if (!isMentorPanelVisible) {
+            ["view-map", "view-ide", "view-book"].forEach(vid => {
+                const v = document.getElementById(vid);
+                if (v) v.classList.add("hidden");
+            });
+            if (projView) {
+                projView.classList.remove("hidden");
+                const navs = document.querySelectorAll(".nav-item");
+                navs.forEach(n => n.classList.remove("active"));
+                const projNav = document.getElementById("nav-btn-projects");
+                if (projNav) projNav.classList.add("active");
+                if (typeof renderProjects === "function") renderProjects();
+            }
+        }
     } else {
         document.body.classList.remove("mentor-mode");
-        studentOnlyEls.forEach(el => { el.style.display = ""; });
+        studentNavIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.style.removeProperty("display");
+        });
+        studentOnlyEls.forEach(el => {
+            el.style.removeProperty("display");
+        });
     }
 
     updateMentorQuickToggleBtn();
@@ -6268,11 +6300,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const savedView = localStorage.getItem("codplus_active_view") || (userProfile.role === 'danisman' ? 'projects' : 'map');
         if (userProfile.role === 'danisman') {
             startMentorApp();
+            if (savedView === 'projects' || savedView === 'tasks') {
+                switchView(savedView);
+            } else {
+                switchView('projects');
+            }
         } else {
             startApp();
-        }
-        if (savedView) {
-            switchView(savedView);
+            if (savedView) {
+                switchView(savedView);
+            }
         }
     }
 });

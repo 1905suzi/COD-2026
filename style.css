@@ -1890,7 +1890,14 @@ body {
 }
 
 /* Mentör Arayüzü Modu */
-body.mentor-mode .nav-student-only {
+body.mentor-mode .nav-student-only,
+body.mentor-mode #nav-btn-map,
+body.mentor-mode #nav-btn-ide,
+body.mentor-mode #nav-btn-book,
+body.mentor-mode #nav-btn-duel,
+body.mentor-mode #view-map,
+body.mentor-mode #view-ide,
+body.mentor-mode #view-book {
     display: none !important;
 }
 
