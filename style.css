@@ -460,9 +460,10 @@ body {
     position: relative;
 }
 
-/* IDE Ders Ekranı Açıkken Dengeli, Orantılı ve Ekrana Tam Sığan Yerleşim */
+/* IDE & Ders Ekranı Açıkken Dengeli, Orantılı ve Ekrana Tam Sığan Yerleşim */
 @media (min-width: 821px) {
-    .main-content:has(#view-ide:not(.hidden)) {
+    .main-content:has(#view-ide:not(.hidden)),
+    .main-content:has(#view-lesson:not(.hidden)) {
         padding: 16px 24px !important;
         height: 100vh !important;
         height: 100dvh !important;
@@ -472,7 +473,8 @@ body {
         justify-content: center !important;
     }
 
-    #view-ide:not(.hidden) {
+    #view-ide:not(.hidden),
+    #view-lesson:not(.hidden) {
         position: relative !important;
         max-width: 1280px !important;
         width: 100% !important;
@@ -486,7 +488,8 @@ body {
         display: flex !important;
         flex-direction: column !important;
     }
-    #view-ide.hidden {
+    #view-ide.hidden,
+    #view-lesson.hidden {
         display: none !important;
     }
 }
@@ -2006,10 +2009,12 @@ body {
 /* Mentör Arayüzü Modu */
 body.mentor-mode .nav-student-only,
 body.mentor-mode #nav-btn-map,
+body.mentor-mode #nav-btn-lesson,
 body.mentor-mode #nav-btn-ide,
 body.mentor-mode #nav-btn-book,
 body.mentor-mode #nav-btn-duel,
 body.mentor-mode #view-map,
+body.mentor-mode #view-lesson,
 body.mentor-mode #view-ide,
 body.mentor-mode #view-book {
     display: none !important;
@@ -2517,7 +2522,8 @@ body.mentor-mode #view-book {
 
 /* 1B. TABLET VE DAR EKRANLARDA IDE DİKEY YERLEŞİMİ (max-width: 820px) */
 @media (max-width: 820px) {
-    #view-ide {
+    #view-ide,
+    #view-lesson {
         position: relative !important;
         top: auto !important;
         left: auto !important;

@@ -1106,8 +1106,8 @@ let currentActiveView = 'map';
 let previousActiveView = 'map';
 
 function switchView(viewName) {
-    // Danışman modundayken öğrenci ekranlarına (harita, ide, el kitabı) girilmesini engelle
-    if (userProfile && userProfile.role === 'danisman' && (viewName === 'map' || viewName === 'ide' || viewName === 'ide-sandbox' || viewName === 'book')) {
+    // Danışman modundayken öğrenci ekranlarına (harita, lesson, ide, el kitabı) girilmesini engelle
+    if (userProfile && userProfile.role === 'danisman' && (viewName === 'map' || viewName === 'lesson' || viewName === 'ide' || viewName === 'ide-sandbox' || viewName === 'book')) {
         viewName = 'projects';
     }
 
@@ -1126,72 +1126,51 @@ function switchView(viewName) {
     const panels = document.querySelectorAll(".view-panel");
     panels.forEach(p => {
         p.classList.add("hidden");
-        if (p.id === "view-ide") {
-            p.style.cssText = "";
-        }
     });
     
     const navs = document.querySelectorAll(".nav-item");
     navs.forEach(n => n.classList.remove("active"));
     
+    const target = document.getElementById(`view-${viewName}`);
+    if (target) target.classList.remove("hidden");
+    
+    const navBtn = document.getElementById(`nav-btn-${viewName}`);
+    if (navBtn) navBtn.classList.add("active");
+
     if (viewName === 'ide') {
-        const idePanel = document.getElementById('view-ide');
-        if (idePanel) {
-            idePanel.style.cssText = "";
-            idePanel.classList.remove("hidden");
+        // Bireysel Kod Deneme (Web IDE): Tüm dillerin sekmelerini göster ve serbest editörü yükle
+        const tabs = document.querySelectorAll("#sandbox-lang-tabs .ide-tab");
+        tabs.forEach(tab => {
+            tab.style.display = "inline-flex";
+        });
+        if (typeof switchSandboxLang === 'function') {
+            switchSandboxLang(activeSandboxLang || 'HTML');
         }
-        const lessonPanel = document.querySelector('.ide-lesson-panel');
-        if (lessonPanel) {
-            lessonPanel.style.cssText = "";
-            lessonPanel.style.display = 'flex';
-        }
-        const ideNav = document.getElementById('nav-btn-ide');
-        if (ideNav) ideNav.classList.add("active");
-
-        const theoryTextEl = document.getElementById("theory-text");
-        if (!window._inStartLesson && (!theoryTextEl || !theoryTextEl.innerText.trim())) {
-            const fallbackId = currentLessonId || parseInt(localStorage.getItem("codplus_active_lesson_id"), 10) || unlockedLevel || 1;
-            startLesson(fallbackId);
-            return;
-        }
+        applyResponsiveIdeLayout(false);
+    } else if (viewName === 'lesson') {
         applyResponsiveIdeLayout(true);
-    } else {
-        const target = document.getElementById(`view-${viewName}`);
-        if(target) target.classList.remove("hidden");
-        
-        const navBtn = document.getElementById(`nav-btn-${viewName}`);
-        if (navBtn) navBtn.classList.add("active");
-
-        if(viewName === 'map') {
-            const roadmapPath = document.getElementById("roadmap-path");
-            if (!roadmapPath || roadmapPath.children.length === 0 || !courseData || courseData.length === 0) {
-                const currentLangKey = getLanguageKey(selectedLang || (userProfile && userProfile.selectedLanguage) || 'html');
-                if (typeof setCourseDataForLang === 'function') {
-                    courseData = setCourseDataForLang(currentLangKey);
-                }
-                updateActiveLanguageBadge();
-                renderRoadmap();
-            } else {
-                setTimeout(() => {
-                    drawCurvedRoadmapPath();
-                    scrollToActiveLesson();
-                }, 80);
-            }
+    } else if (viewName === 'map') {
+        const currentLangKey = getLanguageKey(selectedLang || (userProfile && userProfile.selectedLanguage) || 'html');
+        if (typeof setCourseDataForLang === 'function') {
+            courseData = setCourseDataForLang(currentLangKey);
         }
-        if(viewName === 'book') {
-            if (currentPdfLang) {
-                renderPdfBook(currentPdfLang);
-            } else {
-                closePdfReader();
-            }
+        updateActiveLanguageBadge();
+        renderRoadmap();
+        setTimeout(() => {
+            scrollToActiveLesson(currentLessonId || unlockedLevel);
+        }, 120);
+    } else if (viewName === 'book') {
+        if (currentPdfLang) {
+            renderPdfBook(currentPdfLang);
+        } else {
+            closePdfReader();
         }
-        if(viewName === 'projects') {
-            renderProjects();
-        }
-        if(viewName === 'tasks') {
-            renderTasks();
-        }
+    } else if (viewName === 'projects') {
+        renderProjects();
+    } else if (viewName === 'tasks') {
+        renderTasks();
     }
+
     updateMentorQuickToggleBtn();
 }
 
@@ -1470,43 +1449,35 @@ function renderRoadmap() {
 }
 
 // Haritada kullanıcının kaldığı / aktif ders düğümüne otomatik yumuşak kaydırma
-function scrollToActiveLesson() {
+function scrollToActiveLesson(targetId = null) {
     const mapPanel = document.getElementById("view-map");
-    if (!mapPanel || mapPanel.classList.contains("hidden") || currentActiveView !== 'map') return;
+    if (!mapPanel || mapPanel.classList.contains("hidden")) return;
 
-    const activeNode = document.querySelector(".duo-node-row[data-active='true']") || document.getElementById(`duo-row-${unlockedLevel}`);
-    const mainContent = document.querySelector(".main-content");
-    if (activeNode && mainContent) {
-        const nodeRect = activeNode.getBoundingClientRect();
-        const mainRect = mainContent.getBoundingClientRect();
-        const targetScrollTop = mainContent.scrollTop + (nodeRect.top - mainRect.top) - (mainRect.height / 2) + (nodeRect.height / 2);
-        mainContent.scrollTo({ top: Math.max(0, targetScrollTop), behavior: 'smooth' });
-    }
+    const lessonNum = targetId || currentLessonId || unlockedLevel || 1;
+    const doScroll = () => {
+        const targetRow = document.getElementById(`duo-row-${lessonNum}`) || 
+                          document.querySelector(`.duo-node-row[data-lesson-id="${lessonNum}"]`) ||
+                          document.querySelector(".duo-node-row[data-active='true']");
+        if (targetRow) {
+            targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    };
+    setTimeout(doScroll, 80);
+    setTimeout(doScroll, 220);
 }
 
-function applyResponsiveIdeLayout(showLessonPanel = true) {
+function applyResponsiveIdeLayout(isLessonMode = false) {
+    const lessonView = document.getElementById("view-lesson");
     const ideView = document.getElementById("view-ide");
-    const ideContainer = document.querySelector("#view-ide .ide-container");
-    const lessonPanel = document.querySelector("#view-ide .ide-lesson-panel");
-    const editorPanel = document.querySelector("#view-ide .ide-editor-panel");
-    const outputPanel = document.querySelector("#view-ide .ide-output-panel");
-    const mainContent = document.querySelector(".main-content");
     const dashboard = document.getElementById("dashboard");
+    const mainContent = document.querySelector(".main-content");
 
     if (window.scrollTo) window.scrollTo(0, 0);
     if (document.documentElement) document.documentElement.scrollTop = 0;
     if (document.body) document.body.scrollTop = 0;
     if (dashboard) dashboard.scrollTop = 0;
-    if (mainContent) mainContent.scrollTop = 0;
-    if (lessonPanel) lessonPanel.scrollTop = 0;
-
-    if (ideView) ideView.style.cssText = "";
-    if (ideContainer) ideContainer.style.cssText = "";
-    if (editorPanel) editorPanel.style.cssText = "";
-    if (outputPanel) outputPanel.style.cssText = "";
-    if (lessonPanel) {
-        lessonPanel.style.cssText = "";
-        lessonPanel.style.display = showLessonPanel ? "flex" : "none";
+    if (mainContent && (isLessonMode || (ideView && !ideView.classList.contains("hidden")))) {
+        mainContent.scrollTop = 0;
     }
 }
 
@@ -1614,7 +1585,7 @@ function startLesson(id) {
     hasRunCurrentCode = false; // Kod çalıştırma durumunu sıfırla
 
     // Önceki dersten kalan Yapay Zeka Satır Satır Analiz kutusunu temizle ve gizle
-    const aiLinesBox = document.getElementById("output-ai-lines");
+    const aiLinesBox = document.getElementById("lesson-output-ai-lines");
     if (aiLinesBox) {
         aiLinesBox.style.display = "none";
         aiLinesBox.innerHTML = "";
@@ -1633,8 +1604,11 @@ function startLesson(id) {
     
     const isMiniProject = !!(lesson.isMiniProject || (lesson.title && lesson.title.includes("MİNİ PROJE")) || (lesson.title && lesson.title.includes("BİTİRME PROJESİ")));
 
-    document.getElementById("theory-title").innerText = lesson.title;
-    document.getElementById("theory-text").innerHTML = `<p style="margin:0;">${formatLessonProseHtml(lesson.theory)}</p>`;
+    const titleEl = document.getElementById("theory-title");
+    if (titleEl) titleEl.innerText = lesson.title;
+
+    const textEl = document.getElementById("theory-text");
+    if (textEl) textEl.innerHTML = `<p style="margin:0;">${formatLessonProseHtml(lesson.theory)}</p>`;
     
     const previewEl = document.getElementById("theory-code-preview");
     if (isMiniProject) {
@@ -1643,7 +1617,7 @@ function startLesson(id) {
     } else {
         if (previewEl) {
             previewEl.style.display = "block";
-            previewEl.innerHTML = `<code>${escapeHtml(lesson.theoryCode)}</code>`;
+            previewEl.innerHTML = `<code>${escapeHtml(lesson.theoryCode || '')}</code>`;
         }
     }
 
@@ -1687,7 +1661,7 @@ function startLesson(id) {
     }
 
     // Mini Test Kutusu: Mini projelerde test sorusu GÖSTERİLMEZ!
-    const quizBox = document.querySelector(".quiz-box");
+    const quizBox = document.querySelector("#view-lesson .quiz-box") || document.querySelector(".quiz-box");
     if (isMiniProject) {
         if (quizBox) quizBox.style.display = "none";
     } else {
@@ -1713,38 +1687,172 @@ function startLesson(id) {
         }
     }
     
-    document.getElementById("code-editor").value = lesson.initialCode;
-    
-    // Doğrudan IDE'yi ilgili dille aç
-    switchView('ide');
-    const rawLang = (lesson.lang || selectedLang || 'HTML').toLowerCase();
-    let targetSandboxLang = 'HTML';
-    if (rawLang.includes('python')) targetSandboxLang = 'Python';
-    else if (rawLang.includes('sql')) targetSandboxLang = 'SQL';
-    else if (rawLang.includes('c#') || rawLang.includes('csharp')) targetSandboxLang = 'CSharp';
-    else if (rawLang.includes('c++') || rawLang.includes('cpp')) targetSandboxLang = 'CPP';
-    else if (rawLang.includes('js') || rawLang.includes('javascript')) targetSandboxLang = 'JavaScript';
-    else targetSandboxLang = 'HTML';
-    
-    // DERS MODU KORUMASI: Sadece mevcut dersin diline ait sekmeyi göster, diğer yabancı dilleri (index.html, script.js vs.) gizle!
-    const tabs = document.querySelectorAll("#sandbox-lang-tabs .ide-tab");
-    tabs.forEach(tab => {
-        const tLang = tab.getAttribute("data-sandbox-lang");
-        if (tLang === targetSandboxLang) {
-            tab.style.display = "inline-flex";
-            tab.classList.add("active");
-            tab.style.background = "rgba(30,41,59,0.9)";
-            tab.style.color = "#ffffff";
-            tab.style.fontWeight = "600";
-        } else {
-            tab.style.display = "none";
-            tab.classList.remove("active");
-        }
-    });
+    // Ders Kod Editörünü doldur
+    const lessonEditor = document.getElementById("lesson-code-editor");
+    if (lessonEditor) {
+        lessonEditor.value = lesson.initialCode || "";
+    }
+    const mainEditor = document.getElementById("code-editor");
+    if (mainEditor) {
+        mainEditor.value = lesson.initialCode || "";
+    }
 
-    switchSandboxLang(targetSandboxLang, lesson.initialCode, true);
-    applyResponsiveIdeLayout(true);
+    // Ders adım rozeti ve dosya adı rozeti
+    const stepBadge = document.getElementById("lesson-step-badge");
+    if (stepBadge) {
+        stepBadge.innerText = `Ders ${lesson.id} / ${courseData.length || 30}`;
+    }
+
+    const filenameText = document.getElementById("lesson-filename-text");
+    const langFilenameMap = {
+        'html': 'index.html',
+        'css': 'style.css',
+        'javascript': 'script.js',
+        'python': 'main.py',
+        'csharp': 'Program.cs',
+        'sql': 'query.sql',
+        'cpp': 'main.cpp'
+    };
+    if (filenameText) {
+        filenameText.innerText = langFilenameMap[langKey] || `${langKey}.code`;
+    }
+
+    // Doğrudan Sonraki Derse Geçiş Butonu
+    const nextDirectBtn = document.getElementById("lesson-direct-next-btn");
+    const nextLesson = courseData.find(l => l.id > lesson.id);
+    if (nextDirectBtn) {
+        if (nextLesson) {
+            nextDirectBtn.style.display = "inline-flex";
+            nextDirectBtn.innerHTML = `Sonraki (${nextLesson.id}) <i class="fa-solid fa-arrow-right"></i>`;
+        } else {
+            nextDirectBtn.style.display = "none";
+        }
+    }
+
+    // İnteraktif Ders Ekranına geç
+    switchView('lesson');
+    runLessonCode();
     window._inStartLesson = false;
+}
+
+// İnteraktif Ders Kodunu Çalıştır
+function runLessonCode() {
+    hasRunCurrentCode = true;
+    const aiLinesBox = document.getElementById("lesson-output-ai-lines");
+    if (aiLinesBox) aiLinesBox.style.display = "none";
+
+    const editor = document.getElementById("lesson-code-editor") || document.getElementById("code-editor");
+    if (!editor) return;
+    const code = editor.value;
+
+    const outputFrame = document.getElementById("lesson-output-frame");
+    const outputConsole = document.getElementById("lesson-output-console");
+    const outputBadge = document.getElementById("lesson-output-badge");
+    const outputTitle = document.getElementById("lesson-output-title");
+
+    const langKey = getLanguageKey(selectedLang || (userProfile && userProfile.selectedLanguage) || 'html');
+
+    if (langKey === 'html' || langKey === 'css') {
+        if (outputFrame) outputFrame.style.display = "block";
+        if (outputConsole) outputConsole.style.display = "none";
+        if (outputBadge) {
+            outputBadge.innerText = "HTML/CSS Live";
+            outputBadge.style.color = "#38bdf8";
+            outputBadge.style.background = "rgba(56,189,248,0.15)";
+        }
+        if (outputTitle) outputTitle.innerText = "Canlı Web Görünümü";
+
+        if (outputFrame) {
+            const frameDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+            frameDoc.open();
+            frameDoc.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="utf-8">
+                    <style>
+                        body { font-family: system-ui, -apple-system, sans-serif; padding: 12px; color: #1e293b; background: #ffffff; }
+                    </style>
+                </head>
+                <body>
+                    ${code}
+                </body>
+                </html>
+            `);
+            frameDoc.close();
+        }
+    } else {
+        if (outputFrame) outputFrame.style.display = "none";
+        if (outputConsole) outputConsole.style.display = "block";
+        if (outputBadge) {
+            outputBadge.innerText = `${langKey.toUpperCase()} Console`;
+            outputBadge.style.color = "#4ade80";
+            outputBadge.style.background = "rgba(74,222,128,0.15)";
+        }
+        if (outputTitle) outputTitle.innerText = "Terminal / Konsol";
+
+        if (outputConsole) {
+            if (langKey === 'javascript') {
+                runJavaScriptSandbox(code, outputConsole);
+            } else if (langKey === 'python') {
+                runPythonSandbox(code, outputConsole);
+            } else if (langKey === 'csharp') {
+                runCSharpSandbox(code, outputConsole);
+            } else if (langKey === 'sql') {
+                runSQLSandbox(code, outputConsole);
+            } else if (langKey === 'cpp') {
+                runCPPSandbox(code, outputConsole);
+            }
+        }
+    }
+}
+
+// Ders Ekranı İçin Yapay Zeka Satır Satır Analiz
+function explainCurrentLessonCode() {
+    const editor = document.getElementById("lesson-code-editor") || document.getElementById("code-editor");
+    const frame = document.getElementById("lesson-output-frame");
+    const consoleBox = document.getElementById("lesson-output-console");
+    const aiLinesBox = document.getElementById("lesson-output-ai-lines");
+    const badge = document.getElementById("lesson-output-badge");
+    const title = document.getElementById("lesson-output-title");
+
+    if (!editor || !aiLinesBox) return;
+
+    const code = editor.value.trim();
+    if (!code) {
+        alert("Lütfen önce editöre açıklanmasını istediğiniz bir kod yazın.");
+        return;
+    }
+
+    if (frame) frame.style.display = "none";
+    if (consoleBox) consoleBox.style.display = "none";
+    aiLinesBox.style.display = "block";
+
+    if (title) title.innerText = "Yapay Zeka Satır Satır Analiz";
+    if (badge) {
+        badge.innerText = "AI Inspector";
+        badge.style.background = "rgba(168,85,247,0.15)";
+        badge.style.color = "#c084fc";
+    }
+
+    aiLinesBox.innerHTML = `<div style="text-align:center; padding:24px; color:#38bdf8;"><i class="fa-solid fa-spinner fa-spin fa-2x"></i><br><br>Yapay zeka ders kodunuzu inceliyor ve açıklamaları hazırlıyor...</div>`;
+
+    const langKey = getLanguageKey(selectedLang || (userProfile && userProfile.selectedLanguage) || 'html');
+    setTimeout(() => {
+        aiLinesBox.innerHTML = analyzeCodeLineByLine(code, langKey);
+    }, 250);
+}
+
+// Dersten Haritaya Çıkış ve Kaldığı Yerde Odaklanma
+function exitLessonToMap() {
+    switchView('map');
+    scrollToActiveLesson(currentLessonId || unlockedLevel);
+}
+
+// Menüden İnteraktif Ders Ekranını Açma
+function openCurrentLessonView() {
+    const targetId = currentLessonId || unlockedLevel || 1;
+    startLesson(targetId);
 }
 
 // --- AKTİF DİL ROZETİ VE DİL DEĞİŞTİRME UYARI MODALI ---
@@ -2699,7 +2807,8 @@ function completeCurrentLesson() {
     const lesson = courseData.find(l => l.id === currentLessonId);
     
     const isMiniProject = !!(lesson.isMiniProject || (lesson.title && lesson.title.includes("MİNİ PROJE")) || (lesson.title && lesson.title.includes("BİTİRME PROJESİ")));
-    const rawEditorText = document.getElementById("code-editor").value;
+    const editorEl = document.getElementById("lesson-code-editor") || document.getElementById("code-editor");
+    const rawEditorText = editorEl ? editorEl.value : "";
     const strippedEditorText = stripCodeComments(rawEditorText, langKey);
 
     // 1. Sınav Kontrolü (Mini projelerde test sorusuyla geçilemez, kod yazılmalıdır)
@@ -2813,24 +2922,34 @@ function showCoddyCelebration(title, desc) {
 
 function goToNextLessonDirectly() {
     const modal = document.getElementById("coddy-modal");
-    if(modal) modal.classList.add("hidden");
+    if (modal) modal.classList.add("hidden");
 
-    const nextLessonId = currentLessonId + 1;
-    if (nextLessonId <= 30) {
-        startLesson(nextLessonId);
+    const langKey = getLanguageKey(selectedLang || (userProfile && userProfile.selectedLanguage) || 'html');
+    if (typeof setCourseDataForLang === 'function') {
+        courseData = setCourseDataForLang(langKey);
+    }
+    const currentId = currentLessonId || 1;
+    const nextLesson = courseData.find(l => l.id > currentId);
+
+    if (nextLesson) {
+        if (unlockedLevel < nextLesson.id) {
+            unlockedLevel = nextLesson.id;
+            saveUserProfileToStorage();
+        }
+        startLesson(nextLesson.id);
     } else {
         renderRoadmap();
         switchView('map');
-        scrollToActiveLesson();
+        scrollToActiveLesson(currentId);
     }
 }
 
 function closeCoddyModal() {
     const modal = document.getElementById("coddy-modal");
-    if(modal) modal.classList.add("hidden");
+    if (modal) modal.classList.add("hidden");
     renderRoadmap();
     switchView('map');
-    scrollToActiveLesson();
+    scrollToActiveLesson(currentLessonId || unlockedLevel);
 }
 
 function updateCoddyStats() {
