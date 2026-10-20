@@ -1134,7 +1134,7 @@ function switchView(viewName) {
     const target = document.getElementById(`view-${viewName}`);
     if (target) target.classList.remove("hidden");
     
-    const navBtn = document.getElementById(`nav-btn-${viewName}`);
+    const navBtn = document.getElementById(viewName === 'lesson' ? 'nav-btn-map' : `nav-btn-${viewName}`);
     if (navBtn) navBtn.classList.add("active");
 
     if (viewName === 'ide') {
