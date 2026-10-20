@@ -3348,6 +3348,7 @@ function logoutUser() {
     if (dash) dash.classList.add("hidden");
     if (onb) onb.classList.add("hidden");
     if (land) land.classList.remove("hidden");
+    openShowcaseView();
 
     document.body.classList.remove("mentor-mode");
     applyRoleUI('ogrenci');
@@ -6947,4 +6948,131 @@ if (document.readyState === "complete" || document.readyState === "interactive")
 
 
 
+
+
+
+// ============================================================
+// COD+ 2026 TANITIM / SHOWCASE EKRANI VE SLAYT KONTROLÜ
+// ============================================================
+let currentShowcaseSlideIndex = 0;
+let showcaseSlideTimer = null;
+
+const showcaseSpeechTexts = [
+    "İşte 7 popüler yazılım dili! Tarayıcında anında kodla, ezbercilikten kurtul 🚀",
+    "Teknofest veya TÜBİTAK projen mi var? Seviye engeli olmadan danışman hocanla hemen başla! 🎓",
+    "Tek başına kod yazmak sıkıcıdır! 1v1 düelloda arkadaşlarına meydan oku ⚔️",
+    "Hata aldığında pes etmek yok! Kodunu satır satır inceler, Türkçe açıklarım 🤖"
+];
+
+function switchShowcaseSlide(index, event) {
+    if (event) event.stopPropagation();
+    currentShowcaseSlideIndex = (index + 4) % 4;
+
+    for (let i = 0; i < 4; i++) {
+        const slide = document.getElementById('sc-slide-' + i);
+        if (slide) {
+            if (i === currentShowcaseSlideIndex) {
+                slide.classList.add("active");
+            } else {
+                slide.classList.remove("active");
+            }
+        }
+    }
+
+    const tabBtns = document.querySelectorAll(".showcase-tab-btn");
+    tabBtns.forEach((btn, i) => {
+        if (i === currentShowcaseSlideIndex) {
+            btn.classList.add("active");
+        } else {
+            btn.classList.remove("active");
+        }
+    });
+
+    const dots = document.querySelectorAll(".sc-dot");
+    dots.forEach((dot, i) => {
+        if (i === currentShowcaseSlideIndex) {
+            dot.classList.add("active");
+        } else {
+            dot.classList.remove("active");
+        }
+    });
+
+    const speechEl = document.getElementById("showcase-robot-speech");
+    if (speechEl && showcaseSpeechTexts[currentShowcaseSlideIndex]) {
+        speechEl.style.opacity = '0';
+        setTimeout(() => {
+            speechEl.innerText = showcaseSpeechTexts[currentShowcaseSlideIndex];
+            speechEl.style.opacity = '1';
+        }, 150);
+    }
+
+    restartShowcaseTimer();
+}
+
+function nextShowcaseSlide(event) {
+    if (event) event.stopPropagation();
+    switchShowcaseSlide(currentShowcaseSlideIndex + 1, event);
+}
+
+function prevShowcaseSlide(event) {
+    if (event) event.stopPropagation();
+    switchShowcaseSlide(currentShowcaseSlideIndex - 1, event);
+}
+
+function startShowcaseTimer() {
+    stopShowcaseTimer();
+    showcaseSlideTimer = setInterval(() => {
+        const showcaseView = document.getElementById("landing-showcase-view");
+        if (showcaseView && showcaseView.style.display !== 'none') {
+            nextShowcaseSlide();
+        }
+    }, 6000);
+}
+
+function stopShowcaseTimer() {
+    if (showcaseSlideTimer) {
+        clearInterval(showcaseSlideTimer);
+        showcaseSlideTimer = null;
+    }
+}
+
+function restartShowcaseTimer() {
+    startShowcaseTimer();
+}
+
+function openAuthView(event) {
+    if (event) event.stopPropagation();
+    stopShowcaseTimer();
+    const showcaseView = document.getElementById("landing-showcase-view");
+    const authView = document.getElementById("landing-auth-view");
+    if (showcaseView) showcaseView.style.display = "none";
+    if (authView) {
+        authView.style.display = "flex";
+        authView.style.animation = "fadeInScale 0.35s ease forwards";
+    }
+}
+
+function openShowcaseView() {
+    const showcaseView = document.getElementById("landing-showcase-view");
+    const authView = document.getElementById("landing-auth-view");
+    if (authView) authView.style.display = "none";
+    if (showcaseView) {
+        showcaseView.style.display = "flex";
+        showcaseView.style.animation = "fadeInScale 0.35s ease forwards";
+    }
+    startShowcaseTimer();
+}
+
+function handleShowcaseGlobalClick(event) {
+    // Eğer tıklanan yer tab butonları, yön butonları veya nokta göstergeleri değilse giriş ekranına yönlendir
+    if (event.target.closest('.showcase-tab-btn, .sc-nav-btn, .sc-dot')) {
+        return;
+    }
+    openAuthView(event);
+}
+
+// Otomatik slayt rotasyonunu başlat
+if (typeof window !== 'undefined') {
+    startShowcaseTimer();
+}
 

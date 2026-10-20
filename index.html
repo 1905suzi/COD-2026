@@ -35,6 +35,397 @@
     </div>
 
     <section id="landing">
+
+        <!-- 1. TANITIM / SHOWCASE EKRANI (Ana Karşılama) -->
+        <div id="landing-showcase-view" class="landing-showcase-container" onclick="handleShowcaseGlobalClick(event)">
+            <!-- Top brand header -->
+            <div class="showcase-header">
+                <div class="showcase-badge">
+                    <span class="pulse-dot"></span> 2026 GELECEK NESİL YAZILIM & PROJE EKOSİSTEMİ
+                </div>
+                <h1 class="showcase-title">COD<span>+</span> İle Geleceğin Kodlama Dünyasını Keşfet</h1>
+                <p class="showcase-subtitle">Tarayıcıda 7 Canlı Dil • Danışmanlı Proje Ekosistemi • 1v1 Akran Düelloları • Yapay Zeka Coddy Mentör</p>
+            </div>
+
+            <!-- Showcase Stage: Robot Presenter + Interactive Presentation Board -->
+            <div class="showcase-stage">
+                <!-- Sol Kolon: Sunum Yapan Robot Mascot -->
+                <div class="showcase-robot-side">
+                    <!-- Robot Speech Bubble -->
+                    <div class="showcase-speech-bubble" id="showcase-speech-bubble">
+                        <div class="speech-sparkle"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                        <div class="speech-header">Coddy <span>Mentör</span></div>
+                        <p id="showcase-robot-speech">COD+'a hoş geldin! Sana platformun 4 süper gücünü tanıtayım 🚀</p>
+                    </div>
+
+                    <!-- Sunum Yapan COD+ Cyber Robot -->
+                    <div class="cute-robot-wrap showcase-robot-wrap">
+                        <svg class="cute-robot showcase-robot" width="240" height="280" viewBox="0 0 220 260" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="cRoboBody" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#ffffff"/>
+                                    <stop offset="100%" stop-color="#e2e8f0"/>
+                                </linearGradient>
+                                <linearGradient id="cRoboDark" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#1e293b"/>
+                                    <stop offset="100%" stop-color="#0f172a"/>
+                                </linearGradient>
+                                <linearGradient id="cRoboVisor" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#090d16"/>
+                                    <stop offset="100%" stop-color="#0f172a"/>
+                                </linearGradient>
+                                <linearGradient id="cRoboCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#00f2fe"/>
+                                    <stop offset="100%" stop-color="#38bdf8"/>
+                                </linearGradient>
+                                <filter id="cRoboCyanGlow" x="-30%" y="-30%" width="160%" height="160%">
+                                    <feGaussianBlur stdDeviation="4" result="blur"/>
+                                    <feMerge>
+                                        <feMergeNode in="blur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                                <filter id="cRoboShadow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.35"/>
+                                </filter>
+                            </defs>
+                            
+                            <!-- Ground Shadow -->
+                            <ellipse cx="110" cy="246" rx="55" ry="9" fill="rgba(0,0,0,0.3)" class="robo-floor-shadow"/>
+
+                            <!-- Whole Floating Group -->
+                            <g class="robo-float-group">
+                                <!-- Antenna / Sensor -->
+                                <rect x="107" y="16" width="6" height="20" rx="3" fill="#64748b"/>
+                                <circle cx="110" cy="14" r="7" fill="url(#cRoboCyan)" filter="url(#cRoboCyanGlow)"/>
+                                <circle cx="110" cy="14" r="3" fill="#ffffff"/>
+
+                                <!-- Left Headphone -->
+                                <rect x="36" y="62" width="12" height="36" rx="6" fill="url(#cRoboDark)" stroke="#334155" stroke-width="1.5" filter="url(#cRoboShadow)"/>
+                                <rect x="44" y="68" width="4" height="24" rx="2" fill="url(#cRoboCyan)" filter="url(#cRoboCyanGlow)"/>
+
+                                <!-- Right Headphone -->
+                                <rect x="172" y="62" width="12" height="36" rx="6" fill="url(#cRoboDark)" stroke="#334155" stroke-width="1.5" filter="url(#cRoboShadow)"/>
+                                <rect x="172" y="68" width="4" height="24" rx="2" fill="url(#cRoboCyan)" filter="url(#cRoboCyanGlow)"/>
+
+                                <!-- Head Shell -->
+                                <rect x="46" y="34" width="128" height="92" rx="44" fill="url(#cRoboBody)" filter="url(#cRoboShadow)" stroke="#cbd5e1" stroke-width="2"/>
+
+                                <!-- Top Helmet Cyan Accent Strip -->
+                                <path d="M 85 35 Q 110 32 135 35" fill="none" stroke="url(#cRoboCyan)" stroke-width="3" stroke-linecap="round" filter="url(#cRoboCyanGlow)"/>
+
+                                <!-- Curved Gloss Visor -->
+                                <rect x="58" y="48" width="104" height="66" rx="30" fill="url(#cRoboVisor)" stroke="#1e293b" stroke-width="2"/>
+                                
+                                <!-- Visor Light Reflection -->
+                                <path d="M 68 56 Q 110 49 152 56 A 25 25 0 0 0 68 56 Z" fill="rgba(255,255,255,0.08)"/>
+
+                                <!-- High-Tech LED Eyes -->
+                                <g class="robo-eyes">
+                                    <rect x="74" y="66" width="22" height="26" rx="11" fill="url(#cRoboCyan)" filter="url(#cRoboCyanGlow)"/>
+                                    <rect x="78" y="70" width="14" height="18" rx="7" fill="#ffffff" opacity="0.9"/>
+                                    <circle cx="82" cy="74" r="3" fill="#ffffff"/>
+
+                                    <rect x="124" y="66" width="22" height="26" rx="11" fill="url(#cRoboCyan)" filter="url(#cRoboCyanGlow)"/>
+                                    <rect x="128" y="70" width="14" height="18" rx="7" fill="#ffffff" opacity="0.9"/>
+                                    <circle cx="132" cy="74" r="3" fill="#ffffff"/>
+
+                                    <path d="M 102 96 Q 110 101 118 96" fill="none" stroke="url(#cRoboCyan)" stroke-width="3" stroke-linecap="round" filter="url(#cRoboCyanGlow)"/>
+                                </g>
+
+                                <!-- Neck Connector -->
+                                <rect x="96" y="124" width="28" height="12" rx="4" fill="#334155"/>
+
+                                <!-- Left Arm -->
+                                <g class="robo-left-arm">
+                                    <circle cx="48" cy="148" r="11" fill="url(#cRoboBody)" stroke="#cbd5e1" stroke-width="1.5"/>
+                                    <rect x="41" y="152" width="14" height="34" rx="7" fill="url(#cRoboBody)" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cRoboShadow)"/>
+                                    <circle cx="48" cy="186" r="6" fill="#334155"/>
+                                </g>
+
+                                <!-- Right Arm: Sunum Yapan / Yazıları İşaret Eden Kol -->
+                                <g class="robo-right-arm showcase-presenter-arm">
+                                    <circle cx="172" cy="148" r="11" fill="url(#cRoboBody)" stroke="#cbd5e1" stroke-width="1.5"/>
+                                    <rect x="165" y="152" width="14" height="34" rx="7" fill="url(#cRoboBody)" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cRoboShadow)"/>
+                                    <circle cx="172" cy="186" r="7" fill="url(#cRoboCyan)" filter="url(#cRoboCyanGlow)"/>
+                                    <!-- Sunum Lazer / Hologram Çubuğu -->
+                                    <line x1="172" y1="186" x2="228" y2="155" stroke="url(#cRoboCyan)" stroke-width="3" stroke-linecap="round" filter="url(#cRoboCyanGlow)" class="robo-wand"/>
+                                    <circle cx="228" cy="155" r="4.5" fill="#ffffff" filter="url(#cRoboCyanGlow)" class="robo-wand-tip"/>
+                                </g>
+
+                                <!-- Torso / Body Armor -->
+                                <rect x="60" y="132" width="100" height="78" rx="26" fill="url(#cRoboBody)" filter="url(#cRoboShadow)" stroke="#cbd5e1" stroke-width="2"/>
+
+                                <!-- Chest Core (High-Tech Reactor with Code Icon </>) -->
+                                <circle cx="110" cy="168" r="22" fill="url(#cRoboVisor)" stroke="#334155" stroke-width="2"/>
+                                <circle cx="110" cy="168" r="18" fill="none" stroke="url(#cRoboCyan)" stroke-width="1.5" opacity="0.6" filter="url(#cRoboCyanGlow)"/>
+                                <path d="M 103 163 L 98 168 L 103 173 M 117 163 L 122 168 L 117 173 M 113 162 L 107 174" fill="none" stroke="url(#cRoboCyan)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#cRoboCyanGlow)" class="robo-code-core"/>
+
+                                <!-- Boots -->
+                                <rect x="80" y="206" width="20" height="22" rx="6" fill="url(#cRoboDark)" stroke="#334155" stroke-width="1.5"/>
+                                <rect x="74" y="222" width="28" height="12" rx="6" fill="url(#cRoboBody)" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cRoboShadow)"/>
+                                <rect x="78" y="232" width="20" height="3" rx="1.5" fill="url(#cRoboCyan)" filter="url(#cRoboCyanGlow)"/>
+
+                                <rect x="120" y="206" width="20" height="22" rx="6" fill="url(#cRoboDark)" stroke="#334155" stroke-width="1.5"/>
+                                <rect x="118" y="222" width="28" height="12" rx="6" fill="url(#cRoboBody)" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cRoboShadow)"/>
+                                <rect x="122" y="232" width="20" height="3" rx="1.5" fill="url(#cRoboCyan)" filter="url(#cRoboCyanGlow)"/>
+                            </g>
+                        </svg>
+
+                        <!-- Holografik Işın Efekti -->
+                        <div class="showcase-beam-glow"></div>
+                    </div>
+
+                    <!-- Mini Highlight Pills Under Robot -->
+                    <div class="showcase-robot-pills">
+                        <span class="s-pill"><i class="fa-solid fa-code"></i> 7 Canlı Dil</span>
+                        <span class="s-pill"><i class="fa-solid fa-graduation-cap"></i> Danışmanlı Proje</span>
+                        <span class="s-pill"><i class="fa-solid fa-bolt"></i> 1v1 Düello</span>
+                        <span class="s-pill"><i class="fa-solid fa-robot"></i> AI Mentör</span>
+                    </div>
+                </div>
+
+                <!-- Sağ Kolon: İnteraktif Sunum Tahtası (Presentation Board) -->
+                <div class="showcase-board-side">
+                    <!-- Kategori Tabları / Butonları -->
+                    <div class="showcase-tabs">
+                        <button type="button" class="showcase-tab-btn active" onclick="switchShowcaseSlide(0, event)">
+                            <i class="fa-solid fa-code"></i>
+                            <span>7 Yazılım Dili</span>
+                        </button>
+                        <button type="button" class="showcase-tab-btn" onclick="switchShowcaseSlide(1, event)">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <span>Danışman & Projeler</span>
+                        </button>
+                        <button type="button" class="showcase-tab-btn" onclick="switchShowcaseSlide(2, event)">
+                            <i class="fa-solid fa-bolt"></i>
+                            <span>Akran Düelloları</span>
+                        </button>
+                        <button type="button" class="showcase-tab-btn" onclick="switchShowcaseSlide(3, event)">
+                            <i class="fa-solid fa-brain"></i>
+                            <span>Coddy AI Mentör</span>
+                        </button>
+                    </div>
+
+                    <!-- Slayt İçerikleri -->
+                    <div class="showcase-slides-wrapper">
+                        <!-- SLAYT 0: 7 DİL & CANLI IDE -->
+                        <div class="showcase-slide active" id="sc-slide-0">
+                            <div class="slide-header">
+                                <span class="slide-tag"><i class="fa-solid fa-terminal"></i> SIFIR KURULUM • ANINDA DERLEYİCİ</span>
+                                <h3 class="slide-title">Adım Adım Yol Haritası & Canlı Çok Dilli Editör</h3>
+                                <p class="slide-desc">Sıkıcı videoları pasif izleme tuzağından kurtul! Her kavramı tarayıcında bizzat yazıp çalıştırarak öğren.</p>
+                            </div>
+
+                            <!-- 7 DİL ETİKETLERİ -->
+                            <div class="showcase-languages-rack">
+                                <div class="lang-chip html"><i class="fa-brands fa-html5"></i> HTML5</div>
+                                <div class="lang-chip css"><i class="fa-brands fa-css3-alt"></i> CSS3</div>
+                                <div class="lang-chip js"><i class="fa-brands fa-js"></i> JavaScript</div>
+                                <div class="lang-chip py"><i class="fa-brands fa-python"></i> Python</div>
+                                <div class="lang-chip cs"><i class="fa-solid fa-hashtag"></i> C#</div>
+                                <div class="lang-chip sql"><i class="fa-solid fa-database"></i> SQL</div>
+                                <div class="lang-chip cpp"><i class="fa-solid fa-code"></i> C++</div>
+                            </div>
+
+                            <!-- 3 ÇEVİK VURGU KARTI -->
+                            <div class="showcase-card-grid">
+                                <div class="sc-mini-card">
+                                    <div class="sc-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                                    <div class="sc-info">
+                                        <h4>120+ İnteraktif Seviye</h4>
+                                        <p>Duolingo mantığında adım adım açılan kodlama haritası ve anında puan kazanma.</p>
+                                    </div>
+                                </div>
+                                <div class="sc-mini-card">
+                                    <div class="sc-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                                    <div class="sc-info">
+                                        <h4>Tarayıcı İçi IDE</h4>
+                                        <p>VS Code benzeri akıllı kod tamamlama, canlı çıktı konsolu ve hata vurgulama.</p>
+                                    </div>
+                                </div>
+                                <div class="sc-mini-card">
+                                    <div class="sc-icon"><i class="fa-solid fa-briefcase"></i></div>
+                                    <div class="sc-info">
+                                        <h4>Gerçek Dünya Projeleri</h4>
+                                        <p>Yalnızca teorik testler değil; yarışmalara ve sektöre hazır pratik portföy projeleri.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SLAYT 1: DANIŞMAN & PROJE EKOSİSTEMİ -->
+                        <div class="showcase-slide" id="sc-slide-1">
+                            <div class="slide-header">
+                                <span class="slide-tag" style="background:rgba(168,85,247,0.15); color:#c084fc; border-color:rgba(168,85,247,0.3);"><i class="fa-solid fa-trophy"></i> TEKNOFEST & TÜBİTAK 2209 UYUMLU</span>
+                                <h3 class="slide-title">Kurumsal E-posta Güvencesiyle Danışmanlı Proje Ekosistemi</h3>
+                                <p class="slide-desc">Öğrenci ve danışman hocaları tek çatı altında buluşturan, seviye kısıtlamasız kurumsal onay mekanizması.</p>
+                            </div>
+
+                            <!-- 3 ADIMLI ONAY AKIŞI GÖRSELİ -->
+                            <div class="showcase-workflow-strip">
+                                <div class="wf-step">
+                                    <span class="wf-badge">1</span>
+                                    <span class="wf-title">Geliştirici</span>
+                                    <span class="wf-sub">Görevi Kodlar</span>
+                                </div>
+                                <div class="wf-arrow"><i class="fa-solid fa-arrow-right-long"></i></div>
+                                <div class="wf-step">
+                                    <span class="wf-badge">2</span>
+                                    <span class="wf-title">Proje Lideri</span>
+                                    <span class="wf-sub">İnceler & Onaylar</span>
+                                </div>
+                                <div class="wf-arrow"><i class="fa-solid fa-arrow-right-long"></i></div>
+                                <div class="wf-step highlight">
+                                    <span class="wf-badge">3</span>
+                                    <span class="wf-title">Danışman Hoca</span>
+                                    <span class="wf-sub">.edu.tr Kurumsal Onay</span>
+                                </div>
+                            </div>
+
+                            <!-- 3 ÇEVİK VURGU KARTI -->
+                            <div class="showcase-card-grid">
+                                <div class="sc-mini-card">
+                                    <div class="sc-icon"><i class="fa-solid fa-award"></i></div>
+                                    <div class="sc-info">
+                                        <h4>0 Seviye Anında Proje</h4>
+                                        <p>Yarışma ve akademik takımlar puan beklemeden danışmanlı proje başlatabilir.</p>
+                                    </div>
+                                </div>
+                                <div class="sc-mini-card">
+                                    <div class="sc-icon"><i class="fa-solid fa-envelope-circle-check"></i></div>
+                                    <div class="sc-info">
+                                        <h4>Kurumsal Mail Doğrulama</h4>
+                                        <p>Hocalar üniversite mailiyle davet kodu girerek resmi danışman statüsü kazanır.</p>
+                                    </div>
+                                </div>
+                                <div class="sc-mini-card">
+                                    <div class="sc-icon"><i class="fa-solid fa-users-gear"></i></div>
+                                    <div class="sc-info">
+                                        <h4>Topluluk Takımları</h4>
+                                        <p>Bağımsız ekipler için akran denetimli ve esnek topluluk proje geliştirme alanı.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SLAYT 2: AKRAN REKABETİ & DÜELLO -->
+                        <div class="showcase-slide" id="sc-slide-2">
+                            <div class="slide-header">
+                                <span class="slide-tag" style="background:rgba(234,179,8,0.15); color:#fde047; border-color:rgba(234,179,8,0.3);"><i class="fa-solid fa-fire"></i> GERÇEK ZAMANLI 1v1 & LİGLER</span>
+                                <h3 class="slide-title">Akranlarınla Yarışarak Öğren & Liglerde Yüksel</h3>
+                                <p class="slide-desc">Yazılım bir takım oyunudur! Tek başına sıkılma; arkadaşlarınla düello yap, lig atla, rozetleri topla.</p>
+                            </div>
+
+                            <!-- REKABET ROZETLERİ ŞERİDİ -->
+                            <div class="showcase-duel-strip">
+                                <div class="duel-badge-item"><i class="fa-solid fa-swords"></i> Canlı 1v1 Arena</div>
+                                <div class="duel-badge-item"><i class="fa-solid fa-crown"></i> Bronz, Gümüş, Elmas Ligleri</div>
+                                <div class="duel-badge-item"><i class="fa-solid fa-gem"></i> Günlük Seri & Elmas Ödülleri</div>
+                                <div class="duel-badge-item"><i class="fa-solid fa-user-group"></i> Takım Odaları</div>
+                            </div>
+
+                            <!-- 3 ÇEVİK VURGU KARTI -->
+                            <div class="showcase-card-grid">
+                                <div class="sc-mini-card">
+                                    <div class="sc-icon"><i class="fa-solid fa-bolt-lightning"></i></div>
+                                    <div class="sc-info">
+                                        <h4>Canlı Kod Düelloları</h4>
+                                        <p>Aynı algoritma problemini ilk çözen maçı ve lig puanlarını kapar.</p>
+                                    </div>
+                                </div>
+                                <div class="sc-mini-card">
+                                    <div class="sc-icon"><i class="fa-solid fa-ranking-star"></i></div>
+                                    <div class="sc-info">
+                                        <h4>Haftalık Küme Atlama</h4>
+                                        <p>Liderlik tablosunda üst sıralara tırmanarak prestijli unvanların sahibi ol.</p>
+                                    </div>
+                                </div>
+                                <div class="sc-mini-card">
+                                    <div class="sc-icon"><i class="fa-solid fa-comments"></i></div>
+                                    <div class="sc-info">
+                                        <h4>Sosyal Paylaşım & Ağ</h4>
+                                        <p>Arkadaşlarının profillerini ve projelerini incele, birlikte yeni ekipler kur.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SLAYT 3: CODDY AI MENTÖR -->
+                        <div class="showcase-slide" id="sc-slide-3">
+                            <div class="slide-header">
+                                <span class="slide-tag" style="background:rgba(56,189,248,0.15); color:#38bdf8; border-color:rgba(56,189,248,0.3);"><i class="fa-solid fa-wand-magic-sparkles"></i> SATIR SATIR KOD ANALİZİ</span>
+                                <h3 class="slide-title">Kişiselleştirilmiş Akıllı Mentörün Her An Yanında</h3>
+                                <p class="slide-desc">Kodun hata verdiğinde pes etmek yok! Coddy mantığı satır satır inceler, Türkçe ve anlaşılır biçimde açıklar.</p>
+                            </div>
+
+                            <!-- AI ÖZELLİK ŞERİDİ -->
+                            <div class="showcase-duel-strip">
+                                <div class="duel-badge-item"><i class="fa-solid fa-brain"></i> Satır Satır Türkçe Analiz</div>
+                                <div class="duel-badge-item"><i class="fa-solid fa-bolt"></i> 1 Tıkla Optimizasyon</div>
+                                <div class="duel-badge-item"><i class="fa-solid fa-compass"></i> Algoritmik Düşünme Rehberi</div>
+                            </div>
+
+                            <!-- 3 ÇEVİK VURGU KARTI -->
+                            <div class="showcase-card-grid">
+                                <div class="sc-mini-card">
+                                    <div class="sc-icon"><i class="fa-solid fa-comments-dollar"></i></div>
+                                    <div class="sc-info">
+                                        <h4>Mantığı Öğretir</h4>
+                                        <p>Sadece cevabı verip geçmez; hatanın nedenini ve doğrusunun algoritmasını öğretir.</p>
+                                    </div>
+                                </div>
+                                <div class="sc-mini-card">
+                                    <div class="sc-icon"><i class="fa-solid fa-layer-group"></i></div>
+                                    <div class="sc-info">
+                                        <h4>Tüm Dillerde Uzman</h4>
+                                        <p>Python'dan C++'a, SQL sorgularından JS animasyonlarına kadar tam rehberlik.</p>
+                                    </div>
+                                </div>
+                                <div class="sc-mini-card">
+                                    <div class="sc-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                                    <div class="sc-info">
+                                        <h4>Kişiye Özel İpuçları</h4>
+                                        <p>Zayıf olduğun konularda seni güçlendirecek pratik alıştırmalar ve ipuçları sunar.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alt Kontroller & Giriş Yap/Kayıt Ol Butonu -->
+                    <div class="showcase-bottom-bar">
+                        <!-- Dots & Navigation -->
+                        <div class="showcase-nav-controls">
+                            <button type="button" class="sc-nav-btn prev" onclick="prevShowcaseSlide(event)" title="Önceki Özellik"><i class="fa-solid fa-chevron-left"></i></button>
+                            <div class="showcase-dots">
+                                <span class="sc-dot active" onclick="switchShowcaseSlide(0, event)"></span>
+                                <span class="sc-dot" onclick="switchShowcaseSlide(1, event)"></span>
+                                <span class="sc-dot" onclick="switchShowcaseSlide(2, event)"></span>
+                                <span class="sc-dot" onclick="switchShowcaseSlide(3, event)"></span>
+                            </div>
+                            <button type="button" class="sc-nav-btn next" onclick="nextShowcaseSlide(event)" title="Sonraki Özellik"><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+
+                        <!-- Giriş Yap / Kayıt Ol Butonu (Büyük Parlayan CTA) -->
+                        <button type="button" class="btn-showcase-enter" onclick="openAuthView(event)">
+                            <i class="fa-solid fa-rocket"></i>
+                            <span>Giriş Yap / Kayıt Ol (Hemen Başla)</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ekrana Tıklama İpucu Bildirimi -->
+            <div class="showcase-click-hint">
+                <i class="fa-regular fa-hand-pointer pulse-icon"></i> Ekranda herhangi bir yere tıklayarak da doğrudan Giriş Yap / Kayıt Ol formuna geçebilirsiniz
+            </div>
+        </div>
+
+        <!-- 2. GİRİŞ & KAYIT OL GÖRÜNÜMÜ (AUTH VIEW) -->
+        <div id="landing-auth-view" class="landing-inner" style="display:none;">
+            
         <div class="landing-inner">
             <div class="landing-left">
                 <div class="landing-brand">
@@ -162,6 +553,7 @@
             </div>
 
             <div class="landing-right">
+                <button type="button" class="btn-back-to-showcase" onclick="openShowcaseView()"><i class="fa-solid fa-arrow-left"></i> Platform Özelliklerini Gör</button>
                 <div class="glass-card">
                     <div class="tabs">
                         <button class="tab active" onclick="switchTab('login')">Giriş Yap</button>
@@ -265,6 +657,9 @@
                 </div>
             </div>
         </div>
+    
+        </div>
+
     </section>
 
     <!-- ONBOARDING FLOW -->
