@@ -4562,7 +4562,7 @@ const defaultTasks = [
         desc: "Kullanıcıların e-posta ve şifreyle sisteme giriş yapabilmesi için güvenli bcrypt şifreleme ve JWT yetkilendirme middleware'ini kodlayın.",
         assignee: "Ahmet Yılmaz",
         tech: "Backend (Node/Python)",
-        status: "review", // 'todo', 'in_progress', 'review' (danışman bekliyor), 'advisor_completed' (yönetici bekliyor), 'completed'
+        status: "review", // 'todo', 'in_progress', 'review' (yönetici incelemesinde), 'manager_approved' (danışman onayı bekliyor), 'completed'
         submissionNote: "Bcrypt hashleme ve JWT sign metotları tamamlandı, test edildi.",
         codeSnippet: "const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '7d' });\nres.json({ success: true, token });",
         mentorFeedback: ""
@@ -4604,13 +4604,13 @@ const defaultTasks = [
         desc: "Harcamaları kategoriye göre listeleyen filtrelenebilir React bileşenini hazırlayın.",
         assignee: "Ahmet Yılmaz",
         tech: "Frontend (HTML/JS)",
-        status: "advisor_completed",
+        status: "manager_approved",
         submissionNote: "Bileşen ve filtre mantığı tamamlandı.",
         codeSnippet: "const filtered = items.filter(i => i.category === active);",
-        advisorApprovedBy: "Dr. Selim Tekin (Danışman)",
-        mentorFeedback: "Kod temiz, filtre mantığı doğru çalışıyor; tamamlandı olarak işaretlendi.",
-        managerFeedback: "",
-        managerApprovedBy: ""
+        managerApprovedBy: "Deniz Kaya (Proje Yöneticisi)",
+        managerFeedback: "Kod temiz, filtre mantığı doğru çalışıyor. Danışmanın son incelemesi ve tamamlandı onayı bekleniyor.",
+        advisorApprovedBy: "",
+        mentorFeedback: ""
     }
 ];
 
@@ -4691,17 +4691,17 @@ function renderTasks() {
         if (selectedProjId !== 'all') projSelect.value = selectedProjId;
     }
 
-    // Bekleyen işlem sayıları (danışman incelemesi / yönetici son onayı)
+    // Bekleyen işlem sayıları (yönetici incelemesi / danışman tamamlaması)
     const reviewCount = tasks.filter(t => t.status === 'review').length;
-    const managerCount = tasks.filter(t => t.status === 'advisor_completed').length;
+    const advisorWaitCount = tasks.filter(t => t.status === 'manager_approved').length;
     const countEl = document.getElementById("task-count-review");
     if (countEl) countEl.innerText = reviewCount;
     const advisorCountEl = document.getElementById("task-count-manager");
-    if (advisorCountEl) advisorCountEl.innerText = managerCount;
+    if (advisorCountEl) advisorCountEl.innerText = advisorWaitCount;
 
     const navTasksBadge = document.getElementById("tasks-nav-badge");
     if (navTasksBadge) {
-        const pending = (userProfile.role === 'danisman') ? reviewCount : managerCount;
+        const pending = (userProfile.role === 'danisman') ? (advisorWaitCount + reviewCount) : reviewCount;
         navTasksBadge.style.display = pending > 0 ? "block" : "none";
     }
 
@@ -4724,8 +4724,8 @@ function renderTasks() {
     const statusMeta = {
         todo: { label: "Yapılacak", cls: "status-todo", icon: "fa-regular fa-clock" },
         in_progress: { label: "Geliştiriliyor", cls: "status-in_progress", icon: "fa-solid fa-spinner fa-spin" },
-        review: { label: "Danışman İncelemesinde", cls: "status-review", icon: "fa-solid fa-user-graduate" },
-        advisor_completed: { label: "Danışman İşaretledi · Yönetici Onayı Bekliyor", cls: "status-review", icon: "fa-solid fa-user-check" },
+        review: { label: "Yönetici İncelemesinde", cls: "status-review", icon: "fa-solid fa-hourglass-half" },
+        manager_approved: { label: "Yönetici Onayladı · Danışman Bekliyor", cls: "status-review", icon: "fa-solid fa-user-check" },
         completed: { label: "Tamamlandı", cls: "status-completed", icon: "fa-solid fa-circle-check" }
     };
 
@@ -4739,24 +4739,30 @@ function renderTasks() {
 
         let actionBtnHtml = '';
         if (task.status === 'review') {
-            if (isMentor) {
-                actionBtnHtml = `
-                    <button type="button" onclick="openReviewTaskModal('${task.id}')" style="width:100%; padding:9px; background:linear-gradient(135deg, #10b981, #059669); border:none; color:white; border-radius:12px; font-weight:700; font-size:13px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
-                        <i class="fa-solid fa-user-graduate"></i> Danışman İncelemesi: Tamamlandı Olarak İşaretle
-                    </button>
-                `;
-            } else {
-                actionBtnHtml = `<div style="font-size:12px; color:#a78bfa; display:flex; align-items:center; gap:6px; font-weight:600;"><i class="fa-solid fa-user-graduate"></i> Danışmanın incelemesi ve tamamlandı olarak işaretlemesi bekleniyor</div>`;
-            }
-        } else if (task.status === 'advisor_completed') {
             if (isProjectManagerOf(task)) {
                 actionBtnHtml = `
                     <button type="button" onclick="openReviewTaskModal('${task.id}')" style="width:100%; padding:9px; background:linear-gradient(135deg, #f59e0b, #d97706); border:none; color:white; border-radius:12px; font-weight:700; font-size:13px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
-                        <i class="fa-solid fa-flag-checkered"></i> Proje Yöneticisi Son Onayı: Onayla & Bitir (+50 XP)
+                        <i class="fa-solid fa-code-compare"></i> Proje Yöneticisi İncelemesi (Onayla & Danışmana İlet)
+                    </button>
+                `;
+            } else if (isMentor) {
+                actionBtnHtml = `
+                    <button type="button" onclick="openReviewTaskModal('${task.id}')" style="width:100%; padding:9px; background:rgba(168,85,247,0.15); border:1px solid #a855f7; color:#c084fc; border-radius:12px; font-weight:700; font-size:13px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+                        <i class="fa-solid fa-eye"></i> Danışman Gözetimi (Ekip Teslimini & Kodu İncele)
                     </button>
                 `;
             } else {
-                actionBtnHtml = `<div style="font-size:12px; color:#f59e0b; display:flex; align-items:center; gap:6px; font-weight:600;"><i class="fa-solid fa-user-check"></i> Danışman tamamlandı işaretledi · Proje yöneticisi son onayı bekleniyor</div>`;
+                actionBtnHtml = `<div style="font-size:12px; color:#f59e0b; display:flex; align-items:center; gap:6px; font-weight:600;"><i class="fa-solid fa-hourglass-half"></i> Proje yöneticisinin incelemesi bekleniyor (Danışman gözetiminde)</div>`;
+            }
+        } else if (task.status === 'manager_approved') {
+            if (isMentor) {
+                actionBtnHtml = `
+                    <button type="button" onclick="openReviewTaskModal('${task.id}')" style="width:100%; padding:9px; background:linear-gradient(135deg, #10b981, #059669); border:none; color:white; border-radius:12px; font-weight:700; font-size:13px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;">
+                        <i class="fa-solid fa-flag-checkered"></i> Danışman Onayı: Görevi Tamamla (+50 XP)
+                    </button>
+                `;
+            } else {
+                actionBtnHtml = `<div style="font-size:12px; color:#a78bfa; display:flex; align-items:center; gap:6px; font-weight:600;"><i class="fa-solid fa-user-check"></i> Proje yöneticisi onayladı · Danışmanın tamamlaması bekleniyor</div>`;
             }
         } else if (task.status === 'in_progress' || task.status === 'todo') {
             actionBtnHtml = `
@@ -4767,7 +4773,7 @@ function renderTasks() {
         } else if (task.status === 'completed') {
             actionBtnHtml = `
                 <div style="font-size:12px; color:#10b981; display:flex; align-items:center; gap:6px; font-weight:600;">
-                    <i class="fa-solid fa-circle-check"></i> Danışman İşaretledi & Proje Yöneticisi Onayladı (+50 XP)
+                    <i class="fa-solid fa-circle-check"></i> Proje Yöneticisi Onayladı & Danışman Tamamladı (+50 XP)
                 </div>
             `;
         }
@@ -5009,7 +5015,7 @@ function confirmSubmitTaskForReview() {
     saveTasks(tasks);
     closeSubmitTaskModal();
     renderTasks();
-    alert(`🚀 Göreviniz ve kodlarınız danışman incelemesine gönderildi! Danışman inceleyip tamamlandı olarak işaretledikten sonra proje yöneticisi son onayı verecek.`);
+    alert(`🚀 Göreviniz ve kodlarınız proje yöneticisi incelemesine iletildi! Proje yöneticisi onayladıktan sonra danışman görevi tamamlayacaktır (Danışmanınız şeffaf gözetim ile kodlarınızı dilediği an görüntüleyebilir).`);
 }
 
 function openReviewTaskModal(taskId) {
@@ -5028,31 +5034,94 @@ function openReviewTaskModal(taskId) {
     document.getElementById("review-task-code-preview").innerText = task.codeSnippet || "// Kod bloğu eklenmedi.";
     document.getElementById("review-mentor-feedback").value = "";
 
-    // Aşama: 'review' -> Danışman (tamamlandı işaretleme), 'advisor_completed' -> Proje Yöneticisi (son onay)
-    const stage = (task.status === 'advisor_completed') ? 'manager' : 'advisor';
-    if (stage === 'advisor' && userProfile.role !== 'danisman') {
-        alert("Bu görevi bu aşamada yalnızca projenin Danışmanı inceleyip tamamlandı olarak işaretleyebilir.");
-        return;
-    }
-    if (stage === 'manager' && !isProjectManagerOf(task)) {
-        alert("Danışman görevi tamamlandı olarak işaretledi. Bu aşamada son onayı yalnızca projenin Proje Yöneticisi verebilir.");
-        return;
+    const isManager = isProjectManagerOf(task);
+    const isDanisman = (userProfile.role === 'danisman');
+
+    // Aşama tespiti:
+    // 1) task.status === 'review': Önce Proje Yöneticisi inceler & onaylar. Danışman ise yönetici onaylamasa bile tüm kodları görebilir (şeffaf gözetim).
+    // 2) task.status === 'manager_approved': Proje yöneticisi onayladıktan sonra Danışman nihai kontrolü yapıp tamamlar.
+    let stage = '';
+    if (task.status === 'review') {
+        if (isDanisman) {
+            stage = 'advisor_preview';
+        } else if (isManager) {
+            stage = 'manager_review';
+        } else {
+            alert("Bu görevi bu aşamada yalnızca projenin Yöneticisi onaylayabilir veya Danışmanı gözlemleyebilir.");
+            return;
+        }
+    } else if (task.status === 'manager_approved') {
+        if (isDanisman) {
+            stage = 'advisor_final';
+        } else if (isManager) {
+            stage = 'manager_view_final';
+        } else {
+            alert("Bu görev Proje Yöneticisi tarafından onaylandı, şu anda Danışmanın nihai tamamlaması beklenmektedir.");
+            return;
+        }
+    } else {
+        stage = 'view_only';
     }
 
     modal.dataset.stage = stage;
     const titleEl = document.getElementById("review-modal-title");
     const approveEl = document.getElementById("review-approve-label");
+    const approveBtn = approveEl ? approveEl.closest("button") : null;
+    const reviseBtn = modal.querySelector("button[onclick='confirmTaskRevision()']");
     const mBox = document.getElementById("review-manager-box");
 
-    if (titleEl) titleEl.innerText = stage === 'advisor' ? "Danışman Görev & Kod İncelemesi (Teacher-in-the-Loop)" : "Proje Yöneticisi Son Onayı";
-    if (approveEl) approveEl.innerText = stage === 'advisor' ? "Tamamlandı Olarak İşaretle & Yöneticiye İlet" : "Onayla & Görevi Tamamla (+50 XP)";
-
     if (mBox) {
-        if (stage === 'manager') {
+        if (stage === 'advisor_preview') {
             mBox.style.display = "block";
-            mBox.innerHTML = `👨‍🏫 <strong>Danışman Tamamlandı Olarak İşaretledi:</strong> ${escapeHtml(task.advisorApprovedBy || 'Danışman')}${task.mentorFeedback ? ' — <em>' + escapeHtml(task.mentorFeedback) + '</em>' : ''}`;
+            mBox.style.background = "rgba(168,85,247,0.1)";
+            mBox.style.borderLeft = "3px solid #a855f7";
+            mBox.innerHTML = `👁️ <strong>Danışman Şeffaf Gözetim Modu:</strong> Proje yöneticisi henüz nihai onay vermedi; ancak şeffaflık ilkesi gereği ekip üyesinin yüklediği tüm kodları, açıklamaları ve yapay zeka analizini anlık olarak görüntüleyebilirsiniz.`;
+        } else if (stage === 'manager_review') {
+            mBox.style.display = "block";
+            mBox.style.background = "rgba(245,158,11,0.08)";
+            mBox.style.borderLeft = "3px solid #f59e0b";
+            mBox.innerHTML = `📋 <strong>Proje Yöneticisi İncelemesi:</strong> Ekip üyesinin kodunu ve notunu inceleyip onayladığınızda görev Danışman nihai tamamlama aşamasına iletilecektir.`;
+        } else if (stage === 'advisor_final') {
+            mBox.style.display = "block";
+            mBox.style.background = "rgba(16,185,129,0.08)";
+            mBox.style.borderLeft = "3px solid #10b981";
+            mBox.innerHTML = `✔ <strong>Proje Yöneticisi Onayladı:</strong> ${escapeHtml(task.managerApprovedBy || 'Proje Yöneticisi')}${task.managerFeedback ? ' — <em>' + escapeHtml(task.managerFeedback) + '</em>' : ''}`;
+        } else if (stage === 'manager_view_final') {
+            mBox.style.display = "block";
+            mBox.style.background = "rgba(56,189,248,0.08)";
+            mBox.style.borderLeft = "3px solid #38bdf8";
+            mBox.innerHTML = `⏳ <strong>Danışman Tamamlaması Bekleniyor:</strong> Görevi proje yöneticisi olarak onayladınız. Şu anda Danışmanın nihai kontrolü ve görevi tamamlaması bekleniyor.`;
         } else {
             mBox.style.display = "none";
+        }
+    }
+
+    if (titleEl) {
+        if (stage === 'advisor_preview') titleEl.innerText = "Danışman Şeffaf Gözetimi (Ekip Teslimi & Kod)";
+        else if (stage === 'manager_review') titleEl.innerText = "Proje Yöneticisi Görev İncelemesi & Onayı";
+        else if (stage === 'advisor_final') titleEl.innerText = "Danışman Nihai Kontrolü (Teacher-in-the-Loop)";
+        else titleEl.innerText = "Görev & Kod Teslim İncelemesi";
+    }
+
+    if (approveEl && approveBtn) {
+        if (stage === 'advisor_preview') {
+            approveEl.innerText = "Danışman Tavsiyesi Kaydet (Gözetim Notu)";
+            approveBtn.style.display = "inline-flex";
+            approveBtn.style.background = "linear-gradient(135deg, #a855f7, #7c3aed)";
+            if (reviseBtn) reviseBtn.style.display = "inline-flex";
+        } else if (stage === 'manager_review') {
+            approveEl.innerText = "Onayla & Danışmana İlet";
+            approveBtn.style.display = "inline-flex";
+            approveBtn.style.background = "linear-gradient(135deg, #f59e0b, #d97706)";
+            if (reviseBtn) reviseBtn.style.display = "inline-flex";
+        } else if (stage === 'advisor_final') {
+            approveEl.innerText = "Danışman Onayı: Görevi Tamamla (+50 XP)";
+            approveBtn.style.display = "inline-flex";
+            approveBtn.style.background = "linear-gradient(135deg, #10b981, #059669)";
+            if (reviseBtn) reviseBtn.style.display = "inline-flex";
+        } else {
+            approveBtn.style.display = "none";
+            if (reviseBtn) reviseBtn.style.display = "none";
         }
     }
 
@@ -5091,29 +5160,53 @@ function confirmTaskApproval() {
     const task = tasks.find(t => t.id === taskId);
     if (!task) return;
 
+    const modal = document.getElementById("review-task-modal");
+    const stage = modal ? modal.dataset.stage : '';
+
     if (task.status === "review") {
-        // 1. Aşama: Danışman inceleyip "Tamamlandı" olarak işaretler
-        task.status = "advisor_completed";
+        if (stage === 'advisor_preview' || userProfile.role === 'danisman') {
+            // Danışman henüz yönetici onaylamadan gözetim yapıp not ekleyebilir
+            if (feedback) {
+                task.mentorFeedback = feedback;
+                learnMentorAdvice(task.title, feedback);
+            }
+            saveTasks(tasks);
+            closeReviewTaskModal();
+            renderTasks();
+            alert(`👁️ Danışman gözetim notunuz kaydedildi! Görev Proje Yöneticisi tarafından onaylandıktan sonra görevi nihai olarak tamamlayabilirsiniz.`);
+            return;
+        }
+
+        // 1. Aşama: Proje Yöneticisi inceler ve onaylar -> manager_approved
+        task.status = "manager_approved";
+        task.managerApprovedBy = (userProfile.username || 'Deniz Kaya') + ' (Proje Yöneticisi)';
+        task.managerFeedback = feedback || "Proje yöneticisi tarafından incelendi ve onaylandı.";
+
+        saveTasks(tasks);
+        closeReviewTaskModal();
+        renderTasks();
+        alert(`✔ Görev proje yöneticisi olarak onaylandı ve danışmanın nihai tamamlama kontrolüne iletildi!`);
+        return;
+    }
+
+    if (task.status === "manager_approved") {
+        if (userProfile.role !== 'danisman') {
+            alert("Yönetici tarafından onaylanmış görevleri yalnızca projenin Danışmanı nihai olarak tamamlayabilir.");
+            return;
+        }
+
+        // 2. Aşama: Danışman tamamlar -> completed
+        task.status = "completed";
         task.advisorApprovedBy = (userProfile.username || 'Danışman') + ' (Danışman)';
-        task.mentorFeedback = feedback || "Kod ve teslim incelendi, danışman tarafından tamamlandı olarak işaretlendi.";
+        task.mentorFeedback = feedback || "Danışman nihai kontrolü tamamlandı, görev başarıyla onaylandı.";
         learnMentorAdvice(task.title, task.mentorFeedback);
 
         saveTasks(tasks);
         closeReviewTaskModal();
         renderTasks();
-        alert(`✔ Görev danışman olarak incelendi ve tamamlandı olarak işaretlendi! Proje yöneticisinin son onayı bekleniyor.`);
+        alert(`🎉 Görev danışman tarafından onaylandı ve başarıyla tamamlandı! Ekip üyesine +50 XP iletildi.`);
         return;
     }
-
-    // 2. Aşama: Proje Yöneticisi son onayı verir ve görev tamamlanır
-    task.status = "completed";
-    task.managerApprovedBy = (userProfile.username || 'Deniz Kaya') + ' (Proje Yöneticisi)';
-    task.managerFeedback = feedback || "Proje yöneticisi onayı verildi.";
-
-    saveTasks(tasks);
-    closeReviewTaskModal();
-    renderTasks();
-    alert(`🎉 Görev proje yöneticisi tarafından onaylandı ve başarıyla tamamlandı! Ekip üyesine +50 XP ve başarı puanı iletildi.`);
 }
 
 function confirmTaskRevision() {
@@ -5129,14 +5222,17 @@ function confirmTaskRevision() {
     if (!task) return;
 
     task.status = "in_progress";
-    task.mentorFeedback = `🔄 Revize İsteği: ${feedback}`;
+    const authorRole = (userProfile.role === 'danisman') ? 'Danışman' : 'Proje Yöneticisi';
+    task.mentorFeedback = `🔄 Revize İsteği (${authorRole}): ${feedback}`;
 
-    learnMentorAdvice(task.title, feedback);
+    if (userProfile.role === 'danisman') {
+        learnMentorAdvice(task.title, feedback);
+    }
 
     saveTasks(tasks);
     closeReviewTaskModal();
     renderTasks();
-    alert(`📨 Revize talebiniz üyeye iletildi! Yazdığınız tavsiye aynı zamanda COD+ Danışman Klonu'na öğretildi.`);
+    alert(`📨 Revize talebiniz üyeye iletildi! Görev geliştirilmek üzere geri gönderildi.`);
 }
 
 // ============================================================
