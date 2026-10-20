@@ -3081,23 +3081,6 @@ function renderPdfBook(langKey = 'html', filterKeyword = "") {
     const keyword = filterKeyword.toLowerCase().trim();
     pagesContainer.innerHTML = "";
 
-    // EĞER EDITÖRLER SEKMESİ SEÇİLDİYSE ESKİ HALİYLE (AKORDİYON) GÖSTER
-    if(langKey === 'editors') {
-        dataList.forEach(item => {
-            const card = document.createElement("div");
-            card.className = "book-card";
-            card.innerHTML = `
-                <div class="book-badge" style="color:${meta.color}; background:rgba(255,255,255,0.06);">${item.title}</div>
-                <h3 style="margin-bottom:10px;">${item.title}</h3>
-                <p style="color:var(--text-muted); margin-bottom:14px;">${item.desc}</p>
-                <div>${item.content}</div>
-            `;
-            pagesContainer.appendChild(card);
-        });
-        return;
-    }
-
-    // NORMAL DİLLER (HTML, CSS, JS, PYTHON): KESİNTİSİZ PDF / KİTAP SAYFASI FORMATI
     let matchCount = 0;
 
     dataList.forEach((chapter, index) => {
