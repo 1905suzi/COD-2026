@@ -4563,7 +4563,7 @@ function submitCreateProject() {
     renderProjects();
 
     if (isCorp) {
-        alert(`🚀 "${title}" Kurumsal / Yarışma Projeniz Başarıyla Açıldı!\n\nDanışman Hoca (${advisor}): Davet bağlantısı kurumsal e-postaya (${advisorEmail}) iletildi.\n\nTakım Davet Kodunuz: ${inviteCode}\nTakım arkadaşlarınız bu kodla projeye doğrudan katılabilir!`);
+        alert(`🚀 "${title}" Kurumsal / Yarışma Projeniz Başarıyla Açıldı!\n\nDanışman Hoca (${advisor}): Davet bağlantısı danışman e-posta adresine (${advisorEmail}) iletildi.\n\nTakım Davet Kodunuz: ${inviteCode}\nTakım arkadaşlarınız bu kodla projeye doğrudan katılabilir!`);
     } else {
         alert(`🎉 "${title}" Topluluk Projeniz Başarıyla Açıldı!\n\nProje Yöneticisi: ${creatorName}\nTakım Davet Kodunuz: ${inviteCode}\nAkranlarınız bu kodla ekibinize doğrudan katılabilir!`);
     }
@@ -5136,7 +5136,7 @@ function openSubmitTaskModal(taskId) {
 
     modal.classList.remove("hidden");
 
-    // VS Code Autocomplete motorunu bağla
+    // Akıllı Kod Tamamlama (IntelliSense) motorunu bağla
     if (codeEl) {
         setupVsCodeAutocomplete(codeEl, () => (task.tech || 'javascript').toLowerCase());
     }
@@ -5592,7 +5592,7 @@ async function explainCurrentIdeCode() {
 }
 
 // ============================================================
-// VS CODE TARZI OTOMATİK TAMAMLAMA MOTORU (INTELLISENSE)
+// AKILLI KOD TAMAMLAMA MOTORU (INTELLISENSE)
 // ============================================================
 
 const vsCodeDictionary = {
@@ -6694,7 +6694,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupModalOutsideClickAndEsc();
     initGlobalStarrySky();
 
-    // IDE kod editörüne VS Code IntelliSense bağla
+    // IDE kod editörüne Akıllı Kod Tamamlama (IntelliSense) bağla
     const ideEditor = document.getElementById("code-editor");
     if (ideEditor) {
         setupVsCodeAutocomplete(ideEditor, () => (activeSandboxLang || 'html').toLowerCase());

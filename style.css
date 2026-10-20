@@ -2306,7 +2306,7 @@ body.mentor-mode #view-book {
 .waypoint-icon { font-size: 18px; }
 
 /* ============================================================ */
-/* VS CODE TARZI OTOMATİK TAMAMLAMA WIDGET'I (INTELLISENSE)     */
+/* AKILLI KOD TAMAMLAMA WIDGET'I (INTELLISENSE)                 */
 /* ============================================================ */
 
 .vscode-autocomplete-dropdown {
@@ -2370,7 +2370,7 @@ body.mentor-mode #view-book {
     font-weight: 700;
 }
 
-/* VS Code Simge Tipleri */
+/* Akıllı Kod Tamamlama Simge Tipleri */
 .icon-keyword { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
 .icon-method { background: rgba(168, 85, 247, 0.2); color: #c084fc; }
 .icon-property { background: rgba(251, 146, 60, 0.2); color: #fb923c; }
