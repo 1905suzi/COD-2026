@@ -72,7 +72,7 @@ function validateRegister() {
     const pass = document.getElementById("reg-pass").value;
     const confirmPass = document.getElementById("reg-pass-confirm").value;
     const edu = document.getElementById("reg-education") ? document.getElementById("reg-education").value : "Üniversite";
-    const role = document.getElementById("reg-role") ? document.getElementById("reg-role").value : "ogrenci";
+    const role = "ogrenci"; // Tüm kullanıcılar eşit standart hesapla kaydolur; roller proje bazlı kazanılır
     const errorMsg = document.getElementById("reg-error");
     
     if(!name || !email || !pass || !confirmPass) {
@@ -90,49 +90,31 @@ function validateRegister() {
     errorMsg.style.display = "none";
     userName = name;
 
-    const isMentor = (role === 'danisman');
-    let mentorField = "";
-    let mentorExp = "";
-    let mentorCompany = "";
-    let mentorBio = "";
-
-    if (isMentor) {
-        mentorField = document.getElementById("reg-mentor-field") ? document.getElementById("reg-mentor-field").value : "Fullstack Web Geliştirme";
-        mentorExp = document.getElementById("reg-mentor-exp") ? document.getElementById("reg-mentor-exp").value : "3-5 Yıl (Mid-Senior)";
-        mentorCompany = document.getElementById("reg-mentor-company") ? document.getElementById("reg-mentor-company").value.trim() : "";
-        mentorBio = document.getElementById("reg-mentor-bio") ? document.getElementById("reg-mentor-bio").value.trim() : "";
-    }
-
-    // Yeni kullanıcı için tertemiz, önceki oturumdan bağımsız profil oluştur
+    // Yeni kullanıcı için tertemiz, önceki oturumdan bağımsız standart profil oluştur
     userProfile = {
         username: name,
         name: name,
         email: email,
         password: pass,
         educationLevel: edu,
-        mentorLevel: isMentor ? edu : "",
-        role: role,
-        originalRole: role,
-        isMentorAccount: isMentor,
-        department: isMentor ? mentorField : "",
-        domain: isMentor ? "fullstack" : "frontend",
-        languages: isMentor ? "C#, Python, SQL, JavaScript" : "",
-        projects: isMentor ? (mentorCompany ? `${mentorCompany} Projeleri` : "") : "",
-        bio: isMentor ? mentorBio : "",
-        avatar: isMentor ? "👨‍🏫" : "🧑‍💻",
+        mentorLevel: "",
+        role: "ogrenci",
+        originalRole: "ogrenci",
+        isMentorAccount: false,
+        department: "",
+        domain: "frontend",
+        languages: "",
+        projects: "",
+        bio: "",
+        avatar: "🧑‍💻",
         isLoggedIn: true,
         authProvider: "local",
-        xp: isMentor ? 2500 : 100,
-        gems: isMentor ? 350 : 50,
+        xp: 100,
+        gems: 50,
         streak: 1,
-        level: isMentor ? "Kıdemli Mimar & Mentör" : "Çırak",
+        level: "Çırak",
         friends: [],
-        mentorProfile: isMentor ? {
-            field: mentorField,
-            experience: mentorExp,
-            company: mentorCompany,
-            bio: mentorBio
-        } : null
+        mentorProfile: null
     };
 
     saveUserProfileToStorage();
@@ -147,16 +129,10 @@ function validateRegister() {
                 email: email,
                 password: pass,
                 name: name,
-                role: role
+                role: "ogrenci"
             })
         }).catch(() => {});
     } catch(e) {}
-    
-    // Eğer Mentör/Danışman seçildiyse: Dil seçimi ve seviye sınavını atla, doğrudan Projeler & Ekip ekranına yönlendir!
-    if (role === 'danisman') {
-        startMentorApp();
-        return;
-    }
 
     const greet = document.getElementById("greeting-title");
     if (greet) greet.innerText = `Harika, ${userName}!`;
@@ -4206,14 +4182,14 @@ function getProjectEligibility() {
 }
 
 function canCreateOrApplyProject() {
-    return userProfile.role === 'danisman' || getProjectEligibility().ok;
+    return true; // Kurumsal projeler için seviye şartı aranmaz; topluluk projelerinde kural modal içinde dinamik kontrol edilir
 }
 
 function showProjectLevelLock() {
     const e = getProjectEligibility();
     const lines = e.rows.filter(r => r.level > 0 || r.key === getLanguageKey(selectedLang))
         .map(r => `• ${r.label}: ${r.level}/${r.need}. seviye`).join('\n');
-    alert(`🔒 Proje oluşturmak veya projelere başvurmak için seçtiğin dillerden birinde gerekli seviyeye ulaşman gerekiyor.\n\n${lines}\n\n💡 Bir Danışman sana proje daveti gönderirse seviyen ne olursa olsun projeye katılabilirsin.`);
+    alert(`💡 Bilgilendirme:\n\nKurumsal / Yarışma projelerini 0 seviye ile hemen başlatabilirsiniz. Topluluk projelerinde ise akran liderliği için seviye şartı geçerlidir.\n\n${lines}`);
 }
 
 function getProjects() {
@@ -4259,14 +4235,13 @@ function renderProjects(filter = currentProjectFilter) {
     if (statTotal) statTotal.innerText = projects.length;
     if (statOpen) statOpen.innerText = totalOpen;
 
-    // Seviye yetersizse proje oluşturma butonunu kilitli göster
+    // Proje oluşturma butonu her zaman aktiftir (Kurumsal projeler 0 seviye ile açılabilir)
     const createBtn = document.querySelector('#view-projects button[onclick="openCreateProjectModal()"]');
     if (createBtn) {
-        const allowed = canCreateOrApplyProject();
-        createBtn.style.opacity = allowed ? "" : "0.55";
-        createBtn.title = allowed ? "" : "Proje oluşturmak için dil seviyesi yetersiz";
+        createBtn.style.opacity = "";
+        createBtn.title = "Yeni bir kurumsal yarışma veya topluluk projesi başlat";
         const lbl = createBtn.querySelector('span');
-        if (lbl) lbl.innerText = allowed ? "Yeni Proje & Ekip Oluştur" : "🔒 Proje Oluşturma (Seviye Kilidi)";
+        if (lbl) lbl.innerText = "Yeni Proje & Ekip Oluştur";
     }
 
     const filtered = projects.filter(p => {
@@ -4329,22 +4304,35 @@ function renderProjects(filter = currentProjectFilter) {
             return `<span style="background:${bg}; color:${color}; border:1px solid ${bd}; font-size:11px; padding:2px 8px; border-radius:12px;"><i class="fa-solid ${icon}"></i> ${escapeHtml(m)}</span>`;
         }).join(' ');
 
+        const isCorp = !!(proj.advisor || proj.isCorporate);
         const card = document.createElement("div");
         card.className = "project-card";
         card.innerHTML = `
             <div>
-                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; gap:8px;">
                     <h3 style="font-size:16.5px; color:#f8fafc; font-weight:700; margin:0 0 4px 0;">${escapeHtml(proj.title)}</h3>
-                    <span style="font-size:11px; background:rgba(56,189,248,0.12); color:#38bdf8; border:1px solid rgba(56,189,248,0.3); padding:2px 8px; border-radius:8px; font-weight:600;">
-                        ${escapeHtml(proj.creatorRole || 'Mentör')}
+                    <span style="font-size:11px; background:${isCorp ? 'rgba(167,139,250,0.15)' : 'rgba(56,189,248,0.15)'}; color:${isCorp ? '#c084fc' : '#38bdf8'}; border:1px solid ${isCorp ? 'rgba(167,139,250,0.35)' : 'rgba(56,189,248,0.35)'}; padding:2px 8px; border-radius:8px; font-weight:700; white-space:nowrap;">
+                        ${isCorp ? '<i class="fa-solid fa-graduation-cap"></i> Kurumsal (Danışmanlı)' : '<i class="fa-solid fa-users"></i> Topluluk (Akran)'}
                     </span>
                 </div>
                 <div style="font-size:12px; color:#94a3b8; margin-bottom:4px;">
-                    <i class="fa-solid fa-user-tie" style="color:#f59e0b;"></i> Proje Yöneticisi: <strong style="color:#e2e8f0;">${escapeHtml(proj.manager || 'Atanmadı')}</strong>
+                    <i class="fa-solid fa-user-tie" style="color:#f59e0b;"></i> Proje Yöneticisi: <strong style="color:#e2e8f0;">${escapeHtml(proj.manager || proj.creator || 'Atanmadı')}</strong>
                 </div>
-                <div style="font-size:12px; color:#94a3b8; margin-bottom:12px;" title="Danışman proje yöneticisi değildir; tüm ekip görevlerini takip eder.">
-                    <i class="fa-solid fa-user-graduate" style="color:#a78bfa;"></i> Danışman: <strong style="color:#e2e8f0;">${escapeHtml(proj.advisor || 'Atanmadı')}</strong>
-                    <span style="font-size:10.5px; color:#64748b;"> · tüm görevleri takip eder</span>
+                ${isCorp ? `
+                <div style="font-size:12px; color:#94a3b8; margin-bottom:8px;" title="Danışman tüm ekip görevlerini takip eder ve tamamlandı onaylar.">
+                    <i class="fa-solid fa-user-graduate" style="color:#a78bfa;"></i> Danışman: <strong style="color:#e2e8f0;">${escapeHtml(proj.advisor || 'Atanmış Danışman')}</strong>
+                    <span style="font-size:10.5px; color:#64748b;"> · tüm görevleri takip eder (Teacher-in-the-Loop)</span>
+                </div>
+                ` : `
+                <div style="font-size:12px; color:#94a3b8; margin-bottom:8px;">
+                    <i class="fa-solid fa-people-arrows" style="color:#38bdf8;"></i> Model: <strong style="color:#e2e8f0;">Akran İncelemesi</strong>
+                    <span style="font-size:10.5px; color:#64748b;"> · danışmansız doğrudan yönetici onayı</span>
+                </div>
+                `}
+                <div style="margin-bottom:12px;">
+                    <span style="font-size:11px; background:rgba(56,189,248,0.08); border:1px dashed rgba(56,189,248,0.3); color:#38bdf8; padding:3px 8px; border-radius:6px; font-weight:600;">
+                        <i class="fa-solid fa-key"></i> Takım Davet Kodu: <strong>${escapeHtml(proj.inviteCode || proj.id.toUpperCase())}</strong>
+                    </span>
                 </div>
                 <p style="font-size:13px; color:#cbd5e1; line-height:1.5; margin-bottom:14px;">
                     ${escapeHtml(proj.desc)}
@@ -4416,10 +4404,62 @@ function renderProjects(filter = currentProjectFilter) {
     });
 }
 
+function selectProjType(type) {
+    const corpRadio = document.getElementById("radio-type-corp");
+    const commRadio = document.getElementById("radio-type-comm");
+    const corpCard = document.getElementById("lbl-proj-type-corp");
+    const commCard = document.getElementById("lbl-proj-type-comm");
+    const corpBox = document.getElementById("new-proj-corporate-box");
+    const commBox = document.getElementById("new-proj-community-box");
+    const mentorNameInput = document.getElementById("new-proj-mentor-name");
+    const mentorEmailInput = document.getElementById("new-proj-mentor-email");
+
+    if (type === 'kurumsal') {
+        if (corpRadio) corpRadio.checked = true;
+        if (corpCard) {
+            corpCard.style.borderColor = "#a78bfa";
+            corpCard.style.background = "rgba(167,139,250,0.15)";
+        }
+        if (commCard) {
+            commCard.style.borderColor = "var(--glass-border)";
+            commCard.style.background = "rgba(255,255,255,0.03)";
+        }
+        if (corpBox) corpBox.style.display = "block";
+        if (commBox) commBox.style.display = "none";
+        if (mentorNameInput) mentorNameInput.required = true;
+        if (mentorEmailInput) mentorEmailInput.required = true;
+    } else {
+        if (commRadio) commRadio.checked = true;
+        if (commCard) {
+            commCard.style.borderColor = "#38bdf8";
+            commCard.style.background = "rgba(56,189,248,0.15)";
+        }
+        if (corpCard) {
+            corpCard.style.borderColor = "var(--glass-border)";
+            corpCard.style.background = "rgba(255,255,255,0.03)";
+        }
+        if (corpBox) corpBox.style.display = "none";
+        if (commBox) commBox.style.display = "block";
+        if (mentorNameInput) mentorNameInput.required = false;
+        if (mentorEmailInput) mentorEmailInput.required = false;
+
+        const statusEl = document.getElementById("comm-level-status");
+        if (statusEl) {
+            const elig = getProjectEligibility();
+            const userXpTotal = userProfile.xp || userXp || 0;
+            if (elig.ok || userXpTotal >= 300) {
+                statusEl.innerHTML = `<span style="color:#4ade80;"><i class="fa-solid fa-circle-check"></i> Yetkinlik Doğrulandı: Topluluk projenizi başlatabilir ve ekibinizi yönetebilirsiniz.</span>`;
+            } else {
+                statusEl.innerHTML = `<span style="color:#f59e0b;"><i class="fa-solid fa-triangle-exclamation"></i> Topluluk projeleri açmak için en az 5. seviyeye ulaşmanız veya 300 XP kazanmanız gerekmektedir (Mevcut XP: ${userXpTotal}).</span>`;
+            }
+        }
+    }
+}
+
 function openCreateProjectModal() {
-    if (!canCreateOrApplyProject()) { showProjectLevelLock(); return; }
     const modal = document.getElementById("create-project-modal");
     if (modal) modal.classList.remove("hidden");
+    selectProjType('kurumsal');
 
     // Arkadaş listesini doldur (yalnızca kabul edilmiş arkadaşlar)
     const picker = document.getElementById("new-proj-friends-picker");
@@ -4429,7 +4469,7 @@ function openCreateProjectModal() {
             picker.innerHTML = `
                 <div style="font-size:12px; color:#f59e0b; padding:6px; display:flex; align-items:center; gap:6px;">
                     <i class="fa-solid fa-triangle-exclamation"></i>
-                    <span>Henüz onaylı arkadaşınız bulunmuyor. Ekip üyesi ekleyebilmek için önce menüden arkadaş eklemelisiniz.</span>
+                    <span>Henüz arkadaş listenizde kimse bulunmuyor. Projenizi oluşturduktan sonra Takım Davet Kodu ile arkadaşlarınızı doğrudan çağırabilirsiniz.</span>
                 </div>
             `;
         } else {
@@ -4449,7 +4489,17 @@ function closeCreateProjectModal() {
 }
 
 function submitCreateProject() {
-    if (!canCreateOrApplyProject()) { showProjectLevelLock(); return; }
+    const isCorp = document.getElementById("radio-type-corp") ? document.getElementById("radio-type-corp").checked : true;
+    
+    if (!isCorp) {
+        const elig = getProjectEligibility();
+        const userXpTotal = userProfile.xp || userXp || 0;
+        if (!elig.ok && userXpTotal < 300) {
+            alert("⚠️ Topluluk Projesi Şartı:\n\nTopluluk projesi başlatabilmek ve diğer öğrencilere liderlik edebilmek için en az 5. seviyeye ulaşmanız veya 300 XP kazanmış olmanız gerekmektedir.\n\nEğer Teknofest, TÜBİTAK veya Bitirme Tezi projeniz varsa 'Kurumsal / Yarışma Projesi' türünü seçerek 0 seviye ile hemen başlayabilirsiniz!");
+            return;
+        }
+    }
+
     const title = document.getElementById("new-proj-title").value.trim();
     const desc = document.getElementById("new-proj-desc").value.trim();
     const techInput = document.getElementById("new-proj-tech").value.trim();
@@ -4463,25 +4513,45 @@ function submitCreateProject() {
     const selectedFriends = Array.from(friendBoxes).map(cb => cb.value);
 
     const creatorName = userProfile.username || 'Deniz Kaya';
-    const isAdvisor = userProfile.role === 'danisman';
-    const creatorRole = isAdvisor ? (userProfile.mentorProfile ? `Danışman (${userProfile.mentorProfile.field})` : 'Danışman') : 'Proje Lideri';
+    const manager = creatorName; // Projeyi oluşturan her zaman Proje Yöneticisidir
 
-    // Danışman proje yöneticisi değildir: yönetici seçilen ilk ekip üyesidir, danışman tüm görevleri takip eder.
-    const manager = isAdvisor ? (selectedFriends[0] || null) : creatorName;
-    const advisor = isAdvisor ? creatorName : null;
-    const restMembers = isAdvisor ? selectedFriends.slice(1) : selectedFriends;
+    let advisor = null;
+    let advisorEmail = null;
+    let university = null;
+
+    if (isCorp) {
+        advisor = (document.getElementById("new-proj-mentor-name") ? document.getElementById("new-proj-mentor-name").value.trim() : "") || "Atanmış Danışman";
+        advisorEmail = (document.getElementById("new-proj-mentor-email") ? document.getElementById("new-proj-mentor-email").value.trim() : "") || "danisman@universite.edu.tr";
+        university = (document.getElementById("new-proj-university") ? document.getElementById("new-proj-university").value.trim() : "") || "Üniversite Takımı";
+    }
+
+    const inviteCode = (isCorp ? "TF-" : "PRJ-") + Math.random().toString(36).substring(2, 7).toUpperCase();
+
+    const membersList = [creatorName + " (Proje Yöneticisi)"];
+    if (advisor) {
+        membersList.push(advisor + " (Danışman)");
+    }
+    selectedFriends.forEach(f => {
+        if (!membersList.some(m => m.startsWith(f))) {
+            membersList.push(f + " (Geliştirici)");
+        }
+    });
 
     const newProj = normalizeProject({
         id: "proj_" + Date.now(),
         title,
         creator: creatorName,
-        creatorRole,
+        creatorRole: isCorp ? "Proje Yöneticisi (Kurumsal)" : "Proje Lideri (Akran)",
         desc,
         tech,
         lookingFor,
         manager,
-        advisor,
-        members: restMembers
+        advisor: isCorp ? advisor : null,
+        advisorEmail: isCorp ? advisorEmail : null,
+        university: isCorp ? university : null,
+        isCorporate: isCorp,
+        inviteCode,
+        members: membersList
     });
 
     const projects = getProjects();
@@ -4490,15 +4560,19 @@ function submitCreateProject() {
 
     closeCreateProjectModal();
     renderProjects();
-    alert(`🚀 "${title}" projeniz başarıyla yayınlandı ve ekibiniz kuruldu!`);
+
+    if (isCorp) {
+        alert(`🚀 "${title}" Kurumsal / Yarışma Projeniz Başarıyla Açıldı!\n\nDanışman Hoca (${advisor}): Davet bağlantısı kurumsal e-postaya (${advisorEmail}) iletildi.\n\nTakım Davet Kodunuz: ${inviteCode}\nTakım arkadaşlarınız bu kodla projeye doğrudan katılabilir!`);
+    } else {
+        alert(`🎉 "${title}" Topluluk Projeniz Başarıyla Açıldı!\n\nProje Yöneticisi: ${creatorName}\nTakım Davet Kodunuz: ${inviteCode}\nAkranlarınız bu kodla ekibinize doğrudan katılabilir!`);
+    }
 }
 
 function applyToProject(projId) {
-    if (!canCreateOrApplyProject()) { showProjectLevelLock(); return; }
     const projects = getProjects();
     const proj = projects.find(p => p.id === projId);
     if (!proj) return;
-    alert(`👏 "${proj.title}" projesine başvurunuz proje yöneticisi ${proj.manager || proj.creator} adlı kişiye iletildi, danışman ${proj.advisor || 'atanmadı'} süreci takip edecek! Başvurunuz kabul edildiğinde bildirim alacaksınız.`);
+    alert(`👏 "${proj.title}" projesine başvurunuz Proje Yöneticisi ${proj.manager || proj.creator} adlı kişiye iletildi! Başvurunuz onaylandığında ekibe dahil olacaksınız.`);
 }
 
 // ============================================================

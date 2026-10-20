@@ -227,68 +227,17 @@
                             </div>
                         </div>
 
-                        <div style="display:flex; gap:10px; margin-bottom:12px;">
-                            <div class="input-group" style="flex:1; margin-bottom:0;">
-                                <label>Eğitim Düzeyi</label>
-                                <div class="input-icon-wrapper">
-                                    <i class="fa-solid fa-graduation-cap"></i>
-                                    <select id="reg-education" required style="border-radius: 20px; width:100%; padding: 12px 14px 12px 38px; background: rgba(15, 23, 42, 0.7); border: 1px solid var(--glass-border); color: white; font-size: 13px;">
-                                        <option value="İlköğretim / Ortaokul">İlköğretim / Ortaokul</option>
-                                        <option value="Lise">Lise</option>
-                                        <option value="Üniversite" selected>Üniversite</option>
-                                        <option value="Yüksek Lisans / Doktora">Yüksek Lisans / Doktora</option>
-                                        <option value="Mezun / Sektör">Mezun / Sektör</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="input-group" style="flex:1; margin-bottom:0;">
-                                <label>Hesap Türü</label>
-                                <div class="input-icon-wrapper">
-                                    <i class="fa-solid fa-user-tie"></i>
-                                    <select id="reg-role" onchange="toggleMentorRegistrationFields('reg')" style="border-radius: 20px; width:100%; padding: 12px 14px 12px 38px; background: rgba(15, 23, 42, 0.7); border: 1px solid var(--glass-border); color: white; font-size: 13px;">
-                                        <option value="ogrenci" selected>Öğrenci</option>
-                                        <option value="danisman">Mentör / Danışman</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Mentör / Danışman Seçildiğinde Açılan Özel Danışman Alanları -->
-                        <div id="reg-mentor-extra-fields" style="display:none; margin-top:14px; margin-bottom:14px; padding:16px; background:rgba(56,189,248,0.06); border:1px dashed rgba(56,189,248,0.4); border-radius:18px;">
-                            <div style="font-size:12.5px; font-weight:700; color:#38bdf8; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-                                <i class="fa-solid fa-chalkboard-user"></i> Danışman / Mentör Profil Bilgileri
-                            </div>
-                            <div class="input-group" style="margin-bottom:10px;">
-                                <label style="font-size:12px; color:#cbd5e1; margin-bottom:4px; display:block;">Uzmanlık / Danışmanlık Alanı</label>
-                                <select id="reg-mentor-field" style="border-radius:14px; width:100%; padding:10px 12px; background:rgba(15,23,42,0.85); border:1px solid var(--glass-border); color:white; font-size:12.5px;">
-                                    <option value="Frontend & UI/UX">Frontend & UI/UX Mimarisi</option>
-                                    <option value="Backend & Mikroservisler">Backend & Mikroservis Mimarisi</option>
-                                    <option value="Fullstack Web Geliştirme" selected>Fullstack Web Geliştirme</option>
-                                    <option value="Veritabanı & Büyük Veri">Veritabanı & SQL / NoSQL Mimarisi</option>
-                                    <option value="Yapay Zeka & Veri Bilimi">Yapay Zeka & Veri Bilimi (Python)</option>
-                                    <option value="Mobil Geliştirme">Mobil Uygulama (iOS / Android / Flutter)</option>
-                                    <option value="Siber Güvenlik & DevOps">Siber Güvenlik, DevOps & Bulut</option>
-                                    <option value="Sistem & Oyun Motoru">Sistem Programlama & C++ Oyun Motoru</option>
+                        <div class="input-group" style="margin-bottom:12px;">
+                            <label>Eğitim Düzeyi / Üniversite</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                                <select id="reg-education" required style="border-radius: 20px; width:100%; padding: 12px 14px 12px 38px; background: rgba(15, 23, 42, 0.7); border: 1px solid var(--glass-border); color: white; font-size: 13px;">
+                                    <option value="İlköğretim / Ortaokul">İlköğretim / Ortaokul</option>
+                                    <option value="Lise">Lise</option>
+                                    <option value="Üniversite" selected>Üniversite</option>
+                                    <option value="Yüksek Lisans / Doktora">Yüksek Lisans / Doktora</option>
+                                    <option value="Mezun / Sektör">Mezun / Sektör</option>
                                 </select>
-                            </div>
-                            <div style="display:flex; gap:10px; margin-bottom:10px;">
-                                <div class="input-group" style="flex:1; margin-bottom:0;">
-                                    <label style="font-size:12px; color:#cbd5e1; margin-bottom:4px; display:block;">Deneyim Seviyesi</label>
-                                    <select id="reg-mentor-exp" style="border-radius:14px; width:100%; padding:10px 12px; background:rgba(15,23,42,0.85); border:1px solid var(--glass-border); color:white; font-size:12.5px;">
-                                        <option value="1-2 Yıl">1-2 Yıl</option>
-                                        <option value="3-5 Yıl (Mid-Senior)" selected>3-5 Yıl (Mid-Senior)</option>
-                                        <option value="5-8 Yıl (Senior)">5-8 Yıl (Senior)</option>
-                                        <option value="8+ Yıl (Lead / Principal)">8+ Yıl (Lead / Principal)</option>
-                                    </select>
-                                </div>
-                                <div class="input-group" style="flex:1; margin-bottom:0;">
-                                    <label style="font-size:12px; color:#cbd5e1; margin-bottom:4px; display:block;">Kurum / Şirket</label>
-                                    <input type="text" id="reg-mentor-company" placeholder="Örn: Teknopark, Google, İTÜ" style="border-radius:14px; padding:10px 12px; font-size:12.5px; width:100%;" />
-                                </div>
-                            </div>
-                            <div class="input-group" style="margin-bottom:0;">
-                                <label style="font-size:12px; color:#cbd5e1; margin-bottom:4px; display:block;">Mentörlük Biyografisi / Vizyonu</label>
-                                <input type="text" id="reg-mentor-bio" placeholder="Örn: Genç yeteneklere rehberlik etmek ve gerçek projeler üretmek istiyorum." style="border-radius:14px; padding:10px 12px; font-size:12.5px; width:100%;" />
                             </div>
                         </div>
                         
@@ -481,6 +430,12 @@
 
     <!-- IDE / DASHBOARD -->
     <section id="dashboard" class="hidden">
+        <!-- Milli Gururumuz Türk Bayrağı (Sağ Üst Sabit) -->
+        <div class="turkish-flag-corner" id="global-turkish-flag" title="Milli Teknoloji Hamlesi 🇹🇷 COD+ 2026">
+            <img src="assets/turkish-flag.png" alt="Türk Bayrağı" class="waving-flag-img" />
+            <span class="flag-tr-text">TR</span>
+        </div>
+
         <div class="sidebar">
             <div class="logo" title="COD+ 2026"><i class="fa-solid fa-code"></i></div>
             <nav id="sidebar-nav">
@@ -696,25 +651,30 @@
                         </div>
                     </div>
 
-                    <!-- Coddy Gamification Stats Bar -->
-                    <div class="coddy-stats-bar">
-                        <div class="coddy-stat-item stat-streak" title="Günlük Çalışma Serisi">
-                            <span class="stat-icon">🔥</span>
-                            <span class="stat-value" id="user-streak">3</span>
-                            <span class="stat-label">Gün</span>
+                    <!-- Coddy Gamification Stats Bar & Milli Bayrak -->
+                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                        <div class="coddy-stats-bar">
+                            <div class="coddy-stat-item stat-streak" title="Günlük Çalışma Serisi">
+                                <span class="stat-icon">🔥</span>
+                                <span class="stat-value" id="user-streak">3</span>
+                                <span class="stat-label">Gün</span>
+                            </div>
+                            <div class="coddy-stat-item stat-gems" title="Kazanılan Elmaslar">
+                                <span class="stat-icon">💎</span>
+                                <span class="stat-value" id="user-gems">120</span>
+                            </div>
+                            <div class="coddy-stat-item stat-xp" title="Toplam XP">
+                                <span class="stat-icon">⭐</span>
+                                <span class="stat-value" id="user-xp">350</span>
+                                <span class="stat-label">XP</span>
+                            </div>
+                            <div class="coddy-stat-item stat-hearts" title="Canlar">
+                                <span class="stat-icon">❤️</span>
+                                <span class="stat-value" id="user-hearts">5/5</span>
+                            </div>
                         </div>
-                        <div class="coddy-stat-item stat-gems" title="Kazanılan Elmaslar">
-                            <span class="stat-icon">💎</span>
-                            <span class="stat-value" id="user-gems">120</span>
-                        </div>
-                        <div class="coddy-stat-item stat-xp" title="Toplam XP">
-                            <span class="stat-icon">⭐</span>
-                            <span class="stat-value" id="user-xp">350</span>
-                            <span class="stat-label">XP</span>
-                        </div>
-                        <div class="coddy-stat-item stat-hearts" title="Canlar">
-                            <span class="stat-icon">❤️</span>
-                            <span class="stat-value" id="user-hearts">5/5</span>
+                        <div class="header-flag-pill" title="Milli Teknoloji Hamlesi 🇹🇷 COD+ 2026">
+                            <img src="assets/turkish-flag.png" alt="Türk Bayrağı" style="height:32px; width:auto; filter:drop-shadow(0 2px 6px rgba(220,38,38,0.5));" />
                         </div>
                     </div>
                 </header>
@@ -1750,8 +1710,8 @@
                     </div>
                 </div>
 
-                <div class="input-group" style="margin-bottom:12px;">
-                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Eğitim Düzeyi</label>
+                <div class="input-group" style="margin-bottom:14px;">
+                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Eğitim Düzeyi / Üniversite</label>
                     <div class="input-icon-wrapper">
                         <i class="fa-solid fa-graduation-cap"></i>
                         <select id="social-education" required style="border-radius:14px; width:100%; padding:12px 14px 12px 38px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:13px;">
@@ -1761,56 +1721,6 @@
                             <option value="Yüksek Lisans / Doktora">Yüksek Lisans / Doktora</option>
                             <option value="Mezun / Sektör">Mezun / Sektör</option>
                         </select>
-                    </div>
-                </div>
-
-                <div class="input-group" style="margin-bottom:12px;">
-                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Hesap Türü</label>
-                    <div class="input-icon-wrapper">
-                        <i class="fa-solid fa-user-tie"></i>
-                        <select id="social-role" onchange="toggleMentorRegistrationFields('social')" style="border-radius:14px; width:100%; padding:12px 14px 12px 38px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:13px;">
-                            <option value="ogrenci" selected>Öğrenci</option>
-                            <option value="danisman">Mentör / Danışman</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Mentör / Danışman Seçildiğinde Açılan Özel Danışman Alanları (Sosyal Giriş) -->
-                <div id="social-mentor-extra-fields" style="display:none; margin-top:8px; margin-bottom:14px; padding:16px; background:rgba(56,189,248,0.06); border:1px dashed rgba(56,189,248,0.4); border-radius:18px;">
-                    <div style="font-size:12.5px; font-weight:700; color:#38bdf8; margin-bottom:10px; display:flex; align-items:center; gap:6px;">
-                        <i class="fa-solid fa-chalkboard-user"></i> Danışman / Mentör Profil Bilgileri
-                    </div>
-                    <div class="input-group" style="margin-bottom:10px;">
-                        <label style="font-size:12px; color:#cbd5e1; margin-bottom:4px; display:block;">Uzmanlık / Danışmanlık Alanı</label>
-                        <select id="social-mentor-field" style="border-radius:14px; width:100%; padding:10px 12px; background:rgba(15,23,42,0.85); border:1px solid var(--glass-border); color:white; font-size:12.5px;">
-                            <option value="Frontend & UI/UX">Frontend & UI/UX Mimarisi</option>
-                            <option value="Backend & Mikroservisler">Backend & Mikroservis Mimarisi</option>
-                            <option value="Fullstack Web Geliştirme" selected>Fullstack Web Geliştirme</option>
-                            <option value="Veritabanı & Büyük Veri">Veritabanı & SQL / NoSQL Mimarisi</option>
-                            <option value="Yapay Zeka & Veri Bilimi">Yapay Zeka & Veri Bilimi (Python)</option>
-                            <option value="Mobil Geliştirme">Mobil Uygulama (iOS / Android / Flutter)</option>
-                            <option value="Siber Güvenlik & DevOps">Siber Güvenlik, DevOps & Bulut</option>
-                            <option value="Sistem & Oyun Motoru">Sistem Programlama & C++ Oyun Motoru</option>
-                        </select>
-                    </div>
-                    <div style="display:flex; gap:10px; margin-bottom:10px;">
-                        <div class="input-group" style="flex:1; margin-bottom:0;">
-                            <label style="font-size:12px; color:#cbd5e1; margin-bottom:4px; display:block;">Deneyim Seviyesi</label>
-                            <select id="social-mentor-exp" style="border-radius:14px; width:100%; padding:10px 12px; background:rgba(15,23,42,0.85); border:1px solid var(--glass-border); color:white; font-size:12.5px;">
-                                <option value="1-2 Yıl">1-2 Yıl</option>
-                                <option value="3-5 Yıl (Mid-Senior)" selected>3-5 Yıl (Mid-Senior)</option>
-                                <option value="5-8 Yıl (Senior)">5-8 Yıl (Senior)</option>
-                                <option value="8+ Yıl (Lead / Principal)">8+ Yıl (Lead / Principal)</option>
-                            </select>
-                        </div>
-                        <div class="input-group" style="flex:1; margin-bottom:0;">
-                            <label style="font-size:12px; color:#cbd5e1; margin-bottom:4px; display:block;">Kurum / Şirket</label>
-                            <input type="text" id="social-mentor-company" placeholder="Örn: Teknopark, Google, İTÜ" style="border-radius:14px; padding:10px 12px; font-size:12.5px; width:100%;" />
-                        </div>
-                    </div>
-                    <div class="input-group" style="margin-bottom:0;">
-                        <label style="font-size:12px; color:#cbd5e1; margin-bottom:4px; display:block;">Mentörlük Biyografisi / Vizyonu</label>
-                        <input type="text" id="social-mentor-bio" placeholder="Örn: Genç geliştiricilerle birlikte büyük projeler geliştirmek istiyorum." style="border-radius:14px; padding:10px 12px; font-size:12.5px; width:100%;" />
                     </div>
                 </div>
 
@@ -1954,6 +1864,61 @@
             </div>
             
             <form id="new-project-form" onsubmit="event.preventDefault(); submitCreateProject();">
+                <!-- Proje Türü Seçimi -->
+                <div style="margin-bottom:14px;">
+                    <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:6px; display:block; font-weight:700;">
+                        <i class="fa-solid fa-shapes" style="color:#38bdf8;"></i> Proje Türü Seçin
+                    </label>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                        <label id="lbl-proj-type-corp" class="proj-type-card active" onclick="selectProjType('kurumsal')" style="display:flex; flex-direction:column; padding:12px; background:rgba(167,139,250,0.12); border:2px solid #a78bfa; border-radius:14px; cursor:pointer; transition:all 0.2s;">
+                            <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                                <input type="radio" name="new_proj_type" id="radio-type-corp" value="kurumsal" checked style="accent-color:#a78bfa;">
+                                <strong style="color:#e9d5ff; font-size:13px;">Kurumsal / Yarışma</strong>
+                            </div>
+                            <span style="font-size:11px; color:#c4b5fd; line-height:1.35;">Teknofest, TÜBİTAK veya Bitirme Tezi. <strong>Seviye şartı yoktur.</strong> Danışman hoca gereklidir.</span>
+                        </label>
+                        <label id="lbl-proj-type-comm" class="proj-type-card" onclick="selectProjType('topluluk')" style="display:flex; flex-direction:column; padding:12px; background:rgba(255,255,255,0.03); border:2px solid var(--glass-border); border-radius:14px; cursor:pointer; transition:all 0.2s;">
+                            <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                                <input type="radio" name="new_proj_type" id="radio-type-comm" value="topluluk" style="accent-color:#38bdf8;">
+                                <strong style="color:#f8fafc; font-size:13px;">Topluluk (Akran)</strong>
+                            </div>
+                            <span style="font-size:11px; color:#94a3b8; line-height:1.35;">Sosyal / Açık kaynak proje. Danışman gerekmez. <strong>Ustalık / Seviye şartı aranır.</strong></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Kurumsal Proje İçin Danışman & Üniversite Bilgileri -->
+                <div id="new-proj-corporate-box" style="margin-bottom:14px; padding:14px; background:rgba(167,139,250,0.08); border:1px dashed rgba(167,139,250,0.4); border-radius:14px;">
+                    <div style="font-size:12px; font-weight:700; color:#c084fc; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                        <i class="fa-solid fa-graduation-cap"></i> Danışman Hoca ve Üniversite Bilgileri (Zorunlu)
+                    </div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:8px;">
+                        <div>
+                            <label style="font-size:11.5px; color:#cbd5e1; margin-bottom:3px; display:block;">Danışman Hoca Adı-Soyadı</label>
+                            <input type="text" id="new-proj-mentor-name" placeholder="Örn: Prof. Dr. Ahmet Yılmaz" style="border-radius:10px; width:100%; padding:8px 12px; background:rgba(15,23,42,0.85); border:1px solid var(--glass-border); color:white; font-size:12.5px;" />
+                        </div>
+                        <div>
+                            <label style="font-size:11.5px; color:#cbd5e1; margin-bottom:3px; display:block;">Danışman Kurumsal E-postası</label>
+                            <input type="email" id="new-proj-mentor-email" placeholder="hoca@universite.edu.tr" style="border-radius:10px; width:100%; padding:8px 12px; background:rgba(15,23,42,0.85); border:1px solid var(--glass-border); color:white; font-size:12.5px;" />
+                        </div>
+                    </div>
+                    <div>
+                        <label style="font-size:11.5px; color:#cbd5e1; margin-bottom:3px; display:block;">Üniversite / Fakülte / Yarışma Takımı</label>
+                        <input type="text" id="new-proj-university" placeholder="Örn: Sakarya Üniversitesi - Teknofest İHA Takımı" style="border-radius:10px; width:100%; padding:8px 12px; background:rgba(15,23,42,0.85); border:1px solid var(--glass-border); color:white; font-size:12.5px;" />
+                    </div>
+                </div>
+
+                <!-- Topluluk Projesi İçin Seviye & Ustalık Bilgilendirme Kutusu -->
+                <div id="new-proj-community-box" style="display:none; margin-bottom:14px; padding:12px 14px; background:rgba(56,189,248,0.08); border:1px dashed rgba(56,189,248,0.4); border-radius:14px;">
+                    <div style="font-size:12px; font-weight:700; color:#38bdf8; margin-bottom:4px; display:flex; align-items:center; gap:6px;">
+                        <i class="fa-solid fa-users"></i> Topluluk Akran Modeli (Danışmansız)
+                    </div>
+                    <p style="font-size:11.5px; color:#cbd5e1; margin:0; line-height:1.4;">
+                        Bu proje tipi öğrenciler arası açık kaynak dayanışmasıdır. Akademik danışman onayına ihtiyaç duyulmaz; tüm görev onayları ve takım yönetimi <strong>Proje Yöneticisi</strong> tarafından yürütülür.
+                    </p>
+                    <div id="comm-level-status" style="margin-top:8px; font-size:11.5px; font-weight:600;"></div>
+                </div>
+
                 <div class="input-group" style="margin-bottom:12px;">
                     <label style="font-size:12.5px; color:#cbd5e1; margin-bottom:4px; display:block;">Proje Başlığı</label>
                     <input type="text" id="new-proj-title" required placeholder="Örn: AI Harcama Analitiği & Fintech Paneli" style="border-radius:14px; width:100%; padding:10px 14px; background:rgba(15,23,42,0.8); border:1px solid var(--glass-border); color:white; font-size:13.5px;" />
