@@ -1,3 +1,6 @@
+
+// Son Çalıştırılan Kodun Durumu ve Doğrulama Belleği
+window.lastRunCodeState = { lang: '', hasError: false, error: null, output: '' };
 function escapeHtml(str) {
     if (str === null || str === undefined) return '';
     return String(str)
@@ -1707,13 +1710,16 @@ function startLesson(id) {
 
     // İnteraktif Ders Ekranına geç
     switchView('lesson');
+    setupLessonEditorAutoListeners();
     runLessonCode();
     window._inStartLesson = false;
 }
 
 // İnteraktif Ders Kodunu Çalıştır
-function runLessonCode() {
-    hasRunCurrentCode = true;
+function runLessonCode(isLiveUpdate = false) {
+    if (!window._inStartLesson) {
+        hasRunCurrentCode = true;
+    }
     const aiLinesBox = document.getElementById("lesson-output-ai-lines");
     if (aiLinesBox) aiLinesBox.style.display = "none";
 
@@ -1740,21 +1746,49 @@ function runLessonCode() {
 
         if (outputFrame) {
             const frameDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+            const strippedHtml = code.replace(/<!--[\s\S]*?-->/g, '').trim();
+
             frameDoc.open();
-            frameDoc.write(`
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="utf-8">
-                    <style>
-                        body { font-family: system-ui, -apple-system, sans-serif; padding: 12px; color: #1e293b; background: #ffffff; }
-                    </style>
-                </head>
-                <body>
-                    ${code}
-                </body>
-                </html>
-            `);
+            if (!strippedHtml) {
+                // Kod boş veya sadece yorum satırlarından ibaretse temiz yer tutucu göster, hayalet metin basma!
+                frameDoc.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <meta charset="utf-8">
+                        <style>
+                            body { font-family: system-ui, -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #ffffff; color: #94a3b8; }
+                            .hint-box { text-align: center; border: 2px dashed #cbd5e1; border-radius: 14px; padding: 24px; max-width: 82%; }
+                            .hint-icon { font-size: 32px; margin-bottom: 8px; }
+                            .hint-text { font-size: 13px; font-weight: 500; line-height: 1.5; color: #64748b; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="hint-box">
+                            <div class="hint-icon">🌐</div>
+                            <div class="hint-text">Canlı web önizlemesi burada görüntülenecektir.<br>Editöre kodunuzu yazıp <strong>'Çalıştır'</strong> butonuna basın.</div>
+                        </div>
+                    </body>
+                    </html>
+                `);
+                window.lastRunCodeState = { lang: 'html', hasError: false, error: null, output: '' };
+            } else {
+                frameDoc.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <meta charset="utf-8">
+                        <style>
+                            body { font-family: system-ui, -apple-system, sans-serif; padding: 12px; color: #1e293b; background: #ffffff; }
+                        </style>
+                    </head>
+                    <body>
+                        ${code}
+                    </body>
+                    </html>
+                `);
+                window.lastRunCodeState = { lang: 'html', hasError: false, error: null, output: code };
+            }
             frameDoc.close();
         }
     } else {
@@ -1768,6 +1802,16 @@ function runLessonCode() {
         if (outputTitle) outputTitle.innerText = "Terminal / Konsol";
 
         if (outputConsole) {
+            const strippedCode = stripCodeComments(code, langKey).trim();
+            if (!strippedCode) {
+                outputConsole.innerHTML = `
+                    <div class="term-line term-prompt" style="color:#64748b; margin-bottom:6px;">[${langKey.toUpperCase()} Konsolu Hazır]</div>
+                    <div class="term-line" style="color:#94a3b8; font-style:italic; padding:10px 0;">(Çıktı almak için editöre kodunuzu yazıp 'Çalıştır' butonuna basın)</div>
+                `;
+                window.lastRunCodeState = { lang: langKey, hasError: true, error: "Lütfen önce kodunuzu yazın." };
+                return;
+            }
+
             if (langKey === 'javascript') {
                 runJavaScriptSandbox(code, outputConsole);
             } else if (langKey === 'python') {
@@ -1783,7 +1827,24 @@ function runLessonCode() {
     }
 }
 
-// Ders Ekranı İçin Yapay Zeka Satır Satır Analiz
+// Editör Dinleyicisi: Kullanıcı yazdıkça canlı önizleme ve bayrak güncelleme
+function setupLessonEditorAutoListeners() {
+    const editor = document.getElementById("lesson-code-editor");
+    if (!editor || editor._hasAutoInputBound) return;
+    editor._hasAutoInputBound = true;
+
+    editor.addEventListener("input", () => {
+        hasRunCurrentCode = false; // Kod değişti, dersi tamamlamadan önce tekrar çalıştırılmalı!
+        const langKey = getLanguageKey(selectedLang || (userProfile && userProfile.selectedLanguage) || 'html');
+        if (langKey === 'html' || langKey === 'css') {
+            clearTimeout(window._liveHtmlDebounce);
+            window._liveHtmlDebounce = setTimeout(() => {
+                runLessonCode(true);
+            }, 300);
+        }
+    });
+}
+
 function explainCurrentLessonCode() {
     const editor = document.getElementById("lesson-code-editor") || document.getElementById("code-editor");
     const frame = document.getElementById("lesson-output-frame");
@@ -2368,7 +2429,8 @@ function runJavaScriptSandbox(code, outputConsole) {
         if (logs.length === 0) {
             outputConsole.innerHTML += `<div class="term-line" style="color:#94a3b8; font-style:italic;">(Kod hatasız çalıştı, herhangi bir console.log çıktısı üretilmedi.)</div>`;
         } else {
-            logs.forEach(log => {
+            window.lastRunCodeState = { lang: "javascript", hasError: false, error: null, output: logs.map(l => l.text).join("\n") };
+        logs.forEach(log => {
                 const color = log.type === 'err' ? '#f43f5e' : (log.type === 'warn' ? '#fbbf24' : '#e2e8f0');
                 outputConsole.innerHTML += `<div class="term-line" style="color:${color}; white-space:pre-wrap; margin-bottom:4px;">${escapeHtml(log.text)}</div>`;
             });
@@ -2379,6 +2441,7 @@ function runJavaScriptSandbox(code, outputConsole) {
                 ❌ JavaScript Hata (${err.name}): ${escapeHtml(err.message)}
             </div>
         `;
+        window.lastRunCodeState = { lang: "javascript", hasError: true, error: err.name + ": " + err.message, output: "" };
     } finally {
         console.log = origLog;
         console.warn = origWarn;
@@ -2397,6 +2460,89 @@ function runPythonSandbox(code, outputConsole) {
     `;
 
     const lines = code.split('\n');
+
+    // 1. KATI SÖZDİZİMİ (SYNTAX & NAME) DENETİMİ
+    for (let idx = 0; idx < lines.length; idx++) {
+        const line = lines[idx];
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('#')) continue;
+
+        // Python 2 tarzı parantezsiz print kontrolü (print "merhaba" veya print 123)
+        if (/^print\s+["'0-9a-zA-Z_]/.test(trimmed) && !/^print\s*\(/.test(trimmed)) {
+            const errMsg = `SyntaxError: Missing parentheses in call to 'print'. Did you mean print(${trimmed.replace(/^print\s+/, '')})? (Satır ${idx + 1})`;
+            outputConsole.innerHTML += `<div class="term-line term-err" style="color:#f43f5e; font-weight:bold; margin-top:6px;"><i class="fa-solid fa-circle-xmark"></i> ${escapeHtml(errMsg)}</div>`;
+            window.lastRunCodeState = { lang: 'python', hasError: true, error: errMsg, output: '' };
+            return;
+        }
+
+        // print yazım hataları (prin, prnt, printf, echo vb.)
+        if (/^(prin|prnt|printf|echo|prntf)\s*\(/.test(trimmed)) {
+            const typo = trimmed.match(/^([a-zA-Z_]+)/)[1];
+            const errMsg = `NameError: name '${typo}' is not defined. (Python'da ekrana yazdırmak için 'print' fonksiyonu kullanılır - Satır ${idx + 1})`;
+            outputConsole.innerHTML += `<div class="term-line term-err" style="color:#f43f5e; font-weight:bold; margin-top:6px;"><i class="fa-solid fa-circle-xmark"></i> ${escapeHtml(errMsg)}</div>`;
+            window.lastRunCodeState = { lang: 'python', hasError: true, error: errMsg, output: '' };
+            return;
+        }
+
+        // JavaScript operatörleri kontrolü (=== veya !==)
+        if (trimmed.includes('===') || trimmed.includes('!==')) {
+            const errMsg = `SyntaxError: Geçersiz operatör! Python'da eşitlik kontrolü için '==' kullanılır. (Satır ${idx + 1})`;
+            outputConsole.innerHTML += `<div class="term-line term-err" style="color:#f43f5e; font-weight:bold; margin-top:6px;"><i class="fa-solid fa-circle-xmark"></i> ${escapeHtml(errMsg)}</div>`;
+            window.lastRunCodeState = { lang: 'python', hasError: true, error: errMsg, output: '' };
+            return;
+        }
+
+        // Blok sonu iki nokta (:) kontrolü
+        if (/^(if|elif|else|for|while|def|class|try|except|finally|with)\b/.test(trimmed)) {
+            if (!trimmed.endsWith(':')) {
+                const errMsg = `SyntaxError: expected ':' at end of statement (Satır ${idx + 1})`;
+                outputConsole.innerHTML += `<div class="term-line term-err" style="color:#f43f5e; font-weight:bold; margin-top:6px;"><i class="fa-solid fa-circle-xmark"></i> ${escapeHtml(errMsg)}</div>`;
+                window.lastRunCodeState = { lang: 'python', hasError: true, error: errMsg, output: '' };
+                return;
+            }
+        }
+
+        // Kapatılmamış tırnak kontrolü
+        const sQ = (trimmed.match(/'/g) || []).length;
+        const dQ = (trimmed.match(/"/g) || []).length;
+        if (sQ % 2 !== 0 || dQ % 2 !== 0) {
+            const errMsg = `SyntaxError: Kapatılmamış tırnak işareti (EOL while scanning string literal - Satır ${idx + 1})`;
+            outputConsole.innerHTML += `<div class="term-line term-err" style="color:#f43f5e; font-weight:bold; margin-top:6px;"><i class="fa-solid fa-circle-xmark"></i> ${escapeHtml(errMsg)}</div>`;
+            window.lastRunCodeState = { lang: 'python', hasError: true, error: errMsg, output: '' };
+            return;
+        }
+
+        // Parantez dengesi kontrolü
+        const openP = (trimmed.match(/\(/g) || []).length;
+        const closeP = (trimmed.match(/\)/g) || []).length;
+        if (openP !== closeP) {
+            const errMsg = `SyntaxError: Kapatılmamış parantez '(' (Satır ${idx + 1})`;
+            outputConsole.innerHTML += `<div class="term-line term-err" style="color:#f43f5e; font-weight:bold; margin-top:6px;"><i class="fa-solid fa-circle-xmark"></i> ${escapeHtml(errMsg)}</div>`;
+            window.lastRunCodeState = { lang: 'python', hasError: true, error: errMsg, output: '' };
+            return;
+        }
+
+        // Tanınabilir geçerli Python satır kuralları
+        const isKnown = (
+            /^print\s*\(/.test(trimmed) ||
+            /^[a-zA-Z_]\w*\s*(\+=|-=|\*=|\/=|%=)?\s*=/.test(trimmed) ||
+            /^(if|elif|else|for|while|def|class|try|except|finally|with)\b.*:$/.test(trimmed) ||
+            /^(return|break|continue|pass)\b/.test(trimmed) ||
+            /^import\s+/.test(trimmed) ||
+            /^from\s+\w+\s+import\s+/.test(trimmed) ||
+            /^[a-zA-Z_]\w*\.[a-zA-Z_]\w*\(.*\)$/.test(trimmed) ||
+            /^[a-zA-Z_]\w*\(.*\)$/.test(trimmed)
+        );
+
+        if (!isKnown) {
+            const errMsg = `SyntaxError: Geçersiz Python sözdizimi: '${trimmed}' (Satır ${idx + 1})`;
+            outputConsole.innerHTML += `<div class="term-line term-err" style="color:#f43f5e; font-weight:bold; margin-top:6px;"><i class="fa-solid fa-circle-xmark"></i> ${escapeHtml(errMsg)}</div>`;
+            window.lastRunCodeState = { lang: 'python', hasError: true, error: errMsg, output: '' };
+            return;
+        }
+    }
+
+    // 2. PYTHON YÜRÜTÜCÜ MOTORU
     const outLines = [];
     const vars = {
         'kullanici': (typeof userName !== 'undefined' && userName) ? userName : 'Geliştirici',
@@ -2410,8 +2556,8 @@ function runPythonSandbox(code, outputConsole) {
 
     function evalExpr(expr, scope) {
         expr = expr.trim();
-        if (scope && scope[expr] !== undefined) return scope[expr];
-        if (vars[expr] !== undefined) return vars[expr];
+        const sc = scope || vars;
+        if (sc[expr] !== undefined) return sc[expr];
         if ((expr.startsWith('"') && expr.endsWith('"')) || (expr.startsWith("'") && expr.endsWith("'"))) {
             return expr.slice(1, -1);
         }
@@ -2419,8 +2565,23 @@ function runPythonSandbox(code, outputConsole) {
         if (expr === 'len(ogrenilen_diller)') return 5;
         if (expr.startsWith('len(') && expr.endsWith(')')) {
             const inner = expr.slice(4, -1).trim();
-            const val = evalExpr(inner, scope);
+            const val = evalExpr(inner, sc);
             return (Array.isArray(val) || typeof val === 'string') ? val.length : 0;
+        }
+
+        // Aritmetik işlemler (a + b, a - b, a * b, a % b, a / b)
+        const opMatch = expr.match(/^([a-zA-Z_]\w*|\d+)\s*([\+\-\*\/%])\s*([a-zA-Z_]\w*|\d+)$/);
+        if (opMatch) {
+            const v1 = Number(evalExpr(opMatch[1], sc));
+            const op = opMatch[2];
+            const v2 = Number(evalExpr(opMatch[3], sc));
+            if (!isNaN(v1) && !isNaN(v2)) {
+                if (op === '+') return v1 + v2;
+                if (op === '-') return v1 - v2;
+                if (op === '*') return v1 * v2;
+                if (op === '/') return v2 !== 0 ? v1 / v2 : 0;
+                if (op === '%') return v2 !== 0 ? v1 % v2 : 0;
+            }
         }
         return expr;
     }
@@ -2429,12 +2590,38 @@ function runPythonSandbox(code, outputConsole) {
         let content = raw.slice(2, -1);
         return content.replace(/\{([^}]+)\}/g, (_, exp) => {
             const clean = exp.trim();
-            if (scope && scope[clean] !== undefined) return scope[clean];
-            if (vars[clean] !== undefined) return vars[clean];
-            const ev = evalExpr(clean, scope);
+            const sc = scope || vars;
+            if (sc[clean] !== undefined) return sc[clean];
+            const ev = evalExpr(clean, sc);
             if (ev !== clean) return ev;
-            return `[⚠️ NameError: name '${clean}' is not defined -> İpucu: Süslü parantez içine değişken adını yazmalısınız: {kullanici}]`;
+            return `[⚠️ NameError: name '${clean}' is not defined]`;
         });
+    }
+
+    function evalPrintArgs(rawArg, scope) {
+        rawArg = rawArg.trim();
+        if (rawArg.startsWith('f"') || rawArg.startsWith("f'")) {
+            return formatFString(rawArg, scope);
+        }
+
+        // Virgülle ayrılmış çoklu parametreler: print("Ad:", isim, "Yaş:", yas)
+        const parts = [];
+        let cur = '';
+        let inQuote = false;
+        for (let c of rawArg) {
+            if ((c === '"' || c === "'") && (!inQuote || inQuote === c)) {
+                inQuote = inQuote ? false : c;
+            }
+            if (c === ',' && !inQuote) {
+                parts.push(cur.trim());
+                cur = '';
+            } else {
+                cur += c;
+            }
+        }
+        if (cur.trim()) parts.push(cur.trim());
+
+        return parts.map(p => evalExpr(p, scope)).join(' ');
     }
 
     let i = 0;
@@ -2481,55 +2668,17 @@ function runPythonSandbox(code, outputConsole) {
                 bodyLines.forEach(bLine => {
                     const pMatch = bLine.match(/^print\s*\((.*)\)$/);
                     if (pMatch) {
-                        let arg = pMatch[1].trim();
-                        if (arg.startsWith('f"') || arg.startsWith("f'")) {
-                            outLines.push(formatFString(arg, loopScope));
-                        } else {
-                            outLines.push(String(evalExpr(arg, loopScope)));
-                        }
+                        outLines.push(evalPrintArgs(pMatch[1], loopScope));
                     }
                 });
-            });
-            continue;
-        }
-
-        // Fonksiyon Tanımı: def selamla(isim='Geliştirici'):
-        const defMatch = trimmed.match(/^def\s+([a-zA-Z_]\w*)\s*\((.*?)\):$/);
-        if (defMatch) {
-            const paramsStr = defMatch[2].trim();
-            const fnScope = { ...vars };
-            if (paramsStr) {
-                paramsStr.split(',').forEach(p => {
-                    const [pName, pVal] = p.split('=').map(s => s.trim());
-                    if (pVal) fnScope[pName] = pVal.replace(/^['"]|['"]$/g, '');
-                    else fnScope[pName] = vars['kullanici'] || 'Geliştirici';
-                });
-            }
-
-            i++;
-            const bodyLines = [];
-            while (i < lines.length && (lines[i].startsWith('    ') || lines[i].startsWith('\t') || !lines[i].trim())) {
-                if (lines[i].trim()) bodyLines.push(lines[i].trim());
-                i++;
-            }
-
-            bodyLines.forEach(bLine => {
-                const pMatch = bLine.match(/^print\s*\((.*)\)$/);
-                if (pMatch) {
-                    let arg = pMatch[1].trim();
-                    if (arg.startsWith('f"') || arg.startsWith("f'")) {
-                        outLines.push(formatFString(arg, fnScope));
-                    } else {
-                        outLines.push(String(evalExpr(arg, fnScope)));
-                    }
-                }
             });
             continue;
         }
 
         // Değişken Ataması
         const assignMatch = trimmed.match(/^([a-zA-Z_]\w*)\s*=\s*(.*)$/);
-        if (assignMatch) {
+        if (assignMatch && !trimmed.startsWith('if') && !trimmed.startsWith('def') && !trimmed.startsWith('class')) {
+            const varName = assignMatch[1];
             let val = assignMatch[2].trim();
             if ((val.startsWith("'") && val.endsWith("'")) || (val.startsWith('"') && val.endsWith('"'))) {
                 val = val.slice(1, -1);
@@ -2541,8 +2690,10 @@ function runPythonSandbox(code, outputConsole) {
                 }
             } else if (!isNaN(Number(val))) {
                 val = Number(val);
+            } else if (vars[val] !== undefined) {
+                val = vars[val];
             }
-            vars[assignMatch[1]] = val;
+            vars[varName] = val;
             i++;
             continue;
         }
@@ -2550,15 +2701,18 @@ function runPythonSandbox(code, outputConsole) {
         // Standart Print
         const printMatch = trimmed.match(/^print\s*\((.*)\)\s*$/);
         if (printMatch) {
-            let rawArg = printMatch[1].trim();
-            if ((rawArg.startsWith('"') && rawArg.endsWith('"')) || (rawArg.startsWith("'") && rawArg.endsWith("'"))) {
-                outLines.push(rawArg.slice(1, -1));
-            } else if (rawArg.startsWith('f"') || rawArg.startsWith("f'")) {
-                outLines.push(formatFString(rawArg, vars));
-            } else if (rawArg.includes('"') && rawArg.includes('*')) {
-                outLines.push("=============================================");
-            } else {
-                outLines.push(String(evalExpr(rawArg, vars)));
+            outLines.push(evalPrintArgs(printMatch[1], vars));
+            i++;
+            continue;
+        }
+
+        // append() çağrısı: diller.append('SQL')
+        const appendMatch = trimmed.match(/^([a-zA-Z_]\w*)\.append\((.*)\)$/);
+        if (appendMatch) {
+            const listName = appendMatch[1];
+            const itemVal = evalExpr(appendMatch[2], vars);
+            if (vars[listName] && Array.isArray(vars[listName])) {
+                vars[listName].push(itemVal);
             }
             i++;
             continue;
@@ -2571,12 +2725,14 @@ function runPythonSandbox(code, outputConsole) {
         outLines.forEach(lineText => {
             outputConsole.innerHTML += `<div class="term-line term-out" style="color:#e2e8f0; white-space:pre-wrap; margin-bottom:3px;">${escapeHtml(lineText)}</div>`;
         });
+        window.lastRunCodeState = { lang: 'python', hasError: false, error: null, output: outLines.join('\n') };
     } else {
         outputConsole.innerHTML += `
             <div class="term-line term-success" style="color:#4ade80;">
-                >>> [Python Betiği Başarıyla Çalıştırıldı - Kod hatasız tamamlandı (Exit 0)]
+                >>> [Python Betiği Çalıştırıldı - Çıktı Üretilmedi]
             </div>
         `;
+        window.lastRunCodeState = { lang: 'python', hasError: false, error: null, output: '' };
     }
 }
 
@@ -2664,11 +2820,23 @@ function runCSharpSandbox(code, outputConsole) {
     });
 
     if (!printed) {
+        const cleanCode = stripCodeComments(code, 'csharp').trim();
+        const hasValidStructure = /Console\.WriteLine|class\s+\w+|static\s+void\s+Main/i.test(cleanCode);
+        if (!hasValidStructure && cleanCode) {
+            const firstToken = cleanCode.split(/\s+/)[0] || 'code';
+            const errMsg = `CS0103: The name '${firstToken}' does not exist in the current context`;
+            outputConsole.innerHTML += `<div class="term-line term-err" style="color:#f43f5e; font-weight:bold; margin-top:6px;"><i class="fa-solid fa-circle-xmark"></i> ${escapeHtml(errMsg)}</div>`;
+            window.lastRunCodeState = { lang: 'csharp', hasError: true, error: errMsg, output: '' };
+            return;
+        }
         outputConsole.innerHTML += `
             <div class="term-line term-success" style="color:#a855f7;">
                 [Build succeeded. 0 Warning(s), 0 Error(s). Process terminated with exit code 0.]
             </div>
         `;
+        window.lastRunCodeState = { lang: 'csharp', hasError: false, error: null, output: 'Build Succeeded' };
+    } else {
+        window.lastRunCodeState = { lang: 'csharp', hasError: false, error: null, output: 'Success' };
     }
 }
 
@@ -2690,6 +2858,16 @@ function runSQLSandbox(code, outputConsole) {
     if (upper.includes("INSERT INTO")) {
         outputConsole.innerHTML += `<div class="term-line term-success" style="color:#38bdf8; margin-bottom:6px;">INSERT 0 4 &bull; OK (4 kayıt başarıyla eklendi)</div>`;
     }
+    const hasValidSql = /\b(SELECT|INSERT|CREATE|UPDATE|DELETE|DROP|ALTER|WITH)\b/i.test(upper);
+    if (!hasValidSql) {
+        const cleanCode = stripCodeComments(code, 'sql').trim();
+        const firstToken = cleanCode.split(/\s+/)[0] || 'token';
+        const errMsg = `ERROR: syntax error at or near "${firstToken}"`;
+        outputConsole.innerHTML += `<div class="term-line term-err" style="color:#f43f5e; font-weight:bold; margin-top:6px;"><i class="fa-solid fa-circle-xmark"></i> ${escapeHtml(errMsg)}</div>`;
+        window.lastRunCodeState = { lang: 'sql', hasError: true, error: errMsg, output: '' };
+        return;
+    }
+
     if (upper.includes("SELECT")) {
         outputConsole.innerHTML += `
             <div style="background:rgba(15,23,42,0.9); border:1px solid rgba(56,189,248,0.3); border-radius:8px; padding:10px; margin-top:8px; font-family:'Fira Code', monospace; font-size:12.5px;">
@@ -2710,6 +2888,7 @@ function runSQLSandbox(code, outputConsole) {
             </div>
         `;
     }
+    window.lastRunCodeState = { lang: 'sql', hasError: false, error: null, output: 'Query OK' };
 }
 
 function runCPPSandbox(code, outputConsole) {
@@ -2743,11 +2922,23 @@ function runCPPSandbox(code, outputConsole) {
     });
 
     if (!printed) {
+        const cleanCode = stripCodeComments(code, 'cpp').trim();
+        const hasValidStructure = /std::cout|#include|main\s*\(/i.test(cleanCode);
+        if (!hasValidStructure && cleanCode) {
+            const firstToken = cleanCode.split(/\s+/)[0] || 'token';
+            const errMsg = `error: '${firstToken}' was not declared in this scope`;
+            outputConsole.innerHTML += `<div class="term-line term-err" style="color:#f43f5e; font-weight:bold; margin-top:6px;"><i class="fa-solid fa-circle-xmark"></i> ${escapeHtml(errMsg)}</div>`;
+            window.lastRunCodeState = { lang: 'cpp', hasError: true, error: errMsg, output: '' };
+            return;
+        }
         outputConsole.innerHTML += `
             <div class="term-line term-success" style="color:#38bdf8;">
                 [Compilation Finished Successfully. Process returned 0 (0x0).]
             </div>
         `;
+        window.lastRunCodeState = { lang: 'cpp', hasError: false, error: null, output: 'Compilation Succeeded' };
+    } else {
+        window.lastRunCodeState = { lang: 'cpp', hasError: false, error: null, output: 'Success' };
     }
 }
 
@@ -2775,81 +2966,182 @@ function stripCodeComments(code, langKey) {
     return cleaned;
 }
 
+
+// ============================================================
+// DERS KODU ÇÖZÜM DOĞRULAYICI (DETAILED LESSON VALIDATOR)
+// ============================================================
+function validateLessonCodeSolution(rawCode, cleanCode, lesson, langKey) {
+    if (!cleanCode || !cleanCode.trim()) {
+        return { valid: false, error: "Kod alanı boş! Lütfen dersin görevini uygulayan kodu yazın." };
+    }
+
+    const code = rawCode.trim();
+    const cleanLower = cleanCode.toLowerCase();
+
+    // HTML / CSS Kontrolleri
+    if (langKey === 'html') {
+        const mustInclude = lesson.mustInclude || [];
+        for (let rule of mustInclude) {
+            const ruleLower = rule.toLowerCase();
+            if (ruleLower === '<h1' || ruleLower === '<h1>') {
+                if (!/<h1\b[^>]*>[\s\S]*?<\/h1>/i.test(code)) {
+                    return { valid: false, error: "Lütfen açılış ve kapanış etiketleriyle tam bir <h1>...</h1> başlığı ekleyin." };
+                }
+            } else if (ruleLower === '<p' || ruleLower === '<p>') {
+                if (!/<p\b[^>]*>[\s\S]*?<\/p>/i.test(code)) {
+                    return { valid: false, error: "Lütfen açılış ve kapanış etiketleriyle tam bir <p>...</p> paragrafı ekleyin." };
+                }
+            } else if (ruleLower === '<b' || ruleLower === '<b>') {
+                if (!/<(b|strong)\b[^>]*>[\s\S]*?<\/(b|strong)>/i.test(code)) {
+                    return { valid: false, error: "Lütfen metinde kalınlaştırma yapmak için <b>...</b> veya <strong>...</strong> etiketi ekleyin." };
+                }
+            } else if (ruleLower === '<ul' || ruleLower === '<ul>') {
+                if (!/<ul\b[^>]*>[\s\S]*?<\/ul>/i.test(code)) {
+                    return { valid: false, error: "Lütfen <ul>...</ul> liste etiketini kullanın." };
+                }
+            } else if (ruleLower === '<li' || ruleLower === '<li>') {
+                if (!/<li\b[^>]*>[\s\S]*?<\/li>/i.test(code)) {
+                    return { valid: false, error: "Lütfen liste içine en az bir <li>...</li> öğesi ekleyin." };
+                }
+            } else if (ruleLower === '<a' || ruleLower === 'href=') {
+                if (!/<a\b[^>]*href\s*=\s*['"][^'"]+['"][^>]*>[\s\S]*?<\/a>/i.test(code)) {
+                    return { valid: false, error: "Lütfen geçerli bir href özniteliğine sahip <a href='...'>...</a> bağlantısı ekleyin." };
+                }
+            } else if (ruleLower === '<img' || ruleLower === 'src=') {
+                if (!/<img\b[^>]*src\s*=\s*['"][^'"]+['"][^>]*>/i.test(code)) {
+                    return { valid: false, error: "Lütfen geçerli bir src yoluna sahip <img src='...'> görsel etiketi ekleyin." };
+                }
+            } else if (ruleLower === '<table' || ruleLower === '<table>') {
+                if (!/<table\b[^>]*>[\s\S]*?<\/table>/i.test(code)) {
+                    return { valid: false, error: "Lütfen <table>...</table> tablo yapısını ekleyin." };
+                }
+            } else if (ruleLower === '<form' || ruleLower === '<form>') {
+                if (!/<form\b[^>]*>[\s\S]*?<\/form>/i.test(code)) {
+                    return { valid: false, error: "Lütfen <form>...</form> form etiketini ekleyin." };
+                }
+            } else if (ruleLower === '<input') {
+                if (!/<input\b[^>]*>/i.test(code)) {
+                    return { valid: false, error: "Lütfen form içine bir <input> girdi alanı ekleyin." };
+                }
+            } else {
+                if (!code.toLowerCase().includes(ruleLower)) {
+                    return { valid: false, error: lesson.errorMsg || `Kodunuzda '${rule}' kuralı eksik!` };
+                }
+            }
+        }
+    }
+
+    // Python Kontrolleri
+    if (langKey === 'python') {
+        const mustInclude = lesson.mustInclude || [];
+        for (let rule of mustInclude) {
+            const rLow = rule.toLowerCase();
+            if (rLow === 'print') {
+                if (!/print\s*\([^)]+\)/.test(code)) {
+                    return { valid: false, error: "Lütfen print(...) fonksiyonu ile ekrana geçerli bir çıktı yazdırın." };
+                }
+            } else if (rLow.includes("f'") || rLow.includes('f"')) {
+                if (!/f["'][\s\S]*?\{[^}]+\}[\s\S]*?["']/.test(code)) {
+                    return { valid: false, error: "Lütfen f-string (f'...' veya f\"...\") içinde süslü parantez {değişken} kullanarak formatlama yapın." };
+                }
+            } else if (rLow === 'for') {
+                if (!/for\s+[a-zA-Z_]\w*\s+in\s+.+:/.test(code)) {
+                    return { valid: false, error: "Lütfen geçerli bir for döngüsü (for eleman in liste:) yapısı kurun." };
+                }
+            } else if (rLow === 'def') {
+                if (!/def\s+[a-zA-Z_]\w*\s*\([^)]*\)\s*:/.test(code)) {
+                    return { valid: false, error: "Lütfen def anahtar kelimesi ile bir fonksiyon tanımlayın (def fonksiyon_adi():)." };
+                }
+            } else {
+                if (!cleanLower.includes(rLow)) {
+                    return { valid: false, error: lesson.errorMsg || `Kodunuzda '${rule}' ifadesi eksik!` };
+                }
+            }
+        }
+    }
+
+    // CSS Kontrolleri
+    if (langKey === 'css') {
+        const mustInclude = lesson.mustInclude || [];
+        for (let rule of mustInclude) {
+            if (!code.toLowerCase().includes(rule.toLowerCase())) {
+                return { valid: false, error: lesson.errorMsg || `CSS kodunuzda '${rule}' kuralı eksik!` };
+            }
+        }
+    }
+
+    // Diğer Diller (SQL, C#, C++, JS)
+    if (lesson.mustInclude && lesson.mustInclude.length > 0) {
+        for (let rule of lesson.mustInclude) {
+            if (!cleanLower.includes(rule.toLowerCase())) {
+                return { valid: false, error: lesson.errorMsg || `Kodunuzda '${rule}' ifadesi bulunamadı!` };
+            }
+        }
+    }
+
+    return { valid: true };
+}
+
 function completeCurrentLesson() {
     const langKey = getLanguageKey(selectedLang || (userProfile && userProfile.selectedLanguage) || 'html');
     if (typeof setCourseDataForLang === 'function') {
         courseData = setCourseDataForLang(langKey);
     }
     const lesson = courseData.find(l => l.id === currentLessonId);
+    if (!lesson) return;
     
     const isMiniProject = !!(lesson.isMiniProject || (lesson.title && lesson.title.includes("MİNİ PROJE")) || (lesson.title && lesson.title.includes("BİTİRME PROJESİ")));
     const editorEl = document.getElementById("lesson-code-editor") || document.getElementById("code-editor");
     const rawEditorText = editorEl ? editorEl.value : "";
-    const strippedEditorText = stripCodeComments(rawEditorText, langKey);
+    const strippedEditorText = stripCodeComments(rawEditorText, langKey).trim();
 
-    // 1. Sınav Kontrolü (Mini projelerde test sorusuyla geçilemez, kod yazılmalıdır)
-    if (!isMiniProject) {
+    // 1. Sınav Kontrolü (Mini test sorusu varsa)
+    if (!isMiniProject && lesson.quiz && lesson.quiz.options && lesson.quiz.options.length > 0) {
         const selected = document.querySelector('input[name="quiz_answer"]:checked');
         if (!selected) {
-            alert("Lütfen dersi tamamlamadan önce yandaki mini testi cevapla!");
+            alert("⚠️ Lütfen dersi tamamlamadan önce yandaki mini testi cevaplayın!");
             return;
         }
         
         if (parseInt(selected.value) !== lesson.quiz.correctIndex) {
             currentLessonAttempts++;
-            alert("Mini test cevabın yanlış! Tekrar düşün ve doğru şıkkı bul.");
+            alert("❌ Mini test cevabınız yanlış! Lütfen teoriyi tekrar inceleyip doğru şıkkı bulun.");
             checkFailure(lesson);
             return;
         }
-    } else {
-        // Mini Projeler için Kodlama Kontrolleri:
-        if (!hasRunCurrentCode) {
-            alert("⚠️ Mini Proje Doğrulaması:\n\nMini projeyi tamamlamadan önce lütfen yazdığınız kodu 'Çalıştır' butonuna basarak konsolda test ediniz!");
-            return;
-        }
-
-        const cleanUserNorm = strippedEditorText.replace(/\s+/g, " ").trim().toLowerCase();
-        const cleanInitNorm = stripCodeComments(lesson.initialCode || "", langKey).replace(/\s+/g, " ").trim().toLowerCase();
-        if (!cleanUserNorm || cleanUserNorm === cleanInitNorm) {
-            alert("⚠️ Mini Proje Tamamlanmadı:\n\nLütfen projedeki yönergeleri uygulayarak kodunuzu kendiniz yazınız!");
-            return;
-        }
     }
 
-    // 2. Kod Validasyonu (Mini projelerde yorum satırları hariç tutularak kontrol edilir)
-    const userCode = (isMiniProject ? strippedEditorText : rawEditorText).toLowerCase();
-    const userCodeNormColon = userCode.replace(/:\s+/g, ":");
-    
-    if (lesson.mustInclude && lesson.mustInclude.length > 0) {
-        // f-string kontrolü varsa hem f' hem f" geçerli sayılsın
-        const isFStringRule = lesson.mustInclude.some(r => r.includes('f"') || r.includes("f'"));
-        if (isFStringRule) {
-            const hasF = userCode.includes('f"') || userCode.includes("f'");
-            if (!hasF) {
-                currentLessonAttempts++;
-                alert(`❌ Kodunuzda eksikler var!\n\n${lesson.errorMsg}`);
-                checkFailure(lesson);
-                return;
-            }
-        }
-        
-        for (let rule of lesson.mustInclude) {
-            // f-string tırnak alternatiflerini yukarıda kontrol ettiğimiz için loopta tekrar engelleme
-            if (rule === 'f"' || rule === "f'") continue;
-
-            const ruleLower = rule.toLowerCase();
-            const ruleNormColon = ruleLower.replace(/:\s+/g, ":");
-            if (!userCode.includes(ruleLower) && !userCodeNormColon.includes(ruleNormColon)) {
-                currentLessonAttempts++;
-                alert(`❌ Kodunuzda eksikler var!\n\n${lesson.errorMsg}`);
-                checkFailure(lesson);
-                return; // Dersi tamamlamasına izin verme
-            }
-        }
+    // 2. Kod Boşluk / Şablon Kontrolü
+    if (!strippedEditorText) {
+        alert("❌ Kod Alanı Boş!\n\nLütfen dersi tamamlamak için editöre kodunuzu yazın.");
+        return;
     }
-    
-    // 3. Doğruysa dersi tamamla ve Coddy ödülü ver
-    const isLastLesson = currentLessonId === 30; // 30 is the last main lesson
+
+    // 3. Kod Çalıştırıldı mı Kontrolü (TÜM DERSLER İÇİN ZORUNLU!)
+    if (!hasRunCurrentCode) {
+        alert("⚠️ Kodunuzu Test Edin:\n\nDersi tamamlamadan önce lütfen yazdığınız kodu 'Çalıştır' butonuna basarak test edin!");
+        return;
+    }
+
+    // 4. Çalıştırma Hatası Kontrolü (SyntaxError veya Runtime Error)
+    if (window.lastRunCodeState && window.lastRunCodeState.hasError) {
+        currentLessonAttempts++;
+        alert(`❌ Kodunuzda Hata Var!\n\n${window.lastRunCodeState.error || 'Sözdizimi hatası'}\n\nLütfen hatayı düzeltip tekrar 'Çalıştır' butonuna basın.`);
+        checkFailure(lesson);
+        return;
+    }
+
+    // 5. Kod Çözüm Doğrulaması (Syntax & Task Validator)
+    const valResult = validateLessonCodeSolution(rawEditorText, strippedEditorText, lesson, langKey);
+    if (!valResult.valid) {
+        currentLessonAttempts++;
+        alert(`❌ Kodunuz Eksik veya Yanlış!\n\n${valResult.error}`);
+        checkFailure(lesson);
+        return;
+    }
+
+    // 6. Başarılı! Dersi tamamla ve Coddy ödülü ver
+    const isLastLesson = currentLessonId === (courseData.length || 30);
 
     // İlerlemeyi güncelle
     if (lesson.isPractice) {
@@ -2858,111 +3150,16 @@ function completeCurrentLesson() {
         unlockedLevel++;
     }
 
-    // Coddy Ödül Kazanımı
+    // Gamification Ödül Kazanımı
     userXp += 50;
     userGems += 10;
     saveUserProfileToStorage();
     updateCoddyStats();
 
-    // Coddy Kutlama Modalı Göster
+    // Kutlama Modalı Göster
     const title = isLastLesson ? "Tebrikler! Tüm Kurs Bitti! 🎓" : "Harika Kodladın! 🎉";
-    const desc = isLastLesson ? "Front-End dünyasının tüm temellerini ustalıkla tamamladın!" : `"${lesson.title}" dersini başarıyla tamamladın. +50 XP ve +10 Elmas kazandın!`;
+    const desc = isLastLesson ? "Tüm temelleri ustalıkla tamamladın!" : `"${lesson.title}" dersini başarıyla tamamladın. +50 XP ve +10 Elmas kazandın!`;
     showCoddyCelebration(title, desc);
-}
-
-function showCoddyCelebration(title, desc) {
-    const modal = document.getElementById("coddy-modal");
-    if(!modal) {
-        renderRoadmap();
-        switchView('map');
-        return;
-    }
-
-    document.getElementById("coddy-modal-title").innerText = title;
-    document.getElementById("coddy-modal-desc").innerText = desc;
-
-    // Sonraki derse doğrudan geçiş butonu yönetimi
-    const nextBtn = document.getElementById("coddy-btn-next-lesson");
-    const nextText = document.getElementById("coddy-next-text");
-    if (nextBtn) {
-        if (currentLessonId < 30) {
-            nextBtn.style.display = "flex";
-            if (nextText) nextText.innerText = `Sonraki Derse Geç (${currentLessonId + 1}. Ders) 🚀`;
-        } else {
-            nextBtn.style.display = "none";
-        }
-    }
-
-    modal.classList.remove("hidden");
-}
-
-function goToNextLessonDirectly() {
-    const modal = document.getElementById("coddy-modal");
-    if (modal) modal.classList.add("hidden");
-
-    const langKey = getLanguageKey(selectedLang || (userProfile && userProfile.selectedLanguage) || 'html');
-    if (typeof setCourseDataForLang === 'function') {
-        courseData = setCourseDataForLang(langKey);
-    }
-    const currentId = currentLessonId || 1;
-    const nextLesson = courseData.find(l => l.id > currentId);
-
-    if (nextLesson) {
-        if (unlockedLevel < nextLesson.id) {
-            unlockedLevel = nextLesson.id;
-            saveUserProfileToStorage();
-        }
-        startLesson(nextLesson.id);
-    } else {
-        renderRoadmap();
-        switchView('map');
-        scrollToActiveLesson(currentId);
-    }
-}
-
-function closeCoddyModal() {
-    const modal = document.getElementById("coddy-modal");
-    if (modal) modal.classList.add("hidden");
-    renderRoadmap();
-    switchView('map');
-    scrollToActiveLesson(currentLessonId || unlockedLevel);
-}
-
-function updateCoddyStats() {
-    const elStreak = document.getElementById("user-streak");
-    const elGems = document.getElementById("user-gems");
-    const elXp = document.getElementById("user-xp");
-    const elHearts = document.getElementById("user-hearts");
-
-    if(elStreak) elStreak.innerText = userStreak;
-    if(elGems) elGems.innerText = userGems;
-    if(elXp) elXp.innerText = userXp;
-    if(elHearts) elHearts.innerText = `${userHearts}/5`;
-}
-
-// COD+ Maskotu ile Eğlenceli Etkileşim
-const coddyQuotes = [
-    "Harika gidiyorsun! Kod yazmak gerçek bir süper güçtür! 🦸‍♂️",
-    "Bugün 1 ders tamamla ve serini alevlendir! 🔥",
-    "Ben COD+! Takıldığında Dijital Kitaba göz atabilirsin 📖",
-    "Kodun çalışmadığında pes etme, her hata seni daha iyi bir yazılımcı yapar! 💡",
-    "HTML iskelet, CSS kıyafet, JavaScript ise ruh demektir! 🎨",
-    "Seninle kod yazmayı çok seviyorum, sınırları aşmaya devam et! 🚀"
-];
-let coddyQuoteIndex = 0;
-
-function interactWithCoddy() {
-    const speechEl = document.getElementById("coddy-speech");
-    if(!speechEl) return;
-    
-    coddyQuoteIndex = (coddyQuoteIndex + 1) % coddyQuotes.length;
-    speechEl.innerText = `"${coddyQuotes[coddyQuoteIndex]}"`;
-    
-    const banner = document.querySelector(".coddy-mascot-banner");
-    if(banner) {
-        banner.style.transform = "scale(1.04)";
-        setTimeout(() => { banner.style.transform = ""; }, 200);
-    }
 }
 
 function checkFailure(lesson) {

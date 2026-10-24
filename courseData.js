@@ -505,7 +505,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<!-- Başlık ve paragraf ekleyin -->\n<h1>Hoş Geldiniz</h1>\n<p>COD+ ile kodlamaya ilk adım.</p>",
+      "initialCode": "<!-- GÖREV: İlk Etiketler (Başlık/Paragraf) - Web sayfasının temel metin yapı taşlarını öğren. -->\n",
       "mustInclude": [
         "<h1",
         "<p"
@@ -530,7 +530,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<p>Önemli kelimeleri <b>kalın</b> yapalım.</p>",
+      "initialCode": "<!-- GÖREV: Metin Formatlama - Kalın, eğik ve altı çizili metinler. -->\n",
       "mustInclude": [
         "<b",
         "</b>"
@@ -555,7 +555,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<ul>\n  <li>Öğe 1</li>\n</ul>",
+      "initialCode": "<!-- GÖREV: Listeler Oluşturma - Sıralı ve sırasız listeler. -->\n",
       "mustInclude": [
         "<ul",
         "<li"
@@ -580,7 +580,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<a href='https://example.com'>Tıkla ve Git</a>",
+      "initialCode": "<!-- GÖREV: Bağlantılar (Linkler) - Sayfalar arası köprüler kurun. -->\n",
       "mustInclude": [
         "<a",
         "href="
@@ -605,7 +605,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 2
       },
-      "initialCode": "<img src='https://via.placeholder.com/150' alt='Örnek Görsel'>",
+      "initialCode": "<!-- GÖREV: Görseller ve Alt Metin - Sayfana resimler ekle. -->\n",
       "mustInclude": [
         "<img",
         "src="
@@ -630,7 +630,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<div>\n  <p>Kart İçeriği</p>\n</div>",
+      "initialCode": "<!-- GÖREV: Kapsayıcılar: Div ve Span - Öğeleri blok ve satır içi gruplayın. -->\n",
       "mustInclude": [
         "<div",
         "</div>"
@@ -655,7 +655,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<header>\n  <h1>Site Başlığı</h1>\n</header>",
+      "initialCode": "<!-- GÖREV: Semantik Etiketler - Arama motoru ve erişilebilirlik dostu yapı. -->\n",
       "mustInclude": [
         "<header",
         "</header>"
@@ -680,7 +680,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 2
       },
-      "initialCode": "<table>\n  <tr><td>Hücre 1</td><td>Hücre 2</td></tr>\n</table>",
+      "initialCode": "<!-- GÖREV: Tablo Oluşturma - Verileri satır ve sütunlara böl. -->\n",
       "mustInclude": [
         "<table",
         "<tr",
@@ -706,7 +706,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<form>\n  <input type='text' placeholder='Kullanıcı Adı'>\n</form>",
+      "initialCode": "<!-- GÖREV: Formlar ve Kullanıcı Girişi - Kullanıcıdan veri toplama. -->\n",
       "mustInclude": [
         "<form",
         "<input"
@@ -759,7 +759,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<style>\n  h1 { color: #3b82f6; }\n</style>\n<h1>Mavi Başlık</h1>",
+      "initialCode": "<style>\n  /* GÖREV: CSS'e Giriş & Renkler - Stil kuralları ve renk paletleri. */\n  \n</style>\n<h1>Mavi Başlık</h1>",
       "mustInclude": [
         "color:"
       ],
@@ -783,7 +783,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  p { font-size: 18px; }\n</style>\n<p>Büyük fontlu yazı.</p>",
+      "initialCode": "<style>\n  /* GÖREV: Fontlar & Tipografi - Yazı tipleri ve boyutlandırma. */\n  \n</style>\n<p>Büyük fontlu yazı.</p>",
       "mustInclude": [
         "font-size"
       ],
@@ -807,7 +807,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<style>\n  .kutu { padding: 15px; margin: 10px; background: #eee; }\n</style>\n<div class='kutu'>Kutu</div>",
+      "initialCode": "<style>\n  /* GÖREV: Box Model: Margin & Padding - Elemanların iç ve dış boşlukları. */\n  \n</style>\n<div class='kutu'>Kutu</div>",
       "mustInclude": [
         "padding"
       ],
@@ -831,7 +831,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<style>\n  .kart { border: 1px solid #38bdf8; border-radius: 10px; padding: 10px; }\n</style>\n<div class='kart'>Kart</div>",
+      "initialCode": "<style>\n  /* GÖREV: Kenarlıklar (Borders & Radius) - Köşeleri yuvarlatma ve çerçeveler. */\n  \n</style>\n<div class='kart'>Kart</div>",
       "mustInclude": [
         "border-radius"
       ],
@@ -855,7 +855,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<style>\n  .nav { display: flex; gap: 10px; }\n</style>\n<div class='nav'><span>A</span><span>B</span></div>",
+      "initialCode": "<style>\n  /* GÖREV: Flexbox: Hizalama & Düzen - Modern esnek kutu mimarisi. */\n  \n</style>\n<div class='nav'><span>A</span><span>B</span></div>",
       "mustInclude": [
         "display: flex"
       ],
@@ -879,7 +879,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  .grid { display: grid; gap: 10px; }\n</style>\n<div class='grid'><div>1</div><div>2</div></div>",
+      "initialCode": "<style>\n  /* GÖREV: CSS Grid Mimarisi - İki boyutlu ızgara sistemi. */\n  \n</style>\n<div class='grid'><div>1</div><div>2</div></div>",
       "mustInclude": [
         "grid"
       ],
@@ -903,7 +903,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 2
       },
-      "initialCode": "<style>\n  .sabit { position: relative; }\n</style>\n<div class='sabit'>Konumlu Kutu</div>",
+      "initialCode": "<style>\n  /* GÖREV: Konumlandırma (Position) - Relative, absolute ve fixed. */\n  \n</style>\n<div class='sabit'>Konumlu Kutu</div>",
       "mustInclude": [
         "position:"
       ],
@@ -927,7 +927,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<style>\n  button:hover { background: #3b82f6; }\n</style>\n<button>Üzerime Gel</button>",
+      "initialCode": "<style>\n  /* GÖREV: Hover & Durum Efektleri - Fare etkileşimleri ve transition. */\n  \n</style>\n<button>Üzerime Gel</button>",
       "mustInclude": [
         ":hover"
       ],
@@ -951,7 +951,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 2
       },
-      "initialCode": "<style>\n  @media (max-width: 600px) { .kutu { width: 100%; } }\n</style>",
+      "initialCode": "<style>\n  /* GÖREV: Responsive Tasarım & Media Queries - Mobil ve tablet uyumluluğu. */\n  \n</style>\n<div class=\"kutu\">İçerik</div>",
       "mustInclude": [
         "@media"
       ],
@@ -1002,7 +1002,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 2
       },
-      "initialCode": "<script>\n  const ad = 'Deniz';\n  console.log(ad);\n</script>",
+      "initialCode": "<script>\n  // GÖREV: Değişkenler: let, const, var - Hafızada veri saklama.\n  \n</script>",
       "mustInclude": [
         "const"
       ],
@@ -1026,7 +1026,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<script>\n  console.log('Merhaba Dünya!');\n</script>",
+      "initialCode": "<script>\n  // GÖREV: Veri Tipleri & Konsol Çıktısı - String, Number, Boolean ve console.log.\n  \n</script>",
       "mustInclude": [
         "console.log"
       ],
@@ -1050,7 +1050,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<script>\n  function selamla(isim) {\n    return 'Merhaba ' + isim;\n  }\n</script>",
+      "initialCode": "<script>\n  // GÖREV: Fonksiyonlar (Functions) - Tekrar kullanılabilir kod blokları.\n  \n</script>",
       "mustInclude": [
         "function"
       ],
@@ -1074,7 +1074,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<script>\n  let puan = 75;\n  if (puan >= 50) {\n    console.log('Başarılı');\n  }\n</script>",
+      "initialCode": "<script>\n  // GÖREV: Koşullu Durumlar: if / else - Karar verme mekanizmaları.\n  \n</script>",
       "mustInclude": [
         "if"
       ],
@@ -1098,7 +1098,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<script>\n  const liste = ['Elma', 'Muz'];\n  console.log(liste[0]);\n</script>",
+      "initialCode": "<script>\n  // GÖREV: Diziler (Arrays) - Birden çok veriyi tek listede tutma.\n  \n</script>",
       "mustInclude": [
         "["
       ],
@@ -1122,7 +1122,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<script>\n  for (let i = 0; i < 3; i++) {\n    console.log(i);\n  }\n</script>",
+      "initialCode": "<script>\n  // GÖREV: Döngüler: for ve while - İşlemleri otomatik tekrarla.\n  \n</script>",
       "mustInclude": [
         "for"
       ],
@@ -1146,7 +1146,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<h1 id='metin'>Eski Yazı</h1>\n<script>\n  document.getElementById('metin').innerText = 'Güncellendi!';\n</script>",
+      "initialCode": "<script>\n  // GÖREV: DOM: document.getElementById - HTML elemanını yakalama ve değiştirme.\n  \n</script>",
       "mustInclude": [
         "document.getElementById"
       ],
@@ -1170,7 +1170,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<button id='btn'>Tıkla</button>\n<script>\n  document.getElementById('btn').addEventListener('click', function() { alert('Başarılı!'); });\n</script>",
+      "initialCode": "<script>\n  // GÖREV: Olaylar (Events): addEventListener - Tıklamaları dinle.\n  \n</script>",
       "mustInclude": [
         "addEventListener"
       ],
@@ -1194,7 +1194,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<script>\n  const user = { name: 'Deniz', score: 100 };\n  console.log(user.name);\n</script>",
+      "initialCode": "<script>\n  // GÖREV: Nesneler (Objects) - Key-value veri yapıları.\n  \n</script>",
       "mustInclude": [
         "{",
         "}"
@@ -1249,7 +1249,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "SELECT * FROM ogrenciler;",
+      "initialCode": "-- GÖREV: SELECT & Temel Çekim - Tablodan sütunları sorgulama.\n",
       "mustInclude": [
         "SELECT",
         "FROM"
@@ -1274,7 +1274,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "SELECT * FROM ogrenciler WHERE puan >= 85;",
+      "initialCode": "-- GÖREV: WHERE ile Filtreleme - Koşullu satır süzme.\n",
       "mustInclude": [
         "WHERE"
       ],
@@ -1298,7 +1298,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "SELECT * FROM ogrenciler WHERE dil = 'SQL' AND puan >= 80;",
+      "initialCode": "-- GÖREV: AND / OR Mantıksal Operatörler - Birden çok şartı bağlama.\n",
       "mustInclude": [
         "AND"
       ],
@@ -1322,7 +1322,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "SELECT * FROM ogrenciler ORDER BY puan DESC;",
+      "initialCode": "-- GÖREV: ORDER BY ile Sıralama - Sonuçları büyükten küçüğe dizme.\n",
       "mustInclude": [
         "ORDER BY"
       ],
@@ -1346,7 +1346,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "SELECT DISTINCT dil FROM ogrenciler;",
+      "initialCode": "-- GÖREV: DISTINCT ile Tekilleştirme - Aynı kayıtları eleme.\n",
       "mustInclude": [
         "DISTINCT"
       ],
@@ -1370,7 +1370,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "SELECT * FROM ogrenciler LIMIT 5;",
+      "initialCode": "-- GÖREV: LIMIT & OFFSET ile Sayfalama - Dönen satır adedini sınırlama.\n",
       "mustInclude": [
         "LIMIT"
       ],
@@ -1394,7 +1394,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "SELECT * FROM ogrenciler WHERE ad LIKE 'A%';",
+      "initialCode": "-- GÖREV: LIKE ile Desen Arama - Metin içinde arama.\n",
       "mustInclude": [
         "LIKE"
       ],
@@ -1418,7 +1418,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "SELECT * FROM ogrenciler WHERE puan BETWEEN 80 AND 100;",
+      "initialCode": "-- GÖREV: IN ve BETWEEN Operatörleri - Aralık ve küme filtreleme.\n",
       "mustInclude": [
         "BETWEEN"
       ],
@@ -1442,7 +1442,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "SELECT COUNT(*) AS toplam, AVG(puan) AS ortalama FROM ogrenciler;",
+      "initialCode": "-- GÖREV: Toplama Fonksiyonları (COUNT, AVG) - Satır sayısı ve ortalama.\n",
       "mustInclude": [
         "COUNT"
       ],
@@ -1495,7 +1495,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "CREATE TABLE kurslar (id INT, ad VARCHAR(50));",
+      "initialCode": "-- GÖREV: CREATE TABLE & Tipler - Yeni tablo yapısı oluşturma.\n",
       "mustInclude": [
         "CREATE TABLE"
       ],
@@ -1519,7 +1519,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "CREATE TABLE uyeler (id INT PRIMARY KEY, ad VARCHAR(50));",
+      "initialCode": "-- GÖREV: PRIMARY KEY (Birincil Anahtar) - Satırların benzersiz kimliği.\n",
       "mustInclude": [
         "PRIMARY KEY"
       ],
@@ -1543,7 +1543,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "CREATE TABLE ayarlar (anahtar VARCHAR(50) NOT NULL);",
+      "initialCode": "-- GÖREV: NOT NULL & DEFAULT - Zorunlu ve varsayılan alanlar.\n",
       "mustInclude": [
         "NOT NULL"
       ],
@@ -1567,7 +1567,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "INSERT INTO ogrenciler (id, ad, dil, puan) VALUES (5, 'Zeynep', 'SQL', 95);",
+      "initialCode": "-- GÖREV: INSERT INTO ile Kayıt Ekleme - Tabloya yeni satır ekleme.\n",
       "mustInclude": [
         "INSERT INTO",
         "VALUES"
@@ -1592,7 +1592,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "UPDATE ogrenciler SET puan = 99 WHERE id = 1;",
+      "initialCode": "-- GÖREV: UPDATE ile Veri Güncelleme - Mevcut kaydı değiştirme.\n",
       "mustInclude": [
         "UPDATE",
         "SET"
@@ -1617,7 +1617,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 2
       },
-      "initialCode": "DELETE FROM ogrenciler WHERE puan < 50;",
+      "initialCode": "-- GÖREV: DELETE ile Kayıt Silme - Tablodan satır çıkarma.\n",
       "mustInclude": [
         "DELETE FROM"
       ],
@@ -1641,7 +1641,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "ALTER TABLE ogrenciler ADD telefon VARCHAR(20);",
+      "initialCode": "-- GÖREV: ALTER TABLE ile Değişim - Sütun ekleme ve çıkarma.\n",
       "mustInclude": [
         "ALTER TABLE"
       ],
@@ -1665,7 +1665,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "TRUNCATE TABLE gecici_veriler;",
+      "initialCode": "-- GÖREV: TRUNCATE vs DROP - Tabloyu sıfırlama veya yok etme.\n",
       "mustInclude": [
         "TRUNCATE"
       ],
@@ -1689,7 +1689,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "CREATE TABLE notlar (id INT PRIMARY KEY, ogrenci_id INT REFERENCES ogrenciler(id));",
+      "initialCode": "-- GÖREV: FOREIGN KEY İlişkileri - Tablolar arası bağ kurma.\n",
       "mustInclude": [
         "REFERENCES"
       ],
@@ -1741,7 +1741,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "SELECT ogrenciler.ad, notlar.ders_notu FROM ogrenciler INNER JOIN notlar ON ogrenciler.id = notlar.ogrenci_id;",
+      "initialCode": "-- GÖREV: INNER JOIN ile Birleştirme - Ortak kayıtları eşleştirme.\n",
       "mustInclude": [
         "INNER JOIN",
         "ON"
@@ -1766,7 +1766,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "SELECT ogrenciler.ad, notlar.ders_notu FROM ogrenciler LEFT JOIN notlar ON ogrenciler.id = notlar.ogrenci_id;",
+      "initialCode": "-- GÖREV: LEFT JOIN ile Eşleşmeyenleri Koruma - Sol tablonun tüm satırları.\n",
       "mustInclude": [
         "LEFT JOIN"
       ],
@@ -1790,7 +1790,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "SELECT * FROM bolumler RIGHT JOIN ogrenciler ON bolumler.id = ogrenciler.bolum_id;",
+      "initialCode": "-- GÖREV: RIGHT & FULL JOIN - Tüm yönlü tablo birleştirme.\n",
       "mustInclude": [
         "RIGHT JOIN"
       ],
@@ -1814,7 +1814,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "SELECT dil, COUNT(*) FROM ogrenciler GROUP BY dil;",
+      "initialCode": "-- GÖREV: GROUP BY ile Gruplama - Verileri kategorilere kümeleme.\n",
       "mustInclude": [
         "GROUP BY"
       ],
@@ -1838,7 +1838,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "SELECT dil, COUNT(*) FROM ogrenciler GROUP BY dil HAVING COUNT(*) >= 1;",
+      "initialCode": "-- GÖREV: HAVING ile Grup Filtreleme - Gruplanmış verilerde şart.\n",
       "mustInclude": [
         "HAVING"
       ],
@@ -1862,7 +1862,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "SELECT ad, puan FROM ogrenciler WHERE puan > (SELECT AVG(puan) FROM ogrenciler);",
+      "initialCode": "-- GÖREV: Subquery (Alt Sorgular) - Sorgu içinde sorgu çalıştırma.\n",
       "mustInclude": [
         "(SELECT"
       ],
@@ -1886,7 +1886,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "CREATE INDEX idx_puan ON ogrenciler(puan);",
+      "initialCode": "-- GÖREV: INDEX Mantığı & Performans - Sorgu hızlandırma mekanizması.\n",
       "mustInclude": [
         "CREATE INDEX"
       ],
@@ -1910,7 +1910,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "CREATE VIEW v_ozet AS SELECT id, ad, puan FROM ogrenciler WHERE puan >= 90;",
+      "initialCode": "-- GÖREV: VIEW ile Sanal Tablolar - Sorguları saklama.\n",
       "mustInclude": [
         "CREATE VIEW",
         "AS"
@@ -1935,7 +1935,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "BEGIN;\nUPDATE ogrenciler SET puan = puan + 5 WHERE id = 1;\nCOMMIT;",
+      "initialCode": "-- GÖREV: Transactions (ACID) - Veri tutarlılığı ve geri alma.\n",
       "mustInclude": [
         "BEGIN",
         "COMMIT"
@@ -1991,7 +1991,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "print('Merhaba Python!')",
+      "initialCode": "# GÖREV: print() & Konsol Çıktısı - Ekrana mesaj yazdırma.\n",
       "mustInclude": [
         "print"
       ],
@@ -2015,7 +2015,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "yas = 22\nisim = 'Deniz'\nprint(f'{isim} {yas} yaşında.')",
+      "initialCode": "# GÖREV: Değişkenler & Veri Tipleri - int, float, str ve bool tipleri.\n",
       "mustInclude": [
         "print"
       ],
@@ -2041,7 +2041,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "kullanici = 'Burak'\nprint(f'Hoş geldin, {kullanici}!')",
+      "initialCode": "# GÖREV: String Formatlama & f-strings - Değişkenleri metne gömme.\nkullanici = 'Burak'\n# f-string kullanarak kullanici değişkenini ekrana yazdırın:\n",
       "mustInclude": [
         "f'",
         "kullanici"
@@ -2066,7 +2066,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "# input('Adınız: ')\nprint('Giriş alındı.')",
+      "initialCode": "# GÖREV: input() ile Kullanıcı Girişi - Klavyeden veri alma.\n",
       "mustInclude": [
         "print"
       ],
@@ -2090,7 +2090,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "a = 15\nb = 4\nprint('Kalan:', a % b)",
+      "initialCode": "# GÖREV: Matematiksel & Karşılaştırma Operatörleri - +, -, *, /, //, % ve ==, !=\na = 15\nb = 4\n# Kalanı (a % b) hesaplayıp print() ile ekrana yazdırın:\n",
       "mustInclude": [
         "print"
       ],
@@ -2114,7 +2114,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "puan = 85\nif puan >= 50:\n    print('Başarılı')\nelse:\n    print('Tekrar dene')",
+      "initialCode": "# GÖREV: if / elif / else Karar Blokları - Şarta göre kod çalıştırma.\n",
       "mustInclude": [
         "if",
         "print"
@@ -2139,7 +2139,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "xp = 400\nif xp > 300 and xp < 500:\n    print('Kalfa Seviyesi')",
+      "initialCode": "# GÖREV: Mantıksal Operatörler (and, or, not) - Çoklu şart bağlama.\n",
       "mustInclude": [
         "and"
       ],
@@ -2163,7 +2163,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "fiyat = int('150')\nprint('Toplam:', fiyat + 50)",
+      "initialCode": "# GÖREV: Tip Dönüşümleri (int, str, float) - Türler arası çevrim.\n",
       "mustInclude": [
         "int("
       ],
@@ -2187,7 +2187,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 2
       },
-      "initialCode": "# Öğrenci not kontrolü\npuan = 90\nprint(puan)",
+      "initialCode": "# GÖREV: Yorum Satırları & PEP8 Standartları - Temiz ve anlaşılır kodlama.\n",
       "mustInclude": [
         "#"
       ],
@@ -2238,7 +2238,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "diller = ['Python', 'HTML']\ndiller.append('SQL')\nprint(diller)",
+      "initialCode": "# GÖREV: Listeler (Lists) & Metotları - Değiştirilebilir sıralı koleksiyonlar.\ndiller = ['Python', 'HTML']\n# append() ile yeni bir dil ekleyin ve print() ile yazdırın:\n",
       "mustInclude": [
         "append"
       ],
@@ -2262,7 +2262,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "nokta = (10, 20)\nprint(nokta[0])",
+      "initialCode": "# GÖREV: Demetler (Tuples) - Değiştirilemez sabit koleksiyonlar.\n",
       "mustInclude": [
         "("
       ],
@@ -2286,7 +2286,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "kume = {1, 2, 2, 3}\nprint(kume)",
+      "initialCode": "# GÖREV: Kümeler (Sets) & Benzersizlik - Tekrar etmeyen sırasız koleksiyonlar.\n",
       "mustInclude": [
         "{"
       ],
@@ -2310,7 +2310,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "profil = {'ad': 'Deniz', 'xp': 450}\nprint(profil['ad'])",
+      "initialCode": "# GÖREV: Sözlükler (Dictionaries) - Key-Value eşleşmeleri.\n",
       "mustInclude": [
         ":",
         "{"
@@ -2335,7 +2335,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "for d in ['Python', 'SQL', 'C#']:\n    print(f'Dil: {d}')",
+      "initialCode": "# GÖREV: for Döngüsü & range() - Elemanlar üzerinde gezinme.\ndiller = ['Python', 'SQL', 'C#']\n# for döngüsü ile dilleri ekrana yazdırın:\n",
       "mustInclude": [
         "for"
       ],
@@ -2359,7 +2359,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "i = 1\nwhile i <= 3:\n    print(i)\n    i += 1",
+      "initialCode": "# GÖREV: while Döngüsü - Şart sağlandığı sürece dönme.\n",
       "mustInclude": [
         "while"
       ],
@@ -2383,7 +2383,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "for i in range(5):\n    if i == 3:\n        break\n    print(i)",
+      "initialCode": "# GÖREV: break, continue & pass - Döngü akış kontrolü.\n",
       "mustInclude": [
         "break"
       ],
@@ -2407,7 +2407,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "def kare_al(x):\n    return x * x\nprint(kare_al(5))",
+      "initialCode": "# GÖREV: def ile Fonksiyon Tanımlama & return - Tekrar kullanılabilir kod modülleri.\n",
       "mustInclude": [
         "def",
         "return"
@@ -2432,7 +2432,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "def selamla(isim='Geliştirici'):\n    print(f'Hoş geldin, {isim}!')\nselamla()",
+      "initialCode": "# GÖREV: Varsayılan Parametreler & *args - Esnek fonksiyon argümanları.\n",
       "mustInclude": [
         "def"
       ],
@@ -2483,7 +2483,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "try:\n    sayi = int('abc')\nexcept ValueError:\n    print('Dönüşüm hatası yakalandı!')",
+      "initialCode": "# GÖREV: try / except / finally Hata Yönetimi - Çökmeyen güvenli kodlar.\n",
       "mustInclude": [
         "try:",
         "except"
@@ -2508,7 +2508,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "# with open('test.txt', 'w') as f:\nprint('Dosya işlemi simüle edildi.')",
+      "initialCode": "# GÖREV: Dosya İşlemleri: with open() - Dosya okuma ve yazma.\n",
       "mustInclude": [
         "print"
       ],
@@ -2532,7 +2532,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "class Kurs:\n    dil = 'Python'\nk = Kurs()\nprint(k.dil)",
+      "initialCode": "# GÖREV: Sınıflar (Class) & Nesneler (Object) - Nesne yönelimli programlama temeli.\n",
       "mustInclude": [
         "class"
       ],
@@ -2556,7 +2556,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "class Ogrenci:\n    def __init__(self, ad, puan):\n        self.ad = ad\n        self.puan = puan\no = Ogrenci('Deniz', 95)\nprint(o.ad, o.puan)",
+      "initialCode": "# GÖREV: __init__() Kurucu Metodu & self - Nesne ilk değer ataması.\n",
       "mustInclude": [
         "def __init__",
         "self"
@@ -2581,7 +2581,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "class Hayvan:\n    tur = 'Canlı'\nclass Kopek(Hayvan):\n    pass\nk = Kopek()\nprint(k.tur)",
+      "initialCode": "# GÖREV: Kalıtım (Inheritance) & super() - Ata sınıftan özellik miras alma.\n",
       "mustInclude": [
         "class",
         "("
@@ -2606,7 +2606,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "class Kasa:\n    def __init__(self):\\n        self.__gizli = 500\\nprint('Kapsülleme hazır.')",
+      "initialCode": "# GÖREV: Kapsülleme (Encapsulation) & Private - Veri gizleme ve koruma.\n",
       "mustInclude": [
         "__"
       ],
@@ -2630,7 +2630,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "class Kedi:\n    def ses(self): return 'Miyav'\nclass Kopek:\n    def ses(self): return 'Hav'\nprint(Kedi().ses(), Kopek().ses())",
+      "initialCode": "# GÖREV: Polimorfizm (Çok Biçimlilik) - Aynı metot adıyla farklı davranışlar.\n",
       "mustInclude": [
         "def ses"
       ],
@@ -2654,7 +2654,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "kare = lambda x: x * x\nprint(kare(6))",
+      "initialCode": "# GÖREV: Lambda, map & filter - Tek satırlık anonim fonksiyonlar.\n",
       "mustInclude": [
         "lambda"
       ],
@@ -2678,7 +2678,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "import math\nprint('Karekök:', math.sqrt(25))",
+      "initialCode": "# GÖREV: Modüller & import - Hazır kütüphanelerle çalışma.\n",
       "mustInclude": [
         "import"
       ],
@@ -2732,7 +2732,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "using System;\nclass Program {\n    static void Main() {\n        Console.WriteLine(\"Merhaba C#!\");\n    }\n}",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Console.WriteLine & İlk Program - C# ile konsol çıktısı.\n        \n    }\n}",
       "mustInclude": [
         "Console.WriteLine"
       ],
@@ -2756,7 +2756,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "int puan = 100;\nstring dil = \"C#\";\nConsole.WriteLine($\"{dil} Puan: {puan}\");",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Değişkenler & İlkel Tipler - int, double, string, bool.\n        \n    }\n}",
       "mustInclude": [
         "Console.WriteLine"
       ],
@@ -2780,7 +2780,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "string str = \"42\";\nint deger = Convert.ToInt32(str);\nConsole.WriteLine(deger + 8);",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Tür Dönüşümleri (Convert & Parse) - Metin ve sayı dönüşümleri.\n        \n    }\n}",
       "mustInclude": [
         "Convert",
         "Console.WriteLine"
@@ -2805,7 +2805,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "int a = 10;\na++;\nConsole.WriteLine($\"Sonuç: {a}\");",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Aritmetik ve Atama Operatörleri - +, -, *, /, %, ++, --.\n        \n    }\n}",
       "mustInclude": [
         "++",
         "Console.WriteLine"
@@ -2830,7 +2830,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "int notu = 85;\nif (notu >= 50) {\n    Console.WriteLine(\"Başarılı!\");\n}",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: if, else if, else Şart Blokları - Karar yapıları.\n        \n    }\n}",
       "mustInclude": [
         "if",
         "Console.WriteLine"
@@ -2855,7 +2855,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "int rol = 1;\nswitch(rol) {\n    case 1: Console.WriteLine(\"Yönetici\"); break;\n    default: Console.WriteLine(\"Öğrenci\"); break;\n}",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: switch-case & Desen Eşleme - Çoklu durum kontrolü.\n        \n    }\n}",
       "mustInclude": [
         "switch",
         "case"
@@ -2880,7 +2880,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "int xp = 450;\nif (xp > 300 && xp < 600) {\n    Console.WriteLine(\"Kalfa Seviyesi\");\n}",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Mantıksal Operatörler (&&, ||, !) - VE, VEYA, DEĞİL bağlaçları.\n        \n    }\n}",
       "mustInclude": [
         "&&"
       ],
@@ -2904,7 +2904,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "const int maxPuan = 100;\nConsole.WriteLine($\"Maksimum Puan: {maxPuan}\");",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Sabitler (const) & Readonly - Değiştirilemeyen veriler.\n        \n    }\n}",
       "mustInclude": [
         "const"
       ],
@@ -2928,7 +2928,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "string isim = \"Deniz\";\nConsole.WriteLine($\"Hoş geldin, {isim}!\");",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: String Manipülasyonu & $ Interpolation - Metin formatlama.\n        \n    }\n}",
       "mustInclude": [
         "$\""
       ],
@@ -2979,7 +2979,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 2
       },
-      "initialCode": "for (int i = 1; i <= 3; i++) {\n    Console.WriteLine($\"Adım {i}\");\n}",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: for Döngüsü - Sayaca bağlı tekrarlar.\n        \n    }\n}",
       "mustInclude": [
         "for"
       ],
@@ -3003,7 +3003,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 2
       },
-      "initialCode": "int i = 0;\nwhile (i < 3) {\n    Console.WriteLine(i);\n    i++;\n}",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: while & do-while Döngüleri - Koşullu döngüler.\n        \n    }\n}",
       "mustInclude": [
         "while"
       ],
@@ -3027,7 +3027,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "string[] diller = { \"C#\", \"SQL\", \"Python\" };\nConsole.WriteLine(diller[0]);",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Tek Boyutlu Diziler (Arrays) - Sabit boyutlu veri dizisi.\n        \n    }\n}",
       "mustInclude": [
         "string[]"
       ],
@@ -3051,7 +3051,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "string[] liste = { \"HTML\", \"CSS\", \"C#\" };\nforeach(var item in liste) {\n    Console.WriteLine(item);\n}",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: foreach Döngüsü ile Gezinme - Koleksiyon elemanlarını gezme.\n        \n    }\n}",
       "mustInclude": [
         "foreach"
       ],
@@ -3075,7 +3075,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "using System.Collections.Generic;\nList<string> kurslar = new List<string>();\nkurslar.Add(\"C# Core\");\nConsole.WriteLine(kurslar[0]);",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Generic Listeler (List<T>) - Dinamik boyutlu koleksiyonlar.\n        \n    }\n}",
       "mustInclude": [
         "List<"
       ],
@@ -3099,7 +3099,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "static int Kare(int x) { return x * x; }\nConsole.WriteLine(Kare(5));",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Metot Bildirimi & Geri Dönüş Tipleri - Fonksiyon mimarisi.\n        \n    }\n}",
       "mustInclude": [
         "static",
         "return"
@@ -3124,7 +3124,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "static void Arttir(ref int sayi) { sayi += 5; }\nint a = 10;\nArttir(ref a);\nConsole.WriteLine(a);",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Parametre Aktarımı (ref & out) - Referans yoluyla değişken iletme.\n        \n    }\n}",
       "mustInclude": [
         "ref"
       ],
@@ -3148,7 +3148,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "static int Topla(int a, int b) { return a + b; }\nstatic int Topla(int a, int b, int c) { return a + b + c; }\nConsole.WriteLine(Topla(2, 3, 5));",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Metot Aşırı Yükleme (Overloading) - Aynı isimde farklı parametreli metotlar.\n        \n    }\n}",
       "mustInclude": [
         "Topla"
       ],
@@ -3172,7 +3172,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "DateTime simdikiZaman = DateTime.Now;\nConsole.WriteLine($\"Yıl: {simdikiZaman.Year}\");",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: DateTime ile Tarih & Zaman - Tarihsel verileri yönetme.\n        \n    }\n}",
       "mustInclude": [
         "DateTime"
       ],
@@ -3223,7 +3223,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "class Ogrenci {\n    public string Ad;\n}\nOgrenci o = new Ogrenci();\no.Ad = \"Deniz\";\nConsole.WriteLine(o.Ad);",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: class & new ile Nesne Üretimi - OOP sınıf tasarımı.\n        \n    }\n}",
       "mustInclude": [
         "class",
         "new"
@@ -3248,7 +3248,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 2
       },
-      "initialCode": "class Kisi {\n    public string Isim;\n    public Kisi(string isim) { Isim = isim; }\n}\nKisi k = new Kisi(\"Burak\");\nConsole.WriteLine(k.Isim);",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Constructor (Yapıcı Metot) - Nesne ilk değer ataması.\n        \n    }\n}",
       "mustInclude": [
         "class"
       ],
@@ -3272,7 +3272,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "class Urun {\n    public string Ad { get; set; }\n    public int Fiyat { get; set; }\n}\nUrun u = new Urun { Ad = \"Klavye\", Fiyat = 750 };\nConsole.WriteLine(u.Ad);",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Properties (get/set) & Encapsulation - Kapsülleme.\n        \n    }\n}",
       "mustInclude": [
         "get;",
         "set;"
@@ -3297,7 +3297,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "class Ata { public string Soyad = \"Kaya\"; }\nclass Cocuk : Ata { }\nCocuk c = new Cocuk();\nConsole.WriteLine(c.Soyad);",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Kalıtım (Inheritance: : base) - Sınıf mirası.\n        \n    }\n}",
       "mustInclude": [
         "class",
         ":"
@@ -3322,7 +3322,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "class Hayvan { public virtual void Ses() { Console.WriteLine(\"Ses\"); } }\nclass Kedi : Hayvan { public override void Ses() { Console.WriteLine(\"Miyav\"); } }\nnew Kedi().Ses();",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Polimorfizm: virtual ve override - Metot ezme.\n        \n    }\n}",
       "mustInclude": [
         "virtual",
         "override"
@@ -3347,7 +3347,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "interface IBildirici {\n    void Bildir();\n}\nclass EmailBildirici : IBildirici {\n    public void Bildir() { Console.WriteLine(\"Mail gönderildi\"); }\n}\nnew EmailBildirici().Bildir();",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Soyutlama (abstract & interface) - Arayüz sözleşmeleri.\n        \n    }\n}",
       "mustInclude": [
         "interface"
       ],
@@ -3371,7 +3371,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "try {\n    int a = int.Parse(\"abc\");\n} catch (Exception ex) {\n    Console.WriteLine(\"Hata yakalandı.\");\n}",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Exception Handling (try-catch) - Hata yakalama.\n        \n    }\n}",
       "mustInclude": [
         "try",
         "catch"
@@ -3396,7 +3396,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "using System.Linq;\nint[] sayilar = { 10, 50, 80, 20 };\nvar buyukler = sayilar.Where(x => x >= 50);\nforeach(var s in buyukler) Console.WriteLine(s);",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: LINQ: Where, Select, OrderBy - Koleksiyon sorgulama dili.\n        \n    }\n}",
       "mustInclude": [
         "Where"
       ],
@@ -3420,7 +3420,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "static class Hesaplayici {\n    public static int Karesi(int x) => x * x;\n}\nConsole.WriteLine(Hesaplayici.Karesi(8));",
+      "initialCode": "using System;\n\nclass Program {\n    static void Main() {\n        // GÖREV: Static Sınıflar & Extension Methods - Yardımcı metotlar.\n        \n    }\n}",
       "mustInclude": [
         "static"
       ],
@@ -3473,7 +3473,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "#include <iostream>\nint main() {\n    std::cout << \"Merhaba C++20!\" << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: std::cout, std::endl & main() - İlk C++ programı ve I/O.\n    \n    return 0;\n}",
       "mustInclude": [
         "std::cout"
       ],
@@ -3497,7 +3497,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "#include <iostream>\nint main() {\n    int a = 42;\n    std::cout << \"Boyut: \" << sizeof(a) << \" bytes\" << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: Değişken Tipleri & Boyutları (sizeof) - int, float, double, char, bool.\n    \n    return 0;\n}",
       "mustInclude": [
         "sizeof"
       ],
@@ -3521,7 +3521,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "#include <iostream>\nint main() {\n    int puan = 95;\n    std::cout << \"Puan: \" << puan << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: std::cin ile Konsol Girişi - Klavyeden veri akışı.\n    \n    return 0;\n}",
       "mustInclude": [
         "std::cout"
       ],
@@ -3545,7 +3545,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "#include <iostream>\nint main() {\n    std::cout << \"Sonuç: \" << (10 + 5) * 2 << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: Aritmetik ve Mantıksal İşlemler - +, -, *, /, %, &&, ||.\n    \n    return 0;\n}",
       "mustInclude": [
         "std::cout"
       ],
@@ -3569,7 +3569,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "#include <iostream>\nint main() {\n    int notu = 80;\n    if (notu >= 50) std::cout << \"Gecti\" << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: if, else ve Mantık Blokları - Karar mekanizması.\n    \n    return 0;\n}",
       "mustInclude": [
         "if"
       ],
@@ -3593,7 +3593,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "#include <iostream>\nint main() {\n    int secim = 1;\n    switch(secim) {\n        case 1: std::cout << \"Aktif\" << std::endl; break;\n    }\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: switch-case Kontrol Yapısı - Sabit değer dallanması.\n    \n    return 0;\n}",
       "mustInclude": [
         "switch",
         "case"
@@ -3618,7 +3618,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "#include <iostream>\nint main() {\n    int i = 0;\n    while(i < 3) { std::cout << i << std::endl; i++; }\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: while Döngüsü - Koşullu tekrar.\n    \n    return 0;\n}",
       "mustInclude": [
         "while"
       ],
@@ -3642,7 +3642,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "#include <iostream>\nint main() {\n    for(int i = 1; i <= 3; i++) std::cout << i << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: for Döngüsü - Sayaçlı döngü mimarisi.\n    \n    return 0;\n}",
       "mustInclude": [
         "for"
       ],
@@ -3666,7 +3666,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "#include <iostream>\nint main() {\n    const int maxPuan = 100;\n    std::cout << \"Max: \" << maxPuan << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: const & constexpr Bellek Sabitleri - Derleme zamanı sabitleri.\n    \n    return 0;\n}",
       "mustInclude": [
         "const"
       ],
@@ -3717,7 +3717,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "#include <iostream>\nint Kare(int x) { return x * x; }\nint main() {\n    std::cout << Kare(5) << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: Fonksiyon Bildirimi & Prototip - Modüler fonksiyonlar.\n    \n    return 0;\n}",
       "mustInclude": [
         "return"
       ],
@@ -3741,7 +3741,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "#include <iostream>\nvoid Degistir(int a) { a = 100; }\nint main() {\n    int x = 10;\n    Degistir(x);\n    std::cout << x << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: Değer ile Çağırma (Pass by Value) - Parametre kopyalanması.\n    \n    return 0;\n}",
       "mustInclude": [
         "void"
       ],
@@ -3765,7 +3765,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "#include <iostream>\nvoid Arttir(int& n) { n += 10; }\nint main() {\n    int val = 20;\n    Arttir(val);\n    std::cout << val << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: Referans ile Çağırma (&) - Doğrudan orijinal veriyi iletme.\n    \n    return 0;\n}",
       "mustInclude": [
         "&"
       ],
@@ -3789,7 +3789,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "#include <iostream>\nint main() {\n    int arr[3] = {5, 10, 15};\n    std::cout << arr[0] << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: Statik Diziler & Bellek - Sabit boyutlu diziler.\n    \n    return 0;\n}",
       "mustInclude": [
         "int arr["
       ],
@@ -3813,7 +3813,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "#include <iostream>\nint main() {\n    int x = 42;\n    int* p = &x;\n    std::cout << \"Adres alindi\" << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: Pointer (İşaretçi) Mantığı & & (Adres) - Bellek adresi kavramı.\n    \n    return 0;\n}",
       "mustInclude": [
         "int*",
         "&"
@@ -3838,7 +3838,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "#include <iostream>\nint main() {\n    int sayi = 50;\n    int* ptr = &sayi;\n    std::cout << *ptr << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: * (Dereference) ile Değere Ulaşma - Adresteki veriyi okuma ve yazma.\n    \n    return 0;\n}",
       "mustInclude": [
         "*ptr"
       ],
@@ -3862,7 +3862,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "#include <iostream>\nint main() {\n    int* p = new int(100);\n    std::cout << *p << std::endl;\n    delete p;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: Dinamik Bellek: new ve delete - Heap bellek yönetimi.\n    \n    return 0;\n}",
       "mustInclude": [
         "new",
         "delete"
@@ -3887,7 +3887,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "#include <iostream>\nint main() {\n    int* ptr = new int(25);\n    delete ptr;\n    ptr = nullptr;\n    std::cout << \"Bellek temizlendi.\" << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: Bellek Sızıntısı (Memory Leak) Önleme - delete edilmeyen işaretçiler.\n    \n    return 0;\n}",
       "mustInclude": [
         "delete",
         "nullptr"
@@ -3912,7 +3912,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "#include <iostream>\n#include <vector>\nint main() {\n    std::vector<int> v = {10, 20};\n    v.push_back(30);\n    std::cout << v.size() << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: std::vector ile Dinamik Dizi - Modern STL dizisi.\n    \n    return 0;\n}",
       "mustInclude": [
         "std::vector",
         "push_back"
@@ -3965,7 +3965,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "#include <iostream>\nclass Cihaz {\npublic:\n    int id = 1;\n};\nint main() {\n    Cihaz c;\n    std::cout << c.id << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: class & struct Farkı - Nesne yönelimli C++.\n    \n    return 0;\n}",
       "mustInclude": [
         "class",
         "public:"
@@ -3990,7 +3990,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "#include <iostream>\nclass Kasa {\nprivate:\n    int bakiye = 500;\npublic:\n    int GetBakiye() { return bakiye; }\n};\nint main() {\n    Kasa k;\n    std::cout << k.GetBakiye() << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: public, private & Erişim Belirteçleri - Veri gizleme.\n    \n    return 0;\n}",
       "mustInclude": [
         "private:",
         "public:"
@@ -4015,7 +4015,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "#include <iostream>\nclass Nesne {\npublic:\n    Nesne() { std::cout << \"Olustu\"; }\n    ~Nesne() { std::cout << \"Silindi\"; }\n};\nint main() {\n    Nesne n;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: Constructor & Destructor - Kurucu ve yıkıcı metotlar.\n    \n    return 0;\n}",
       "mustInclude": [
         "~"
       ],
@@ -4039,7 +4039,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "#include <iostream>\nclass Nokta {\npublic:\n    int x;\n    Nokta(int v) : x(v) {}\n    Nokta(const Nokta& d) { x = d.x; }\n};\nint main() {\n    Nokta n1(10);\n    Nokta n2 = n1;\n    std::cout << n2.x << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: Copy Constructor & Kopyalama - Derin kopyalama (Deep Copy).\n    \n    return 0;\n}",
       "mustInclude": [
         "const Nokta&"
       ],
@@ -4063,7 +4063,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "#include <iostream>\nclass Ata { public: int deger = 100; };\nclass Ogul : public Ata {};\nint main() {\n    Ogul o;\n    std::cout << o.deger << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: Kalıtım (Inheritance: public Base) - Ata sınıftan miras alma.\n    \n    return 0;\n}",
       "mustInclude": [
         ": public"
       ],
@@ -4087,7 +4087,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "#include <iostream>\nclass Hayvan {\npublic:\n    virtual void Ses() { std::cout << \"Ses\"; }\n};\nclass Kopek : public Hayvan {\npublic:\n    void Ses() override { std::cout << \"Hav\"; }\n};\nint main() {\n    Hayvan* h = new Kopek();\n    h->Ses();\n    delete h;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: Sanal Fonksiyonlar (virtual) & VTable - Çalışma zamanı polimorfizmi.\n    \n    return 0;\n}",
       "mustInclude": [
         "virtual",
         "override"
@@ -4112,7 +4112,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "#include <iostream>\nclass IArayuz {\npublic:\n    virtual void Calis() = 0;\n};\nclass Motor : public IArayuz {\npublic:\n    void Calis() override { std::cout << \"Motor Aktif\"; }\n};\nint main() {\n    Motor m;\n    m.Calis();\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: Saf Sanal Fonksiyonlar & Arayüzler - Soyut sınıflar (Abstract Class).\n    \n    return 0;\n}",
       "mustInclude": [
         "= 0",
         "virtual"
@@ -4137,7 +4137,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "#include <iostream>\ntemplate <typename T>\nT Maks(T a, T b) { return (a > b) ? a : b; }\nint main() {\n    std::cout << Maks(10, 20) << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: Şablonlar (Templates: template<typename T>) - Türden bağımsız jenerik kodlama.\n    \n    return 0;\n}",
       "mustInclude": [
         "template",
         "typename"
@@ -4162,7 +4162,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "#include <iostream>\n#include <memory>\nint main() {\n    auto p = std::make_unique<int>(99);\n    std::cout << *p << std::endl;\n    return 0;\n}",
+      "initialCode": "#include <iostream>\n\nint main() {\n    // GÖREV: std::unique_ptr & Akıllı İşaretçiler - Otomatik bellek temizliği (RAII).\n    \n    return 0;\n}",
       "mustInclude": [
         "std::make_unique"
       ],
@@ -4215,7 +4215,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<style>\n  h1 { color: #3b82f6; }\n</style>\n<h1>Mavi Başlık</h1>",
+      "initialCode": "<style>\n  /* GÖREV: CSS'e Giriş & Renkler - Stil kuralları ve renk paletleri. */\n  \n</style>\n<h1>Mavi Başlık</h1>",
       "mustInclude": [
         "color:"
       ],
@@ -4239,7 +4239,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  p { font-size: 18px; font-weight: bold; }\n</style>\n<p>Büyük ve kalın yazı.</p>",
+      "initialCode": "<style>\n  /* GÖREV: Fontlar & Tipografi - Yazı tipleri ve boyutlandırma. */\n  \n</style>\n<p>Büyük ve kalın yazı.</p>",
       "mustInclude": [
         "font-size"
       ],
@@ -4263,7 +4263,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<style>\n  h1 { text-align: center; }\n</style>\n<h1>Ortalanmış Başlık</h1>",
+      "initialCode": "<style>\n  /* GÖREV: Metin Hizalama (text-align) - Metinleri sola, sağa veya ortaya hizalama. */\n  \n</style>\n<h1>Ortalanmış Başlık</h1>",
       "mustInclude": [
         "text-align"
       ],
@@ -4287,7 +4287,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  .vurgu { color: #10b981; font-weight: bold; }\n</style>\n<p class='vurgu'>Yeşil Vurgu</p>",
+      "initialCode": "<style>\n  /* GÖREV: CSS Seçicileri: Sınıf & ID - Nokta (.) sınıfı, kare (#) tekil ID'yi hedefler. */\n  \n</style>\n<p class='vurgu'>Yeşil Vurgu</p>",
       "mustInclude": [
         ".vurgu"
       ],
@@ -4311,7 +4311,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<style>\n  .kutu { background: linear-gradient(135deg, #0284c7, #38bdf8); height: 80px; }\n</style>\n<div class='kutu'></div>",
+      "initialCode": "<style>\n  /* GÖREV: Arka Planlar & Gradyanlar - linear-gradient ve arka plan resimleri. */\n  \n</style>\n<div class='kutu'></div>",
       "mustInclude": [
         "linear-gradient"
       ],
@@ -4335,7 +4335,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  span.kutu { display: inline-block; width: 120px; background: #334155; }\n</style>\n<span class='kutu'>Kutu</span>",
+      "initialCode": "<style>\n  /* GÖREV: Display Özellikleri (block & inline) - Elemanların sayfa içi davranış türleri. */\n  \n</style>\n<span class='kutu'>Kutu</span>",
       "mustInclude": [
         "display:"
       ],
@@ -4359,7 +4359,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<style>\n  .kart { font-size: 1.5rem; padding: 1rem; }\n</style>\n<div class='kart'>Rem ile boyutlandırma</div>",
+      "initialCode": "<style>\n  /* GÖREV: CSS Birimleri (px, rem, vh, vw) - Piksel ve duyarlı (responsive) birimler. */\n  \n</style>\n<div class='kart'>Rem ile boyutlandırma</div>",
       "mustInclude": [
         "rem"
       ],
@@ -4383,7 +4383,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<style>\n  .btn:hover { background-color: #22c55e; color: white; }\n</style>\n<button class='btn'>Üzerime Gel</button>",
+      "initialCode": "<style>\n  /* GÖREV: Durum Seçicileri (:hover & :focus) - Kullanıcı fareyi üzerine getirdiğinde stil değiştirme. */\n  \n</style>\n<button class='btn'>Üzerime Gel</button>",
       "mustInclude": [
         ":hover"
       ],
@@ -4407,7 +4407,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  .kart { box-shadow: 0 8px 16px rgba(0,0,0,0.3); padding: 20px; }\n</style>\n<div class='kart'>Gölgeli Kart</div>",
+      "initialCode": "<style>\n  /* GÖREV: Gölgelendirme (box-shadow & text-shadow) - Derinlik ve estetik gölge efektleri. */\n  \n</style>\n<div class='kart'>Gölgeli Kart</div>",
       "mustInclude": [
         "box-shadow"
       ],
@@ -4458,7 +4458,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "<style>\n  .kutu { padding: 15px; margin: 10px; background: #1e293b; color: white; }\n</style>\n<div class='kutu'>Kutu</div>",
+      "initialCode": "<style>\n  /* GÖREV: Box Model: Margin & Padding - İç boşluk (padding) ve dış boşluk (margin). */\n  \n</style>\n<div class='kutu'>Kutu</div>",
       "mustInclude": [
         "padding"
       ],
@@ -4482,7 +4482,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  .kart { border: 2px solid #38bdf8; border-radius: 12px; padding: 10px; }\n</style>\n<div class='kart'>Mavi Çerçeve</div>",
+      "initialCode": "<style>\n  /* GÖREV: Kenarlıklar (Border & Radius) - Çerçeve kalınlığı, tipi ve köşe yuvarlatma. */\n  \n</style>\n<div class='kart'>Mavi Çerçeve</div>",
       "mustInclude": [
         "border-radius"
       ],
@@ -4506,7 +4506,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  .menu { display: flex; gap: 12px; }\n</style>\n<div class='menu'><span>Anasayfa</span><span>Dersler</span></div>",
+      "initialCode": "<style>\n  /* GÖREV: Flexbox: Giriş & display flex - Elemanları esnek düzenle yan yana sıralama. */\n  \n</style>\n<div class='menu'><span>Anasayfa</span><span>Dersler</span></div>",
       "mustInclude": [
         "display: flex"
       ],
@@ -4530,7 +4530,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  .bar { display: flex; justify-content: space-between; }\n</style>\n<div class='bar'><span>Logo</span><span>Giriş</span></div>",
+      "initialCode": "<style>\n  /* GÖREV: Flexbox: justify-content ile Yatay Hizalama - space-between, center, flex-start mantığı. */\n  \n</style>\n<div class='bar'><span>Logo</span><span>Giriş</span></div>",
       "mustInclude": [
         "justify-content"
       ],
@@ -4554,7 +4554,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  .kutu { display: flex; align-items: center; height: 100px; }\n</style>\n<div class='kutu'><span>Dikey Ortalanmış</span></div>",
+      "initialCode": "<style>\n  /* GÖREV: Flexbox: align-items ile Dikey Hizalama - Elemanları dikey eksende kusursuz ortalama. */\n  \n</style>\n<div class='kutu'><span>Dikey Ortalanmış</span></div>",
       "mustInclude": [
         "align-items"
       ],
@@ -4578,7 +4578,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }\n</style>\n<div class='grid'><div>1</div><div>2</div></div>",
+      "initialCode": "<style>\n  /* GÖREV: CSS Grid: display grid & Şablon - İki boyutlu ızgara yerleşim mimarisi. */\n  \n</style>\n<div class='grid'><div>1</div><div>2</div></div>",
       "mustInclude": [
         "grid-template-columns"
       ],
@@ -4602,7 +4602,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  .kapsayici { display: flex; gap: 15px; }\n</style>\n<div class='kapsayici'><div>A</div><div>B</div></div>",
+      "initialCode": "<style>\n  /* GÖREV: CSS Grid: gap ile Boşluk Bırakma - Satır ve sütunlar arasına modern boşluk verme. */\n  \n</style>\n<div class='kapsayici'><div>A</div><div>B</div></div>",
       "mustInclude": [
         "gap"
       ],
@@ -4626,7 +4626,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  .kutu { position: relative; height: 100px; background: #334155; }\n  .etiket { position: absolute; top: 5px; right: 5px; }\n</style>\n<div class='kutu'><span class='etiket'>Yeni</span></div>",
+      "initialCode": "<style>\n  /* GÖREV: Konumlandırma: relative & absolute - Elemanları serbestçe istenen piksele yerleştirme. */\n  \n</style>\n<div class='kutu'><span class='etiket'>Yeni</span></div>",
       "mustInclude": [
         "position: absolute"
       ],
@@ -4650,7 +4650,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  .header { position: sticky; top: 0; background: #0f172a; color: white; }\n</style>\n<header class='header'>Yapışkan Menü</header>",
+      "initialCode": "<style>\n  /* GÖREV: Sabit Konumlandırma: fixed & sticky - Kaydırıldıkça ekranda sabit kalan menüler. */\n  \n</style>\n<header class='header'>Yapışkan Menü</header>",
       "mustInclude": [
         "position: sticky"
       ],
@@ -4701,7 +4701,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  @media (max-width: 600px) {\n    .kutu { width: 100%; }\n  }\n</style>\n<div class='kutu'>Responsive Kutu</div>",
+      "initialCode": "<style>\n  /* GÖREV: Media Queries: @media ile Mobil Uyum - Telefon ve tablet ekranları için dinamik CSS. */\n  \n</style>\n<div class='kutu'>Responsive Kutu</div>",
       "mustInclude": [
         "@media"
       ],
@@ -4725,7 +4725,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  .btn { transition: all 0.3s ease; background: #3b82f6; }\n  .btn:hover { background: #1d4ed8; }\n</style>\n<button class='btn'>Yumuşak Geçiş</button>",
+      "initialCode": "<style>\n  /* GÖREV: Akıcı Geçişler (transition) - Renk ve boyut değişimlerini yumuşatma. */\n  \n</style>\n<button class='btn'>Yumuşak Geçiş</button>",
       "mustInclude": [
         "transition"
       ],
@@ -4749,7 +4749,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  .kart:hover { transform: scale(1.05); }\n</style>\n<div class='kart'>Büyüyen Kart</div>",
+      "initialCode": "<style>\n  /* GÖREV: Transform: rotate, scale, translate - Döndürme, büyütme ve kaydırma efektleri. */\n  \n</style>\n<div class='kart'>Büyüyen Kart</div>",
       "mustInclude": [
         "transform:"
       ],
@@ -4773,7 +4773,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  @keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } }\n  .roket { animation: float 2s infinite ease-in-out; }\n</style>\n<div class='roket'>🚀 Uçan Roket</div>",
+      "initialCode": "<style>\n  /* GÖREV: Keyframe Animasyonları (@keyframes) - Kendi döngüsel animasyonlarını kodla. */\n  \n</style>\n<div class='roket'>🚀 Uçan Roket</div>",
       "mustInclude": [
         "@keyframes",
         "animation:"
@@ -4798,7 +4798,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  :root { --ana-renk: #38bdf8; }\n  h1 { color: var(--ana-renk); }\n</style>\n<h1>Değişkenli Renk</h1>",
+      "initialCode": "<style>\n  /* GÖREV: CSS Değişkenleri (Variables / :root) - Tek noktadan tema renklerini yönetme. */\n  \n</style>\n<h1>Değişkenli Renk</h1>",
       "mustInclude": [
         "--ana-renk",
         "var("
@@ -4823,7 +4823,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  .panel { background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.4); padding: 12px; }\n</style>\n<div class='panel'>Saydam Mavi Panel</div>",
+      "initialCode": "<style>\n  /* GÖREV: Saydamlık & Opaklık (opacity & rgba) - Saydam zeminler ve cam morfizim efektleri. */\n  \n</style>\n<div class='panel'>Saydam Mavi Panel</div>",
       "mustInclude": [
         "rgba("
       ],
@@ -4847,7 +4847,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  .cam { backdrop-filter: blur(12px); background: rgba(15,23,42,0.6); padding: 15px; }\n</style>\n<div class='cam'>Cam Kart</div>",
+      "initialCode": "<style>\n  /* GÖREV: Cam Tasarımı: backdrop-filter (Glassmorphism) - Bulanık modern cam arayüz tasarımı. */\n  \n</style>\n<div class='cam'>Cam Kart</div>",
       "mustInclude": [
         "backdrop-filter"
       ],
@@ -4871,7 +4871,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  .kutu { width: 100px; height: 50px; overflow: hidden; background: #334155; }\n</style>\n<div class='kutu'>Çok uzun metin içeriği buraya sığmayacak</div>",
+      "initialCode": "<style>\n  /* GÖREV: Taşma Yönetimi: overflow & scroll - Kutudan taşan içerikleri gizleme veya kaydırma. */\n  \n</style>\n<div class='kutu'>Çok uzun metin içeriği buraya sığmayacak</div>",
       "mustInclude": [
         "overflow: hidden"
       ],
@@ -4895,7 +4895,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "<style>\n  .on-katman { position: relative; z-index: 10; }\n</style>\n<div class='on-katman'>Ön Katman</div>",
+      "initialCode": "<style>\n  /* GÖREV: Katman Yönetimi: z-index - Üst üste binen elemanların öncelik sırası. */\n  \n</style>\n<div class='on-katman'>Ön Katman</div>",
       "mustInclude": [
         "z-index"
       ],
@@ -4949,7 +4949,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "// Konsola Merhaba COD+ yazdırın\nconsole.log(\"Merhaba COD+\");",
+      "initialCode": "// GÖREV: JavaScript Giriş & console.log - JavaScript temellerini ve konsola mesaj yazdırmayı öğrenin.\n",
       "mustInclude": [
         "console.log"
       ],
@@ -4972,7 +4972,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 2
       },
-      "initialCode": "let sehir = \"İstanbul\";\nconst ulke = \"Türkiye\";\nconsole.log(sehir, ulke);",
+      "initialCode": "// GÖREV: Değişken Tanımlama: let ve const - Modern JavaScript ile değişken ve sabit tanımlamayı keşfedin.\n",
       "mustInclude": [
         "const",
         "let"
@@ -4996,7 +4996,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "let yas = 25;\nlet mezun = true;\nconsole.log(typeof yas, typeof mezun);",
+      "initialCode": "// GÖREV: Temel Veri Tipleri & typeof - String, Number, Boolean tiplerini ve typeof operatörünü öğrenin.\n",
       "mustInclude": [
         "typeof"
       ],
@@ -5019,7 +5019,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "let a = 15;\nlet b = 4;\nlet sonuc = a % b;\nconsole.log(\"Kalan:\", sonuc);",
+      "initialCode": "// GÖREV: Aritmetik & Karşılaştırma Operatörleri - Matematiksel işlemler ve katı eşitlik kontrolü.\n",
       "mustInclude": [
         "%"
       ],
@@ -5042,7 +5042,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "let skor = 85;\nif (skor >= 60) {\n  console.log(\"Başarılı\");\n} else {\n  console.log(\"Geliştirilmeli\");\n}",
+      "initialCode": "// GÖREV: Koşullu İfadeler: if / else - Karar yapıları ile program akışını yönlendirin.\n",
       "mustInclude": [
         "if",
         "else"
@@ -5066,7 +5066,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "let girisYapti = true;\nlet admin = true;\nif (girisYapti && admin) {\n  console.log(\"Yönetim paneline erişildi\");\n}",
+      "initialCode": "// GÖREV: Mantıksal Operatörler (&&, ||, !) - Çoklu koşulları birleştirin ve tersleyin.\n",
       "mustInclude": [
         "&&"
       ],
@@ -5089,7 +5089,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 2
       },
-      "initialCode": "function selamla(isim) {\n  console.log(\"Merhaba, \" + isim);\n}\nselamla(\"COD+\");",
+      "initialCode": "// GÖREV: Fonksiyon Tanımlama & Parametreler - Tekrar kullanılabilir kod blokları oluşturun.\n",
       "mustInclude": [
         "function"
       ],
@@ -5112,7 +5112,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "function kareAl(sayi) {\n  return sayi * sayi;\n}\nconsole.log(kareAl(6));",
+      "initialCode": "// GÖREV: Return İfadesi & Değer Döndürme - Fonksiyondan hesaplanan değerleri dışarı aktarın.\n",
       "mustInclude": [
         "return"
       ],
@@ -5135,7 +5135,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "const ikiKat = n => n * 2;\nconsole.log(ikiKat(8));",
+      "initialCode": "// GÖREV: Ok Fonksiyonları (Arrow Functions) - Modern ve kısa fonksiyon sözdizimi.\n",
       "mustInclude": [
         "=>"
       ],
@@ -5186,7 +5186,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "const meyveler = [\"Elma\", \"Muz\", \"Çilek\"];\nconsole.log(meyveler[0]);",
+      "initialCode": "// GÖREV: Dizilere Giriş & İndeksleme - Birden fazla veriyi tek bir listede sıralı depolayın.\n",
       "mustInclude": [
         "[",
         "]"
@@ -5210,7 +5210,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 2
       },
-      "initialCode": "const liste = [\"HTML\", \"CSS\"];\nliste.push(\"JavaScript\");\nconsole.log(liste);",
+      "initialCode": "// GÖREV: Temel Dizi Metotları (push & pop) - Dizinin sonuna eleman ekleme ve çıkarma.\n",
       "mustInclude": [
         "push"
       ],
@@ -5233,7 +5233,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "const sehirler = [\"Ankara\", \"İzmir\", \"Bursa\"];\nsehirler.forEach(s => console.log(s));",
+      "initialCode": "// GÖREV: Modern Dizi İterasyonu: forEach - Dizinin her bir elemanı üzerinde fonksiyon çalıştırın.\n",
       "mustInclude": [
         "forEach"
       ],
@@ -5256,7 +5256,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "const fiyatlar = [100, 200, 300];\nconst indirimli = fiyatlar.map(f => f * 0.9);\nconsole.log(indirimli);",
+      "initialCode": "// GÖREV: Dizileri Dönüştürme: map - Mevcut diziden yeni bir dönüştürülmüş dizi üretin.\n",
       "mustInclude": [
         "map"
       ],
@@ -5279,7 +5279,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "const sayilar = [5, 12, 8, 130, 44];\nconst buyukler = sayilar.filter(x => x > 10);\nconsole.log(buyukler);",
+      "initialCode": "// GÖREV: Dizi Elemanlarını Filtreleme: filter - Belirli bir şarta uyan elemanları ayıklayın.\n",
       "mustInclude": [
         "filter"
       ],
@@ -5302,7 +5302,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "const araba = {\n  marka: \"Tesla\",\n  model: \"Model 3\",\n  yil: 2024\n};\nconsole.log(araba.marka);",
+      "initialCode": "// GÖREV: Nesneler (Objects) & Özellik Erişimi - Anahtar-değer çiftleriyle yapılandırılmış veriler.\n",
       "mustInclude": [
         "marka",
         "model"
@@ -5326,7 +5326,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "for (let i = 0; i < 3; i++) {\n  console.log(\"Döngü:\", i);\n}",
+      "initialCode": "// GÖREV: for ve while Döngüleri - Belirli adımları veya şartları tekrar tekrar çalıştırın.\n",
       "mustInclude": [
         "for"
       ],
@@ -5349,7 +5349,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "let dil = \"JavaScript\";\nconsole.log(dil.toUpperCase(), dil.includes(\"Script\"));",
+      "initialCode": "// GÖREV: String Metotları (includes, toUpperCase, slice) - Metin verilerini arayın, kesin ve dönüştürün.\n",
       "mustInclude": [
         "toUpperCase",
         "includes"
@@ -5373,7 +5373,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "let zar = Math.floor(Math.random() * 6) + 1;\nconsole.log(\"Zar Sonucu:\", zar);",
+      "initialCode": "// GÖREV: Math Nesnesi & Rastgele Sayı Üretimi - Matematiksel fonksiyonlar ve Math.random().\n",
       "mustInclude": [
         "Math.floor",
         "Math.random"
@@ -5425,7 +5425,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "// ID değeri baslik olan elemanı seçin\nconst baslik = document.getElementById(\"baslik\");\nconsole.log(baslik);",
+      "initialCode": "// GÖREV: DOM Giriş: document.getElementById - HTML belgesindeki bir elemana benzersiz ID ile erişin.\n",
       "mustInclude": [
         "getElementById"
       ],
@@ -5448,7 +5448,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "const buton = document.querySelector(\".btn\");\nconsole.log(buton);",
+      "initialCode": "// GÖREV: querySelector ve querySelectorAll - CSS seçicileri kullanarak DOM elemanlarını seçin.\n",
       "mustInclude": [
         "querySelector"
       ],
@@ -5471,7 +5471,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "const baslik = document.getElementById(\"baslik\");\nif (baslik) baslik.textContent = \"Hoş Geldiniz!\";",
+      "initialCode": "// GÖREV: Eleman İçeriğini Değiştirme: textContent - Seçilen HTML elemanının metin içeriğini güncelleyin.\n",
       "mustInclude": [
         "textContent"
       ],
@@ -5494,7 +5494,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "const kutu = document.getElementById(\"kutu\");\nif (kutu) kutu.style.color = \"#4ade80\";",
+      "initialCode": "// GÖREV: Dinamik Stil Değiştirme (style Özelliği) - JavaScript ile elemanların CSS stillerini canlı değiştirin.\n",
       "mustInclude": [
         "style"
       ],
@@ -5517,7 +5517,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "const btn = document.getElementById(\"kaydet\");\nif (btn) {\n  btn.addEventListener(\"click\", () => {\n    console.log(\"Kaydedildi\");\n  });\n}",
+      "initialCode": "// GÖREV: Olay Dinleyicileri: addEventListener - Kullanıcı tıklamalarını ve klavye etkileşimlerini yakalayın.\n",
       "mustInclude": [
         "addEventListener",
         "click"
@@ -5541,7 +5541,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "const kart = document.getElementById(\"kart\");\nif (kart) kart.classList.add(\"aktif\");",
+      "initialCode": "// GÖREV: Sınıf Yönetimi: classList (add, remove, toggle) - CSS sınıflarını dinamik ekleyin, çıkarın veya tersleyin.\n",
       "mustInclude": [
         "classList"
       ],
@@ -5564,7 +5564,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "const form = document.getElementById(\"form\");\nif (form) {\n  form.addEventListener(\"submit\", (e) => {\n    e.preventDefault();\n  });\n}",
+      "initialCode": "// GÖREV: Form Yönetimi & e.preventDefault() - Sayfa yenilenmesini engelleyerek form verilerini işleyin.\n",
       "mustInclude": [
         "preventDefault"
       ],
@@ -5587,7 +5587,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 0
       },
-      "initialCode": "try {\n  let sayi = 10;\n  console.log(sayi);\n} catch (err) {\n  console.error(err);\n}",
+      "initialCode": "// GÖREV: Hata Yönetimi: try / catch - Beklenmeyen çalışma zamanı hatalarını yakalayın ve yönetin.\n",
       "mustInclude": [
         "try",
         "catch"
@@ -5611,7 +5611,7 @@ const courseDataByLang = {
         ],
         "correctIndex": 1
       },
-      "initialCode": "localStorage.setItem(\"dil\", \"JavaScript\");\nconst aktifDil = localStorage.getItem(\"dil\");\nconsole.log(aktifDil);",
+      "initialCode": "// GÖREV: LocalStorage ile Tarayıcıda Veri Saklama - Sayfa yenilense de kaybolmayan istemci tabanlı veriler.\n",
       "mustInclude": [
         "localStorage"
       ],
@@ -5646,19 +5646,6 @@ const courseDataByLang = {
     }
   ]
 };
-
-function getLanguageKey(lang) {
-    if (!lang) return 'html';
-    const l = String(lang).toLowerCase().trim();
-    if (l.includes('css')) return 'css';
-    if (l.includes('js') || l.includes('javascript')) return 'javascript';
-    if (l.includes('html') || l.includes('web') || l.includes('front')) return 'html';
-    if (l.includes('sql') || l.includes('data')) return 'sql';
-    if (l.includes('py') || l.includes('python')) return 'python';
-    if (l.includes('c#') || l.includes('csharp') || l.includes('cs')) return 'csharp';
-    if (l.includes('c++') || l.includes('cpp')) return 'cpp';
-    return 'html';
-}
 
 function getActiveCourseData(lang) {
     const key = getLanguageKey(lang || (typeof selectedLang !== 'undefined' ? selectedLang : 'html'));
