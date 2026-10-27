@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     --bg-dark: #020617;
     --bg-panel: #0f172a;
     --primary: #3b82f6;
@@ -3746,3 +3746,184 @@ body.mentor-mode #view-book {
     }
 }
 
+
+/* ====================================================
+   LIDERLIK TABLOSU & LIG MODAL
+   ==================================================== */
+.leaderboard-modal-box {
+    background: linear-gradient(145deg, #0d1b2e 0%, #0f2035 60%, #0a1628 100%);
+    border: 1px solid rgba(56,189,248,0.18);
+    border-radius: 24px;
+    width: min(520px, 96vw);
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(56,189,248,0.08), inset 0 1px 0 rgba(255,255,255,0.05);
+    animation: lbSlideUp 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+    position: relative;
+}
+@keyframes lbSlideUp {
+    from { transform: translateY(40px) scale(0.96); opacity: 0; }
+    to   { transform: translateY(0) scale(1);       opacity: 1; }
+}
+
+/* Header */
+.lb-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 24px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+    flex-shrink: 0;
+}
+.lb-header-icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(245,158,11,0.25), rgba(245,158,11,0.1));
+    border: 1px solid rgba(245,158,11,0.35);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    color: #f59e0b;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(245,158,11,0.15);
+}
+.lb-header-text h2 {
+    margin: 0; font-size: 18px; font-weight: 700;
+    background: linear-gradient(90deg,#f59e0b,#fcd34d);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.lb-header-text p {
+    margin: 2px 0 0; font-size: 12px; color: #64748b;
+}
+.lb-close-btn {
+    margin-left: auto; background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 10px;
+    color: #94a3b8; width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 15px; transition: all 0.2s;
+    flex-shrink: 0;
+}
+.lb-close-btn:hover { background: rgba(239,68,68,0.15); color: #ef4444; border-color: rgba(239,68,68,0.3); }
+
+/* My League Card */
+.lb-my-league-card {
+    margin: 16px 20px 0;
+    padding: 16px 18px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(245,158,11,0.1) 0%, rgba(56,189,248,0.06) 100%);
+    border: 1px solid rgba(245,158,11,0.22);
+    display: flex; flex-direction: column; gap: 10px;
+    flex-shrink: 0;
+}
+.lb-league-icon { font-size: 36px; text-align: center; }
+.lb-league-info { display: flex; flex-direction: column; gap: 6px; }
+.lb-league-name { font-size: 16px; font-weight: 700; color: #f59e0b; }
+.lb-xp-bar-wrap {
+    height: 8px; border-radius: 99px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
+}
+.lb-xp-bar {
+    height: 100%; border-radius: 99px;
+    background: linear-gradient(90deg, #f59e0b, #fcd34d);
+    transition: width 0.8s cubic-bezier(0.25,1,0.5,1);
+    box-shadow: 0 0 8px rgba(245,158,11,0.5);
+}
+.lb-xp-label { font-size: 11px; color: #94a3b8; }
+.lb-stats-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.lb-stat-chip {
+    display: flex; align-items: center; gap: 5px;
+    padding: 5px 10px; border-radius: 20px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    font-size: 12px; color: #cbd5e1; font-weight: 600;
+}
+
+/* Tabs */
+.lb-tabs {
+    display: flex; gap: 4px;
+    padding: 14px 20px 0;
+    flex-shrink: 0;
+}
+.lb-tab {
+    flex: 1; padding: 8px 4px; border-radius: 10px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #64748b; font-size: 12px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+.lb-tab:hover { background: rgba(56,189,248,0.08); color: #38bdf8; }
+.lb-tab.active { background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.3); color: #f59e0b; }
+
+/* Leagues Strip */
+.lb-leagues-strip {
+    display: flex; gap: 6px;
+    padding: 10px 20px 0;
+    flex-shrink: 0;
+    overflow-x: auto;
+}
+.lb-league-badge {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    padding: 8px 14px; border-radius: 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    cursor: pointer; transition: all 0.2s;
+    white-space: nowrap; font-size: 11px; color: #94a3b8;
+    font-weight: 600;
+}
+.lb-league-badge span:first-child { font-size: 20px; }
+.lb-league-badge:hover { background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.25); color: #38bdf8; }
+.lb-league-badge.active { background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.35); color: #f59e0b; }
+
+/* List */
+.lb-list-wrap {
+    flex: 1; overflow-y: auto; padding: 10px 20px 4px;
+    scrollbar-width: thin; scrollbar-color: rgba(245,158,11,0.3) transparent;
+}
+.lb-list-wrap::-webkit-scrollbar { width: 4px; }
+.lb-list-wrap::-webkit-scrollbar-thumb { background: rgba(245,158,11,0.3); border-radius: 4px; }
+
+.lb-list { display: flex; flex-direction: column; gap: 6px; }
+
+.lb-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px; border-radius: 14px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.2s; cursor: default;
+}
+.lb-row:hover { background: rgba(56,189,248,0.06); border-color: rgba(56,189,248,0.15); }
+.lb-row.lb-row-me {
+    background: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(56,189,248,0.06));
+    border-color: rgba(245,158,11,0.35);
+    box-shadow: 0 0 16px rgba(245,158,11,0.08);
+}
+.lb-row-rank {
+    width: 30px; text-align: center; font-size: 16px; font-weight: 800;
+    color: #64748b; flex-shrink: 0;
+}
+.lb-row-rank.gold   { color: #f59e0b; }
+.lb-row-rank.silver { color: #94a3b8; }
+.lb-row-rank.bronze { color: #cd7c3f; }
+.lb-row-avatar { font-size: 24px; flex-shrink: 0; }
+.lb-row-info { flex: 1; min-width: 0; }
+.lb-row-name { font-size: 14px; font-weight: 700; color: #e2e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lb-row-league { font-size: 11px; color: #64748b; }
+.lb-row-xp { font-size: 13px; font-weight: 700; color: #f59e0b; white-space: nowrap; }
+
+/* Footer */
+.lb-footer {
+    padding: 12px 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; color: #475569;
+    flex-shrink: 0;
+}
+
+/* ====================================================
+   END LIDERLIK TABLOSU
+   ==================================================== */

@@ -1,4 +1,4 @@
-
+﻿
 // Son Çalıştırılan Kodun Durumu ve Doğrulama Belleği
 window.lastRunCodeState = { lang: '', hasError: false, error: null, output: '' };
 function escapeHtml(str) {
@@ -7273,3 +7273,177 @@ if (typeof window !== 'undefined') {
     startShowcaseTimer();
 }
 
+
+// ========================================================
+//  LIDERLIK TABLOSU & LIG MODAL
+// ========================================================
+
+let currentLeaderboardTab   = 'global';
+let currentLeaderboardLeague = null;
+
+function openLeaderboardModal() {
+    const modal = document.getElementById('leaderboard-modal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    renderLeaderboardMyCard();
+    renderLeaderboardList();
+}
+
+function closeLeaderboardModal() {
+    const modal = document.getElementById('leaderboard-modal');
+    if (!modal) return;
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+}
+
+function switchLeaderboardTab(tab, btn) {
+    currentLeaderboardTab = tab;
+    document.querySelectorAll('.lb-tab').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    renderLeaderboardList();
+}
+
+function filterLeaderboardByLeague(league, btn) {
+    if (currentLeaderboardLeague === league) {
+        currentLeaderboardLeague = null;
+        document.querySelectorAll('.lb-league-badge').forEach(b => b.classList.remove('active'));
+    } else {
+        currentLeaderboardLeague = league;
+        document.querySelectorAll('.lb-league-badge').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+    }
+    renderLeaderboardList();
+}
+
+function getLeagueData(xp) {
+    if (xp >= 3500) return { name: 'Uzman Ligi', icon: '💎', color: '#a855f7', key: 'uzman', next: null,   nextXp: 3500 };
+    if (xp >= 1500) return { name: 'Usta Ligi',  icon: '🥇', color: '#f59e0b', key: 'usta',  next: 3500, nextXp: 3500 };
+    if (xp >= 500)  return { name: 'Kalfa Ligi', icon: '🥈', color: '#38bdf8', key: 'kalfa', next: 1500, nextXp: 1500 };
+    return                 { name: 'Çırak Ligi', icon: '🥉', color: '#10b981', key: 'cirak', next: 500,  nextXp: 500  };
+}
+
+function renderLeaderboardMyCard() {
+    const xp     = userProfile.xp   !== undefined ? userProfile.xp   : (userXp  || 0);
+    const gems   = userProfile.gems !== undefined ? userProfile.gems : (userGems || 0);
+    const streak = userProfile.streak || userStreak || 0;
+    const league = getLeagueData(xp);
+
+    const iconEl   = document.getElementById('lb-league-icon');
+    const nameEl   = document.getElementById('lb-league-name');
+    const barEl    = document.getElementById('lb-xp-bar');
+    const labelEl  = document.getElementById('lb-xp-label');
+    const xpEl     = document.getElementById('lb-stat-xp');
+    const gemsEl   = document.getElementById('lb-stat-gems');
+    const streakEl = document.getElementById('lb-stat-streak');
+
+    if (iconEl)   iconEl.textContent  = league.icon;
+    if (nameEl)   nameEl.textContent  = league.name;
+    if (nameEl)   nameEl.style.color  = league.color;
+    if (xpEl)     xpEl.textContent    = xp.toLocaleString('tr-TR');
+    if (gemsEl)   gemsEl.textContent  = gems.toLocaleString('tr-TR');
+    if (streakEl) streakEl.textContent= streak;
+
+    if (barEl && labelEl) {
+        const prevXp = league.key === 'cirak' ? 0 : (league.key === 'kalfa' ? 500 : (league.key === 'usta' ? 1500 : 3500));
+        const nextXp = league.next || prevXp;
+        const progress = league.next
+            ? Math.min(100, Math.round(((xp - prevXp) / (nextXp - prevXp)) * 100))
+            : 100;
+        barEl.style.width = progress + '%';
+        barEl.style.background = `linear-gradient(90deg, ${league.color}, #fcd34d)`;
+        labelEl.textContent = league.next
+            ? `${xp.toLocaleString('tr-TR')} / ${league.nextXp.toLocaleString('tr-TR')} XP — Sıradaki: ${league.nextXp - xp} XP kaldı`
+            : `${xp.toLocaleString('tr-TR')} XP — Maksimum Liga!`;
+    }
+}
+
+function buildLeaderboardData(tab) {
+    const myName   = userProfile.username || userProfile.name || 'Sen';
+    const myXp     = userProfile.xp   !== undefined ? userProfile.xp   : (userXp  || 350);
+    const myGems   = userProfile.gems !== undefined ? userProfile.gems : (userGems || 120);
+    const myAvatar = userProfile.avatar || '🧑‍💻';
+    const myLeague = getLeagueData(myXp);
+
+    // Simulated peer pool
+    const pool = [
+        { name: 'Zeynep K.',    xp: 4200, gems: 860, avatar: '👩‍💻', league: 'uzman' },
+        { name: 'Emre Yılmaz',  xp: 3750, gems: 710, avatar: '👨‍💻', league: 'uzman' },
+        { name: 'Selin Akar',   xp: 2900, gems: 540, avatar: '🧑‍🚀', league: 'usta'  },
+        { name: 'Berk Demir',   xp: 2100, gems: 390, avatar: '🤖',    league: 'usta'  },
+        { name: 'Ayşe Çelik',  xp: 1650, gems: 310, avatar: '🥷',    league: 'usta'  },
+        { name: 'Murat Şahin',  xp:  980, gems: 180, avatar: '🐱',    league: 'kalfa' },
+        { name: 'Nisa Yıldız',  xp:  720, gems: 130, avatar: '👩‍🔬', league: 'kalfa' },
+        { name: 'Kerem Arslan', xp:  550, gems:  90, avatar: '🦊',    league: 'kalfa' },
+        { name: 'Elif Kaya',    xp:  380, gems:  60, avatar: '🌟',    league: 'cirak' },
+        { name: 'Ali Vural',    xp:  210, gems:  30, avatar: '🎯',    league: 'cirak' },
+    ];
+
+    // Friends tab: include actual friends
+    let entries = [];
+    if (tab === 'friends' && userProfile.friends && userProfile.friends.length > 0) {
+        entries = userProfile.friends.map(fr => ({
+            name:   fr.name,
+            xp:     fr.xp    || Math.floor(Math.random() * 1200) + 100,
+            gems:   Math.floor((fr.xp || 200) * 0.18),
+            avatar: fr.avatar || '👤',
+            league: getLeagueData(fr.xp || 200).key
+        }));
+    } else if (tab === 'weekly') {
+        entries = pool.map(p => ({
+            ...p,
+            xp: Math.floor(p.xp * 0.04 + Math.random() * 120)
+        }));
+    } else {
+        entries = [...pool];
+    }
+
+    // Insert the current user
+    const myEntry = { name: myName + ' (Sen)', xp: tab === 'weekly' ? Math.floor(myXp * 0.04) : myXp, gems: myGems, avatar: myAvatar, league: myLeague.key, isMe: true };
+    entries.push(myEntry);
+
+    // Sort descending by XP
+    entries.sort((a, b) => b.xp - a.xp);
+    return entries;
+}
+
+function renderLeaderboardList() {
+    const listEl = document.getElementById('lb-list');
+    if (!listEl) return;
+
+    let data = buildLeaderboardData(currentLeaderboardTab);
+
+    // League filter
+    if (currentLeaderboardLeague) {
+        data = data.filter(e => e.league === currentLeaderboardLeague);
+    }
+
+    if (data.length === 0) {
+        listEl.innerHTML = '<div style="text-align:center;color:#475569;padding:30px 0;font-size:13px;">Bu ligde henüz kullanıcı yok.</div>';
+        return;
+    }
+
+    const rankIcons = ['🥇', '🥈', '🥉'];
+    const rankClasses = ['gold', 'silver', 'bronze'];
+
+    listEl.innerHTML = data.map((entry, idx) => {
+        const league = getLeagueData(entry.xp);
+        const rankDisplay = idx < 3
+            ? `<span class="lb-row-rank ${rankClasses[idx]}">${rankIcons[idx]}</span>`
+            : `<span class="lb-row-rank">#${idx + 1}</span>`;
+        return `
+        <div class="lb-row${entry.isMe ? ' lb-row-me' : ''}">
+            ${rankDisplay}
+            <span class="lb-row-avatar">${entry.avatar}</span>
+            <div class="lb-row-info">
+                <div class="lb-row-name">${entry.name}</div>
+                <div class="lb-row-league" style="color:${league.color}">${league.icon} ${league.name}</div>
+            </div>
+            <div class="lb-row-xp"><i class="fa-solid fa-star" style="color:#f59e0b;font-size:10px;"></i> ${entry.xp.toLocaleString('tr-TR')} XP</div>
+        </div>`;
+    }).join('');
+}
+
+// ========================================================
+//  END LIDERLIK TABLOSU & LIG MODAL
+// ========================================================

@@ -877,6 +877,7 @@
                 <a href="#" class="nav-item" id="nav-btn-friends" title="Arkadaşlar & Ağım" onclick="openFriendsModal()"><i class="fa-solid fa-user-group" style="color:#10b981;"></i><span id="friends-nav-badge" class="nav-badge-dot"></span></a>
                 <a href="#" class="nav-item" id="nav-btn-chat" title="Sohbet / Mesajlar" onclick="openChatMessengerModal()"><i class="fa-solid fa-comments" style="color:#a855f7;"></i><span id="chat-nav-badge" class="nav-badge-dot"></span></a>
                 <a href="#" class="nav-item nav-student-only" id="nav-btn-duel" title="1v1 Akran Düellosu" onclick="openDuelModal()"><i class="fa-solid fa-bolt" style="color:#f59e0b;"></i></a>
+                <a href="#" class="nav-item" id="nav-btn-leaderboard" title="Liderlik Tablosu &amp; Ligler" onclick="openLeaderboardModal()"><i class="fa-solid fa-trophy" style="color:#f59e0b;"></i></a>
                 <a href="#" class="nav-item" id="nav-btn-profile" title="Profil & Ayarlar" onclick="openProfileModal()"><i class="fa-solid fa-user"></i></a>
             </nav>
 
@@ -2818,6 +2819,92 @@
     <script src="bookData.js?v=30"></script>
     <script src="quizBankData.js?v=30"></script>
     <script src="script.js?v=30"></script>
+
+    <!-- ===== LIDERLIK TABLOSU & LIG MODAL ===== -->
+    <div id="leaderboard-modal" class="modal-overlay" style="display:none; z-index:9800;" onclick="if(event.target===this) closeLeaderboardModal()">
+        <div class="leaderboard-modal-box" onclick="event.stopPropagation()">
+            <!-- Header -->
+            <div class="lb-header">
+                <div class="lb-header-icon">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <div class="lb-header-text">
+                    <h2>Liderlik Tablosu</h2>
+                    <p>Puan & Lig Durumun</p>
+                </div>
+                <button class="lb-close-btn" onclick="closeLeaderboardModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Kullanicinin Mevcut Lig Karti -->
+            <div class="lb-my-league-card" id="lb-my-league-card">
+                <div class="lb-league-icon" id="lb-league-icon">🏆</div>
+                <div class="lb-league-info">
+                    <div class="lb-league-name" id="lb-league-name">Çırak Ligi</div>
+                    <div class="lb-xp-bar-wrap">
+                        <div class="lb-xp-bar" id="lb-xp-bar" style="width:30%"></div>
+                    </div>
+                    <div class="lb-xp-label" id="lb-xp-label">350 / 500 XP</div>
+                </div>
+                <div class="lb-stats-row">
+                    <div class="lb-stat-chip">
+                        <i class="fa-solid fa-star" style="color:#f59e0b;"></i>
+                        <span id="lb-stat-xp">350</span> XP
+                    </div>
+                    <div class="lb-stat-chip">
+                        <i class="fa-solid fa-gem" style="color:#06b6d4;"></i>
+                        <span id="lb-stat-gems">120</span>
+                    </div>
+                    <div class="lb-stat-chip">
+                        <i class="fa-solid fa-fire" style="color:#ef4444;"></i>
+                        <span id="lb-stat-streak">0</span> Gün
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lig Sekmeler -->
+            <div class="lb-tabs" id="lb-tabs">
+                <button class="lb-tab active" data-tab="global" onclick="switchLeaderboardTab('global',this)">
+                    <i class="fa-solid fa-globe"></i> Genel
+                </button>
+                <button class="lb-tab" data-tab="weekly" onclick="switchLeaderboardTab('weekly',this)">
+                    <i class="fa-solid fa-calendar-week"></i> Haftalık
+                </button>
+                <button class="lb-tab" data-tab="friends" onclick="switchLeaderboardTab('friends',this)">
+                    <i class="fa-solid fa-user-group"></i> Arkadaşlar
+                </button>
+            </div>
+
+            <!-- Lig Rozet Sıralaması -->
+            <div class="lb-leagues-strip">
+                <div class="lb-league-badge" data-league="cirak" onclick="filterLeaderboardByLeague('cirak',this)">
+                    <span>🥉</span><span>Çırak</span>
+                </div>
+                <div class="lb-league-badge" data-league="kalfa" onclick="filterLeaderboardByLeague('kalfa',this)">
+                    <span>🥈</span><span>Kalfa</span>
+                </div>
+                <div class="lb-league-badge" data-league="usta" onclick="filterLeaderboardByLeague('usta',this)">
+                    <span>🥇</span><span>Usta</span>
+                </div>
+                <div class="lb-league-badge" data-league="uzman" onclick="filterLeaderboardByLeague('uzman',this)">
+                    <span>💎</span><span>Uzman</span>
+                </div>
+            </div>
+
+            <!-- Lider Listesi -->
+            <div class="lb-list-wrap">
+                <div class="lb-list" id="lb-list">
+                    <!-- Dinamik olarak script.js tarafından doldurulur -->
+                </div>
+            </div>
+
+            <!-- Alt Bilgi -->
+            <div class="lb-footer">
+                <i class="fa-solid fa-circle-info" style="color:#64748b;"></i>
+                <span>XP kazanmak için ders tamamla, düello kazan ve projelere katkıda bulun.</span>
+            </div>
+        </div>
+    </div>
+    <!-- ===== / LIDERLIK TABLOSU MODAL ===== -->
 </body>
 </html>
 
